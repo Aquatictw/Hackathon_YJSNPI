@@ -1,5 +1,6 @@
 import { z } from "zod";
-import {canonicalJson,edgeBatchSchema} from "./wire.ts";
+import {canonicalJson} from "./wire.ts";
+import {uiEdgeBatchSchema} from "./ui-wire.ts";
 
 const id = z.string().min(1).max(120);
 // UI-only compound identities retain the full scoped wire identity without hashing.
@@ -27,7 +28,7 @@ export const evidenceSchema=z.object({
 }).strict().refine(e=>e.response_status!=="tester_confirmed"||!!e.tester_receipt_id,{message:"Tester confirmation requires receipt evidence"});
 export const predictionSchema=z.object({
   type:z.literal("prediction"), prediction_id:recordId, event_id:recordId, ...scope,
-  request_id:id.optional(), source_mode:z.enum(["simulation","replay","live"]).optional(), attempt:z.number().int().positive().optional(),
+  request_id:id.optional(), original_request_id:id.optional(), source_event_id:id.optional(), source_mode:z.enum(["simulation","replay","live"]).optional(), attempt:z.number().int().positive().optional(),
   device_id:id, stage:z.number().int().min(1).max(6), requested_at:stamp,
   predicted:finite.nullable(), actual:finite.nullable(), unit:z.string().max(32),
   coverage:z.number().min(0).max(1).nullable(), latency_ms:z.number().nonnegative().nullable(),model_version:id,
@@ -50,7 +51,7 @@ export const ackSchema=z.object({
 }).strict().refine(a=>a.status!=="tester_confirmed"||!!a.tester_receipt_id,{message:"Tester confirmation requires receipt evidence"});
 export const batchSchema=z.object({
   schema_version:z.literal("0.1-draft"),batch_id:recordId,sent_at:stamp,
-  source_batch:edgeBatchSchema.optional(),
+  source_batch:uiEdgeBatchSchema.optional(),
   records:z.array(z.union([eventSchema,evidenceSchema,predictionSchema,incidentSchema,ackSchema])).min(1).max(200),
 }).strict();
 export type EventRecord=z.infer<typeof eventSchema>;

@@ -1,11 +1,11 @@
 import {batchSchema,type Batch,type EventRecord,type PredictionRecord,type Workspace} from "./contracts.ts";
 import {uiIdentity} from "./ui-predictions.ts";
-import {edgeBatchSchema} from "./wire.ts";
+import {uiEdgeBatchSchema} from "./ui-wire.ts";
 
 // Incoming v1 proposal from message.txt. This adapter is a UI boundary, not an ingest API.
 export function adaptIncoming(input:unknown,state:Workspace):Batch{
  if(input&&typeof input==='object'&&'schema_version' in input&&input.schema_version==='0.1-draft')return batchSchema.parse(input);
- const parsed=edgeBatchSchema.safeParse(input);
+ const parsed=uiEdgeBatchSchema.safeParse(input);
  if(!parsed.success)throw Error("格式不符合前端 batch 或 Edge v1。Edge events 至少需要 event_id、type、source_mode、run_id、tester_id、timestamp；時間必須含時區。");
  const packet=parsed.data;const records:Batch['records']=[];
  // Actuals may precede predictions in a normalized batch. Join after collecting predictions.
@@ -28,13 +28,13 @@ export function adaptIncoming(input:unknown,state:Workspace):Batch{
   }else if(r.type==='prediction'){
    if(!r.request_id||!r.stage||!r.device_id)throw Error("prediction 需要 request_id、stage、device_id。");
    event.message=`收到第 ${r.stage} 階段預測紀錄。機台是否已接收仍需獨立回執。`;
-   records.push({type:'prediction',prediction_id:uiIdentity('prediction',r.run_id,r.tester_id,r.lot_id??null,r.wafer_id??null,r.device_id,r.site_id??null,r.attempt??null,r.request_id),request_id:r.request_id,source_mode:r.source_mode,...(r.attempt===undefined?{}:{attempt:r.attempt}),event_id:uiIdentity("event",r.run_id,r.tester_id,r.event_id),...scope,device_id:r.device_id,stage:r.stage,requested_at:r.timestamp,predicted:r.prediction??null,actual:r.actual??null,unit:r.unit||'未確認',coverage:r.coverage??null,latency_ms:r.latency_ms??null,model_version:r.model_version??'未提供',response_status:r.response_status??'unknown',tester_receipt_id:r.tester_receipt_id??null});
+   records.push({type:'prediction',prediction_id:uiIdentity('prediction',r.run_id,r.tester_id,r.lot_id??null,r.wafer_id??null,r.device_id,r.site_id??null,r.attempt??null,r.request_id),request_id:r.request_id,...(r.original_request_id===undefined?{}:{original_request_id:r.original_request_id}),...(r.source_event_id===undefined?{}:{source_event_id:r.source_event_id}),source_mode:r.source_mode,...(r.attempt===undefined?{}:{attempt:r.attempt}),event_id:uiIdentity("event",r.run_id,r.tester_id,r.event_id),...scope,device_id:r.device_id,stage:r.stage,requested_at:r.timestamp,predicted:r.prediction??null,actual:r.actual??null,unit:r.unit||'未確認',coverage:r.coverage??null,latency_ms:r.latency_ms??null,model_version:r.model_version??'未提供',response_status:r.response_status??'unknown',tester_receipt_id:r.tester_receipt_id??null});
    // Coverage and receipt come only from explicit normalized fields.
    event.data_quality='partial';
   }else if(r.type==='prediction_actual'){
    if(!r.run_id||!r.request_id||r.actual===undefined)throw Error("prediction_actual 需要 run_id、request_id、actual 以避免跨 run 混用。");
    const available=new Map([...state.items.flatMap(i=>i.predictions),...records.filter((p):p is PredictionRecord=>p.type==='prediction')].map(p=>[p.prediction_id,p]));
-   const candidates=[...available.values()].filter(p=>(p.request_id??p.prediction_id)===r.request_id&&(p.source_mode===undefined||p.source_mode===r.source_mode)&&(r.attempt===undefined||p.attempt===r.attempt)&&p.run_id===r.run_id&&p.tester_id===r.tester_id&&(r.lot_id===undefined||p.lot_id===r.lot_id)&&(r.wafer_id===undefined||p.wafer_id===r.wafer_id)&&(r.stage===undefined||p.stage===r.stage)&&(r.site_id===undefined||p.site===r.site_id)&&(r.device_id===undefined||p.device_id===r.device_id));
+   const candidates=[...available.values()].filter(p=>(p.request_id??p.prediction_id)===r.request_id&&(p.source_mode===undefined||p.source_mode===r.source_mode)&&(r.attempt===undefined||p.attempt===r.attempt)&&p.run_id===r.run_id&&p.tester_id===r.tester_id&&(r.original_request_id===undefined||p.original_request_id===r.original_request_id)&&(r.lot_id===undefined||p.lot_id===r.lot_id)&&(r.wafer_id===undefined||p.wafer_id===r.wafer_id)&&(r.stage===undefined||p.stage===r.stage)&&(r.site_id===undefined||p.site===r.site_id)&&(r.device_id===undefined||p.device_id===r.device_id));
    if(candidates.length!==1)throw Error("prediction_actual 找不到唯一對應的 request/run/tester，請先接收預測紀錄。");
    if(candidates[0].actual!==null&&candidates[0].actual!==r.actual)throw Error('prediction_actual 的實測內容衝突。');
    records.push({...candidates[0],actual:r.actual});continue;

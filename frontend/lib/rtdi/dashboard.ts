@@ -1,10 +1,11 @@
 import {z} from 'zod';
-import {edgeRecordSchema,canonicalJson} from './wire.ts';
+import {canonicalJson} from './wire.ts';
+import {uiEdgeRecordSchema} from './ui-wire.ts';
 import {commandStatuses,type CommandStatus} from './command-contract.ts';
 const str=z.string();
 export const snapshotSchema=z.object({
  run:z.object({run_id:str,tester_id:str,edge_id:str,mode:z.enum(['replay','live','simulation']),lot_id:str.nullable(),wafer_id:str.nullable(),data_quality:str,last_event_at:str}),
- events:z.array(edgeRecordSchema),evidence:z.array(edgeRecordSchema),
+ events:z.array(uiEdgeRecordSchema),evidence:z.array(uiEdgeRecordSchema),
  incidents:z.array(z.object({incident_id:str,title:str,status:str,severity:str,first_seen:str,last_seen:str})),
  commands:z.array(z.object({command_id:str,run_id:str,tester_id:str,incident_id:str,kind:str,message:str,status:z.enum(commandStatuses),expires_at:str,created_at:str,updated_at:str,tester_receipt_id:z.string().min(1).nullable().optional()})),
 }).superRefine((s,ctx)=>{

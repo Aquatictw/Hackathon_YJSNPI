@@ -1,4 +1,4 @@
-import type {EdgeRecord} from './wire.ts';
+import type {UiEdgeRecord as EdgeRecord} from './ui-wire.ts';
 import {canonicalJson} from './wire.ts';
 
 // Preserve scope and request provenance without depending on globally unique SDK IDs.
@@ -24,5 +24,5 @@ export function predictionRows(events:EdgeRecord[]){
 }
 export function matchesPrediction(actual:EdgeRecord,prediction:EdgeRecord){
  return actual.request_id===prediction.request_id&&actual.run_id===prediction.run_id&&actual.tester_id===prediction.tester_id&&actual.source_mode===prediction.source_mode&&
-  (['lot_id','wafer_id','device_id','site_id','stage','attempt'] as const).every(key=>actual[key]===undefined||actual[key]===prediction[key]);
+  (['lot_id','wafer_id','device_id','site_id','stage','attempt','original_request_id'] as const).every(key=>actual[key]===undefined||actual[key]===prediction[key]);
 }
