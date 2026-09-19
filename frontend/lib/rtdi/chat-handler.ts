@@ -22,7 +22,8 @@ const requestSchema = z.object({
 let recent: number[] = [];
 
 export async function handleChat(request: Request, forcedRunId?: string): Promise<Response> {
-  if (!sameOrigin(request)) return json({ error: "請從此網站發送請求。" }, 403);
+  const config = serverConfig();
+  if (!sameOrigin(request, config.publicOrigin)) return json({ error: "請從此網站發送請求。" }, 403);
   let body: z.infer<typeof requestSchema>;
   try { body = requestSchema.parse(await readJsonBody(request, 65_536)); }
   catch (error) {
@@ -46,7 +47,7 @@ export async function handleChat(request: Request, forcedRunId?: string): Promis
     return json({ mode: "demo", answer: demoAnswer(view, body.question), model: null, evidence_ids: view.evidence.map(item => item.evidence_id), investigation_id: null });
   }
 
-  const { key, model } = serverConfig();
+  const { key, model } = config;
   if (!key) return json({ error: "尚未設定伺服器端 OPENAI_API_KEY。可切換到示範解讀。", code: "missing_api_key" }, 503);
   recent = recent.filter(time => Date.now() - time < 60_000);
   if (recent.length >= 6) return json({ error: "請稍候再試，每分鐘最多 6 次 AI 請求。", code: "rate_limited" }, 429);

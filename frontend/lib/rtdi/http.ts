@@ -63,9 +63,15 @@ export class HttpInputError extends Error {
   }
 }
 
-export function sameOrigin(request: Request): boolean {
+export function sameOrigin(request: Request, publicOrigin = ""): boolean {
   const origin = request.headers.get("origin");
-  return !origin || origin === new URL(request.url).origin;
+  if (!origin || origin === new URL(request.url).origin) return true;
+  // Explicit server configuration only; forwarded headers are client-controlled.
+  try {
+    const trusted = new URL(publicOrigin);
+    return ["http:", "https:"].includes(trusted.protocol)
+      && publicOrigin === trusted.origin && origin === trusted.origin;
+  } catch { return false; }
 }
 
 export function bearerMatches(request: Request, expected: string): boolean {

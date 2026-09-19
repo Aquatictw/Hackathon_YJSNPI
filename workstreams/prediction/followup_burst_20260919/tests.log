@@ -1,0 +1,29 @@
+test_away_mean_step_has_no_decline (test_bursts.BurstAuditTests.test_away_mean_step_has_no_decline) ... ok
+test_decreasing_bursts_detected_nominally (test_bursts.BurstAuditTests.test_decreasing_bursts_detected_nominally) ... ok
+test_exact_fisher_extreme_table (test_bursts.BurstAuditTests.test_exact_fisher_extreme_table) ... ok
+test_excluded_wafer_cannot_change_fit (test_bursts.BurstAuditTests.test_excluded_wafer_cannot_change_fit) ... ok
+test_families_are_symmetric (test_bursts.BurstAuditTests.test_families_are_symmetric) ... ok
+test_fisher_all_or_no_events (test_bursts.BurstAuditTests.test_fisher_all_or_no_events) ... ok
+test_fixed_site_offsets_are_removed (test_bursts.BurstAuditTests.test_fixed_site_offsets_are_removed) ... ok
+test_four_correlated_tests_count_one_event (test_bursts.BurstAuditTests.test_four_correlated_tests_count_one_event) ... ok
+test_future_suffix_cannot_change_prior_scans (test_bursts.BurstAuditTests.test_future_suffix_cannot_change_prior_scans) ... ok
+test_invalid_table_rejected (test_bursts.BurstAuditTests.test_invalid_table_rejected) ... ok
+test_isolated_impulse_cannot_pass_early_minimum (test_bursts.BurstAuditTests.test_isolated_impulse_cannot_pass_early_minimum) ... ok
+test_missing_site_abstains (test_bursts.BurstAuditTests.test_missing_site_abstains) ... ok
+test_normal_envelope_covers_all_supplied_scan_scores (test_bursts.BurstAuditTests.test_normal_envelope_covers_all_supplied_scan_scores) ... ok
+test_out_of_scope_output_rejected (test_bursts.BurstAuditTests.test_out_of_scope_output_rejected) ... ok
+test_reset_has_no_previous_wafer_state (test_bursts.BurstAuditTests.test_reset_has_no_previous_wafer_state) ... ok
+test_scale_convention (test_bursts.BurstAuditTests.test_scale_convention) ... ok
+test_short_prefix_has_no_scan (test_bursts.BurstAuditTests.test_short_prefix_has_no_scan) ... ok
+test_single_extreme_test_not_burst (test_bursts.BurstAuditTests.test_single_extreme_test_not_burst) ... ok
+test_site_mix_guard_blocks_confound (test_bursts.BurstAuditTests.test_site_mix_guard_blocks_confound) ... ok
+test_stable_and_increasing_bursts_no_alert (test_bursts.BurstAuditTests.test_stable_and_increasing_bursts_no_alert) ... ok
+test_unchanged_noise_returning_mean_false_alert_characterized (test_bursts.BurstAuditTests.test_unchanged_noise_returning_mean_false_alert_characterized) ... ok
+test_unknown_site_abstains (test_bursts.BurstAuditTests.test_unknown_site_abstains) ... ok
+test_zero_mad_constant_abstains (test_bursts.BurstAuditTests.test_zero_mad_constant_abstains) ... ok
+test_zero_mad_positive_sd_fallback (test_bursts.BurstAuditTests.test_zero_mad_positive_sd_fallback) ... ok
+
+----------------------------------------------------------------------
+Ran 24 tests in 0.680s
+
+OK

@@ -1,0 +1,29 @@
+{
+  "status": "READY_FOR_A",
+  "recommendation": "REJECT runtime and accepted replay promotion; archive diagnostic research",
+  "historical_files_unchanged": 52,
+  "baseline_alert_payloads_exact": 14,
+  "removed_baseline_alerts": 0,
+  "scans_verified_in_three_modes": 3150,
+  "B_scan_p_counts_match": 1050,
+  "B_burst_events_match": 178,
+  "B_extreme_test_values_match": 838,
+  "numeric_tolerance": {
+    "relative": 1e-12,
+    "absolute": 1e-12
+  },
+  "synthetic_cases": 300,
+  "unit_tests": {
+    "new": 15,
+    "total_detection": 51
+  },
+  "external_evidence_sha256": {
+    "workstreams/prediction/followup_burst_20260919/audit.json": "3f4771a9f56867a1285756d47f03cb9756ec4b13ecdd306d9a64dd8da4474f68",
+    "workstreams/prediction/followup_burst_20260919/burst-evidence.json": "bd04e9517c233aefdc2b1c26c8a02b82837e949e8f728eee0aba6880e4585a54",
+    "workstreams/prediction/followup_burst_20260919/controls.json": "f46a749b2da1b0094ee87d56d7b5745b9e1e7193dbb81baf1a2eeabf0477c770",
+    "results/burst_followup_review.json": "66a3df850881bce07e4642765ecf62c1da32dbf4a00b803b4e7370987a5ec4c2",
+    "results/r3_research_review.json": "1ae06edd2c659b5333bcc48f91803dc1c65ceb475ae98d90d2b3f8903d6955f2"
+  },
+  "accepted_replay_7_of_7": false,
+  "scientific_spread_specificity_pass": false
+}

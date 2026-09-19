@@ -1,0 +1,115 @@
+實作一個可以辨認 W25「Stdev Trend Down」的通用即時偵測方法。
+
+開始前：
+
+1. 完整閱讀 AGENTS.md、SYSTEM.md 與 workstreams/detection/NOTES.md。
+2. 檢查現有的 grp6_app/runtime.py、calibrate.py、rehearse.py，以及：
+   - workstreams/detection/W25_DIAGNOSIS.md
+   - workstreams/detection/w25_diagnosis.json
+   - workstreams/detection/diagnose_w25.py
+3. 保留使用者現有變更，不要修改不相關檔案。
+4. 不准使用 wafer 編號、題目標籤或「如果是 W25」之類的執行期規則。
+
+目標：
+
+建立一條通用的「稀疏 extreme-burst 趨勢偵測器」，補充目前的 family-wide spread detector。它必須能辨認 W25 的 spread-down 訊號，同時控制正常晶圓誤報。
+
+已知診斷結果：
+
+- W25 的訊號不是 500 個測項同時縮小。
+- 訊號集中在少量 Main.subflow1 測項的極端值 burst。
+- 每個 burst 通常有 4–5 個測項同時成為極端值。
+- W25 在 PID 1–40 有 7 個 burst device，PID 41–80 只有 1 個。
+- 現有 detector 使用 family 第 80 百分位，W25 分數 0.186，低於門檻 0.358，因此訊號被稀釋。
+- 目前離線候選使用同 site/test 的 median 和 MAD、absolute robust z > 20，以及同一 device/family 至少 4 個 extreme tests。
+- 這些參數是看過 W25 後形成的，只能當起點，不能宣稱為獨立驗證。
+
+請依下列方式實作與評估：
+
+1. 建立通用 baseline
+
+- baseline 只能使用 runtime artifact 指定的 normal-fit wafers：
+  2, 4, 5, 7, 8, 10, 11, 13, 16, 17, 19, 20, 22。
+- 每個 site/test 使用 median 與 MAD 建立 robust scale。
+- MAD 為零時要有明確且數值穩定的 fallback。
+- baseline、門檻與 family 設定必須存入 artifact，runtime 不可讀取未來資料。
+- 不可使用 W25 或異常標籤校準門檻。
+
+2. 建立 device-level burst
+
+- 對每個完成測試的 device，計算各測項的 absolute robust z。
+- 對 Main.subflow1 到 Main.subflow6 使用完全相同的規則，不可只對 subflow1 寫特例。
+- 初始候選可用：
+  - absolute robust z > 20：extreme measurement
+  - 同一 device、同一 family 至少 4 個 extreme measurements：burst device
+- 請使用正常訓練片評估 z threshold 與 burst minimum，不要為了讓 W25 通過而直接調參。
+- 保存造成 burst 的 test、site、raw value、baseline median、MAD、robust z，讓 alert 可解釋。
+
+3. 建立 sequential spread-down 判斷
+
+- 從完成 32 個 device 後開始，每 8 個 device 評估一次。
+- 只使用當下已完成的資料，不可偷看 wafer 後段。
+- 對每個 family 比較早期窗口與近期窗口的 burst rate。
+- 可以使用 one-sided Fisher exact test、beta-binomial、CUSUM，或另一個你能合理說明的小樣本方法。
+- spread-down 必須同時具有：
+  - 早期 burst rate 高於近期 burst rate；
+  - 足夠的早期 burst 數量，避免 1→0 被當成異常；
+  - 通過由 normal-fit wafers 校準的門檻；
+  - 適當的 persistence，避免單次窗口波動。
+- 所有 family 和所有掃描時間造成的 multiple testing 必須納入校準。
+- 不要取代現有 spread detector；把它作為補充 detector。
+
+4. 先離線驗證，再決定是否整合 runtime
+
+固定規則後，重跑全部 25 片，輸出：
+
+- 每片晶圓的所有 alert 類別。
+- burst detector 的 family、首次偵測 device、early/recent counts、effect size、p-value或校準分數。
+- W25 是否被辨認為 spread_down，以及首次出現位置。
+- 所有題目標為正常的晶圓是否產生新誤報。
+- W1、W3、W9、W14、W18、W23 原有預期類別是否仍保留。
+- W6、W12、W15、W21、W24 的結果要單獨列出，但註明它們先前已在調校時被看過，不是獨立 holdout。
+- 最壞掃描耗時，確認適合 callback 路徑。
+
+驗收條件：
+
+- 不含任何 wafer-specific 或 label-specific runtime 規則。
+- 不使用未完成 device 或未來資料。
+- W25 產生 spread_down alert。
+- 不因降低既有門檻而破壞目前 6/7 的異常類別覆蓋。
+- 正常晶圓的新誤報數必須完整揭露；不能刪除或隱藏不理想結果。
+- 新規則必須有單元測試，至少涵蓋：
+  - sparse burst rate 明顯下降；
+  - burst rate 穩定；
+  - 單一極端測項；
+  - MAD 為零；
+  - site 隔離；
+  - wafer reset；
+  - 尚未達 minimum samples；
+  - 不可使用未來資料。
+- 所有既有 core tests 必須通過。
+- 如果候選只能靠看過 W25 後的參數才成功，保留為離線 proposal，不要冒充 production-ready。
+
+產出要求：
+
+- 優先把實驗與報告放在 workstreams/detection/。
+- 產生一份 Markdown 報告與機器可讀 JSON。
+- 報告要清楚區分：
+  - 資料觀察；
+  - 演算法假設；
+  - 校準資料；
+  - 全 25 片結果；
+  - 誤報；
+  - tuning reuse；
+  - 尚未解決的風險。
+- 若離線結果符合驗收條件，再依 SYSTEM.md ownership 規則整合或提出 A-owned grp6_app 的精確 patch。
+- 更新 workstreams/detection/NOTES.md，記錄 changed paths、執行命令、測試結果、首次偵測位置與剩餘限制。
+
+完成後請直接回報：
+
+1. W25 是否抓到，以及第幾個 device 首次抓到。
+2. 新增多少正常晶圓誤報。
+3. 使用的固定規則與校準方式。
+4. 修改的檔案。
+5. 實際執行的測試與結果。
+6. 為什麼這個方法能泛化，而不是只記住 W25。

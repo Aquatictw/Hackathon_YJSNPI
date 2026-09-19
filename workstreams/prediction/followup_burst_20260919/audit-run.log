@@ -1,0 +1,89 @@
+{
+  "w25": {
+    "normal_fit_scaled_MAD": {
+      "early": 7,
+      "late": 1,
+      "invalid_devices": 0,
+      "burst_devices": [
+        5,
+        6,
+        17,
+        18,
+        19,
+        35,
+        38,
+        78
+      ]
+    },
+    "normal_fit_raw_MAD": {
+      "early": 7,
+      "late": 1,
+      "invalid_devices": 0,
+      "burst_devices": [
+        5,
+        6,
+        17,
+        18,
+        19,
+        35,
+        38,
+        78
+      ]
+    },
+    "self_whole_wafer_scaled_MAD_NONCAUSAL": {
+      "early": 7,
+      "late": 1,
+      "invalid_devices": 0,
+      "burst_devices": [
+        5,
+        6,
+        17,
+        18,
+        19,
+        35,
+        38,
+        78
+      ]
+    },
+    "self_whole_wafer_raw_MAD_NONCAUSAL": {
+      "early": 7,
+      "late": 1,
+      "invalid_devices": 0,
+      "burst_devices": [
+        5,
+        6,
+        17,
+        18,
+        19,
+        35,
+        38,
+        78
+      ]
+    }
+  },
+  "cutoffs": {
+    "nominal_unadjusted": 1.3010299956639813,
+    "normal_envelope": 1.3010299956639813,
+    "loo_normal_envelope": 1.3010299956639813,
+    "bonferroni_42": 2.9242792860618816
+  },
+  "normal_additions": {
+    "nominal_unadjusted": [
+      15
+    ],
+    "normal_envelope": [
+      15
+    ],
+    "loo_normal_envelope": [
+      15
+    ],
+    "bonferroni_42": []
+  },
+  "w25_research_additions": {
+    "nominal_unadjusted": [],
+    "normal_envelope": [],
+    "loo_normal_envelope": [],
+    "bonferroni_42": []
+  },
+  "p7vs1": 0.028379336979995902
+}

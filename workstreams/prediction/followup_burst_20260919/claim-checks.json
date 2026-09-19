@@ -1,0 +1,329 @@
+{
+  "source_sha256": "6dbb4c675c818c56ae060237d7ab8db3cfca1ef0a29cd666ad28455ea6ce1a7c",
+  "audit_sha256": "3f4771a9f56867a1285756d47f03cb9756ec4b13ecdd306d9a64dd8da4474f68",
+  "w25_csv_sha256": "0c3f294aeb881ab7a67a5aa3f9416f27da152752e161906e0ca967605e24b5e4",
+  "baseline_note_claim": {
+    "claimed_rounded_score": 0.186,
+    "claimed_rounded_threshold": 0.358,
+    "independent_scores": [
+      {
+        "n": 32,
+        "family_q80_mean_site_log_drop": 0.31162904894257665,
+        "threshold": 0.3576668075747554,
+        "normalized": 0.8712831113841716
+      },
+      {
+        "n": 40,
+        "family_q80_mean_site_log_drop": 0.25907755064667165,
+        "threshold": 0.3576668075747554,
+        "normalized": 0.724354469466732
+      },
+      {
+        "n": 48,
+        "family_q80_mean_site_log_drop": 0.23927738439168217,
+        "threshold": 0.3576668075747554,
+        "normalized": 0.6689952193611681
+      },
+      {
+        "n": 56,
+        "family_q80_mean_site_log_drop": 0.2067389857284401,
+        "threshold": 0.3576668075747554,
+        "normalized": 0.5780211676064738
+      },
+      {
+        "n": 64,
+        "family_q80_mean_site_log_drop": 0.19700700914648495,
+        "threshold": 0.3576668075747554,
+        "normalized": 0.5508115513495303
+      },
+      {
+        "n": 72,
+        "family_q80_mean_site_log_drop": 0.18824623526131307,
+        "threshold": 0.3576668075747554,
+        "normalized": 0.5263173190091676
+      },
+      {
+        "n": 80,
+        "family_q80_mean_site_log_drop": 0.18625320746848095,
+        "threshold": 0.3576668075747554,
+        "normalized": 0.5207450160986842
+      }
+    ]
+  },
+  "w25_site_stratified_tables": [
+    {
+      "n": 32,
+      "early_site_counts": [
+        1,
+        1,
+        0,
+        0
+      ],
+      "late_site_counts": [
+        1,
+        1,
+        1,
+        0
+      ],
+      "early_site_n": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "late_site_n": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "one_sided_conditional_site_p": 0.8316326530612245
+    },
+    {
+      "n": 40,
+      "early_site_counts": [
+        2,
+        2,
+        1,
+        0
+      ],
+      "late_site_counts": [
+        0,
+        1,
+        1,
+        0
+      ],
+      "early_site_n": [
+        5,
+        5,
+        5,
+        5
+      ],
+      "late_site_n": [
+        5,
+        5,
+        5,
+        5
+      ],
+      "one_sided_conditional_site_p": 0.20267489711934158
+    },
+    {
+      "n": 48,
+      "early_site_counts": [
+        2,
+        2,
+        1,
+        0
+      ],
+      "late_site_counts": [
+        0,
+        1,
+        1,
+        0
+      ],
+      "early_site_n": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "late_site_n": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "one_sided_conditional_site_p": 0.20736288504883543
+    },
+    {
+      "n": 56,
+      "early_site_counts": [
+        2,
+        2,
+        1,
+        0
+      ],
+      "late_site_counts": [
+        0,
+        1,
+        1,
+        0
+      ],
+      "early_site_n": [
+        7,
+        7,
+        7,
+        7
+      ],
+      "late_site_n": [
+        7,
+        7,
+        7,
+        7
+      ],
+      "one_sided_conditional_site_p": 0.21051433773327266
+    },
+    {
+      "n": 64,
+      "early_site_counts": [
+        2,
+        2,
+        1,
+        0
+      ],
+      "late_site_counts": [
+        0,
+        1,
+        1,
+        0
+      ],
+      "early_site_n": [
+        8,
+        8,
+        8,
+        8
+      ],
+      "late_site_n": [
+        8,
+        8,
+        8,
+        8
+      ],
+      "one_sided_conditional_site_p": 0.21277777777777776
+    },
+    {
+      "n": 72,
+      "early_site_counts": [
+        2,
+        2,
+        2,
+        0
+      ],
+      "late_site_counts": [
+        0,
+        1,
+        0,
+        0
+      ],
+      "early_site_n": [
+        9,
+        9,
+        9,
+        9
+      ],
+      "late_site_n": [
+        9,
+        9,
+        9,
+        9
+      ],
+      "one_sided_conditional_site_p": 0.05332790555668634
+    },
+    {
+      "n": 80,
+      "early_site_counts": [
+        2,
+        3,
+        2,
+        0
+      ],
+      "late_site_counts": [
+        0,
+        1,
+        0,
+        0
+      ],
+      "early_site_n": [
+        10,
+        10,
+        10,
+        10
+      ],
+      "late_site_n": [
+        10,
+        10,
+        10,
+        10
+      ],
+      "one_sided_conditional_site_p": 0.027130519797946877
+    }
+  ],
+  "normal_calibration_maxima": {
+    "full_fit": {
+      "family": "Main.subflow1",
+      "n": 48,
+      "eligible": true,
+      "early": 4,
+      "late": 0,
+      "window_n": 24,
+      "rate_difference": 0.16666666666666666,
+      "p_fixed_table": 0.05460992907801419,
+      "score": 1.262728387482898,
+      "site_balanced": true,
+      "wafer": 19
+    },
+    "leave_one_normal_out": {
+      "family": "Main.subflow1",
+      "n": 48,
+      "eligible": true,
+      "early": 4,
+      "late": 0,
+      "window_n": 24,
+      "rate_difference": 0.16666666666666666,
+      "p_fixed_table": 0.05460992907801419,
+      "score": 1.262728387482898,
+      "site_balanced": true,
+      "wafer": 19
+    }
+  },
+  "threshold_dominance": {
+    "w25_best_pair": {
+      "ending_n": 80,
+      "weaker_score": 1.273541444339542
+    },
+    "normal_w15_best_pair": {
+      "ending_n": 64,
+      "weaker_score": 1.578204342215117
+    },
+    "w15_dominates_w25": true,
+    "scope": "For this fixed z20/min4/min4-early/equal-half score, any common monotone threshold admitting W25 with two votes also admits W15."
+  },
+  "postdeclared_remove_nominal_floor": {
+    "gate": 1.2627283874838982,
+    "research_additions": {
+      "15": [
+        {
+          "family": "Main.subflow1",
+          "n": 64,
+          "eligible": true,
+          "early": 5,
+          "late": 0,
+          "window_n": 32,
+          "rate_difference": 0.15625,
+          "p_fixed_table": 0.026411657559198543,
+          "score": 1.578204342215117,
+          "site_balanced": true
+        }
+      ],
+      "25": [
+        {
+          "family": "Main.subflow1",
+          "n": 80,
+          "eligible": true,
+          "early": 7,
+          "late": 1,
+          "window_n": 40,
+          "rate_difference": 0.15,
+          "p_fixed_table": 0.028379336979995902,
+          "score": 1.5469977550833633,
+          "site_balanced": true
+        }
+      ]
+    },
+    "label": "Diagnostic counterfactual after seeing results; not a selected replacement or acceptance."
+  },
+  "limits": [
+    "Site conditioning does not remove mean-return or within-site temporal correlation confounds.",
+    "These computations test the note and B audit rule, not every possible C burst method."
+  ]
+}

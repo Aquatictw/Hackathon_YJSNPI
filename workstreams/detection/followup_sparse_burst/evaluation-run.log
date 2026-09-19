@@ -1,0 +1,25 @@
+W01 {'corrected': [], 'nominal_two': [], 'nominal_one': []}
+W02 {'corrected': [], 'nominal_two': [], 'nominal_one': []}
+W03 {'corrected': [], 'nominal_two': [], 'nominal_one': [('Main.subflow1', 40)]}
+W04 {'corrected': [], 'nominal_two': [], 'nominal_one': []}
+W05 {'corrected': [], 'nominal_two': [], 'nominal_one': []}
+W06 {'corrected': [], 'nominal_two': [], 'nominal_one': []}
+W07 {'corrected': [], 'nominal_two': [], 'nominal_one': []}
+W08 {'corrected': [], 'nominal_two': [], 'nominal_one': []}
+W09 {'corrected': [], 'nominal_two': [], 'nominal_one': []}
+W10 {'corrected': [], 'nominal_two': [], 'nominal_one': []}
+W11 {'corrected': [], 'nominal_two': [], 'nominal_one': []}
+W12 {'corrected': [], 'nominal_two': [], 'nominal_one': []}
+W13 {'corrected': [], 'nominal_two': [], 'nominal_one': []}
+W14 {'corrected': [], 'nominal_two': [], 'nominal_one': []}
+W15 {'corrected': [], 'nominal_two': [('Main.subflow1', 64)], 'nominal_one': [('Main.subflow1', 56)]}
+W16 {'corrected': [], 'nominal_two': [], 'nominal_one': []}
+W17 {'corrected': [], 'nominal_two': [], 'nominal_one': []}
+W18 {'corrected': [], 'nominal_two': [], 'nominal_one': []}
+W19 {'corrected': [], 'nominal_two': [], 'nominal_one': []}
+W20 {'corrected': [], 'nominal_two': [], 'nominal_one': []}
+W21 {'corrected': [], 'nominal_two': [], 'nominal_one': []}
+W22 {'corrected': [], 'nominal_two': [], 'nominal_one': []}
+W23 {'corrected': [], 'nominal_two': [], 'nominal_one': []}
+W24 {'corrected': [], 'nominal_two': [], 'nominal_one': []}
+W25 {'corrected': [], 'nominal_two': [], 'nominal_one': [('Main.subflow1', 80)]}

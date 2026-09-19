@@ -68,6 +68,8 @@ requires that revision to be an ancestor of the local `origin/main`.
   `workerd-compat.sh` runs only workerd with `qemu-x86_64 -cpu max`; Node/builds
   stay native. This is a preview workaround with slower startup/requests.
 - Updates install lockfile dependencies and build before stopping the service.
+  The socket proxy stops during activation so traffic cannot restart the old app.
+  Health checks verify the running process directory matches the new release.
   With the service stopped, they copy the complete D1 directory to a new backup,
   apply local migrations, switch the symlink, start, seed idempotently and check
   homepage/replay/config/snapshot. A failed backup restarts the old service
@@ -92,6 +94,12 @@ cat /opt/grp6-preview/nginx-upstream
 folder. `verify-http.mjs` checks HTML, built assets, replay, config, persisted
 snapshot and SSE. Pass `--expect-ai` after the origin for the configured preview;
 this only checks configuration presence and never calls OpenAI.
+For HTTPS proxy chat, set `APP_ORIGIN="https://hackathon.aquatictw.com"` in
+the private `.dev.vars`. Only that exact configured origin is trusted; forwarded
+headers do not authorize another origin. Restart after configuration changes.
+Changes to `update-release.sh` must be installed separately as
+`/opt/grp6-preview/bin/update-release` (LF endings, mode 0755, `bash -n` first);
+`publish.ps1` deploys application source, not the updater itself.
 `verify-recovery.sh` exercises the actual updater's backup
 and activation failure paths using temporary copies with injected failures; it
 causes two intentional preview interruptions and checks the old snapshot and

@@ -1,0 +1,101 @@
+{
+  "scope": "C R3 sparse-burst follow-up only; self hash excluded",
+  "files": {
+    "workstreams/detection/followup_sparse_burst/__init__.py": {
+      "sha256": "6c3a136505d6482c0e0f2af90c2bee4f5517b6eb8e05de80836c185937f8d527",
+      "bytes": 80
+    },
+    "workstreams/detection/followup_sparse_burst/audit-run.log": {
+      "sha256": "9a3ee5e2b66e67a0e926c30804e883351d76c1bce0ca49ed000cfa50e25fc2ec",
+      "bytes": 1317
+    },
+    "workstreams/detection/followup_sparse_burst/audit.py": {
+      "sha256": "4d042f4688660aa906ec61c3494a5d79bca0aa14dd6fe423b4b9a8c360b34a95",
+      "bytes": 6930
+    },
+    "workstreams/detection/followup_sparse_burst/candidate.py": {
+      "sha256": "fa893117013f08794330688128f2582d9e69ba2e9bed4c54dde7ab9304122b3e",
+      "bytes": 7169
+    },
+    "workstreams/detection/followup_sparse_burst/controls-run.log": {
+      "sha256": "41f1f8b6579e38fd3eedecbbbdf37fb3a12c505a2eda5259bf8a8908876fd4a7",
+      "bytes": 763
+    },
+    "workstreams/detection/followup_sparse_burst/controls.json": {
+      "sha256": "f245a694024ac445f06a66def5cab9babd20daba241129669bb59dfc0c3ae64c",
+      "bytes": 8997710
+    },
+    "workstreams/detection/followup_sparse_burst/controls.py": {
+      "sha256": "63b65144d017c7017650332ceeeb801163ce2c09e7eb3902360bcd9ce904f5c1",
+      "bytes": 4257
+    },
+    "workstreams/detection/followup_sparse_burst/diagnose.py": {
+      "sha256": "1767912b2a7495395092fa87d8de184c235175b29fe6c75dc453ed2e947f74e1",
+      "bytes": 7028
+    },
+    "workstreams/detection/followup_sparse_burst/diagnostic-run.log": {
+      "sha256": "2e8e30acd74d65edefc462edae26f6c9615f85b48ed8d2444cabeac1788cb911",
+      "bytes": 7053
+    },
+    "workstreams/detection/followup_sparse_burst/diagnostic.calibration.json": {
+      "sha256": "3726496d24e838de8678faf05d256541ad29637866166e0d4b124d47f0941cf7",
+      "bytes": 3467272
+    },
+    "workstreams/detection/followup_sparse_burst/diagnostic.json": {
+      "sha256": "6310c176390b72d48f51ab5ef3b853750dfad67d46f2200994421f9ba109551e",
+      "bytes": 831180
+    },
+    "workstreams/detection/followup_sparse_burst/evaluate.py": {
+      "sha256": "bbfd7ea945a72bd714bbd284b1ab66987c4d1d7e331cffd592b945c291ed0a7a",
+      "bytes": 7259
+    },
+    "workstreams/detection/followup_sparse_burst/evaluation-run.log": {
+      "sha256": "fe9bfd1068eb73ca4802e20d312fd1343ad5051c87c5a9a6b39fb4e6c9d518ee",
+      "bytes": 1609
+    },
+    "workstreams/detection/followup_sparse_burst/evaluation.calibration.json": {
+      "sha256": "9c635fe9fcaff8f036bcdd57c8f5d119750f526d7c62f7bf95380d5d26148a06",
+      "bytes": 3474135
+    },
+    "workstreams/detection/followup_sparse_burst/evaluation.json": {
+      "sha256": "12779ea4ced843459f105d30c9787ab3641fa7153daff1178736692d48be7968",
+      "bytes": 2207529
+    },
+    "workstreams/detection/followup_sparse_burst/NOTES.md": {
+      "sha256": "58411d34a2e31c0ea00b3b59543ff8921e71f5670eecaf43016571964ae10ba6",
+      "bytes": 4478
+    },
+    "workstreams/detection/followup_sparse_burst/prior-files-sha256.json": {
+      "sha256": "364387d119f1d0acfef6538a20e732670fca31618b2d03ffd69c6f05e5343ef0",
+      "bytes": 6247
+    },
+    "workstreams/detection/followup_sparse_burst/prior-package-verification.log": {
+      "sha256": "7c0151f10450df1d26611fe46b137242cd546ce72261ca0e5ebd5e72a6e6bf91",
+      "bytes": 156
+    },
+    "workstreams/detection/followup_sparse_burst/reference-message.txt": {
+      "sha256": "63517c5c848005f5187d5a380ba3ea67f0a43238c75ee83209a73ea0422bb3a3",
+      "bytes": 5446
+    },
+    "workstreams/detection/followup_sparse_burst/REPORT.md": {
+      "sha256": "3696b4a1eb0a8d2da9fced93bd84ac07273f029be3dbebb5a73aec338c60443f",
+      "bytes": 13314
+    },
+    "workstreams/detection/followup_sparse_burst/review.json": {
+      "sha256": "9a3ee5e2b66e67a0e926c30804e883351d76c1bce0ca49ed000cfa50e25fc2ec",
+      "bytes": 1317
+    },
+    "workstreams/detection/followup_sparse_burst/test_sparse_burst.py": {
+      "sha256": "968d289e688d80211c0545ec44149c509dec242cfdab7bcbd1aa3a98950d0ad0",
+      "bytes": 5654
+    },
+    "workstreams/detection/followup_sparse_burst/tests-initial.log": {
+      "sha256": "b833047ca15d7623e452021a130f8e947e1245dc5d12ae8aa409635d2eb2d94a",
+      "bytes": 2623
+    },
+    "workstreams/detection/followup_sparse_burst/tests.log": {
+      "sha256": "20a9f97c4d288ecb0db25cd705e4ad7186ed52a3fa6113fdd39c8c4af98ffe54",
+      "bytes": 7617
+    }
+  }
+}

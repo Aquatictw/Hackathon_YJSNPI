@@ -1,2 +1,5 @@
 # Shell scripts are executed on Linux, including after direct SSH deployment.
 *.sh text eol=lf
+# Frozen research manifests hash these files byte for byte.
+workstreams/detection/followup_sparse_burst/** -text whitespace=cr-at-eol
+results/burst_followup_review.json -text whitespace=cr-at-eol

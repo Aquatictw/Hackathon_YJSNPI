@@ -1,0 +1,147 @@
+{
+  "round": "R3-20260919 same-round follow-up",
+  "status": "READY_FOR_A",
+  "scope": "workstreams/prediction/followup_burst_20260919",
+  "file_count": 18,
+  "files": [
+    {
+      "path": "workstreams/prediction/followup_burst_20260919/EARLY_FINDINGS.md",
+      "purpose": "Preserved early diagnostic already sent to A",
+      "references": [
+        "audit.json",
+        "controls.json"
+      ]
+    },
+    {
+      "path": "workstreams/prediction/followup_burst_20260919/NOTES.md",
+      "purpose": "READY_FOR_A status, scope, checks and owner handoff",
+      "references": [
+        "REPORT.md",
+        "validation.json",
+        "inventory.json"
+      ]
+    },
+    {
+      "path": "workstreams/prediction/followup_burst_20260919/REPORT.md",
+      "purpose": "Final independent findings, controls, leakage limits and reproduction",
+      "references": [
+        "audit.json",
+        "claim-checks.json",
+        "controls.json",
+        "tests.log"
+      ]
+    },
+    {
+      "path": "workstreams/prediction/followup_burst_20260919/audit-run.log",
+      "purpose": "Preserved successful audit console output",
+      "references": [
+        "audit.json"
+      ]
+    },
+    {
+      "path": "workstreams/prediction/followup_burst_20260919/audit.json",
+      "purpose": "All 25 wafers, normal fits, all scans, six sensitivity settings and input/source hashes",
+      "references": [
+        "audit_bursts.py"
+      ]
+    },
+    {
+      "path": "workstreams/prediction/followup_burst_20260919/audit_bursts.py",
+      "purpose": "Independent immutable-input normal-MAD and sequential count audit",
+      "references": [
+        "../spread_audit.py"
+      ]
+    },
+    {
+      "path": "workstreams/prediction/followup_burst_20260919/burst-evidence.json",
+      "purpose": "Raw measurements and robust reference statistics for all burst events",
+      "references": [
+        "audit_bursts.py",
+        "normal-reference.json.gz"
+      ]
+    },
+    {
+      "path": "workstreams/prediction/followup_burst_20260919/check_claims.py",
+      "purpose": "Independent baseline reconstruction, conditional tails and threshold dominance",
+      "references": [
+        "audit_bursts.py",
+        "audit.json",
+        "../spread_audit.py"
+      ]
+    },
+    {
+      "path": "workstreams/prediction/followup_burst_20260919/claim-checks-run.log",
+      "purpose": "Preserved successful claim-check console output",
+      "references": [
+        "claim-checks.json"
+      ]
+    },
+    {
+      "path": "workstreams/prediction/followup_burst_20260919/claim-checks.json",
+      "purpose": "Baseline score, site conditioning and W15/W25 dominance results",
+      "references": [
+        "check_claims.py",
+        "audit.json"
+      ]
+    },
+    {
+      "path": "workstreams/prediction/followup_burst_20260919/controls.json",
+      "purpose": "14 deterministic controls and 3000 seeded stationary trials",
+      "references": [
+        "audit_bursts.py"
+      ]
+    },
+    {
+      "path": "workstreams/prediction/followup_burst_20260919/inventory.json",
+      "purpose": "Complete file role/reference inventory; no cyclic content hashes",
+      "references": [
+        "validation.json"
+      ]
+    },
+    {
+      "path": "workstreams/prediction/followup_burst_20260919/normal-reference.json.gz",
+      "purpose": "Full fitted site/test centers, MAD, scales and sample counts",
+      "references": [
+        "audit_bursts.py"
+      ]
+    },
+    {
+      "path": "workstreams/prediction/followup_burst_20260919/reference-message.txt",
+      "purpose": "Byte-exact user note, reference material only",
+      "references": [
+        "startup.json"
+      ]
+    },
+    {
+      "path": "workstreams/prediction/followup_burst_20260919/startup.json",
+      "purpose": "Starting HEAD, note hash and all 56 prior B file hashes",
+      "references": [
+        "reference-message.txt"
+      ]
+    },
+    {
+      "path": "workstreams/prediction/followup_burst_20260919/test_bursts.py",
+      "purpose": "24 reusable arithmetic, causality, scope and specificity tests",
+      "references": [
+        "audit_bursts.py"
+      ]
+    },
+    {
+      "path": "workstreams/prediction/followup_burst_20260919/tests.log",
+      "purpose": "Preserved 24-test passing execution output",
+      "references": [
+        "test_bursts.py"
+      ]
+    },
+    {
+      "path": "workstreams/prediction/followup_burst_20260919/validation.json",
+      "purpose": "Final hashes, exact file set and preservation/packaging checks",
+      "references": [
+        "startup.json",
+        "inventory.json"
+      ]
+    }
+  ],
+  "prior_inventory": "startup.json:prior_b_file_sha256",
+  "hash_manifest": "validation.json; validation self-hash supplied in handoff to avoid a cycle"
+}

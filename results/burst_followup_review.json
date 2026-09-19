@@ -1,0 +1,58 @@
+{
+  "decision": "ACCEPT_DIAGNOSTIC_FINDING_REJECT_RUNTIME_AND_REPLAY_PROMOTION",
+  "crosschecked_scans": 1050,
+  "preserved_baseline_alerts": 14,
+  "w25_burst_devices": [
+    5,
+    6,
+    17,
+    18,
+    19,
+    35,
+    38,
+    78
+  ],
+  "modes": {
+    "corrected": {
+      "w25_first": null,
+      "normal_labeled_false_alerts": [],
+      "normal_labeled_denominator": 18
+    },
+    "nominal_two": {
+      "w25_first": null,
+      "normal_labeled_false_alerts": [
+        {
+          "wafer": 15,
+          "family": "Main.subflow1",
+          "completed_devices": 64
+        }
+      ],
+      "normal_labeled_denominator": 18
+    },
+    "nominal_one": {
+      "w25_first": 80,
+      "normal_labeled_false_alerts": [
+        {
+          "wafer": 15,
+          "family": "Main.subflow1",
+          "completed_devices": 56
+        }
+      ],
+      "normal_labeled_denominator": 18
+    }
+  },
+  "limits": [
+    "All 25 wafers are reused development data, not independent validation.",
+    "The z20/four-test hypothesis was proposed after inspecting W25.",
+    "A decrease in extreme-event incidence does not establish decreased noise variance.",
+    "Model assumptions and mean-transition specificity remain unresolved.",
+    "No runtime, accepted replay, or tester acceptance change."
+  ],
+  "inputs_sha256": {
+    "workstreams/prediction/followup_burst_20260919/audit.json": "3f4771a9f56867a1285756d47f03cb9756ec4b13ecdd306d9a64dd8da4474f68",
+    "workstreams/prediction/followup_burst_20260919/controls.json": "f46a749b2da1b0094ee87d56d7b5745b9e1e7193dbb81baf1a2eeabf0477c770",
+    "workstreams/detection/followup_sparse_burst/evaluation.json": "12779ea4ced843459f105d30c9787ab3641fa7153daff1178736692d48be7968",
+    "workstreams/prediction/followup_burst_20260919/reference-message.txt": "63517c5c848005f5187d5a380ba3ea67f0a43238c75ee83209a73ea0422bb3a3",
+    "grp6_app/artifacts/runtime.json": "752e7c6c52b0c6e50a2c7ab37b7705ad21ec43ec18df968866832d07ba09afe9"
+  }
+}

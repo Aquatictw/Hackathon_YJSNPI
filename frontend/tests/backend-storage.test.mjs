@@ -629,6 +629,32 @@ test('R3 SSE delivers persisted records, resumes by cursor and closes when the r
 });
 
 const chatBody = { mode: 'openai', question: 'Explain the stored evidence.' };
+test('proxied chat accepts only its configured public origin before validation without calling AI', async () => {
+  const { handleChat } = await import('../lib/rtdi/chat-handler.ts');
+  const originalFetch = globalThis.fetch;
+  let calls = 0;
+  globalThis.fetch = async () => { calls++; throw Error('No upstream call allowed'); };
+  const probe = (origin, forwarded = '') => handleChat(new Request('http://127.0.0.1:5173/api/assistant', {
+    method: 'POST', headers: { Origin: origin, 'Content-Type': 'application/json', 'X-Forwarded-Host': forwarded, 'X-Forwarded-Proto': 'https' }, body: '{}',
+  }));
+  const previousOrigin = env.APP_ORIGIN;
+  try {
+    env.APP_ORIGIN = 'https://preview.example.test';
+    assert.equal((await probe('https://preview.example.test')).status, 400);
+    assert.equal((await probe('https://attacker.test', 'attacker.test')).status, 403);
+    assert.equal((await probe('https://preview.example.test.attacker.test')).status, 403);
+    assert.equal((await probe('null')).status, 403);
+    assert.equal((await probe('http://127.0.0.1:5173')).status, 400);
+    env.APP_ORIGIN = 'null';
+    assert.equal((await probe('null')).status, 403);
+    env.APP_ORIGIN = 'https://preview.example.test/path';
+    assert.equal((await probe('https://preview.example.test')).status, 403);
+    assert.equal(calls, 0);
+  } finally {
+    globalThis.fetch = originalFetch;
+    if (previousOrigin === undefined) delete env.APP_ORIGIN; else env.APP_ORIGIN = previousOrigin;
+  }
+});
 const chatRequest = (body, query = '') => new Request(`https://example.test/api/v1/runs/r3-run/chat${query}`, { method: 'POST', headers: { 'Content-Type': 'application/json', Origin: 'https://example.test' }, body: JSON.stringify(body) });
 const modelTool = (name, args) => ({ status: 'completed', output: [{ type: 'function_call', name, arguments: JSON.stringify(args), call_id: crypto.randomUUID() }] });
 const modelAnswer = text => ({ status: 'completed', output: [{ type: 'message', content: [{ type: 'output_text', text }] }] });

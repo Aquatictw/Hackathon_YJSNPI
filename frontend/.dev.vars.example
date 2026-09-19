@@ -1,6 +1,8 @@
 # Copy to .dev.vars for the local Cloudflare/Vinext runtime.
 OPENAI_API_KEY=""
 OPENAI_MODEL="gpt-6-astra"
+# Exact public origin (no trailing slash) when HTTPS terminates at a proxy.
+APP_ORIGIN=""
 # Long random server-side token used only by the Edge exporter.
 INGEST_TOKEN=""
 # Separate token for polling commands and reporting delivery results.
