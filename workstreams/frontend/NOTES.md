@@ -1,8 +1,9 @@
 # E — Frontend notes
 
 ## Progress
+- Draft review PR: https://github.com/Aquatictw/Hackathon_YJSNPI/pull/1 (`team/e-frontend` → `main`); open/draft confirmed through GitHub API. No merge or main push. Latest fetch still has main `508e44c`; E is not integrated.
 - E implementation plus D-projection compatibility verified locally on September 19, 2026: 46 standard tests, 7 explicit D-code contract checks, TypeScript and production build pass. No deployment or VM work.
-- Branch `team/e-frontend`; original base `eababfc4ffbb6c6faea4136b3dd9724773247aab`; isolated checkout `/private/tmp/grp6-e-frontend`. Previous E commit `be0f0887816832b41ee62e680659ae207fb454fc` preserved. Follow-up commit is the commit containing this note.
+- Branch `team/e-frontend`; original base `eababfc4ffbb6c6faea4136b3dd9724773247aab`; isolated checkout `/private/tmp/grp6-e-frontend`. Previous E commit `be0f0887816832b41ee62e680659ae207fb454fc` preserved. Implementation follow-up: `19f5954b4a726eb781a22d045eaa69a564e06858`.
 - Read-only upstream inspection: `origin/main` at `508e44c`; D projector at `2085284640bc8bcea7780c86e95bf3ea67c9327a`. No teammate branch was merged and no other checkout was switched.
 
 ## Decisions
@@ -36,4 +37,6 @@ Root checks: `git diff --check` passed. `git diff --name-only eababfc4ffbb6c6fae
 
 Historical setup/verification: `be0f088` passed 40 tests/typecheck/build and mobile keyboard review. Offline/sandbox dependency setup initially failed; approved isolated `npm ci --ignore-scripts --cache /private/tmp/grp6-e-npm-cache` succeeded. The first publication timed out HTTP 408; HTTP/1.1 retry published `be0f088`. These are resolved earlier attempts, not current failures.
 
-Next for A: review/integrate E's follow-up with D, expose command receipt references, and run combined persisted snapshot/SSE/chat plus real-receipt acceptance.
+Current handoff verification: `git fetch origin` succeeded; `git diff --stat origin/main...HEAD` confirms only the 13 E-allowlisted paths; `git status --short --branch` was clean. GitHub PR lookup found none, then creation returned PR #1, `state=open`, `draft=true`. This turn changes only this notes file; prior code checks remain tied to `19f5954`, not a new combined-main test.
+
+Next for A: review draft PR #1, integrate E with D, expose command receipt references, and run combined persisted snapshot/SSE/chat plus real-receipt acceptance.
