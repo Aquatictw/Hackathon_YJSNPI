@@ -155,3 +155,16 @@ test('large UTF-8 raw payloads are split into D1-safe base64 chunks', () => {
   assert.equal(result.chunks.every(chunk => Buffer.from(chunk, 'base64').byteLength <= 128), true);
   assert.equal(result.byteLength, Buffer.byteLength(source));
 });
+
+test('R3 model must execute a verified tool before supplying an answer', async () => {
+  const fetcher = async () => new Response(JSON.stringify({ status: 'completed', output: [{ type: 'message', content: [{ type: 'output_text', text: 'Unsupported conclusion.' }] }] }));
+  await assert.rejects(runToolInvestigation({ apiKey: 'synthetic', model: 'synthetic', question: 'analyze', history: [], scope: { run_id: 'run' }, executeTool: async () => ({ output: {}, evidence_ids: [] }), fetcher }), /verified tool/);
+});
+
+test('R3 tool deadline is enforced even when a read-only executor never resolves', { timeout: 2000 }, async () => {
+  const fetcher = async () => new Response(JSON.stringify({ status: 'completed', output: [{ type: 'function_call', name: 'get_run_summary', arguments: '{"run_id":"run","tester_id":null}', call_id: 'deadline' }] }));
+  const timer = setTimeout(() => {}, 1000);
+  try {
+    await assert.rejects(runToolInvestigation({ apiKey: 'synthetic', model: 'synthetic', question: 'analyze', history: [], scope: { run_id: 'run' }, executeTool: () => new Promise(() => {}), fetcher, deadlineMs: 550 }), error => error.name === 'TimeoutError');
+  } finally { clearTimeout(timer); }
+});
