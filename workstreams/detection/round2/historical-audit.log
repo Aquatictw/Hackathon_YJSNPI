@@ -1,0 +1,3 @@
+PASS: 25 wafers / 2000 devices; exact baseline reproduction; 6/7 -> 6/7 coverage; 2 additional alerts.
+PASS: all input/code hashes and calibration hash; W2 preserved; W25 miss explicit; evidence persistence/axes.
+PASS: 18 contribution paths are inside workstreams/detection/.
