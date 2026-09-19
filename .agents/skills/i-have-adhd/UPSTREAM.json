@@ -1,0 +1,10 @@
+{
+  "repository": "https://github.com/ayghri/i-have-adhd",
+  "commit": "b15d0be58f55b33972ba3e39709e0e5208ef30cb",
+  "path": "skills/i-have-adhd",
+  "plugin_version_at_commit": "0.3.0",
+  "installed_on": "2026-09-19",
+  "scope": "project",
+  "activation": "Explicit standing invocation in repository-root AGENTS.md",
+  "local_modifications": "None to upstream skill files; LICENSE and this provenance record added"
+}

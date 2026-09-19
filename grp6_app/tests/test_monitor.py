@@ -96,6 +96,96 @@ class ProtocolTests(unittest.TestCase):
         response=self.core.consumeTPRequest(self.tc,'{"key":"prod_action"}')
         self.assertIn('Yield',response)
         self.assertIn('production_action_response',Path(self.tmp.name,'evidence.jsonl').read_text())
+
+    def production_action(self, reason):
+        return json.dumps({'tester': self.tc.testerId, 'mtesterAction': [
+            {'name': 'acs_prod_var', 'pool': [{'act_typ': 'msg', 'mactions': [
+                {'testsuite': '', 'param': 'msg', 'val': '', 'reason': reason}]}]}]})
+
+    def test_production_native_multiline_response_preserves_reasons_and_ids(self):
+        messages = [
+            'grp6 [bbe24a7975e6] wafer 02: site imbalance',
+            'grp6 [7d9bfbbb7dd9] wafer 02: mean changed +4.67 baseline SD',
+            'grp6 [60d64c90b080] wafer 02: mean changed -2.14 baseline SD',
+        ]
+        for message in messages:
+            self.core.send_message(self.tc.testerId, message)
+        candidate_ids = list(self.core.pending_messages[self.tc.testerId])
+        valid = self.production_action('\n'.join(messages))
+        raw = valid.replace('\\n', '\n')
+        with self.assertRaises(json.JSONDecodeError):
+            json.loads(raw)
+        self.actions.get_prod = lambda tester: raw
+        response = self.core.consumeTPRequest(self.tc, '{"key":"prod_action"}')
+        self.assertEqual(json.loads(response), json.loads(valid))
+        record = self.records()[-1]
+        self.assertEqual(record['kind'], 'production_action_response')
+        self.assertEqual(record['response'], response)
+        self.assertEqual(record['raw_response'], raw)
+        self.assertEqual(record['normalization'], 'escaped_control_characters')
+        self.assertEqual(record['candidate_message_ids'], candidate_ids)
+        self.assertEqual(record['status'], 'returned_to_callback_unconfirmed')
+        self.assertNotIn(self.tc.testerId, self.core.pending_messages)
+        exported = self.exporter.events[-1]
+        self.assertEqual(exported['response'], response)
+        self.assertEqual(exported['event_id'], record['event_id'])
+        self.assertEqual(exported['status'], record['status'])
+
+    def test_production_json_controls_are_escaped_without_changing_text(self):
+        reason = 'quoted "text", backslash \\, Unicode \u6eab\u5ea6: ' + ''.join(map(chr, range(32)))
+        valid = self.production_action(reason)
+        # Reproduce native literal controls, retaining valid quote/backslash escapes.
+        raw = valid
+        for character in map(chr, range(32)):
+            raw = raw.replace(json.dumps(character)[1:-1], character)
+        self.actions.get_prod = lambda tester: raw
+        response = self.core.consumeTPRequest(self.tc, '{"key":"prod_action"}')
+        self.assertEqual(json.loads(response), json.loads(valid))
+        self.assertFalse(any(ord(c) < 32 for c in response))
+
+    def test_valid_production_json_is_returned_byte_for_byte(self):
+        responses = [
+            ' { "tester": "grp6-test", "mtesterAction": [] }\n',
+            self.production_action('line one\nline two \t "quoted" \\ path'),
+        ]
+        for raw in responses:
+            with self.subTest(raw=raw):
+                self.actions.get_prod = lambda tester: raw
+                response = self.core.consumeTPRequest(self.tc, '{"key":"prod_action"}')
+                self.assertEqual(response, raw)
+                record = self.records()[-1]
+                self.assertEqual(record['response'], raw)
+                self.assertNotIn('normalization', record)
+                self.assertEqual(record['status'], 'returned_to_callback_unconfirmed')
+
+    def test_other_invalid_production_json_fails_closed_with_evidence(self):
+        multiline = self.production_action('one\ntwo').replace('\\n', '\n')
+        invalid = ['', '{', '{"reason":"bad\\q"}', '{} trailing',
+                   '{"value":NaN}', '{"value":Infinity}', '{"value":-Infinity}',
+                   multiline[:-1], multiline + ' trailing',
+                   '{"reason":"one\ntwo","value":NaN}',
+                   '{"reason":"one\ntwo","reason":"replacement"}', None]
+        for raw in invalid:
+            with self.subTest(raw=raw):
+                self.core.send_message(self.tc.testerId, 'pending anomaly')
+                candidate_ids = list(self.core.pending_messages[self.tc.testerId])
+                self.actions.get_prod = lambda tester: raw
+                start = len(self.records())
+                self.assertEqual(self.core.consumeTPRequest(self.tc, '{"key":"prod_action"}'), '')
+                records = self.records()[start:]
+                self.assertEqual(len(records), 1)
+                error = records[0]
+                self.assertEqual(error['kind'], 'request_error')
+                self.assertEqual(error['operation'], 'prod_action')
+                self.assertEqual(error['raw_response'], str(raw))
+                self.assertEqual(error['candidate_message_ids'], candidate_ids)
+                self.assertEqual(error['status'], 'rejected_invalid_json')
+                self.assertTrue(error['error'])
+                self.assertNotIn(self.tc.testerId, self.core.pending_messages)
+                self.actions.get_prod = lambda tester: '{"mtesterAction":[]}'
+                self.core.consumeTPRequest(self.tc, '{"key":"prod_action"}')
+                self.assertEqual(self.records()[-1]['candidate_message_ids'], [])
+
     def test_hex_part_flags_complete_devices_and_clear_features(self):
         from contextlib import redirect_stdout
         from io import StringIO

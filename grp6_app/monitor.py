@@ -375,6 +375,34 @@ class MonitorCore:
         test_id = self.test_context.get(str(tester))
         return test_id + ':site:' + str(site) if test_id else None
 
+    @staticmethod
+    def normalize_production_response(response):
+        """Escape native string controls only; reject all other JSON defects."""
+        def reject_constant(value):
+            raise ValueError('Invalid JSON constant: ' + value)
+
+        def unique_object(pairs):
+            result = {}
+            for key, value in pairs:
+                if key in result:
+                    raise ValueError('Cannot normalize duplicate JSON key: ' + key)
+                result[key] = value
+            return result
+
+        if not isinstance(response, str):
+            raise TypeError('Production action response must be a JSON string')
+        try:
+            json.loads(response, parse_constant=reject_constant)
+        except json.JSONDecodeError as exc:
+            if not exc.msg.startswith('Invalid control character'):
+                raise
+            # The native SDK joins queued reasons with literal LF inside JSON.
+            # Do not repair syntax, drop duplicate fields, or rewrite reason text.
+            parsed = json.loads(response, strict=False, parse_constant=reject_constant,
+                                object_pairs_hook=unique_object)
+            return json.dumps(parsed, allow_nan=False)
+        return response
+
     def consumeTPRequest(self, tc, request):
         started = time.perf_counter()
         with self.lock:
@@ -458,10 +486,24 @@ class MonitorCore:
                                            latency_ms=(time.perf_counter()-started)*1000))
                     return response
                 if obj.get('key')=='prod_action':
-                    response = self.actions.get_prod(tester)
+                    raw_response = self.actions.get_prod(tester)
+                    candidate_ids = self.pending_messages.pop(str(tester), [])
+                    try:
+                        response = self.normalize_production_response(raw_response)
+                    except (ValueError, TypeError) as exc:
+                        # get_prod may already have drained the native queue. Keep
+                        # its candidates in failure evidence, not a later response.
+                        self.log('request_error', tester=str(tester), operation='prod_action',
+                                 error=str(exc), raw_response=str(raw_response),
+                                 candidate_message_ids=candidate_ids, status='rejected_invalid_json')
+                        return ''
+                    normalization = {}
+                    if response != raw_response:
+                        normalization = dict(normalization='escaped_control_characters',
+                                             raw_response=raw_response)
                     self.log('production_action_response',tester=str(tester),response=str(response),
-                             candidate_message_ids=self.pending_messages.pop(str(tester), []),
-                             status='returned_to_callback_unconfirmed')
+                             candidate_message_ids=candidate_ids,
+                             status='returned_to_callback_unconfirmed', **normalization)
                     return response
                 if obj.get('action')=='list':
                     return self.actions.get(tester)

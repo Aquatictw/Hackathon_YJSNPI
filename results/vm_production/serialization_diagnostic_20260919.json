@@ -1,0 +1,25 @@
+{
+  "checked_on": "2026-09-19",
+  "observation_window_utc": "08:00-08:07",
+  "method": "Browser SSH/VNC; observations transcribed from console, not a downloaded log",
+  "host": "group-6",
+  "deployment_record_image": "unifiedserver.local/grp6/py-app:20260919T062939Z",
+  "model_sha256": "752e7c6c52b0c6e50a2c7ab37b7705ad21ec43ec18df968866832d07ba09afe9",
+  "observations": {
+    "nexus_service": "active",
+    "tcct": "TESTPROGRAM_BOUND; recipe IDLE; 80 devices, 74 pass, 6 fail",
+    "message_center": "Last visible prediction messages 5 and 6; no correlated anomaly receipt observed",
+    "edgelog_tail": "Production process sequence ends at 765; run_summary 80 completed, 74 good; model hash matches",
+    "staged_source": "grp6_build_20260919T062939Z/bin/grp6_app/monitor.py:320-325 returns native get_prod unchanged",
+    "preserved_production_sequence_319": "Python 3.6 strict json.loads fails: Invalid control character, column 256 (char 255)",
+    "isolated_existing_image_probe": "With network disabled, native ActionManager.set_message(first), set_message(second), get_prod yields literal LF inside reason; Python 3.10 strict JSON fails at char 160",
+    "normalization_probe": "json.dumps(json.loads(response, strict=False), allow_nan=False) produces strict parseable JSON in that existing image",
+    "receiver_journal": "No entries in inspected Nexus service journal window 07:05:55-07:06:10 UTC",
+    "development_ssh": "BatchMode public-key login unavailable; browser host SSH/VNC access works"
+  },
+  "conclusion": "Native SDK serialization defect reproduced; receiver rejection and tester alert receipt remain unproved",
+  "deployment_changed": false,
+  "nexus_restarted": false,
+  "file_transfer_performed": false,
+  "next_acceptance": "User transfers checksum-verified patched bundle; build/test versioned image, deploy without restarting Nexus, then capture a correlated tester alert receipt"
+}

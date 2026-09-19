@@ -16,7 +16,8 @@ def main(output=None):
         files["grp6_app/tests/" + name] = (ROOT / "grp6_app/tests" / name).read_bytes()
     for path in sorted((ROOT / "grp6_app/artifacts").glob("*.json")):
         files["grp6_app/artifacts/" + path.name] = path.read_bytes()
-    files["README.md"] = (ROOT / "README.md").read_bytes()
+    for name in ["README.md", "SYSTEM.md"]:
+        files[name] = (ROOT / name).read_bytes()
     for name in ["install_grp6.py", "audit_evidence.py"]:
         files[name] = (ROOT / "deploy" / name).read_bytes()
     for name in ["summary.json", "report.html", "replay.jsonl"]:
