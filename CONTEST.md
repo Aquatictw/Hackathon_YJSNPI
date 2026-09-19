@@ -250,3 +250,18 @@ Next: finish inspecting Predict.java RunPredict; open code-server; correct CSV p
 - GitHub origin: Aquatictw/Hackathon_YJSNPI, main branch, HTTPS transport. Initial README pushed successfully; user requested tracking and pushing all project files.
 - Added .gitignore for Python caches, local environments, Eclipse workspace metadata, and local credential files. Source, models, datasets, reports, documentation, archives, and analysis artifacts included.
 
+### Local project review September 19 (no remote operations)
+- Rechecked challenge text, current checkpoints, runtime/model code, packaging and saved replay evidence. The pending hexadecimal PartFlag parsing bug remains in monitor.py (`int(data.query_PartFlag(i))`). Live deployment status above is historical session evidence, not freshly verified remote state.
+- Current local `python3 -m unittest discover -s grp6_app/tests -v`: eight runtime tests pass; test_core and test_guards cannot import because this Python 3.14 environment lacks NumPy. Do not describe the entire suite as currently passing locally.
+- RTDI_LLM_ARCHITECTURE.md describes a separate proposed website/backend/LLM architecture and references HACKATHON_DELIVERY_PLAN.md, which is absent from the current file inventory. No implemented backend/web/agent service was found. Use CONTEST.md as the active plan and distinguish the existing grp6_app runtime from that proposal.
+- Remaining priorities: repair PartFlag parsing and evidence retrieval; verify all six stage responses and anomaly receipt on grp6; investigate missed W25 spread decrease and W2 label/yield discrepancy; then complete presentation and optional interactive/LLM extensions.
+
+### Browser SSH reconnect September 19 from Mac
+- Rechecked dashboard rows grp6_acs_host_controller (180.3.13.36) and grp6_acs_edge_server (180.3.13.209), both Up. Opened grp6 shared View entry and reached authenticated browser SSH; visible prompt is `[user@group-6 ~]$`.
+- Native Chrome input through Guacamole did not transmit the intended hostname command correctly (stale clipboard text / garbled characters). Shell returned to the home prompt; no successful directory change or fresh deployment inspection. Connection itself is established. Revalidate input before further commands.
+
+### E frontend v0.1 local handoff September 19
+- User requested a local-only frontend prototype while teammates work on C/D; asked to stop at a pushable milestone. Added frontend/ with isolated React/Vinext app, synthetic message scenarios, evidence charts, predictions, validated JSON reception/dedup, and clearly separated demo/OpenAI chat modes.
+- Read user-supplied /Users/alan/Downloads/message.txt as reference data. Added limited v1 events-envelope adapter; keep frontend 0.1-draft view model distinct from D's final wire contract. No remote actions or deployment performed for this frontend work.
+- Eleven frontend tests, tsc and build pass. Local HTTP tests confirm demo reply and 503 missing-key behavior; browser receive/evidence/demo-chat flow verified. No OpenAI key exists in inspected process config, so real model calls untested. No machine commands implemented, no AI-to-receipt status promotion.
+- Local preview http://localhost:5173 retained. frontend/HANDOFF.md records exact C/D boundaries, setup, completed verification and limitations. User handles commit/push; unrelated results/local_replay/ was already present during this task and not included in the suggested staging scope.

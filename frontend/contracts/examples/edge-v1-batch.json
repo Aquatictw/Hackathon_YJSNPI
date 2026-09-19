@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "edge_id": "group-6",
+  "batch_id": "synthetic-wire-batch-1",
+  "events": [
+    {
+      "event_id": "synthetic-wire-001",
+      "type": "measurement",
+      "source_mode": "simulation",
+      "run_id": "DEMO-RUN-WIRE",
+      "tester_id": "grp6-demo-tester",
+      "lot_id": "DEMO-LOT",
+      "wafer_id": "DEMO-W14",
+      "device_id": "DEMO-D023",
+      "site_id": 2,
+      "attempt": 1,
+      "sequence": 1042,
+      "timestamp": "2026-09-19T05:30:00.000Z",
+      "test_number": 85,
+      "test_name": "Main.example",
+      "pin": "P1",
+      "value": 1.284,
+      "unit": "V (\u793a\u7bc4)",
+      "quality": "valid"
+    }
+  ]
+}

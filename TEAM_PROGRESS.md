@@ -8,3 +8,12 @@
 - **Live integration:** App running; ONEAPI event/command connections established and tester acknowledgment observed. Full prediction and alert receipt remain unverified.
 - **Blocker:** Live TestEnd callback fails because the SDK returns PartFlag as `"0x0"`, while our code expects decimal.
 - **Next:** Fix flag parsing, expose evidence in logs, redeploy and verify all six prediction stages plus tester alert receipt; preserve logs and replay fallback.
+
+## E — Frontend prototype v0.1 (local-only checkpoint)
+
+- Implemented in `frontend/`: event/evidence dashboard, six-stage prediction table, JSON input, normal/anomaly/missing/duplicate synthetic scenarios, and chat UI.
+- Includes clearly labeled rule-based demo answers and a server-only OpenAI Responses proxy. **No API key supplied; real OpenAI responses remain unverified.**
+- Added draft schemas/fixtures plus a limited adapter for message.txt's v1 envelope. Internal `0.1-draft` is a view model, not a demand that Edge/backend adopt it.
+- Current validation: 11 frontend contract tests, TypeScript and build pass; browser receive → evidence → demo answer flow verified. Missing OpenAI key returns explicit 503.
+- **C owns anomaly algorithms/evidence; D owns durable backend, auth, LLM tools and command/ACK services.** No deployed machine behavior changed. AI text never means tester receipt.
+- Ready for user to commit/push. Start with `frontend/HANDOFF.md`; no commit, push or deployment performed by this task.
