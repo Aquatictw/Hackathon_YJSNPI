@@ -491,7 +491,7 @@ sha256sum /tmp/debugger_project_grp6.tar.gz
 - [x] 每階段、wafer、site 的五折 out-of-fold 誤差及 train/test wafer 清單已保存（`results/model_revalidation/validation.json`）；重算結果與原 aggregate metrics 一致。
 - [ ] channel 等待修正版在 VM 通過六階段 coverage 與 timeout 測試。
 - [x] channel 修正版在 grp6 image 通過 12 個 runtime tests；單次工程測試六階段、四 site coverage 全為 100%，callback audit 無錯誤，延遲 0.57–1.05 ms（遠端 `grp6_channel_audit.json`）。此次沒有進入等待分支，不能宣稱 live 延遲恢復／timeout 已驗收。
-- [ ] Live 六階段所有 active site 均有完整合法特徵，並有 tester 接受預測的紀錄。
+- [x] 單次 grp6 engineering run：六階段四個 active site coverage 均 100%；`grp6_channel_tester.edl` 保存六筆 prediction action，各有 `Exec Pass: 1 / Exec Fail: 0`。此項只證明本次回覆被 tester 執行，不代表 live 精度或 production 穩定性已驗收。
 - [ ] 真實偵測異常經 `set_message`、`prod_action` 到 tester 顯示，具備可關聯的完整證據。
 - [ ] W25 漏報完成原因分析與可重現評估；不得依 wafer 編號硬編判斷。
 - [ ] 完整 production rehearsal、image 身分、事件紀錄與 replay 備案保存。
