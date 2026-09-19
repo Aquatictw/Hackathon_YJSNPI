@@ -1,0 +1,58 @@
+{
+  "evidence_file": "/home/user/Case_Event/grp6_core_eng_evidence.jsonl",
+  "sha256": "274c1892e177dc6834bfd6931b8924c560e53fb9a5f367766434591fbedb4da3",
+  "event_counts": {
+    "monitor_start": 1,
+    "lot_start": 1,
+    "test_start": 1,
+    "metadata_scope": 1,
+    "measurement": 12,
+    "prediction_request": 6,
+    "prediction_actual": 24,
+    "device_end": 4,
+    "run_summary": 1,
+    "boundary_end": 1
+  },
+  "model_hashes": [
+    "752e7c6c52b0c6e50a2c7ab37b7705ad21ec43ec18df968866832d07ba09afe9"
+  ],
+  "stages": {
+    "1": {
+      "requests": 1,
+      "complete_responses": 1,
+      "max_latency_ms": 0.41857500036712736
+    },
+    "2": {
+      "requests": 1,
+      "complete_responses": 1,
+      "max_latency_ms": 0.5885479986318387
+    },
+    "3": {
+      "requests": 1,
+      "complete_responses": 1,
+      "max_latency_ms": 1.740742998663336
+    },
+    "4": {
+      "requests": 1,
+      "complete_responses": 1,
+      "max_latency_ms": 0.8491009975841735
+    },
+    "5": {
+      "requests": 1,
+      "complete_responses": 1,
+      "max_latency_ms": 0.6197789989528246
+    },
+    "6": {
+      "requests": 1,
+      "complete_responses": 1,
+      "max_latency_ms": 0.5820279984618537
+    }
+  },
+  "malformed_lines": 0,
+  "errors": 0,
+  "incomplete_predictions": 0,
+  "replay_present": false,
+  "recorded_callback_gate": true,
+  "tester_receipt": "UNVERIFIED: inspect matching tester prediction and alert logs",
+  "live_acceptance": "INCOMPLETE until VM provenance and tester receipt are verified"
+}
