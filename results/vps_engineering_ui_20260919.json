@@ -1,0 +1,83 @@
+{
+  "deployed_revision": "46c602336ed19de2fc06ce56b79860427f85e035",
+  "date": "2026-09-19",
+  "url": "https://hackathon.aquatictw.com/",
+  "production_build": "passed on VPS before activation",
+  "archive_sha256": "b2f908521389af039b253b4346d0ae2829ecbf49bcf70e358d791eac44423327",
+  "service": "grp6-preview.service",
+  "listen": "127.0.0.1:5173",
+  "nginx_upstream": "http://172.23.0.1:5173",
+  "rollback_backup": "/opt/grp6-preview/backups/before-46c602336ed19de2fc06ce56b79860427f85e035-OFuoxM6o",
+  "previous_release": "ad4a54aba21e49001f1a10c95a0636179b6cc116",
+  "http": {
+    "origin": "http://127.0.0.1:5173",
+    "homepage": 200,
+    "replay": 200,
+    "assets": 14,
+    "events": 114,
+    "predictions": 24,
+    "joined_actuals": 24,
+    "measurement_count": 134,
+    "mode": "replay",
+    "sse": "ready",
+    "ai": true,
+    "commands": false,
+    "origin_checks": [
+      {
+        "path": "/api/assistant",
+        "request_origin": "https://hackathon.aquatictw.com",
+        "status": 400
+      },
+      {
+        "path": "/api/assistant",
+        "request_origin": "https://untrusted.invalid",
+        "status": 403
+      },
+      {
+        "path": "/api/v1/runs/grp6-replay-demo/chat",
+        "request_origin": "https://hackathon.aquatictw.com",
+        "status": 400
+      },
+      {
+        "path": "/api/v1/runs/grp6-replay-demo/chat",
+        "request_origin": "https://untrusted.invalid",
+        "status": 403
+      }
+    ],
+    "paid_ai_calls": 0
+  },
+  "public_browser": {
+    "base": "https://hackathon.aquatictw.com",
+    "checkedAt": "2026-09-19T12:12:50.934Z",
+    "modelCalls": 0,
+    "simulatedAnswers": 1,
+    "checks": [
+      "Persisted replay snapshot: 114 events",
+      "Load run and evidence selection",
+      "Suggested question fills draft without API request",
+      "Prediction/command tabs preserve investigation log; 24 prediction rows",
+      "Switching incidents restores isolated conversations",
+      "Search and citation retain completed conversation",
+      "Reload restores run and conversation after fresh snapshot",
+      "Replay navigation, W25 miss disclosure, validation and limitations",
+      "Route round-trip retains conversation",
+      "Keyboard tabs and disconnect/reconnect retain evidence and conversation",
+      "Missing run clears stale scope; valid retry restores its conversation",
+      "Sandbox route and return",
+      "Light/dark selection persists across reload",
+      "390px layout and contained table scrolling"
+    ],
+    "errors": [],
+    "passed": true
+  },
+  "observations": [
+    "Initial HTTP verifier ran concurrently with public browser audit and received one 503 on invalid chat; cause unestablished. Direct invalid-body retry returned400; complete sequential verifier then passed.",
+    "Public Chromium HTTPS verification passed without ignoring TLS errors.",
+    "Public dark-mode screenshot reviewed."
+  ],
+  "limits": [
+    "Assistant submission is browser-mocked; model key validity/access remain untested. Zero paid verification calls.",
+    "No live Edge transport, tester receipt or command execution acceptance.",
+    "Accepted W25 replay remains missed; no Python detector runtime deployment."
+  ]
+}
