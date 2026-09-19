@@ -45,7 +45,9 @@ class MonitorCore:
         self.stream = self.evidence.open('a', encoding='utf-8', buffering=1)
         self.reporter = ThreadPoolExecutor(max_workers=1)
         self.report_future = None
-        self.log('monitor_start',team='grp6',measurement_export='first_12_samples_plus_targets_and_alert_windows')
+        self.log('monitor_start',team='grp6',measurement_export='first_12_samples_plus_targets_and_alert_windows',
+                 sparse_burst_status=self.models.sparse_burst_status,
+                 sparse_burst_sha256=self.models.sparse_burst.sha256 if self.models.sparse_burst else None)
 
     def update_report(self):
         if self.report_future is None or self.report_future.done():
@@ -167,7 +169,7 @@ class MonitorCore:
         if scope!=self.identity.get(tester):
             self.emit_alerts(tester,True)
             self.identity[tester]=scope
-            self.detectors[tester]=WaferDetector(self.models.artifact["baselines"],self.models.artifact.get("family_thresholds"))
+            self.detectors[tester]=self.models.detector()
             self.state.testers[tester].lot,self.state.testers[tester].wafer=scope
             self.log("metadata_scope",tester=tester,metadata_source="StringTest_20_21_25",sites=sorted(active))
 
@@ -207,6 +209,9 @@ class MonitorCore:
                         family_thresholds=artifact.get('family_thresholds', {}),
                         baseline_wafers=artifact.get('baseline_wafers', []),
                         calibration=artifact.get('detector_calibration', {}),
+                        sparse_burst_status=self.models.sparse_burst_status,
+                        sparse_burst_calibration=(self.models.sparse_burst.summary()
+                                                  if self.models.sparse_burst else None),
                         unit_status='unit_unverified',
                         known_gaps=['per-test sample_count unavailable',
                                     'per-test missing_rate unavailable',
@@ -220,7 +225,7 @@ class MonitorCore:
                     self.state.reset(tester,lot,wafer)
                     self.test_context.pop(tester, None)
                     self.pending_predictions.pop(tester, None)
-                    self.detectors[tester] = WaferDetector(self.models.artifact['baselines'],self.models.artifact.get('family_thresholds'))
+                    self.detectors[tester] = self.models.detector()
                     self.log('wafer_start',tester=tester,lot=lot,wafer=wafer)
                     self.export(self.event(tester, 'wafer_start',
                                            source_timestamp_us=self.safe(data, 'get_TimeStamp')))
@@ -236,7 +241,8 @@ class MonitorCore:
                     self.device_measurements[tester] = {str(site): {} for site in sites}
                     self.device_quality[tester] = {
                         str(site): {'runtime_unmapped': [], 'invalid': []} for site in sites}
-                    self.detectors.setdefault(tester, WaferDetector(self.models.artifact['baselines'],self.models.artifact.get('family_thresholds')))
+                    if tester not in self.detectors:
+                        self.detectors[tester] = self.models.detector()
                     self.log('test_start',tester=tester,touchdown=td,sites=sites)
                 elif is_type('DATA_TYP_MEASURED_PARAMETRIC') or is_type('DATA_TYP_MEASURED_MULTI_PARAM'):
                     multi = is_type('DATA_TYP_MEASURED_MULTI_PARAM')
@@ -303,7 +309,7 @@ class MonitorCore:
                         # bins 2..32 fail. Preserve raw flag for audit.
                         sbin = int(data.query_SBinResult(i))
                         if detector and site in snapshots and 1 <= sbin <= 32:
-                            detector.add(site,snapshots[site],sbin == 1)
+                            detector.add(site,snapshots[site],sbin == 1,self.device_id(tester, site))
                         for prediction in self.pending_predictions.get(tester, {}).get(site, []):
                             stage = prediction["stage"]
                             actual = snapshots.get(site, {}).get(TARGETS[int(stage)])
