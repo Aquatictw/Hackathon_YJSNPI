@@ -4,8 +4,9 @@ Read [SYSTEM.md](../SYSTEM.md), especially detection/evidence semantics. Produce
 
 ## Write allowlist
 
-Only new files under `workstreams/detection/`: candidate/evaluator code, fixtures, metrics and proposal. Existing grp6_app, artifacts, results, source data, frontend and team briefs are read-only to C. No shared config/deploy/VM edits.
-Branch `team/c-detection` from A's published cleanup commit in a separate checkout/worktree; record its SHA. No direct main push.
+Only files under `workstreams/detection/`: your NOTES.md, candidate/evaluator code, fixtures, metrics and proposal. Existing grp6_app, artifacts, results, source data, frontend and team briefs are read-only to C. No shared config/deploy/VM edits.
+Maintain [your notes](../workstreams/detection/NOTES.md) using SYSTEM's notes rules.
+Branch `team/c-detection` from A's published handoff commit (including workstream notes) in a separate checkout/worktree; record its SHA. No direct main push.
 
 ## Execute
 
@@ -20,4 +21,4 @@ Branch `team/c-detection` from A's published cleanup commit in a separate checko
 - W25 improvement is evaluated alongside false alarms, sample size and latency; a threshold change that merely fits W25 is not accepted as generalization proof.
 - Evidence uses source units, device-order axes and detector scores rather than invented probabilities. Deliver an explicit promote/reject recommendation; promotion requires A review.
 
-Before handoff run `git diff --name-only <cleanup-sha>` and `git status --short`; every authored path must be under workstreams/detection/. Return base/branch SHA, commands/results and proposed A integration points.
+Before handoff run `git diff --name-only <base-sha>` and `git status --short`; every authored path must be under workstreams/detection/. Return base/branch SHA, commands/results and proposed A integration points.

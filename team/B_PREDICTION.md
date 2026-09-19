@@ -4,8 +4,9 @@ Read [SYSTEM.md](../SYSTEM.md), especially requirements/runtime invariants. Pres
 
 ## Write allowlist
 
-Only new files under `workstreams/prediction/`, including evaluation code, candidate artifacts, fixtures and results. All existing core/models/manifest/results/source data and these team briefs are read-only to B. No dependency/config/deploy/VM edits.
-Branch `team/b-prediction` from A's published cleanup commit in a separate checkout/worktree; record its SHA. No direct main push. Follow SYSTEM ownership rules; A handles integration.
+Only files under `workstreams/prediction/`, including your NOTES.md, evaluation code, candidate artifacts, fixtures and results. All existing core/models/manifest/results/source data and these team briefs are read-only to B. No dependency/config/deploy/VM edits.
+Maintain [your notes](../workstreams/prediction/NOTES.md) using SYSTEM's notes rules.
+Branch `team/b-prediction` from A's published handoff commit (including workstream notes) in a separate checkout/worktree; record its SHA. No direct main push. Follow SYSTEM ownership rules; A handles integration.
 
 ## Execute
 
@@ -20,4 +21,4 @@ Branch `team/b-prediction` from A's published cleanup commit in a separate check
 - All six stages obey causal boundaries; comparison includes regressions and unsuccessful candidates. Empty/insufficient data never becomes fabricated successful predictions.
 - Proposal explains expected benefit/cost and what remains unverified on-machine. No claimed deployment, runtime replacement or guaranteed accuracy. A decides whether to promote.
 
-Before handoff run `git diff --name-only <cleanup-sha>` and `git status --short`; every authored path must be under workstreams/prediction/. Report required external edits to A instead of making them.
+Before handoff run `git diff --name-only <base-sha>` and `git status --short`; every authored path must be under workstreams/prediction/. Report required external edits to A instead of making them.

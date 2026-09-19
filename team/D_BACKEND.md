@@ -11,8 +11,9 @@ All paths below are relative to frontend/:
 - `lib/rtdi/agent.ts`, `chat-handler.ts`, `command-contract.ts`, `exporter-wire.ts`, `http.ts`, `investigation-tools.ts`, `raw-payload.ts`, `repository.ts`, `server-config.ts`, `sse.ts`, `tool-contract.ts`, `wire.ts`; new backend helpers only as `lib/rtdi/backend-*.ts`.
 - `tests/backend.test.mjs`, `tests/backend-*.test.mjs`; keep new fixtures inline/in these allowed test files.
 
+Additional repository-root allowlist: `workstreams/backend/NOTES.md` only. Maintain [your notes](../workstreams/backend/NOTES.md) using SYSTEM's notes rules; this does not grant ownership of other files in that directory.
 Everything else is read-only: UI libs (including assistant/contracts/replay-adapter), pages, scripts, manifests/lockfiles/configs/examples, non-v1 routes, core/exporter, results and team briefs. Request cross-boundary changes from A/E.
-Branch `team/d-backend` from A's published cleanup commit in a separate checkout/worktree; record SHA. No direct main push. SYSTEM contains the sole API/status contract.
+Branch `team/d-backend` from A's published handoff commit (including workstream notes) in a separate checkout/worktree; record SHA. No direct main push. SYSTEM contains the sole API/status contract.
 
 ## Execute
 
@@ -27,4 +28,4 @@ Branch `team/d-backend` from A's published cleanup commit in a separate checkout
 - Prediction/actual normalized records can reach existing snapshot/SSE consumers without losing scope or inventing receipt. Command states match SYSTEM; tester_confirmed requires correlated receipt semantics.
 - From frontend run `node --test tests/backend*.test.mjs`, `npm test`, `npx tsc --noEmit`, `npm run build`; report failures accurately and ask A for dependency/config changes. Do not deploy/migrate a remote DB yourself.
 
-Shared freeze: D may import but never edit assistant.ts exports instructions/demoAnswer/ChatMessage or E-owned EventView/validatedView. Preserve signatures/behavior expected across imports; A coordinates breaking changes. Check `git diff --name-only <cleanup-sha>` and untracked files against this allowlist before handoff.
+Shared freeze: D may import but never edit assistant.ts exports instructions/demoAnswer/ChatMessage or E-owned EventView/validatedView. Preserve signatures/behavior expected across imports; A coordinates breaking changes. Check `git diff --name-only <base-sha>` and untracked files against this allowlist before handoff.
