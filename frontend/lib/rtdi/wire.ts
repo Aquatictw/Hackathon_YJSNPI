@@ -26,6 +26,8 @@ export const edgeRecordSchema = z.object({
   unit: z.string().max(32).nullable().optional(),
   quality: z.string().max(32).optional(),
   request_id: id.optional(),
+  original_request_id: id.optional(),
+  source_event_id: id.optional(),
   stage: z.number().int().min(1).max(6).optional(),
   prediction: finite.nullable().optional(),
   actual: finite.optional(),

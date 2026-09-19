@@ -14,7 +14,7 @@ export const exporterEventSchema = z.object({
   tester_id: id,
   run_id: id,
   lot_id: z.union([id, z.null()]).optional(),
-  wafer_id: z.union([id, z.null()]).optional(),
+  wafer_id: z.union([id, z.number().int().nonnegative(), z.null()]).optional(),
 }).passthrough();
 
 export const exporterBatchSchema = z.object({
@@ -70,7 +70,7 @@ function normalizeEvent(event: z.infer<typeof exporterEventSchema>): EdgeRecord 
     run_id: event.run_id,
     tester_id: event.tester_id,
     ...(optionalId(event.lot_id) ? { lot_id: optionalId(event.lot_id) } : {}),
-    ...(optionalId(event.wafer_id) ? { wafer_id: optionalId(event.wafer_id) } : {}),
+    ...(event.wafer_id != null ? { wafer_id: String(event.wafer_id) } : {}),
     timestamp: new Date(event.timestamp * 1000).toISOString(),
     sequence: event.sequence,
   } as const;
