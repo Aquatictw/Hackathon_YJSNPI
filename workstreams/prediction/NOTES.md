@@ -4,7 +4,7 @@
 
 - Status: offline assignment implemented; full six-stage evaluation and independent evidence audit pass. Starting tree was clean.
 - Completed: baseline aggregate metrics exactly reproduced; eight-feature fallback evaluated over 25 wafers / 2,000 devices with full stage/wafer/site metrics and four availability scenarios.
-- Current task: commit and push assigned branch; final allowlist review passed.
+- Offline work complete; handoff ready for A. Final allowlist and whitespace checks pass.
 - Last updated: 2026-09-19.
 
 ## Decisions
@@ -22,6 +22,7 @@
 ## Handoff
 
 - Branch: team/b-prediction. Base: eababfc4ffbb6c6faea4136b3dd9724773247aab.
+- Implementation/evidence commit: 1368f71593cf4a133687be457790430a9ac1707c. The following notes-only commit records this SHA; branch HEAD identifies the final handoff.
 - Worktree: C:/Users/USER/Documents/hackathon2026-b-prediction.
 - Deliverables: candidate.py, evaluate.py, audit.py, test_prediction.py, EVALUATION.md, three logs, and results/ (candidate/fold artifacts, metrics, compressed predictions, hashes, checks, independent audit).
 - Initial checks: git status --short (empty); git rev-parse eababfc (base above). Python 3.12.2 / NumPy 2.2.6; no dependency changes.
@@ -30,4 +31,5 @@
 - `python -B -m workstreams.prediction.audit --results workstreams/prediction/results --report workstreams/prediction/results/audit.json` → exit 0; 48,000 scoped rows and 9,360 metric groups verified; evidence audit.log and results/audit.json.
 - Exact data/model/code hashes: results/provenance.json; results are from base plus workstream changes, not the VM. EVALUATION.md contains interpretation, regressions, latency limits and reproduction commands.
 - `git diff --check` → exit 0; `git diff --name-only eababfc4ffbb6c6faea4136b3dd9724773247aab`, `git status --short` and untracked path review → every authored path under workstreams/prediction/.
-- Commit / push pending. Next owner action after delivery: A reviews whether the fallback benefit justifies an error-tolerance-gated machine trial; no automatic promotion.
+- Final verification: `git diff --check eababfc4ffbb6c6faea4136b3dd9724773247aab` → exit 0; base diff contains 18 allowed paths; `git status --short` after implementation commit → empty. Eight recorded evaluator/output hashes also match staged Git blobs exactly.
+- Delivery target: origin/team/b-prediction only. Next owner action: A reviews whether the fallback benefit justifies an error-tolerance-gated machine trial; no automatic promotion.
