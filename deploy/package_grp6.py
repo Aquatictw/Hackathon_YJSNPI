@@ -1,4 +1,5 @@
 """Create a selective, verified stdlib runtime bundle."""
+import argparse
 import hashlib
 import json
 from pathlib import Path
@@ -6,7 +7,7 @@ import zipfile
 
 ROOT = Path(__file__).resolve().parents[1]
 
-def main():
+def main(output=None):
     files = {}
     for name in ["__init__.py", "state.py", "runtime.py", "monitor.py", "live_main.py", "exporter.py",
                  "report.py", "data.py", "rehearse.py"]:
@@ -22,7 +23,7 @@ def main():
         files["results/replay/" + name] = (ROOT / "results/replay" / name).read_bytes()
     digests = {name: hashlib.sha256(data).hexdigest() for name, data in files.items()}
     files["SHA256.json"] = json.dumps(digests, indent=2).encode()
-    target = ROOT / "grp6_deploy.zip"
+    target = Path(output).resolve() if output else ROOT / "grp6_deploy.zip"
     with zipfile.ZipFile(target, "w", zipfile.ZIP_DEFLATED) as archive:
         for name, data in files.items():
             archive.writestr(name, data)
@@ -33,4 +34,7 @@ def main():
     print(str(target), target.stat().st_size, hashlib.sha256(target.read_bytes()).hexdigest())
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--output', help='Output ZIP path; defaults to grp6_deploy.zip')
+    args = parser.parse_args()
+    main(args.output)
