@@ -409,3 +409,58 @@ interface DashboardEnvelope<T> {
 ~~~
 
 No deployed HTTP URL, SSE/WebSocket endpoint, ACK protocol, or user-to-tester command API exists in our current app. Agree those with the backend teammate; do not assume route names. LLM chat and user-triggered tester commands are separate planned capabilities.
+
+### Edge outbound HTTPS exporter (working tree implementation)
+
+`grp6_app/exporter.py` implements an optional stdlib-only outbound exporter. When
+`GRP6_EXPORT_URL` is unset, existing Gemini behavior is unchanged. When configured,
+ONEAPI callbacks enqueue copied lifecycle, prediction, alert, and per-site
+`DeviceCompletedBundle` events without network I/O. A background worker first stores
+events in a SQLite outbox, then sends gzip-compressed JSON batches over TLS with retry
+and stable event IDs. A full device contains about 3,036 measurements, so D must accept
+gzip and set an appropriate decompressed request limit; the default batch size is one.
+
+~~~text
+GRP6_EXPORT_URL=https://backend.example/api/v1/events/batch
+GRP6_EXPORT_TOKEN=<server-issued bearer token>
+GRP6_EXPORT_OUTBOX=/tmp/grp6_export.sqlite3
+GRP6_EDGE_ID=grp6-edge
+GRP6_EXPORT_QUEUE=32
+GRP6_EXPORT_BATCH=1
+GRP6_EXPORT_TIMEOUT=5
+~~~
+
+Each request has `{schema_version, edge_id, batch_id, events}`. Device events include
+run/lot/wafer/tester scope, monotonic process-local sequence, touchdown, part/device ID,
+site/head/raw HeadSite, SDK timestamp, X/Y, test time, SBin/HBin/part flag/pass state,
+all canonical measurements and data-quality counts. Measurement entries include test
+number, suite, pin, raw value, unit/scaling, limits/scaling, and test/param flags.
+`attempt` is deliberately null with `attempt_status=unverified_sdk_field` until a real
+retest contract is verified. SDK getters and live unit/scaling values still require a
+grp6 run; code availability is not live acceptance.
+
+At lot start the exporter also emits a `detector_baseline_artifact` containing the exact
+runtime SHA256, all 3,035 detector baselines, per-test thresholds, family thresholds,
+baseline wafers, calibration settings, and explicit score semantics. The historical
+`mean` field was calculated with `nanmedian`; the event labels that fact as
+`baseline_location_semantics=median_stored_in_legacy_mean_field` without changing the
+runtime format. Per-test training sample count, missing rate, build timestamp, and live
+units are not present in the current artifact and are reported as gaps rather than
+invented values.
+
+The receiver must support `Content-Encoding: gzip`, deduplicate by `event_id`, return a
+2xx only after durable storage, and tolerate retries. Public plaintext HTTP is rejected;
+HTTP is accepted only for localhost tests. The exporter belongs inside the Edge
+`py-app` container. SSH/VNC are administration paths, not data destinations. If the
+deployed container cannot reach the public HTTPS endpoint, use an approved host-controller
+relay rather than performing HTTP inside ONEAPI callbacks.
+
+Pending inputs from the external/backend team before live enablement:
+
+- staging and production HTTPS `POST /api/v1/events/batch` URLs;
+- server-issued bearer-token delivery/rotation method (never commit the token);
+- confirmation of gzip request support and at least 4 MiB decompressed-body limit;
+- exact 2xx success body and event-level accepted/duplicate/rejected semantics;
+- durable `event_id` deduplication/retention policy and backend observability contact;
+- confirmation that exporting the competition fields is permitted, plus required redaction;
+- dashboard/LLM schema version owner and how unknown unit/retest fields should display.

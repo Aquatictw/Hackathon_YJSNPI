@@ -25,10 +25,15 @@ class Actions:
     def get_prod(self,tester):
         self.calls.append(('get_prod',tester));result=json.dumps(self.production);self.production=[];return result
 
+class Exporter:
+    def __init__(self): self.events=[];self.closed=False
+    def submit(self,event): self.events.append(event);return True
+    def close(self): self.closed=True
+
 class ProtocolTests(unittest.TestCase):
     def setUp(self):
-        self.tmp=tempfile.TemporaryDirectory();self.actions=Actions()
-        self.core=MonitorCore(Path(__file__).parents[1]/'artifacts/runtime.json',self.actions,TYPES,lambda packed:packed&0xffff,Path(self.tmp.name)/'evidence.jsonl')
+        self.tmp=tempfile.TemporaryDirectory();self.actions=Actions();self.exporter=Exporter()
+        self.core=MonitorCore(Path(__file__).parents[1]/'artifacts/runtime.json',self.actions,TYPES,lambda packed:packed&0xffff,Path(self.tmp.name)/'evidence.jsonl',exporter=self.exporter,to_head=lambda packed:packed>>16)
         self.tc=SimpleNamespace(testerId='grp6-test')
         self.core.consumeData(self.tc,Event('PRODUCTION_LOTSTART',get_LotId='L'))
         self.core.consumeData(self.tc,Event('PRODUCTION_WAFERSTART',get_WaferId='W'))
@@ -57,6 +62,29 @@ class ProtocolTests(unittest.TestCase):
         self.assertEqual(snap['1']['220_Main.Suite1#CP'],.2)
         self.assertEqual(snap['2']['560_Main.Suite14#MR'],.4)
         self.start();self.assertEqual(self.core.state.snapshot(self.tc.testerId),{'1':{},'2':{}})
+
+    def test_device_bundle_contains_sdk_measurement_and_completion_fields(self):
+        self.core.consumeData(self.tc,Event(
+            'MEASURED_PARAMETRIC',get_ResultCount=1,query_HeadSite=[65537],
+            query_TestNumber=[220],query_TestSuite=['Main.Suite1'],query_Result=[1.25],
+            query_Unit=['V'],query_ResultScaling=['milli'],query_LowLimit=[1.0],
+            query_HighLimit=[1.5],query_LowLimitScaling=['none'],
+            query_HighLimitScaling=['none'],query_TestFlag=['pass'],query_ParamFlag=['valid']))
+        self.core.consumeData(self.tc,Event(
+            'PRODUCTION_TESTEND',get_ResultCount=1,get_TimeStamp=123456,
+            query_HeadSite=[65537],query_PartFlag=['0x0'],query_SBinResult=[1],
+            query_HBinResult=[7],query_XCoord=[10],query_YCoord=[20],
+            query_TestTime=[900],query_PartId=['device-1']))
+        bundle=[e for e in self.exporter.events if e['event_type']=='device_completed'][0]
+        self.assertEqual(bundle['source_timestamp_us'],123456)
+        self.assertEqual((bundle['x'],bundle['y'],bundle['hbin'],bundle['test_time_us']),
+                         (10,20,7,900))
+        self.assertEqual(bundle['received_count'],1)
+        measurement=bundle['measurements'][0]
+        self.assertEqual(measurement['canonical_feature'],'220_Main.Suite1#CP')
+        self.assertEqual((measurement['unit'],measurement['low_limit'],measurement['high_limit']),
+                         ('V',1.0,1.5))
+        self.assertEqual((measurement['test_flag'],measurement['param_flag']),('pass','valid'))
     def test_low_yield_queues_required_tester_message(self):
         d=self.core.detectors[self.tc.testerId]
         for _ in range(32):d.add('1',{},False)
@@ -84,6 +112,12 @@ class ProtocolTests(unittest.TestCase):
         ends=[r for r in records if r['kind']=='device_end']
         self.assertEqual([r['part_flag'] for r in ends],['0x0','0x8'])
         self.assertIn('GRP6_EVIDENCE ',output.getvalue())
+        bundles=[e for e in self.exporter.events if e['event_type']=='device_completed']
+        self.assertEqual(len(bundles),2)
+        self.assertEqual(bundles[0]['device_id'],'p1')
+        self.assertEqual(bundles[0]['head'],1)
+        self.assertTrue(bundles[0]['passed'])
+        self.assertIsNone(bundles[0]['attempt'])
     def test_bad_stage_and_invalid_payload_are_logged(self):
         for request in ['bad','{"key":"predict","data":7}','{"key":"predict","data":true}']:
             self.assertEqual(self.core.consumeTPRequest(self.tc,request),'')
