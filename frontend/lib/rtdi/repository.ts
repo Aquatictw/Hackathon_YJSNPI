@@ -1,6 +1,6 @@
 import { joinPredictionActuals, projectExporterEvents } from "./backend-projection";
 import { env } from "cloudflare:workers";
-import { canApplyCommandStatus, type CommandResultInput, type CreateCommandInput } from "./command-contract";
+import { canApplyCommandStatus, commandStatuses, commandResultSchema, createCommandSchema, type CommandResultInput, type CreateCommandInput } from "./command-contract";
 import type { RawExporterEvent } from "./exporter-wire";
 import { measurementPage } from "./backend-measurements";
 import { chunkUtf8Base64, decodeUtf8Base64Chunks } from "./raw-payload";
@@ -257,6 +257,7 @@ export async function getRunEventUpdates(runId: string, testerId: string | null,
 }
 
 export async function createRunCommand(runId: string, testerId: string | null, input: CreateCommandInput): Promise<{ command: CommandView; status: "queued" | "duplicate" }> {
+  input = createCommandSchema.parse(input);
   const db = binding();
   const runResult = testerId
     ? await db.prepare("SELECT * FROM runs WHERE run_id = ? AND tester_id = ?").bind(runId, testerId).all<Row>()
@@ -272,36 +273,69 @@ export async function createRunCommand(runId: string, testerId: string | null, i
   if (!incident) throw new InvalidCommandError("找不到此 run 的 incident。", "incident_not_found");
 
   const payloadHash = await contentHash({ run_id: runId, tester_id: selectedTester, ...input });
-  const existing = await db.prepare("SELECT * FROM commands WHERE command_id = ?").bind(input.request_id).first<Row>();
-  if (existing) {
-    if (String(existing.payload_hash) !== payloadHash) throw new IdentityConflictError("request_id already exists with different command content", [input.request_id]);
-    return { command: commandView(existing), status: "duplicate" };
-  }
-  const createdAt = new Date().toISOString();
-  const expiresAt = new Date(Date.now() + input.ttl_seconds * 1000).toISOString();
-  await db.prepare(`INSERT INTO commands
+  // The unique insert arbitrates concurrent creators. Never reset an existing
+  // command's status or extend its TTL when handling an identical retry.
+  const inserted = await db.prepare(`INSERT INTO commands
     (command_id, run_id, tester_id, incident_id, kind, message, status, expires_at, payload_hash, created_at, updated_at)
-    VALUES (?, ?, ?, ?, ?, ?, 'queued', ?, ?, ?, ?)`)
-    .bind(input.request_id, runId, selectedTester, input.incident_id, input.kind, input.message, expiresAt, payloadHash, createdAt, createdAt).run();
-  return { command: commandView({ command_id: input.request_id, run_id: runId, tester_id: selectedTester,
-    incident_id: input.incident_id, kind: input.kind, message: input.message, status: "queued",
-    expires_at: expiresAt, created_at: createdAt, updated_at: createdAt }), status: "queued" };
+    SELECT ?, ?, ?, ?, ?, ?, 'queued',
+      strftime('%Y-%m-%dT%H:%M:%fZ', 'now', '+' || ? || ' seconds'), ?,
+      strftime('%Y-%m-%dT%H:%M:%fZ', 'now'), strftime('%Y-%m-%dT%H:%M:%fZ', 'now')
+    WHERE EXISTS (SELECT 1 FROM runs WHERE run_id = ? AND tester_id = ? AND mode = 'live')
+      AND EXISTS (SELECT 1 FROM incidents WHERE incident_id = ? AND run_id = ? AND tester_id = ?)
+    ON CONFLICT(command_id) DO NOTHING
+    RETURNING *`)
+    .bind(input.request_id, runId, selectedTester, input.incident_id, input.kind, input.message, input.ttl_seconds, payloadHash,
+      runId, selectedTester, input.incident_id, runId, selectedTester).all<Row>();
+  const created = rows(inserted)[0];
+  if (created) return { command: commandView(created), status: "queued" };
+
+  const existing = await db.prepare("SELECT * FROM commands WHERE command_id = ?").bind(input.request_id).first<Row>();
+  if (!existing) throw new InvalidCommandError("command 的 run/incident 範圍已變更。", "scope_mismatch");
+  if (String(existing.payload_hash) !== payloadHash) throw new IdentityConflictError("request_id already exists with different command content", [input.request_id]);
+  return { command: commandView(existing), status: "duplicate" };
 }
 
 export async function getPendingCommands(testerId: string, runId?: string | null): Promise<CommandView[]> {
   const db = binding();
-  const now = new Date().toISOString();
-  await db.prepare(`UPDATE commands SET status = 'expired', updated_at = ?
-    WHERE tester_id = ? AND status = 'queued' AND expires_at <= ?`).bind(now, testerId, now).run();
-  const result = runId
-    ? await db.prepare(`SELECT * FROM commands WHERE tester_id = ? AND run_id = ? AND status = 'queued' AND expires_at > ? ORDER BY created_at LIMIT 20`).bind(testerId, runId, now).all<Row>()
-    : await db.prepare(`SELECT * FROM commands WHERE tester_id = ? AND status = 'queued' AND expires_at > ? ORDER BY created_at LIMIT 20`).bind(testerId, now).all<Row>();
+  const scope = runId ? "tester_id = ? AND run_id = ?" : "tester_id = ?";
+  const args = runId ? [testerId, runId] : [testerId];
+  await db.prepare(`UPDATE commands SET status = 'expired', updated_at = CURRENT_TIMESTAMP
+    WHERE ${scope} AND status = 'queued' AND julianday(expires_at) <= julianday('now')`).bind(...args).run();
+  const result = await db.prepare(`SELECT * FROM commands
+    WHERE ${scope} AND status = 'queued' AND julianday(expires_at) > julianday('now') ORDER BY created_at LIMIT 20`)
+    .bind(...args).all<Row>();
   return rows(result).map(commandView);
 }
 
 export async function recordCommandResult(commandId: string, input: CommandResultInput): Promise<{ command_id: string; status: string; duplicate: boolean }> {
+  input = commandResultSchema.parse(input);
   const db = binding();
   const payloadHash = await contentHash(input);
+  const predecessors = commandStatuses.filter(status => canApplyCommandStatus(status, input.status));
+  // D1 batch is a single transaction. Check the current state and DB clock at
+  // the write, not in an earlier read. occurred_at is evidence, not authority
+  // to revive an unreceived command. Duplicate ACKs insert nothing.
+  const result = await db.batch([
+    db.prepare(`INSERT INTO command_results
+      (ack_id, command_id, run_id, tester_id, status, tester_receipt_id, detail, occurred_at, payload_hash)
+      SELECT ?, command_id, run_id, tester_id, ?, ?, ?, ?, ? FROM commands
+      WHERE command_id = ? AND run_id = ? AND tester_id = ?
+        AND status IN (${predecessors.map(() => "?").join(", ")})
+        AND (status <> 'queued' OR ? = 'expired' OR julianday(expires_at) > julianday('now'))
+      ON CONFLICT(ack_id) DO NOTHING
+      RETURNING command_id, status`)
+      .bind(input.ack_id, input.status, input.tester_receipt_id ?? null, input.detail, input.occurred_at, payloadHash,
+        commandId, input.run_id, input.tester_id, ...predecessors, input.status),
+    // changes() is the preceding INSERT's row count on this transaction's
+    // connection. Only a newly persisted ACK can change command state.
+    db.prepare(`UPDATE commands SET status = ?, updated_at = CURRENT_TIMESTAMP
+      WHERE command_id = ? AND run_id = ? AND tester_id = ? AND changes() = 1`)
+      .bind(input.status, commandId, input.run_id, input.tester_id),
+  ]);
+  if (rows(result[0] as D1Result<Row>).length) return { command_id: commandId, status: input.status, duplicate: false };
+
+  // Resolve a no-op after the atomic attempt. Exact retries remain successful
+  // even after a later ACK has advanced the command to a terminal state.
   const existing = await db.prepare("SELECT command_id, payload_hash, status FROM command_results WHERE ack_id = ?").bind(input.ack_id).first<Row>();
   if (existing) {
     if (String(existing.command_id) !== commandId || String(existing.payload_hash) !== payloadHash) {
@@ -309,26 +343,16 @@ export async function recordCommandResult(commandId: string, input: CommandResul
     }
     return { command_id: commandId, status: String(existing.status), duplicate: true };
   }
-  const command = await db.prepare("SELECT * FROM commands WHERE command_id = ?").bind(commandId).first<Row>();
+  const command = await db.prepare(`SELECT *, COALESCE(julianday(expires_at) > julianday('now'), 0) AS within_ttl
+    FROM commands WHERE command_id = ?`).bind(commandId).first<Row>();
   if (!command) throw new InvalidCommandError("找不到指定 command。", "command_not_found");
   if (String(command.run_id) !== input.run_id || String(command.tester_id) !== input.tester_id) {
     throw new InvalidCommandError("command result 的 run/tester 範圍不符。", "scope_mismatch");
   }
-  const currentStatus = String(command.status);
-  if (currentStatus === "queued" && input.status !== "expired" && Date.parse(input.occurred_at) > Date.parse(String(command.expires_at))) {
+  if (command.status === "queued" && input.status !== "expired" && !command.within_ttl) {
     throw new InvalidCommandError("command 已超過可下發期限。", "command_expired");
   }
-  if (!canApplyCommandStatus(currentStatus, input.status)) {
-    throw new InvalidCommandError(`command 狀態不可由 ${currentStatus} 變更為 ${input.status}。`, "invalid_transition");
-  }
-  await db.batch([
-    db.prepare(`INSERT INTO command_results
-      (ack_id, command_id, run_id, tester_id, status, tester_receipt_id, detail, occurred_at, payload_hash)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`)
-      .bind(input.ack_id, commandId, input.run_id, input.tester_id, input.status, input.tester_receipt_id ?? null, input.detail, input.occurred_at, payloadHash),
-    db.prepare("UPDATE commands SET status = ?, updated_at = CURRENT_TIMESTAMP WHERE command_id = ?").bind(input.status, commandId),
-  ]);
-  return { command_id: commandId, status: input.status, duplicate: false };
+  throw new InvalidCommandError(`command 狀態不可由 ${String(command.status)} 變更為 ${input.status}。`, "invalid_transition");
 }
 
 export async function getIncident(incidentId: string, runId?: string | null): Promise<{ incident: RunSnapshot["incidents"][number]; evidence: EdgeRecord[]; run_id: string; tester_id: string } | null> {
