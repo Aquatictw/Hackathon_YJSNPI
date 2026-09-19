@@ -2,12 +2,12 @@
 
 **Competition in progress — September 19, 2026.** This is the authoritative competition plan, working record, and deployment runbook. Read it before remote work; update verified findings, edits, validation, unresolved issues, and exact next steps here before context compaction. It consolidates the former contest, preparation, progress, application, deployment, and workspace-instruction Markdown files.
 
-The app detects semiconductor test anomalies, produces an HTML evidence report, and returns six stage-specific temperature predictions through ACS Gemini / ONEAPI. **The newest recorded engineering run has full coverage at all six stages on four sites; tester prediction receipt, timeout recovery, and production anomaly-message acceptance remain open.**
+The app detects semiconductor test anomalies, produces an HTML evidence report, and returns six stage-specific temperature predictions through ACS Gemini / ONEAPI. **The newest recorded engineering run has full coverage at all six stages on four sites; all six tester prediction actions passed for that run. Live timeout recovery and production anomaly-message acceptance remain open.**
 
 ## Resume here
 
 1. Reconnect to **grp6 only** and verify the named dashboard rows and hostname `group-6`. Retrieve the latest channel-fix deployment identity and remote `grp6_channel_audit.json`; do not rebuild an already deployed fix solely because an older checkpoint says upload pending.
-2. Save the channel-fix image ID/digest and matching tester prediction receipts. Its newest recorded run has full six-stage/four-site coverage; verify that evidence against the actual running image.
+2. Preserve channel-fix image 20260919T052422Z, retrieve its image ID/digest, and retain grp6_channel_evidence.jsonl, grp6_channel_audit.json, and tester datalog grp6_channel_tester.edl. Its newest recorded run has full six-stage/four-site coverage; verify that evidence against the actual running image.
 3. Repeat a controlled engineering run and exercise delayed measurement/timeout behavior. The successful run did not enter the wait branch, so it does not validate live recovery from the earlier stage 1/5 coverage gaps.
 4. Run simulated production with the app ready before lot start. Correlate a real detected anomaly, `set_message`, `prod_action` response, and actual tester display. Save JSONL, HTML, stdout, tester logs/screenshots, and image/model identities.
 5. Keep replay ready; investigate W25's missed spread decrease without hard-coding wafer labels. Complete the final demo rehearsal.
@@ -26,13 +26,13 @@ These are recorded September 19 findings, not a fresh remote check. Local and VM
 | Live run | Nexus showed SMT8 Ready and `py-app` running; ONEAPI event/command connections, communication enable, and TP acknowledgment observed. Four-site engineering run completed. |
 | Callback evidence | Remote `grp6_livefix_edge.log`: 12,183 callbacks, 12,124 mapped measurements, 12 intentionally unmapped lot/wafer metadata values, no callback errors, four TestEnd records with raw flag `0x0`. |
 | Prediction coverage | Stages 2/3/4/6 had full coverage and prediction actions returned. Tester Message Center displayed stages 4/6; stage 6 action execution pass=1/fail=0. Stage 1: 24/25 features (0.96). Stage 5: 31/32 selected features (0.96875; 2,009 total values). Missing-data predictions safely withheld. |
-| Channel fix | Condition-based wait releases callback lock for up to 200 ms, rejects touchdown/site/wafer lifecycle changes, and logs missing features/wait status. 17 local tests passed. A newer architecture checkpoint, added during documentation consolidation, records 12 runtime tests passing in the grp6 image and one four-site run with full six-stage coverage, no callback audit errors, and 0.57–1.05 ms latency (`grp6_channel_audit.json`, remote). The wait branch was not exercised; live delayed-data/timeout recovery and tester receipt remain unverified. |
+| Channel fix | Condition-based wait releases callback lock for up to 200 ms, rejects touchdown/site/wafer lifecycle changes, and logs missing features/wait status. 17 local tests passed. The latest recorded checkpoint records 12 runtime tests passing in the grp6 image and one four-site run with full six-stage coverage, no callback audit errors, and 0.57–1.05 ms latency (`grp6_channel_audit.json`, remote). Tester datalog grp6_channel_tester.edl records all six prediction actions with Exec Pass: 1 / Exec Fail: 0 each. This proves action handling for that run, not prediction accuracy or production robustness. The wait branch was not exercised; live delayed-data/timeout recovery remains unverified. |
 
 - [x] Flow-derived feature manifest, six trained models, grouped validation, replay and report.
 - [x] grp6 image build/push, real SDK construction, live event delivery, corrected TestEnd processing.
 - [x] Channel-fix image passes 12 runtime tests and one live six-stage/four-site coverage audit, per the newer recorded checkpoint.
 - [ ] Channel-wait fix passes live delayed-measurement recovery and effective timeout checks.
-- [ ] All six stages, every active site: legal current-device features, correctly routed responses, and tester acceptance evidence.
+- [x] One engineering run: all six stages/four active sites have full selected-feature coverage and tester action execution receipts; accuracy and production robustness remain unproved.
 - [ ] Real anomaly reaches tester via `set_message` and production action retrieval, with correlated receipt evidence.
 - [ ] Units/scaling, missing/unknown-request behavior, retest/multi-head/reconnect lifecycle verified live.
 - [ ] W25 cause resolved and reproducibly evaluated; independent normal-wafer false-alarm assessment remains outstanding.
@@ -152,7 +152,7 @@ python -m grp6_app.calibrate
 
 | Artifact | Identity and state |
 | --- | --- |
-| Channel-fix package | `grp6_channel_fix.zip`: 311,583 bytes; SHA256 `21c52ec6bd795414b61da86c8c49ba78f1e0cbab8a7466100bb7c69c13ffb270`. User reported upload to `/home/user/Case_Event`; newer checkpoint records image/runtime/live coverage success. Retrieve its image digest and deployment record before further changes; final acceptance remains open. |
+| Channel-fix package | `grp6_channel_fix.zip`: 311,583 bytes; SHA256 `21c52ec6bd795414b61da86c8c49ba78f1e0cbab8a7466100bb7c69c13ffb270`. User reported upload to `/home/user/Case_Event`; latest uploaded image is unifiedserver.local/grp6/py-app:20260919T052422Z, with runtime/live coverage and tester-action execution success. Retrieve its image digest and deployment record before further changes; final acceptance remains open. |
 | Original deployed bundle | `grp6_deploy.zip`: 310,207 bytes; SHA256 `710f533122c86dfb43c847196e906de5b3d0b2f7242db21b2be604445eb22243`; verified remote, extracted to `/home/user/Case_Event/grp6_release_1239`. This identifies that historical bundle, not necessarily today's local ZIP. |
 | Original image | `unifiedserver.local/grp6/py-app:20260919T044025Z`; image ID `sha256:ddd2671b55b89ada384be16eb93e4ad94842cd7038dfdbcac8dbb278a3d046b9`; registry digest `sha256:f7c19251a2c7eb7c106c7d762e38ba03d590f3e06f722a0c419fc543d1003efd`. |
 | Verified live hex-flag image | `unifiedserver.local/grp6/py-app:livefix-20260919` and latest; digest `sha256:81cd96f70948955b3010ba454e06ea43db68fc816278368607b5e77f787c4057`. Built from `grp6_build_livefix`; four-site evidence above. |
@@ -220,9 +220,9 @@ Replay needs no SDK connection or NumPy. Present connection/data freshness and l
 
 ## Architecture and team coordination
 
-`RTDI_LLM_ARCHITECTURE.md` was not edited by this consolidation. Concurrent updates to that file were preserved, including the newer channel-run checkpoint summarized above. It describes an independent proposed implementation; its old status sections and links to removed notes do not override this record. Its referenced HACKATHON_DELIVERY_PLAN.md is absent. Former CONTEST.md, TEAM_PROGRESS.md, HACKATHON_PREP.md, AGENTS.md, grp6_app/README.md and deploy/RUNBOOK.md content now lives here; old handoff/prep pointers also refer to this consolidated record.
+`RTDI_LLM_ARCHITECTURE.md` was not edited by this consolidation. Concurrent updates to that file were preserved, including the newer channel-run checkpoint summarized above. It describes an independent proposed implementation; its old status sections and links to removed notes do not override this record. Its referenced HACKATHON_DELIVERY_PLAN.md is absent. Former CONTEST.md, TEAM_PROGRESS.md, HACKATHON_PREP.md, AGENTS.md, grp6_app/README.md, deploy/RUNBOOK.md, FRONTEND_HANDOFF.md, frontend/README.md, frontend/HANDOFF.md, and frontend/contracts/README.md content now lives here; old handoff/prep pointers also refer to this consolidated record.
 
-Available role evidence supports A (machine integration/deployment), with substantial B contributions (data/models/detection), using architecture §13.1 roles. A's full live acceptance remains open and B has the W25 gap. External backend/transport, LLM agent, and interactive website are not established by this implementation; HTML report is a starting artifact for the website role. Align with teammates before treating the architecture and grp6_app as one implementation. External services must not block local predictions, basic alerts, or core rehearsal.
+Available role evidence supports A (machine integration/deployment), with substantial B contributions (data/models/detection), using architecture §13.1 roles. A's full live acceptance remains open and B has the W25 gap. A local E frontend prototype now exists alongside the HTML report. External backend/transport, multi-step LLM agent, and live dashboard integration remain pending. Align with teammates before treating the architecture and grp6_app as one implementation. External services must not block local predictions, basic alerts, or core rehearsal.
 
 References: `Question_20260919.pdf` (requirements/scoring), `WorkShop_Material.pdf` (transfer p11, development/deployment pp19–26, data/anomalies pp28–29), `ONEAPI_Manual.pdf` (Monitor, NexusData, ActionManager, lifecycle), `py-app.dockerfile`, `requirements.txt`. Extracted texts are in tmp/pdfs. Supplied py-app.log is reference output only, never evidence of our live run.
 
@@ -284,3 +284,128 @@ D must finalize these proposed, unimplemented routes:
 400/422 isolate bad outbox data; 401/403 fix auth before retry; 409 resolve ID conflict; 413 split batch; 429/5xx/network errors honor Retry-After or exponential backoff+jitter, retaining IDs/outbox. message.txt instead uses accepted ID arrays and queued/fetched/applied/confirmed; D must settle differences. Prefer accepted/duplicates/rejected ID arrays for precise outbox clearance. fetched=Edge received, applied=executed, confirmed=verified receipt. set_message success, AI text, and unverified ACK fixtures never establish confirmation.
 
 Still needed: base URL, token issuance, exact limits/errors/backoff, polling cursor, ACK endpoint and website aggregation (suggested run_id/mode/last_event_at/data_quality/device_count/yield/incidents/predictions/commands). Unknown values stay unknown. Test HTTPS POST from actual deployed container; if blocked jointly choose HC relay or internal backend. Frontend changed no machine network and supplies no production DB/ingest/SSE/auth/command path.
+
+## Existing Edge payloads and exporter integration
+
+Consume results/replay/summary.json for the board, results/replay/replay.jsonl for replay alerts, and remote /home/user/Case_Event/grp6_channel_evidence.jsonl for real callback fixtures. JSONL is one object per nonempty line; strip GRP6_EVIDENCE when extracting stdout. Advantest ONEAPI is the supplied tester bridge; the Edge entrypoint is not an HTTP server or LLM agent. Suggestions are deterministic.
+
+### Actual data types
+
+These describe the existing emitted data, not a deployed web endpoint. Extra diagnostic fields may also be present.
+
+~~~ts
+type AlertKind =
+  | 'site_imbalance' | 'low_yield'
+  | 'mean_drift_up' | 'mean_drift_down'
+  | 'spread_up' | 'spread_down';
+
+interface AlertEvidence {
+  kind: AlertKind;
+  message: string;
+  test: string;                       // full measurement identity
+  site: string;                       // '1', '2', ... or 'all'
+  completed_devices: number;          // detection position, not timestamp
+  observed: number;
+  reference: number;
+  score: number;                      // detector score, NOT probability
+  series: number[];
+  site_series: Record<string, number[]>;
+  baseline: {
+    mean: number; sd: number;
+    thresholds?: Record<string, number>;
+  } | null;                           // null for low-yield alerts
+  suggestion: string;
+  family?: string;
+  family_score_over_threshold?: number;
+  family_persistence_scans?: number;
+}
+
+interface LiveAlertEvent {
+  time: number; kind: 'alert'; tester: string;
+  lot: string; wafer: string; alert: AlertEvidence;
+}
+interface ReplayAlertEvent {
+  kind: 'alert'; mode: 'replay';
+  lot: string; wafer: number; alert: AlertEvidence;
+}
+interface PredictionEvent {
+  time: number; kind: 'prediction_request'; tester: string;
+  stage: 1 | 2 | 3 | 4 | 5 | 6;
+  status: 'response_queued' | 'insufficient_current_data';
+  predictions: Record<string, number>; // site -> prediction
+  coverage: Record<string, number>;    // 0..1 of selected model inputs
+  feature_counts: Record<string, number>;
+  missing_features: Record<string, string[]>;
+  waited_for_measurements: boolean;
+  lifecycle_changed: boolean;
+  latency_ms: number;
+  response: string;                    // SDK action string; diagnostics
+}
+interface QueuedMessageEvent {
+  time: number; kind: 'action_message'; tester: string;
+  message: string; api_return: string; status: 'queued_unconfirmed';
+}
+interface ProductionActionEvent {
+  time: number; kind: 'production_action_response'; tester: string;
+  response: string; status: 'returned_to_callback_unconfirmed';
+}
+interface Metrics {
+  n: number; mae: number; rmse: number;
+  worst_error: number; baseline_mae: number;
+}
+interface ReplaySummary {
+  mode: 'replay'; live_integration: string;
+  wafers: Array<{
+    wafer: number; devices: number; yield: number; // yield is 0..1
+    expected: string;                            // evaluation label only
+    expected_first_device: number | null;
+    alerts: AlertEvidence[];
+  }>;
+  expected_anomalies_detected: number;
+  expected_anomaly_wafers: number;
+  max_scan_ms: number; max_model_ms: number;
+  prediction_in_sample_mae: Record<string, number>;
+  validation: {metrics: Record<string, Metrics>};
+  limitations: string[];
+}
+~~~
+
+
+### Display semantics
+
+- **Predictions:** show stage, site, value, coverage, latency, and delivery state. Coverage 1 means all selected inputs are present; it does not mean 100% accuracy. Empty predictions mean insufficient data, not zero temperature.
+- **Accuracy:** use validation.metrics for held-out MAE/RMSE. prediction_in_sample_mae is fitted-data replay error and must not be presented as independent validation.
+- **Alert plots:** site_series maps each site to values in completed-device order within that site. Plot array index on the x-axis; these are not timestamps. Alerts contain selected evidence, not all 3,036 measurement columns or a spatial wafer map.
+- **Low yield:** series is cumulative yield; observed and reference are fractions, with reference 0.8. Display them as percentages.
+- **Units:** physical temperature units are unverified. Display “CSV units” or “unit unverified”; do not assume °C.
+- **Time:** live time is Unix seconds, so use new Date(event.time * 1000). Replay alerts currently lack timestamps.
+- **Identity:** site IDs are strings. Replay wafer IDs are numbers and live wafer IDs are strings; normalize wafer IDs to strings. Live unknown IDs may be empty.
+- **Source status:** replay events explicitly say mode=replay; raw live events omit mode. The backend must attach provenance. Missing mode does not prove live freshness.
+- **Errors:** request_error, callback_error, action_error and report_error are separate records. Show failure/insufficient-data states instead of treating missing data as normal.
+
+### Exporter gaps
+
+The current logs do not yet have uniform event IDs, run IDs, sequence numbers, or a schema version. Prediction records also omit explicit lot/wafer/touchdown IDs. Only the first 12 mapped measurements per app process are individually logged: the evidence log is **not a complete raw-measurement feed**.
+
+The backend/Edge exporter needs to attach scope at collection time, preserve IDs across retries, store events, and expose a snapshot plus updates. This is the recommended envelope, **proposed and not implemented**:
+
+~~~ts
+interface DashboardEnvelope<T> {
+  schema_version: '1';
+  event_id: string;                    // stable across retries
+  run_id: string;
+  sequence: number;
+  mode: 'live' | 'replay';
+  received_at: string;                 // ISO 8601
+  event_time: string | null;           // null when source has none
+  scope: {
+    tester_id: string | null;
+    lot_id: string | null;
+    wafer_id: string | null;
+    touchdown: number | null;
+  };
+  payload: T;                         // existing event payload
+}
+~~~
+
+No deployed HTTP URL, SSE/WebSocket endpoint, ACK protocol, or user-to-tester command API exists in our current app. Agree those with the backend teammate; do not assume route names. LLM chat and user-triggered tester commands are separate planned capabilities.
