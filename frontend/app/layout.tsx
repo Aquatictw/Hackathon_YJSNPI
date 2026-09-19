@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import {AppTheme} from "@/components/theme-controls";
 
 export const metadata: Metadata = {
   title: "RTDI Insight | grp6",
@@ -19,8 +20,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="zh-Hant">
-      <body className="antialiased">{children}</body>
+    <html lang="zh-Hant" suppressHydrationWarning>
+      <body className="antialiased"><AppTheme>{children}</AppTheme></body>
     </html>
   );
 }

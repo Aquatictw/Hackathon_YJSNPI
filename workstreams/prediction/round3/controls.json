@@ -1,0 +1,15 @@
+{
+  "checks": {
+    "no_change_ratio_one": true,
+    "quarter_spread_ratio": true,
+    "mean_shift_preserves_sd": true,
+    "site_offsets_preserve_within_sd": true,
+    "site_offsets_inflate_pooled_sd": true,
+    "missing_site_is_unknown": true,
+    "nonfinite_site_is_unknown": true,
+    "future_suffix_does_not_change_prefix": true
+  },
+  "pass": true,
+  "scope": "B diagnostic mathematics only; does not certify any candidate detector",
+  "fixture": "80 deterministic rows, four interleaved sites, 24 tests, alternating +/-1 per site"
+}

@@ -1,0 +1,165 @@
+{
+  "base": "810b4ac9549a619ab09e9145f656c363c6d75035",
+  "observed_head": "bd47d4d54f19a23ba9e98abc658dd4089508969b",
+  "python": "3.12.2",
+  "numpy": "2.2.6",
+  "inputs": {
+    "grp6_app/artifacts/runtime.json": {
+      "base_blob_sha256": "752e7c6c52b0c6e50a2c7ab37b7705ad21ec43ec18df968866832d07ba09afe9",
+      "bytes": 964533,
+      "checkout_sha256": "752e7c6c52b0c6e50a2c7ab37b7705ad21ec43ec18df968866832d07ba09afe9"
+    },
+    "grp6_app/runtime.py": {
+      "base_blob_sha256": "e9164007f1c2bb75a0638e9030073d8bed478d1312fccabfb3a1cb9991e7ba72",
+      "bytes": 8960,
+      "checkout_sha256": "e9164007f1c2bb75a0638e9030073d8bed478d1312fccabfb3a1cb9991e7ba72"
+    },
+    "results/replay/summary.json": {
+      "base_blob_sha256": "91b100c5ae943c1085fadaa3bf14935ed4b405ab51e8d93bd8ea4f76874ba184",
+      "bytes": 39552,
+      "checkout_sha256": "f086d2c6887aef9fd34e7804c7e56de36f826d71b49e3927e7261913487d856c"
+    },
+    "source_review/training/Data/A12345_W01_RawResult.csv": {
+      "base_blob_sha256": "1ea5b202c6661e294d10a736b01e874eb2843b399ad6b9c44c11f2b24e877bc7",
+      "bytes": 1626306,
+      "checkout_sha256": "de7eab2ec4a6cdd1883a3285699df3ece94e4baad3b2d05bd0d8504b01a6252a"
+    },
+    "source_review/training/Data/A12345_W02_RawResult.csv": {
+      "base_blob_sha256": "b3cc3331787d8a3cd752319c1a90a665b0495b1e9daa410cdfd87a0f67a1ddd0",
+      "bytes": 1626306,
+      "checkout_sha256": "d13f249574db322a2e9287e92a13816630eb4437276118cb4ace2a18339b8bd9"
+    },
+    "source_review/training/Data/A12345_W03_RawResult.csv": {
+      "base_blob_sha256": "fcd91d36ad57eb847254f8fcdf3417cf52550a9602ce0a5341975cfa1f63fbed",
+      "bytes": 1626306,
+      "checkout_sha256": "8e9a661aa5d62bb8bc68bdc8589bf96c7bb7a57fd532f8ce07ccf105f22d9062"
+    },
+    "source_review/training/Data/A12345_W04_RawResult.csv": {
+      "base_blob_sha256": "1c11820624af04fc90b46a45e412e79dd3fa1823d663f254b3c1cba12bdb7eb2",
+      "bytes": 1626306,
+      "checkout_sha256": "62b17e83d1b85765d1237f1c9f421aac034e2dfab91891cf17f78ea955c4ce7e"
+    },
+    "source_review/training/Data/A12345_W05_RawResult.csv": {
+      "base_blob_sha256": "28bd8e1bdd49c90ac01f08f5c9b3f8d3a65d6662d270c1651307dabafa46bc0c",
+      "bytes": 1626306,
+      "checkout_sha256": "9cc868a82bbefc6f1b600229e64718e327af3ba71e31837c95349375b9dbe93b"
+    },
+    "source_review/training/Data/A12345_W06_RawResult.csv": {
+      "base_blob_sha256": "42b6ad2e5ba7514341ffcf44ac5f1617511a387c0c0ec2f9e491da6106a89155",
+      "bytes": 1626306,
+      "checkout_sha256": "1dbc9d2b1998215b2c40b303711380514a8d34757f635fbfe5739a6f26d398c6"
+    },
+    "source_review/training/Data/A12345_W07_RawResult.csv": {
+      "base_blob_sha256": "66664b218c0aa8948abd78a14f41c94c4bc8500d5f5bf7a768e63d4fe3015976",
+      "bytes": 1626306,
+      "checkout_sha256": "76f239541bdf9bda382bf87c9f95cf260725009b98c986e493e3b418d6cf1002"
+    },
+    "source_review/training/Data/A12345_W08_RawResult.csv": {
+      "base_blob_sha256": "a71fba649697ccf6aebe5175eeae69e4367037ab1e4d53e4da0b2ea9ccfbbd40",
+      "bytes": 1626306,
+      "checkout_sha256": "5c8a6993baf023dc7505ddb93c26110248ed2d7abae3baaf10235de55ce8bf0c"
+    },
+    "source_review/training/Data/A12345_W09_RawResult.csv": {
+      "base_blob_sha256": "aef6c318d0e50342d8c70aefc1cba871f4dacebfc4eee9a1b2c364ebf0bbd510",
+      "bytes": 1626306,
+      "checkout_sha256": "8b9f3343a72e073133a19351dcdda30f22af4d4451eb4d103f7a24f3db9fa72e"
+    },
+    "source_review/training/Data/A12345_W10_RawResult.csv": {
+      "base_blob_sha256": "15547c2ac4d8be823695f05a0e893daeacdf1ebf3859a5c68681e7dd77536854",
+      "bytes": 1626386,
+      "checkout_sha256": "cc875c1efd9db84bea53102f51b473a3d5cc5acf95452d02c0bc4dda768e976a"
+    },
+    "source_review/training/Data/A12345_W11_RawResult.csv": {
+      "base_blob_sha256": "7d63bc94d4b67c1e1c526e46833fa6184d1c84dbcb113a9a011ee5c080d8527c",
+      "bytes": 1626386,
+      "checkout_sha256": "457f03693f57cd66414a5bca33a1e463bd1b8a4e10515e82b4d364e88f7903ec"
+    },
+    "source_review/training/Data/A12345_W12_RawResult.csv": {
+      "base_blob_sha256": "e764acb91acdc924e869fe4d25a72db56ceada29b476d92f3c5cf954b0388e6a",
+      "bytes": 1626386,
+      "checkout_sha256": "f59df33fc197d1df8b375560349a854eebc38c6f8a18ad07bf44d62da360c3c0"
+    },
+    "source_review/training/Data/A12345_W13_RawResult.csv": {
+      "base_blob_sha256": "478986d019232560090c07aa35bda27a7db61634e7718363a97b4dc61232bfec",
+      "bytes": 1626386,
+      "checkout_sha256": "3b6f7c97fa4787bec43f18cdbdfad1886fc7cb77ad496bf2283b3eca8aa66c30"
+    },
+    "source_review/training/Data/A12345_W14_RawResult.csv": {
+      "base_blob_sha256": "be509134a16e2a325680d4b037d2e5f60ca1887962d8d35162c0c8577b5d94fa",
+      "bytes": 1626386,
+      "checkout_sha256": "078357bd644b17aa8a69413ccd8495bc103fd9fb3793f4386d98d6fd376f2f8f"
+    },
+    "source_review/training/Data/A12345_W15_RawResult.csv": {
+      "base_blob_sha256": "faf067e5e6fd6dbe2dcff71674d5ad6fe87e18aa039e79452a6a32db5ff88c84",
+      "bytes": 1626386,
+      "checkout_sha256": "ed6490ce66956f3e09628d12e2173ea890b90441647a434138047e41152ae18d"
+    },
+    "source_review/training/Data/A12345_W16_RawResult.csv": {
+      "base_blob_sha256": "43f6c32c3a583932ee35acf67b00b206cd983a3056d739f29ca084292bdb7b98",
+      "bytes": 1626386,
+      "checkout_sha256": "d282c7ac242980ec70589d40f1fc56d0f426af09f27b115603081703511ed24c"
+    },
+    "source_review/training/Data/A12345_W17_RawResult.csv": {
+      "base_blob_sha256": "c81549e970e6e27ce6f8e2557da0ee4550487e2d38edf9c0b3a25317efcb1b20",
+      "bytes": 1626386,
+      "checkout_sha256": "2b42b26762785bce2e4bc2f18de01220c7d6fe496ca4f55ba6bd016a829b582b"
+    },
+    "source_review/training/Data/A12345_W18_RawResult.csv": {
+      "base_blob_sha256": "d42ce4762e57ca42e7247326d14770e4ca75f6b4f588988c4bf4e28261a05f60",
+      "bytes": 1626394,
+      "checkout_sha256": "27733bfaa379c7a68ad78785488304fa941a599efe1be7efea68b624f33b33bb"
+    },
+    "source_review/training/Data/A12345_W19_RawResult.csv": {
+      "base_blob_sha256": "8fdd197d80fc8603c72c2988e7d735ccd6fbf84ad47accbe734b3f65d78506e2",
+      "bytes": 1626386,
+      "checkout_sha256": "e1fed9d9376bb23689bb2cadb015cb536ad329652d3521db6f3b85b3d9fbe674"
+    },
+    "source_review/training/Data/A12345_W20_RawResult.csv": {
+      "base_blob_sha256": "7ba5f66e8e11ceef8f430b1a3754af07fb9941da98d90f9fb5382317375ebbf9",
+      "bytes": 1626386,
+      "checkout_sha256": "64c4d63ac176977b445bf915dc535930f9389565f3c99ec82e754204e46049e7"
+    },
+    "source_review/training/Data/A12345_W21_RawResult.csv": {
+      "base_blob_sha256": "1bd54f78a44b1ec769e3facfd7664df6f22aa581a35e0366c9725c8a74f6f847",
+      "bytes": 1626386,
+      "checkout_sha256": "4a8745c287d1008e84348ac65d7cce3b3f509769f2467cb9cc768c07e3e889de"
+    },
+    "source_review/training/Data/A12345_W22_RawResult.csv": {
+      "base_blob_sha256": "1320bf7e40aac0c704a8fdb87e96ab1b0f8e3d45778a1306054f320b80459a87",
+      "bytes": 1626386,
+      "checkout_sha256": "79ef9405f973f01445a15d1ab3e47a15f5b14cf289cdfece9ace6cd783ce40af"
+    },
+    "source_review/training/Data/A12345_W23_RawResult.csv": {
+      "base_blob_sha256": "7570d7e8042ab2bc9308351d62ccbf85b7f2d29227d437631ac8c7d4cb273ecf",
+      "bytes": 1626390,
+      "checkout_sha256": "2c868e9d5c54bb151236378c599b2a7d90fc683d1859184ed514c8f2da02ed3a"
+    },
+    "source_review/training/Data/A12345_W24_RawResult.csv": {
+      "base_blob_sha256": "e822f63f65d08b295695b19faa4e3f6c6ed53423c0b53a829f7600353837a9aa",
+      "bytes": 1626386,
+      "checkout_sha256": "c22f9593b90d12fb62edae4b2dabcc557eb51085e322df735aca277b0a22678f"
+    },
+    "source_review/training/Data/A12345_W25_RawResult.csv": {
+      "base_blob_sha256": "0c3f294aeb881ab7a67a5aa3f9416f27da152752e161906e0ca967605e24b5e4",
+      "bytes": 1626386,
+      "checkout_sha256": "dd6a0be74f035dba30e6dd541fe79343251442250703a3ed576e84e4a536be78"
+    }
+  },
+  "auditor_sha256": "6bb6b310d6b20f93549a75b5f3ad86aae692fa638056f5cc76499ad60158d34d",
+  "outputs": {
+    "acceptance-matrix.json": "315eb2931beb73e5bda93d7530a871bdb76ad2b3d2366361028e7c68e2ffc2b9",
+    "family-prefix.csv.gz": "e8942fdac834c949611b53ab4a248c285a02b433fa3fedd20ef98f74bc158a63",
+    "temporal-prefix.csv.gz": "fdaa4c0dc866e7b3df7580b18e703c09b819ce598c1875a6cabf211599266906",
+    "test-site-dispersion.csv.gz": "841b95e79ff4d71602d1ebb35a55f5fce905883597d504b9ffb6b5ac1183269f",
+    "baseline.json": "21ad53c344c8acbd001a4ac4dd7aa28aed2b7e48ebfb0b252e4a570534d42523",
+    "controls.json": "6a1f7d6cb0db5bb2ecabcf67bfe38384d6a7d92d0bd56e042d46c59e65a0abd7",
+    "baseline-acceptance.json": "f1cf23e7bf6ae917bb1d60632e14f34d3ff65855ebcb7ae7b1b1f603b6fd08c8",
+    "diagnostics.json": "1444911a17fdba35d9e3c0c79d19c3abc06f28f10d99e7b731d9a896a007bb25"
+  },
+  "method": "population SD; equal-site RMS within SD; frozen normal reference medians/minima; no threshold fit or runtime changes",
+  "checks": {
+    "25_wafers": true,
+    "baseline_matches_saved": true,
+    "synthetic_controls": true
+  }
+}

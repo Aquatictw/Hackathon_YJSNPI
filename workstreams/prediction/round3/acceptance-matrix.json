@@ -1,0 +1,21 @@
+{
+  "round": "R3-20260919",
+  "base": "810b4ac9549a619ab09e9145f656c363c6d75035",
+  "frozen_before_candidate_comparison": true,
+  "data_status": "reused development data; not independent validation",
+  "gates": {
+    "W25": "spread_down by device 80; report first device, onset unknown",
+    "other_labels": "all six baseline expected categories at no later first device",
+    "W2": "retain legitimate low_yield at or before baseline device 32",
+    "normal_labels": "no added alert signature on any of all 18 normal-label wafers, including W2",
+    "baseline_preservation": "retain every baseline kind/site/test/device signature, including duplicates",
+    "controls": "no-change and mean/site-offset shift: no spread_down; reduced spread: detect; missing/nonfinite: abstain/reset",
+    "causality": "current completed-device inputs only; no ID/label feature; suffix mutation leaves earlier outputs unchanged"
+  },
+  "limits": [
+    "Comparator checks all-wafer records only; candidate synthetic/causality gates require separate evidence.",
+    "No threshold search on W25 by this auditor; effect sizes are exploratory.",
+    "Extra categories on abnormal-label wafers are reported, not silently hidden.",
+    "No live delivery, units, timing, SDK, authentication or transport acceptance."
+  ]
+}

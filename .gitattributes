@@ -1,0 +1,2 @@
+# Shell scripts are executed on Linux, including after direct SSH deployment.
+*.sh text eol=lf

@@ -1,0 +1,4307 @@
+{
+  "source": "C:\\Users\\USER\\Documents\\hackathon2026\\workstreams\\detection\\pooled_candidate.py",
+  "source_sha256": "9b5f530d47cf11ae6ee0009cb348b5101bae40a8332ebd32bdea3c347560aba8",
+  "source_unchanged_during_check": true,
+  "reviewer_sha256": "f3ad433a0f78ccf6fa27cc70354e0d10c533f871745ff451bfd3d5bc567e86f6",
+  "calibration": {
+    "config": {
+      "window_per_site": 20,
+      "minimum_per_site": 8,
+      "scan_interval": 8,
+      "minimum_family_tests": 20,
+      "family_quantile": 0.95,
+      "minimum_valid_fraction": 0.95,
+      "minimum_hits": 3,
+      "persistence_scans": 2,
+      "normal_margin": 1.2,
+      "minimum_log_drop": 0.6931471805599453,
+      "sd_floor_fraction": 0.1
+    },
+    "sites": [
+      "1",
+      "2",
+      "3",
+      "4"
+    ],
+    "families": {
+      "Main.control": [
+        "0_Main.control.Test0#CP",
+        "1_Main.control.Test1#CP",
+        "2_Main.control.Test2#CP",
+        "3_Main.control.Test3#CP",
+        "4_Main.control.Test4#CP",
+        "5_Main.control.Test5#CP",
+        "6_Main.control.Test6#CP",
+        "7_Main.control.Test7#CP",
+        "8_Main.control.Test8#CP",
+        "9_Main.control.Test9#CP",
+        "10_Main.control.Test10#CP",
+        "11_Main.control.Test11#CP",
+        "12_Main.control.Test12#CP",
+        "13_Main.control.Test13#CP",
+        "14_Main.control.Test14#CP",
+        "15_Main.control.Test15#CP",
+        "16_Main.control.Test16#CP",
+        "17_Main.control.Test17#CP",
+        "18_Main.control.Test18#CP",
+        "19_Main.control.Test19#CP",
+        "20_Main.control.Test20#CP",
+        "21_Main.control.Test21#CP",
+        "22_Main.control.Test22#CP",
+        "23_Main.control.Test23#CP"
+      ]
+    },
+    "baseline_sd": {
+      "0_Main.control.Test0#CP": 2.0,
+      "1_Main.control.Test1#CP": 2.0,
+      "2_Main.control.Test2#CP": 2.0,
+      "3_Main.control.Test3#CP": 2.0,
+      "4_Main.control.Test4#CP": 2.0,
+      "5_Main.control.Test5#CP": 2.0,
+      "6_Main.control.Test6#CP": 2.0,
+      "7_Main.control.Test7#CP": 2.0,
+      "8_Main.control.Test8#CP": 2.0,
+      "9_Main.control.Test9#CP": 2.0,
+      "10_Main.control.Test10#CP": 2.0,
+      "11_Main.control.Test11#CP": 2.0,
+      "12_Main.control.Test12#CP": 2.0,
+      "13_Main.control.Test13#CP": 2.0,
+      "14_Main.control.Test14#CP": 2.0,
+      "15_Main.control.Test15#CP": 2.0,
+      "16_Main.control.Test16#CP": 2.0,
+      "17_Main.control.Test17#CP": 2.0,
+      "18_Main.control.Test18#CP": 2.0,
+      "19_Main.control.Test19#CP": 2.0,
+      "20_Main.control.Test20#CP": 2.0,
+      "21_Main.control.Test21#CP": 2.0,
+      "22_Main.control.Test22#CP": 2.0,
+      "23_Main.control.Test23#CP": 2.0
+    },
+    "thresholds": {
+      "Main.control": 0.6931471805599453
+    },
+    "calibration_sha256": "B_SYNTHETIC_CONTROL_ONLY"
+  },
+  "checks": {
+    "no_change_no_alert": true,
+    "reduction_detected": true,
+    "constant_mean_offset_no_alert": true,
+    "site_offsets_no_alert": true,
+    "mean_step_no_spread_alert": false,
+    "single_impulse_no_persistent_spread_alert": false,
+    "missing_site_abstains": true,
+    "nonfinite_site_abstains": true,
+    "metadata_cannot_change_results": true,
+    "finalization_cannot_supply_second_vote": true,
+    "bounded_after_160_devices": true,
+    "finite_extremes_do_not_raise": true,
+    "no_normal_control_exceptions": true
+  },
+  "records": {
+    "no_change": {
+      "mode": "no_change",
+      "devices": 160,
+      "alerts": [],
+      "scans": [
+        {
+          "family": "Main.control",
+          "completed_devices": 32,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 8,
+            "2": 8,
+            "3": 8,
+            "4": 8
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 40,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 10,
+            "2": 10,
+            "3": 10,
+            "4": 10
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 48,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 12,
+            "2": 12,
+            "3": 12,
+            "4": 12
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 56,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 14,
+            "2": 14,
+            "3": 14,
+            "4": 14
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 64,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 16,
+            "2": 16,
+            "3": 16,
+            "4": 16
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 72,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 18,
+            "2": 18,
+            "3": 18,
+            "4": 18
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 80,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 88,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 96,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 104,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 112,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 120,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 128,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 136,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 144,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 152,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 160,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        }
+      ],
+      "exception": null,
+      "final_extra_alerts": [],
+      "bound": {
+        "tests": 24,
+        "sites": 4,
+        "maximum_measurement_slots": 1920,
+        "retained_measurement_slots": 1920,
+        "maximum_order_slots": 80
+      }
+    },
+    "reduced": {
+      "mode": "reduced",
+      "devices": 160,
+      "alerts": [
+        {
+          "family": "Main.control",
+          "completed_devices": 80,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 24,
+          "statistic": 2.3025850929940455,
+          "threshold": 0.6931471805599453,
+          "score": 3.321928094887362,
+          "passed": true,
+          "persistence_scans": 2,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          },
+          "kind": "spread_down",
+          "site": "all",
+          "test": "0_Main.control.Test0#CP",
+          "observed": 0.1,
+          "reference": 2.0,
+          "detector": "pooled_within_site_temporal_q95_v1",
+          "message": "Main.control: pooled within-site spread decreased in 24/24 tests",
+          "series": [
+            -2.0,
+            -2.0,
+            -2.0,
+            -2.0,
+            2.0,
+            2.0,
+            2.0,
+            2.0,
+            -2.0,
+            -2.0,
+            -2.0,
+            -2.0,
+            2.0,
+            2.0,
+            2.0,
+            2.0,
+            -2.0,
+            -2.0,
+            -2.0,
+            -2.0,
+            2.0,
+            2.0,
+            2.0,
+            2.0,
+            -2.0,
+            -2.0,
+            -2.0,
+            -2.0,
+            2.0,
+            2.0,
+            2.0,
+            2.0,
+            -2.0,
+            -2.0,
+            -2.0,
+            -2.0,
+            2.0,
+            2.0,
+            2.0,
+            2.0,
+            -0.1,
+            -0.1,
+            -0.1,
+            -0.1,
+            0.1,
+            0.1,
+            0.1,
+            0.1,
+            -0.1,
+            -0.1,
+            -0.1,
+            -0.1,
+            0.1,
+            0.1,
+            0.1,
+            0.1,
+            -0.1,
+            -0.1,
+            -0.1,
+            -0.1,
+            0.1,
+            0.1,
+            0.1,
+            0.1,
+            -0.1,
+            -0.1,
+            -0.1,
+            -0.1,
+            0.1,
+            0.1,
+            0.1,
+            0.1,
+            -0.1,
+            -0.1,
+            -0.1,
+            -0.1,
+            0.1,
+            0.1,
+            0.1,
+            0.1
+          ],
+          "site_series": {
+            "1": [
+              -2.0,
+              2.0,
+              -2.0,
+              2.0,
+              -2.0,
+              2.0,
+              -2.0,
+              2.0,
+              -2.0,
+              2.0,
+              -0.1,
+              0.1,
+              -0.1,
+              0.1,
+              -0.1,
+              0.1,
+              -0.1,
+              0.1,
+              -0.1,
+              0.1
+            ],
+            "2": [
+              -2.0,
+              2.0,
+              -2.0,
+              2.0,
+              -2.0,
+              2.0,
+              -2.0,
+              2.0,
+              -2.0,
+              2.0,
+              -0.1,
+              0.1,
+              -0.1,
+              0.1,
+              -0.1,
+              0.1,
+              -0.1,
+              0.1,
+              -0.1,
+              0.1
+            ],
+            "3": [
+              -2.0,
+              2.0,
+              -2.0,
+              2.0,
+              -2.0,
+              2.0,
+              -2.0,
+              2.0,
+              -2.0,
+              2.0,
+              -0.1,
+              0.1,
+              -0.1,
+              0.1,
+              -0.1,
+              0.1,
+              -0.1,
+              0.1,
+              -0.1,
+              0.1
+            ],
+            "4": [
+              -2.0,
+              2.0,
+              -2.0,
+              2.0,
+              -2.0,
+              2.0,
+              -2.0,
+              2.0,
+              -2.0,
+              2.0,
+              -0.1,
+              0.1,
+              -0.1,
+              0.1,
+              -0.1,
+              0.1,
+              -0.1,
+              0.1,
+              -0.1,
+              0.1
+            ]
+          },
+          "site_series_device_order": {
+            "1": [
+              1,
+              5,
+              9,
+              13,
+              17,
+              21,
+              25,
+              29,
+              33,
+              37,
+              41,
+              45,
+              49,
+              53,
+              57,
+              61,
+              65,
+              69,
+              73,
+              77
+            ],
+            "2": [
+              2,
+              6,
+              10,
+              14,
+              18,
+              22,
+              26,
+              30,
+              34,
+              38,
+              42,
+              46,
+              50,
+              54,
+              58,
+              62,
+              66,
+              70,
+              74,
+              78
+            ],
+            "3": [
+              3,
+              7,
+              11,
+              15,
+              19,
+              23,
+              27,
+              31,
+              35,
+              39,
+              43,
+              47,
+              51,
+              55,
+              59,
+              63,
+              67,
+              71,
+              75,
+              79
+            ],
+            "4": [
+              4,
+              8,
+              12,
+              16,
+              20,
+              24,
+              28,
+              32,
+              36,
+              40,
+              44,
+              48,
+              52,
+              56,
+              60,
+              64,
+              68,
+              72,
+              76,
+              80
+            ]
+          },
+          "supporting_tests": [
+            "0_Main.control.Test0#CP",
+            "1_Main.control.Test1#CP",
+            "2_Main.control.Test2#CP",
+            "3_Main.control.Test3#CP",
+            "4_Main.control.Test4#CP",
+            "5_Main.control.Test5#CP",
+            "6_Main.control.Test6#CP",
+            "7_Main.control.Test7#CP",
+            "8_Main.control.Test8#CP",
+            "9_Main.control.Test9#CP",
+            "10_Main.control.Test10#CP",
+            "11_Main.control.Test11#CP",
+            "12_Main.control.Test12#CP",
+            "13_Main.control.Test13#CP",
+            "14_Main.control.Test14#CP",
+            "15_Main.control.Test15#CP",
+            "16_Main.control.Test16#CP",
+            "17_Main.control.Test17#CP",
+            "18_Main.control.Test18#CP",
+            "19_Main.control.Test19#CP",
+            "20_Main.control.Test20#CP",
+            "21_Main.control.Test21#CP",
+            "22_Main.control.Test22#CP",
+            "23_Main.control.Test23#CP"
+          ],
+          "baseline": {
+            "sd": 2.0,
+            "thresholds": {
+              "family_log_drop": 0.6931471805599453
+            },
+            "calibration_sha256": "B_SYNTHETIC_CONTROL_ONLY"
+          },
+          "score_semantics": "family q95 log SD decrease / frozen threshold; not probability",
+          "axis": "completed-device order; site histories have independent early/late halves",
+          "units": "source CSV units; physical units unverified",
+          "suggestion": "Check clipping, stale results, range changes and transient settling; inspect the raw site traces."
+        }
+      ],
+      "scans": [
+        {
+          "family": "Main.control",
+          "completed_devices": 32,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 8,
+            "2": 8,
+            "3": 8,
+            "4": 8
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 40,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 10,
+            "2": 10,
+            "3": 10,
+            "4": 10
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 48,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.20210794435386625,
+          "threshold": 0.6931471805599453,
+          "score": 0.29158012904358543,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 12,
+            "2": 12,
+            "3": 12,
+            "4": 12
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 56,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.43598742404982205,
+          "threshold": 0.6931471805599453,
+          "score": 0.6289968945666319,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 14,
+            "2": 14,
+            "3": 14,
+            "4": 14
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 64,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.6894111731405946,
+          "threshold": 0.6931471805599453,
+          "score": 0.9946100806233784,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 16,
+            "2": 16,
+            "3": 16,
+            "4": 16
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 72,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 24,
+          "statistic": 1.140167242029613,
+          "threshold": 0.6931471805599453,
+          "score": 1.644913625860169,
+          "passed": true,
+          "persistence_scans": 1,
+          "site_samples": {
+            "1": 18,
+            "2": 18,
+            "3": 18,
+            "4": 18
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 80,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 24,
+          "statistic": 2.3025850929940455,
+          "threshold": 0.6931471805599453,
+          "score": 3.321928094887362,
+          "passed": true,
+          "persistence_scans": 2,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 88,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 24,
+          "statistic": 2.1913257197213616,
+          "threshold": 0.6931471805599453,
+          "score": 3.161414748814447,
+          "passed": true,
+          "persistence_scans": 2,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 96,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 24,
+          "statistic": 2.048004920770581,
+          "threshold": 0.6931471805599453,
+          "score": 2.9546465429119113,
+          "passed": true,
+          "persistence_scans": 2,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 104,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 24,
+          "statistic": 1.8463112201963852,
+          "threshold": 0.6931471805599453,
+          "score": 2.6636640413149757,
+          "passed": true,
+          "persistence_scans": 2,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 112,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 24,
+          "statistic": 1.5028413022035794,
+          "threshold": 0.6931471805599453,
+          "score": 2.168141693932216,
+          "passed": true,
+          "persistence_scans": 2,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 120,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 128,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 136,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 144,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 152,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 160,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        }
+      ],
+      "exception": null,
+      "final_extra_alerts": [],
+      "bound": {
+        "tests": 24,
+        "sites": 4,
+        "maximum_measurement_slots": 1920,
+        "retained_measurement_slots": 1920,
+        "maximum_order_slots": 80
+      }
+    },
+    "constant_mean_offset": {
+      "mode": "constant_mean_offset",
+      "devices": 160,
+      "alerts": [],
+      "scans": [
+        {
+          "family": "Main.control",
+          "completed_devices": 32,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 8,
+            "2": 8,
+            "3": 8,
+            "4": 8
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 40,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 10,
+            "2": 10,
+            "3": 10,
+            "4": 10
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 48,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 12,
+            "2": 12,
+            "3": 12,
+            "4": 12
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 56,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 14,
+            "2": 14,
+            "3": 14,
+            "4": 14
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 64,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 16,
+            "2": 16,
+            "3": 16,
+            "4": 16
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 72,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 18,
+            "2": 18,
+            "3": 18,
+            "4": 18
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 80,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 88,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 96,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 104,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 112,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 120,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 128,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 136,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 144,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 152,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 160,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        }
+      ],
+      "exception": null,
+      "final_extra_alerts": [],
+      "bound": {
+        "tests": 24,
+        "sites": 4,
+        "maximum_measurement_slots": 1920,
+        "retained_measurement_slots": 1920,
+        "maximum_order_slots": 80
+      }
+    },
+    "site_offsets": {
+      "mode": "site_offsets",
+      "devices": 160,
+      "alerts": [],
+      "scans": [
+        {
+          "family": "Main.control",
+          "completed_devices": 32,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 8,
+            "2": 8,
+            "3": 8,
+            "4": 8
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 40,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 10,
+            "2": 10,
+            "3": 10,
+            "4": 10
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 48,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 12,
+            "2": 12,
+            "3": 12,
+            "4": 12
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 56,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 14,
+            "2": 14,
+            "3": 14,
+            "4": 14
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 64,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 16,
+            "2": 16,
+            "3": 16,
+            "4": 16
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 72,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 18,
+            "2": 18,
+            "3": 18,
+            "4": 18
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 80,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 88,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 96,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 104,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 112,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 120,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 128,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 136,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 144,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 152,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 160,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        }
+      ],
+      "exception": null,
+      "final_extra_alerts": [],
+      "bound": {
+        "tests": 24,
+        "sites": 4,
+        "maximum_measurement_slots": 1920,
+        "retained_measurement_slots": 1920,
+        "maximum_order_slots": 80
+      }
+    },
+    "mean_step": {
+      "mode": "mean_step",
+      "devices": 160,
+      "alerts": [
+        {
+          "family": "Main.control",
+          "completed_devices": 96,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 24,
+          "statistic": 3.199297467267604,
+          "threshold": 0.6931471805599453,
+          "score": 4.615610590355593,
+          "passed": true,
+          "persistence_scans": 2,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          },
+          "kind": "spread_down",
+          "site": "all",
+          "test": "0_Main.control.Test0#CP",
+          "observed": 2.0,
+          "reference": 49.03060268852505,
+          "detector": "pooled_within_site_temporal_q95_v1",
+          "message": "Main.control: pooled within-site spread decreased in 24/24 tests",
+          "series": [
+            -2.0,
+            -2.0,
+            -2.0,
+            -2.0,
+            2.0,
+            2.0,
+            2.0,
+            2.0,
+            -2.0,
+            -2.0,
+            -2.0,
+            -2.0,
+            2.0,
+            2.0,
+            2.0,
+            2.0,
+            -2.0,
+            -2.0,
+            -2.0,
+            -2.0,
+            2.0,
+            2.0,
+            2.0,
+            2.0,
+            98.0,
+            98.0,
+            98.0,
+            98.0,
+            102.0,
+            102.0,
+            102.0,
+            102.0,
+            98.0,
+            98.0,
+            98.0,
+            98.0,
+            102.0,
+            102.0,
+            102.0,
+            102.0,
+            98.0,
+            98.0,
+            98.0,
+            98.0,
+            102.0,
+            102.0,
+            102.0,
+            102.0,
+            98.0,
+            98.0,
+            98.0,
+            98.0,
+            102.0,
+            102.0,
+            102.0,
+            102.0,
+            98.0,
+            98.0,
+            98.0,
+            98.0,
+            102.0,
+            102.0,
+            102.0,
+            102.0,
+            98.0,
+            98.0,
+            98.0,
+            98.0,
+            102.0,
+            102.0,
+            102.0,
+            102.0,
+            98.0,
+            98.0,
+            98.0,
+            98.0,
+            102.0,
+            102.0,
+            102.0,
+            102.0
+          ],
+          "site_series": {
+            "1": [
+              -2.0,
+              2.0,
+              -2.0,
+              2.0,
+              -2.0,
+              2.0,
+              98.0,
+              102.0,
+              98.0,
+              102.0,
+              98.0,
+              102.0,
+              98.0,
+              102.0,
+              98.0,
+              102.0,
+              98.0,
+              102.0,
+              98.0,
+              102.0
+            ],
+            "2": [
+              -2.0,
+              2.0,
+              -2.0,
+              2.0,
+              -2.0,
+              2.0,
+              98.0,
+              102.0,
+              98.0,
+              102.0,
+              98.0,
+              102.0,
+              98.0,
+              102.0,
+              98.0,
+              102.0,
+              98.0,
+              102.0,
+              98.0,
+              102.0
+            ],
+            "3": [
+              -2.0,
+              2.0,
+              -2.0,
+              2.0,
+              -2.0,
+              2.0,
+              98.0,
+              102.0,
+              98.0,
+              102.0,
+              98.0,
+              102.0,
+              98.0,
+              102.0,
+              98.0,
+              102.0,
+              98.0,
+              102.0,
+              98.0,
+              102.0
+            ],
+            "4": [
+              -2.0,
+              2.0,
+              -2.0,
+              2.0,
+              -2.0,
+              2.0,
+              98.0,
+              102.0,
+              98.0,
+              102.0,
+              98.0,
+              102.0,
+              98.0,
+              102.0,
+              98.0,
+              102.0,
+              98.0,
+              102.0,
+              98.0,
+              102.0
+            ]
+          },
+          "site_series_device_order": {
+            "1": [
+              17,
+              21,
+              25,
+              29,
+              33,
+              37,
+              41,
+              45,
+              49,
+              53,
+              57,
+              61,
+              65,
+              69,
+              73,
+              77,
+              81,
+              85,
+              89,
+              93
+            ],
+            "2": [
+              18,
+              22,
+              26,
+              30,
+              34,
+              38,
+              42,
+              46,
+              50,
+              54,
+              58,
+              62,
+              66,
+              70,
+              74,
+              78,
+              82,
+              86,
+              90,
+              94
+            ],
+            "3": [
+              19,
+              23,
+              27,
+              31,
+              35,
+              39,
+              43,
+              47,
+              51,
+              55,
+              59,
+              63,
+              67,
+              71,
+              75,
+              79,
+              83,
+              87,
+              91,
+              95
+            ],
+            "4": [
+              20,
+              24,
+              28,
+              32,
+              36,
+              40,
+              44,
+              48,
+              52,
+              56,
+              60,
+              64,
+              68,
+              72,
+              76,
+              80,
+              84,
+              88,
+              92,
+              96
+            ]
+          },
+          "supporting_tests": [
+            "0_Main.control.Test0#CP",
+            "1_Main.control.Test1#CP",
+            "2_Main.control.Test2#CP",
+            "3_Main.control.Test3#CP",
+            "4_Main.control.Test4#CP",
+            "5_Main.control.Test5#CP",
+            "6_Main.control.Test6#CP",
+            "7_Main.control.Test7#CP",
+            "8_Main.control.Test8#CP",
+            "9_Main.control.Test9#CP",
+            "10_Main.control.Test10#CP",
+            "11_Main.control.Test11#CP",
+            "12_Main.control.Test12#CP",
+            "13_Main.control.Test13#CP",
+            "14_Main.control.Test14#CP",
+            "15_Main.control.Test15#CP",
+            "16_Main.control.Test16#CP",
+            "17_Main.control.Test17#CP",
+            "18_Main.control.Test18#CP",
+            "19_Main.control.Test19#CP",
+            "20_Main.control.Test20#CP",
+            "21_Main.control.Test21#CP",
+            "22_Main.control.Test22#CP",
+            "23_Main.control.Test23#CP"
+          ],
+          "baseline": {
+            "sd": 2.0,
+            "thresholds": {
+              "family_log_drop": 0.6931471805599453
+            },
+            "calibration_sha256": "B_SYNTHETIC_CONTROL_ONLY"
+          },
+          "score_semantics": "family q95 log SD decrease / frozen threshold; not probability",
+          "axis": "completed-device order; site histories have independent early/late halves",
+          "units": "source CSV units; physical units unverified",
+          "suggestion": "Check clipping, stale results, range changes and transient settling; inspect the raw site traces."
+        }
+      ],
+      "scans": [
+        {
+          "family": "Main.control",
+          "completed_devices": 32,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 8,
+            "2": 8,
+            "3": 8,
+            "4": 8
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 40,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 10,
+            "2": 10,
+            "3": 10,
+            "4": 10
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 48,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": -3.1608834980106986,
+          "threshold": 0.6931471805599453,
+          "score": -4.560190947407794,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 12,
+            "2": 12,
+            "3": 12,
+            "4": 12
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 56,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": -3.2129744688086253,
+          "threshold": 0.6931471805599453,
+          "score": -4.635342332653055,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 14,
+            "2": 14,
+            "3": 14,
+            "4": 14
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 64,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": -3.076100319146787,
+          "threshold": 0.6931471805599453,
+          "score": -4.437874675710027,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 16,
+            "2": 16,
+            "3": 16,
+            "4": 16
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 72,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": -2.7423984667453274,
+          "threshold": 0.6931471805599453,
+          "score": -3.956444668114981,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 18,
+            "2": 18,
+            "3": 18,
+            "4": 18
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 80,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 88,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 24,
+          "statistic": 2.9969807136532847,
+          "threshold": 0.6931471805599453,
+          "score": 4.323729213227461,
+          "passed": true,
+          "persistence_scans": 1,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 96,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 24,
+          "statistic": 3.199297467267604,
+          "threshold": 0.6931471805599453,
+          "score": 4.615610590355593,
+          "passed": true,
+          "persistence_scans": 2,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 104,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 24,
+          "statistic": 3.199297467267604,
+          "threshold": 0.6931471805599453,
+          "score": 4.615610590355593,
+          "passed": true,
+          "persistence_scans": 2,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 112,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 24,
+          "statistic": 2.9969807136532847,
+          "threshold": 0.6931471805599453,
+          "score": 4.323729213227461,
+          "passed": true,
+          "persistence_scans": 2,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 120,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 128,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 136,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 144,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 152,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 160,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        }
+      ],
+      "exception": null,
+      "final_extra_alerts": [],
+      "bound": {
+        "tests": 24,
+        "sites": 4,
+        "maximum_measurement_slots": 1920,
+        "retained_measurement_slots": 1920,
+        "maximum_order_slots": 80
+      }
+    },
+    "single_impulse": {
+      "mode": "single_impulse",
+      "devices": 160,
+      "alerts": [
+        {
+          "family": "Main.control",
+          "completed_devices": 40,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 24,
+          "statistic": 2.3275750591465565,
+          "threshold": 0.6931471805599453,
+          "score": 3.3579809951275728,
+          "passed": true,
+          "persistence_scans": 2,
+          "site_samples": {
+            "1": 10,
+            "2": 10,
+            "3": 10,
+            "4": 10
+          },
+          "kind": "spread_down",
+          "site": "all",
+          "test": "0_Main.control.Test0#CP",
+          "observed": 1.9595917942265426,
+          "reference": 20.091789367798977,
+          "detector": "pooled_within_site_temporal_q95_v1",
+          "message": "Main.control: pooled within-site spread decreased in 24/24 tests",
+          "series": [
+            100.0,
+            -2.0,
+            -2.0,
+            -2.0,
+            2.0,
+            2.0,
+            2.0,
+            2.0,
+            -2.0,
+            -2.0,
+            -2.0,
+            -2.0,
+            2.0,
+            2.0,
+            2.0,
+            2.0,
+            -2.0,
+            -2.0,
+            -2.0,
+            -2.0,
+            2.0,
+            2.0,
+            2.0,
+            2.0,
+            -2.0,
+            -2.0,
+            -2.0,
+            -2.0,
+            2.0,
+            2.0,
+            2.0,
+            2.0,
+            -2.0,
+            -2.0,
+            -2.0,
+            -2.0,
+            2.0,
+            2.0,
+            2.0,
+            2.0
+          ],
+          "site_series": {
+            "1": [
+              100.0,
+              2.0,
+              -2.0,
+              2.0,
+              -2.0,
+              2.0,
+              -2.0,
+              2.0,
+              -2.0,
+              2.0
+            ],
+            "2": [
+              -2.0,
+              2.0,
+              -2.0,
+              2.0,
+              -2.0,
+              2.0,
+              -2.0,
+              2.0,
+              -2.0,
+              2.0
+            ],
+            "3": [
+              -2.0,
+              2.0,
+              -2.0,
+              2.0,
+              -2.0,
+              2.0,
+              -2.0,
+              2.0,
+              -2.0,
+              2.0
+            ],
+            "4": [
+              -2.0,
+              2.0,
+              -2.0,
+              2.0,
+              -2.0,
+              2.0,
+              -2.0,
+              2.0,
+              -2.0,
+              2.0
+            ]
+          },
+          "site_series_device_order": {
+            "1": [
+              1,
+              5,
+              9,
+              13,
+              17,
+              21,
+              25,
+              29,
+              33,
+              37
+            ],
+            "2": [
+              2,
+              6,
+              10,
+              14,
+              18,
+              22,
+              26,
+              30,
+              34,
+              38
+            ],
+            "3": [
+              3,
+              7,
+              11,
+              15,
+              19,
+              23,
+              27,
+              31,
+              35,
+              39
+            ],
+            "4": [
+              4,
+              8,
+              12,
+              16,
+              20,
+              24,
+              28,
+              32,
+              36,
+              40
+            ]
+          },
+          "supporting_tests": [
+            "0_Main.control.Test0#CP",
+            "1_Main.control.Test1#CP",
+            "2_Main.control.Test2#CP",
+            "3_Main.control.Test3#CP",
+            "4_Main.control.Test4#CP",
+            "5_Main.control.Test5#CP",
+            "6_Main.control.Test6#CP",
+            "7_Main.control.Test7#CP",
+            "8_Main.control.Test8#CP",
+            "9_Main.control.Test9#CP",
+            "10_Main.control.Test10#CP",
+            "11_Main.control.Test11#CP",
+            "12_Main.control.Test12#CP",
+            "13_Main.control.Test13#CP",
+            "14_Main.control.Test14#CP",
+            "15_Main.control.Test15#CP",
+            "16_Main.control.Test16#CP",
+            "17_Main.control.Test17#CP",
+            "18_Main.control.Test18#CP",
+            "19_Main.control.Test19#CP",
+            "20_Main.control.Test20#CP",
+            "21_Main.control.Test21#CP",
+            "22_Main.control.Test22#CP",
+            "23_Main.control.Test23#CP"
+          ],
+          "baseline": {
+            "sd": 2.0,
+            "thresholds": {
+              "family_log_drop": 0.6931471805599453
+            },
+            "calibration_sha256": "B_SYNTHETIC_CONTROL_ONLY"
+          },
+          "score_semantics": "family q95 log SD decrease / frozen threshold; not probability",
+          "axis": "completed-device order; site histories have independent early/late halves",
+          "units": "source CSV units; physical units unverified",
+          "suggestion": "Check clipping, stale results, range changes and transient settling; inspect the raw site traces."
+        }
+      ],
+      "scans": [
+        {
+          "family": "Main.control",
+          "completed_devices": 32,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 24,
+          "statistic": 2.3791467762977456,
+          "threshold": 0.6931471805599453,
+          "score": 3.4323832557117218,
+          "passed": true,
+          "persistence_scans": 1,
+          "site_samples": {
+            "1": 8,
+            "2": 8,
+            "3": 8,
+            "4": 8
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 40,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 24,
+          "statistic": 2.3275750591465565,
+          "threshold": 0.6931471805599453,
+          "score": 3.3579809951275728,
+          "passed": true,
+          "persistence_scans": 2,
+          "site_samples": {
+            "1": 10,
+            "2": 10,
+            "3": 10,
+            "4": 10
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 48,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 24,
+          "statistic": 2.233313125770012,
+          "threshold": 0.6931471805599453,
+          "score": 3.2219897713006262,
+          "passed": true,
+          "persistence_scans": 2,
+          "site_samples": {
+            "1": 12,
+            "2": 12,
+            "3": 12,
+            "4": 12
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 56,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 24,
+          "statistic": 2.185316928872699,
+          "threshold": 0.6931471805599453,
+          "score": 3.1527458960553427,
+          "passed": true,
+          "persistence_scans": 2,
+          "site_samples": {
+            "1": 14,
+            "2": 14,
+            "3": 14,
+            "4": 14
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 64,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 24,
+          "statistic": 2.1165718158818354,
+          "threshold": 0.6931471805599453,
+          "score": 3.053567662458072,
+          "passed": true,
+          "persistence_scans": 2,
+          "site_samples": {
+            "1": 16,
+            "2": 16,
+            "3": 16,
+            "4": 16
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 72,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 24,
+          "statistic": 2.075323063795371,
+          "threshold": 0.6931471805599453,
+          "score": 2.9940582923800716,
+          "passed": true,
+          "persistence_scans": 2,
+          "site_samples": {
+            "1": 18,
+            "2": 18,
+            "3": 18,
+            "4": 18
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 80,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 24,
+          "statistic": 2.0212843476373945,
+          "threshold": 0.6931471805599453,
+          "score": 2.9160969045629526,
+          "passed": true,
+          "persistence_scans": 2,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 88,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 96,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 104,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 112,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 120,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 128,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 136,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 144,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 152,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 160,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        }
+      ],
+      "exception": null,
+      "final_extra_alerts": [],
+      "bound": {
+        "tests": 24,
+        "sites": 4,
+        "maximum_measurement_slots": 1920,
+        "retained_measurement_slots": 1920,
+        "maximum_order_slots": 80
+      }
+    },
+    "missing_site": {
+      "mode": "missing_site",
+      "devices": 160,
+      "alerts": [],
+      "scans": [
+        {
+          "family": "Main.control",
+          "completed_devices": 32,
+          "family_tests": 24,
+          "valid_tests": 0,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 8,
+            "2": 8,
+            "3": 8,
+            "4": 8
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 40,
+          "family_tests": 24,
+          "valid_tests": 0,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 10,
+            "2": 10,
+            "3": 10,
+            "4": 10
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 48,
+          "family_tests": 24,
+          "valid_tests": 0,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 12,
+            "2": 12,
+            "3": 12,
+            "4": 12
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 56,
+          "family_tests": 24,
+          "valid_tests": 0,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 14,
+            "2": 14,
+            "3": 14,
+            "4": 14
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 64,
+          "family_tests": 24,
+          "valid_tests": 0,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 16,
+            "2": 16,
+            "3": 16,
+            "4": 16
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 72,
+          "family_tests": 24,
+          "valid_tests": 0,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 18,
+            "2": 18,
+            "3": 18,
+            "4": 18
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 80,
+          "family_tests": 24,
+          "valid_tests": 0,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 88,
+          "family_tests": 24,
+          "valid_tests": 0,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 96,
+          "family_tests": 24,
+          "valid_tests": 0,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 104,
+          "family_tests": 24,
+          "valid_tests": 0,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 112,
+          "family_tests": 24,
+          "valid_tests": 0,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 120,
+          "family_tests": 24,
+          "valid_tests": 0,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 128,
+          "family_tests": 24,
+          "valid_tests": 0,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 136,
+          "family_tests": 24,
+          "valid_tests": 0,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 144,
+          "family_tests": 24,
+          "valid_tests": 0,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 152,
+          "family_tests": 24,
+          "valid_tests": 0,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 160,
+          "family_tests": 24,
+          "valid_tests": 0,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        }
+      ],
+      "exception": null,
+      "final_extra_alerts": [],
+      "bound": {
+        "tests": 24,
+        "sites": 4,
+        "maximum_measurement_slots": 1920,
+        "retained_measurement_slots": 1920,
+        "maximum_order_slots": 80
+      }
+    },
+    "nonfinite_site": {
+      "mode": "nonfinite_site",
+      "devices": 160,
+      "alerts": [],
+      "scans": [
+        {
+          "family": "Main.control",
+          "completed_devices": 32,
+          "family_tests": 24,
+          "valid_tests": 0,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 8,
+            "2": 8,
+            "3": 8,
+            "4": 8
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 40,
+          "family_tests": 24,
+          "valid_tests": 0,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 10,
+            "2": 10,
+            "3": 10,
+            "4": 10
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 48,
+          "family_tests": 24,
+          "valid_tests": 0,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 12,
+            "2": 12,
+            "3": 12,
+            "4": 12
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 56,
+          "family_tests": 24,
+          "valid_tests": 0,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 14,
+            "2": 14,
+            "3": 14,
+            "4": 14
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 64,
+          "family_tests": 24,
+          "valid_tests": 0,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 16,
+            "2": 16,
+            "3": 16,
+            "4": 16
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 72,
+          "family_tests": 24,
+          "valid_tests": 0,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 18,
+            "2": 18,
+            "3": 18,
+            "4": 18
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 80,
+          "family_tests": 24,
+          "valid_tests": 0,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 88,
+          "family_tests": 24,
+          "valid_tests": 0,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 96,
+          "family_tests": 24,
+          "valid_tests": 0,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 104,
+          "family_tests": 24,
+          "valid_tests": 0,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 112,
+          "family_tests": 24,
+          "valid_tests": 0,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 120,
+          "family_tests": 24,
+          "valid_tests": 0,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 128,
+          "family_tests": 24,
+          "valid_tests": 0,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 136,
+          "family_tests": 24,
+          "valid_tests": 0,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 144,
+          "family_tests": 24,
+          "valid_tests": 0,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 152,
+          "family_tests": 24,
+          "valid_tests": 0,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 160,
+          "family_tests": 24,
+          "valid_tests": 0,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        }
+      ],
+      "exception": null,
+      "final_extra_alerts": [],
+      "bound": {
+        "tests": 24,
+        "sites": 4,
+        "maximum_measurement_slots": 1920,
+        "retained_measurement_slots": 1920,
+        "maximum_order_slots": 80
+      }
+    },
+    "metadata": {
+      "mode": "metadata",
+      "devices": 160,
+      "alerts": [],
+      "scans": [
+        {
+          "family": "Main.control",
+          "completed_devices": 32,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 8,
+            "2": 8,
+            "3": 8,
+            "4": 8
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 40,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 10,
+            "2": 10,
+            "3": 10,
+            "4": 10
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 48,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 12,
+            "2": 12,
+            "3": 12,
+            "4": 12
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 56,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 14,
+            "2": 14,
+            "3": 14,
+            "4": 14
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 64,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 16,
+            "2": 16,
+            "3": 16,
+            "4": 16
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 72,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 18,
+            "2": 18,
+            "3": 18,
+            "4": 18
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 80,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 88,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 96,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 104,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 112,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 120,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 128,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 136,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 144,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 152,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 160,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        }
+      ],
+      "exception": null,
+      "final_extra_alerts": [],
+      "bound": {
+        "tests": 24,
+        "sites": 4,
+        "maximum_measurement_slots": 1920,
+        "retained_measurement_slots": 1920,
+        "maximum_order_slots": 80
+      }
+    },
+    "large_finite": {
+      "mode": "large_finite",
+      "devices": 160,
+      "alerts": [],
+      "scans": [
+        {
+          "family": "Main.control",
+          "completed_devices": 32,
+          "family_tests": 24,
+          "valid_tests": 0,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 8,
+            "2": 8,
+            "3": 8,
+            "4": 8
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 40,
+          "family_tests": 24,
+          "valid_tests": 0,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 10,
+            "2": 10,
+            "3": 10,
+            "4": 10
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 48,
+          "family_tests": 24,
+          "valid_tests": 0,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 12,
+            "2": 12,
+            "3": 12,
+            "4": 12
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 56,
+          "family_tests": 24,
+          "valid_tests": 0,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 14,
+            "2": 14,
+            "3": 14,
+            "4": 14
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 64,
+          "family_tests": 24,
+          "valid_tests": 0,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 16,
+            "2": 16,
+            "3": 16,
+            "4": 16
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 72,
+          "family_tests": 24,
+          "valid_tests": 0,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 18,
+            "2": 18,
+            "3": 18,
+            "4": 18
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 80,
+          "family_tests": 24,
+          "valid_tests": 0,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 88,
+          "family_tests": 24,
+          "valid_tests": 0,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 96,
+          "family_tests": 24,
+          "valid_tests": 0,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 104,
+          "family_tests": 24,
+          "valid_tests": 0,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 112,
+          "family_tests": 24,
+          "valid_tests": 0,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 120,
+          "family_tests": 24,
+          "valid_tests": 0,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 128,
+          "family_tests": 24,
+          "valid_tests": 0,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 136,
+          "family_tests": 24,
+          "valid_tests": 0,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 144,
+          "family_tests": 24,
+          "valid_tests": 0,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 152,
+          "family_tests": 24,
+          "valid_tests": 0,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        },
+        {
+          "family": "Main.control",
+          "completed_devices": 160,
+          "family_tests": 24,
+          "valid_tests": 0,
+          "hits": 0,
+          "statistic": 0.0,
+          "threshold": 0.6931471805599453,
+          "score": 0.0,
+          "passed": false,
+          "persistence_scans": 0,
+          "site_samples": {
+            "1": 20,
+            "2": 20,
+            "3": 20,
+            "4": 20
+          }
+        }
+      ],
+      "exception": null,
+      "final_extra_alerts": [],
+      "bound": {
+        "tests": 24,
+        "sites": 4,
+        "maximum_measurement_slots": 1920,
+        "retained_measurement_slots": 1920,
+        "maximum_order_slots": 80
+      }
+    }
+  },
+  "short_finalization": {
+    "mode": "reduced",
+    "devices": 72,
+    "alerts": [],
+    "scans": [
+      {
+        "family": "Main.control",
+        "completed_devices": 32,
+        "family_tests": 24,
+        "valid_tests": 24,
+        "hits": 0,
+        "statistic": 0.0,
+        "threshold": 0.6931471805599453,
+        "score": 0.0,
+        "passed": false,
+        "persistence_scans": 0,
+        "site_samples": {
+          "1": 8,
+          "2": 8,
+          "3": 8,
+          "4": 8
+        }
+      },
+      {
+        "family": "Main.control",
+        "completed_devices": 40,
+        "family_tests": 24,
+        "valid_tests": 24,
+        "hits": 0,
+        "statistic": 0.0,
+        "threshold": 0.6931471805599453,
+        "score": 0.0,
+        "passed": false,
+        "persistence_scans": 0,
+        "site_samples": {
+          "1": 10,
+          "2": 10,
+          "3": 10,
+          "4": 10
+        }
+      },
+      {
+        "family": "Main.control",
+        "completed_devices": 48,
+        "family_tests": 24,
+        "valid_tests": 24,
+        "hits": 0,
+        "statistic": 0.20210794435386625,
+        "threshold": 0.6931471805599453,
+        "score": 0.29158012904358543,
+        "passed": false,
+        "persistence_scans": 0,
+        "site_samples": {
+          "1": 12,
+          "2": 12,
+          "3": 12,
+          "4": 12
+        }
+      },
+      {
+        "family": "Main.control",
+        "completed_devices": 56,
+        "family_tests": 24,
+        "valid_tests": 24,
+        "hits": 0,
+        "statistic": 0.43598742404982205,
+        "threshold": 0.6931471805599453,
+        "score": 0.6289968945666319,
+        "passed": false,
+        "persistence_scans": 0,
+        "site_samples": {
+          "1": 14,
+          "2": 14,
+          "3": 14,
+          "4": 14
+        }
+      },
+      {
+        "family": "Main.control",
+        "completed_devices": 64,
+        "family_tests": 24,
+        "valid_tests": 24,
+        "hits": 0,
+        "statistic": 0.6894111731405946,
+        "threshold": 0.6931471805599453,
+        "score": 0.9946100806233784,
+        "passed": false,
+        "persistence_scans": 0,
+        "site_samples": {
+          "1": 16,
+          "2": 16,
+          "3": 16,
+          "4": 16
+        }
+      },
+      {
+        "family": "Main.control",
+        "completed_devices": 72,
+        "family_tests": 24,
+        "valid_tests": 24,
+        "hits": 24,
+        "statistic": 1.140167242029613,
+        "threshold": 0.6931471805599453,
+        "score": 1.644913625860169,
+        "passed": true,
+        "persistence_scans": 1,
+        "site_samples": {
+          "1": 18,
+          "2": 18,
+          "3": 18,
+          "4": 18
+        }
+      }
+    ],
+    "exception": null,
+    "final_extra_alerts": [],
+    "bound": {
+      "tests": 24,
+      "sites": 4,
+      "maximum_measurement_slots": 1920,
+      "retained_measurement_slots": 1728,
+      "maximum_order_slots": 80
+    }
+  },
+  "fixture": "24 identical synthetic tests; four sites; +/-2 noise alternating per-site; step adds100 after site sample10, reduction scales by0.05 after sample10;160devices",
+  "limits": [
+    "Synthetic behavior audit of this exact source SHA only; C may still be editing.",
+    "Correlated tests intentionally expose family-vote dependence; not independent samples.",
+    "No calibration/wafer generalization or live SDK acceptance."
+  ]
+}

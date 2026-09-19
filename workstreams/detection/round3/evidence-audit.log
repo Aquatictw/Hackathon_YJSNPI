@@ -1,0 +1,2 @@
+PASS: exact source/input hashes, frozen calibration, 25 wafers/2000 devices, all14 original alerts unchanged, six supplementary alerts, zero removed.
+RESEARCH GATE FAIL: 20/20 constant-variance location-step false positives; 220/240 controls meet expectations. Reject promotion. Diagnostic category matching7/7 is not accepted replay performance.

@@ -1,0 +1,46 @@
+{
+  "source_sha256": "9b5f530d47cf11ae6ee0009cb348b5101bae40a8332ebd32bdea3c347560aba8",
+  "checks": {
+    "no_change_no_alert": true,
+    "reduction_detected": true,
+    "constant_mean_offset_no_alert": true,
+    "site_offsets_no_alert": true,
+    "mean_step_no_spread_alert": false,
+    "single_impulse_no_persistent_spread_alert": false,
+    "missing_site_abstains": true,
+    "nonfinite_site_abstains": true,
+    "metadata_cannot_change_results": true,
+    "finalization_cannot_supply_second_vote": true,
+    "bounded_after_160_devices": true,
+    "finite_extremes_do_not_raise": true,
+    "no_normal_control_exceptions": true
+  },
+  "alerts": {
+    "no_change": [],
+    "reduced": [
+      [
+        "spread_down",
+        80
+      ]
+    ],
+    "constant_mean_offset": [],
+    "site_offsets": [],
+    "mean_step": [
+      [
+        "spread_down",
+        96
+      ]
+    ],
+    "single_impulse": [
+      [
+        "spread_down",
+        40
+      ]
+    ],
+    "missing_site": [],
+    "nonfinite_site": [],
+    "metadata": [],
+    "large_finite": []
+  },
+  "exceptions": {}
+}

@@ -1,0 +1,351 @@
+{
+  "checks": {
+    "w25_spread_down": true,
+    "other_expected_categories_no_later": true,
+    "w2_low_yield_preserved": true,
+    "all_baseline_alerts_preserved": true,
+    "all_normal_labels_no_extra_alerts": true
+  },
+  "all_wafer_gates_pass": true,
+  "normal_label_wafers": [
+    2,
+    4,
+    5,
+    6,
+    7,
+    8,
+    10,
+    11,
+    12,
+    13,
+    15,
+    16,
+    17,
+    19,
+    20,
+    21,
+    22,
+    24
+  ],
+  "wafer_results": [
+    {
+      "wafer": 1,
+      "expected": "site_imbalance",
+      "baseline_count": 1,
+      "candidate_count": 2,
+      "baseline_first": 32,
+      "candidate_first": 32,
+      "removed": [],
+      "added": [
+        [
+          "spread_down",
+          "all",
+          "ORACLE:Main.subflow1",
+          56
+        ]
+      ],
+      "preserved_no_later": true
+    },
+    {
+      "wafer": 2,
+      "expected": "normal",
+      "baseline_count": 1,
+      "candidate_count": 1,
+      "baseline_first": null,
+      "candidate_first": null,
+      "removed": [],
+      "added": [],
+      "preserved_no_later": false
+    },
+    {
+      "wafer": 3,
+      "expected": "low_yield",
+      "baseline_count": 1,
+      "candidate_count": 2,
+      "baseline_first": 32,
+      "candidate_first": 32,
+      "removed": [],
+      "added": [
+        [
+          "spread_down",
+          "all",
+          "ORACLE:Main.subflow1",
+          40
+        ]
+      ],
+      "preserved_no_later": true
+    },
+    {
+      "wafer": 4,
+      "expected": "normal",
+      "baseline_count": 0,
+      "candidate_count": 0,
+      "baseline_first": null,
+      "candidate_first": null,
+      "removed": [],
+      "added": [],
+      "preserved_no_later": false
+    },
+    {
+      "wafer": 5,
+      "expected": "normal",
+      "baseline_count": 0,
+      "candidate_count": 0,
+      "baseline_first": null,
+      "candidate_first": null,
+      "removed": [],
+      "added": [],
+      "preserved_no_later": false
+    },
+    {
+      "wafer": 6,
+      "expected": "normal",
+      "baseline_count": 0,
+      "candidate_count": 0,
+      "baseline_first": null,
+      "candidate_first": null,
+      "removed": [],
+      "added": [],
+      "preserved_no_later": false
+    },
+    {
+      "wafer": 7,
+      "expected": "normal",
+      "baseline_count": 0,
+      "candidate_count": 0,
+      "baseline_first": null,
+      "candidate_first": null,
+      "removed": [],
+      "added": [],
+      "preserved_no_later": false
+    },
+    {
+      "wafer": 8,
+      "expected": "normal",
+      "baseline_count": 0,
+      "candidate_count": 0,
+      "baseline_first": null,
+      "candidate_first": null,
+      "removed": [],
+      "added": [],
+      "preserved_no_later": false
+    },
+    {
+      "wafer": 9,
+      "expected": "low_yield",
+      "baseline_count": 1,
+      "candidate_count": 1,
+      "baseline_first": 72,
+      "candidate_first": 72,
+      "removed": [],
+      "added": [],
+      "preserved_no_later": true
+    },
+    {
+      "wafer": 10,
+      "expected": "normal",
+      "baseline_count": 0,
+      "candidate_count": 0,
+      "baseline_first": null,
+      "candidate_first": null,
+      "removed": [],
+      "added": [],
+      "preserved_no_later": false
+    },
+    {
+      "wafer": 11,
+      "expected": "normal",
+      "baseline_count": 0,
+      "candidate_count": 0,
+      "baseline_first": null,
+      "candidate_first": null,
+      "removed": [],
+      "added": [],
+      "preserved_no_later": false
+    },
+    {
+      "wafer": 12,
+      "expected": "normal",
+      "baseline_count": 0,
+      "candidate_count": 0,
+      "baseline_first": null,
+      "candidate_first": null,
+      "removed": [],
+      "added": [],
+      "preserved_no_later": false
+    },
+    {
+      "wafer": 13,
+      "expected": "normal",
+      "baseline_count": 0,
+      "candidate_count": 0,
+      "baseline_first": null,
+      "candidate_first": null,
+      "removed": [],
+      "added": [],
+      "preserved_no_later": false
+    },
+    {
+      "wafer": 14,
+      "expected": "mean_drift_up",
+      "baseline_count": 3,
+      "candidate_count": 4,
+      "baseline_first": 32,
+      "candidate_first": 32,
+      "removed": [],
+      "added": [
+        [
+          "spread_down",
+          "all",
+          "ORACLE:Main.subflow2",
+          64
+        ]
+      ],
+      "preserved_no_later": true
+    },
+    {
+      "wafer": 15,
+      "expected": "normal",
+      "baseline_count": 0,
+      "candidate_count": 0,
+      "baseline_first": null,
+      "candidate_first": null,
+      "removed": [],
+      "added": [],
+      "preserved_no_later": false
+    },
+    {
+      "wafer": 16,
+      "expected": "normal",
+      "baseline_count": 0,
+      "candidate_count": 0,
+      "baseline_first": null,
+      "candidate_first": null,
+      "removed": [],
+      "added": [],
+      "preserved_no_later": false
+    },
+    {
+      "wafer": 17,
+      "expected": "normal",
+      "baseline_count": 0,
+      "candidate_count": 0,
+      "baseline_first": null,
+      "candidate_first": null,
+      "removed": [],
+      "added": [],
+      "preserved_no_later": false
+    },
+    {
+      "wafer": 18,
+      "expected": "mean_drift_down",
+      "baseline_count": 3,
+      "candidate_count": 4,
+      "baseline_first": 32,
+      "candidate_first": 32,
+      "removed": [],
+      "added": [
+        [
+          "spread_down",
+          "all",
+          "ORACLE:Main.subflow3",
+          64
+        ]
+      ],
+      "preserved_no_later": true
+    },
+    {
+      "wafer": 19,
+      "expected": "normal",
+      "baseline_count": 0,
+      "candidate_count": 0,
+      "baseline_first": null,
+      "candidate_first": null,
+      "removed": [],
+      "added": [],
+      "preserved_no_later": false
+    },
+    {
+      "wafer": 20,
+      "expected": "normal",
+      "baseline_count": 0,
+      "candidate_count": 0,
+      "baseline_first": null,
+      "candidate_first": null,
+      "removed": [],
+      "added": [],
+      "preserved_no_later": false
+    },
+    {
+      "wafer": 21,
+      "expected": "normal",
+      "baseline_count": 0,
+      "candidate_count": 0,
+      "baseline_first": null,
+      "candidate_first": null,
+      "removed": [],
+      "added": [],
+      "preserved_no_later": false
+    },
+    {
+      "wafer": 22,
+      "expected": "normal",
+      "baseline_count": 0,
+      "candidate_count": 0,
+      "baseline_first": null,
+      "candidate_first": null,
+      "removed": [],
+      "added": [],
+      "preserved_no_later": false
+    },
+    {
+      "wafer": 23,
+      "expected": "spread_up",
+      "baseline_count": 4,
+      "candidate_count": 5,
+      "baseline_first": 40,
+      "candidate_first": 40,
+      "removed": [],
+      "added": [
+        [
+          "spread_down",
+          "all",
+          "ORACLE:Main.subflow6",
+          64
+        ]
+      ],
+      "preserved_no_later": true
+    },
+    {
+      "wafer": 24,
+      "expected": "normal",
+      "baseline_count": 0,
+      "candidate_count": 0,
+      "baseline_first": null,
+      "candidate_first": null,
+      "removed": [],
+      "added": [],
+      "preserved_no_later": false
+    },
+    {
+      "wafer": 25,
+      "expected": "spread_down",
+      "baseline_count": 0,
+      "candidate_count": 1,
+      "baseline_first": null,
+      "candidate_first": 80,
+      "removed": [],
+      "added": [
+        [
+          "spread_down",
+          "all",
+          "ORACLE:Main.subflow1",
+          80
+        ]
+      ],
+      "preserved_no_later": true
+    }
+  ],
+  "candidate_controls_and_causality": "NOT_EVALUATED_BY_SUMMARY_COMPARATOR",
+  "promotion": "REQUIRES_A_REVIEW_AND_SEPARATE_CONTROLS"
+}

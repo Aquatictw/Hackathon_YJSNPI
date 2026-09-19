@@ -1,0 +1,85 @@
+test_missing_tests_keep_fixed_denominator_and_validity_gate (test_pooled_challenge.PooledChallengeChecks.test_missing_tests_keep_fixed_denominator_and_validity_gate) ... ok
+test_nonreference_wafer_changes_cannot_change_threshold (test_pooled_challenge.PooledChallengeChecks.test_nonreference_wafer_changes_cannot_change_threshold) ... ok
+test_pool_variances_then_log_is_not_average_site_log (test_pooled_challenge.PooledChallengeChecks.test_pool_variances_then_log_is_not_average_site_log) ... ok
+test_q95_exposes_sparse_test_tail_that_q80_misses (test_pooled_challenge.PooledChallengeChecks.test_q95_exposes_sparse_test_tail_that_q80_misses) ... ok
+test_two_scans_needed_and_streak_resets (test_pooled_challenge.PooledChallengeChecks.test_two_scans_needed_and_streak_resets) ... ok
+test_all_scope_dimensions_remain_separate_and_order_independent (test_prediction.PredictionChecks.test_all_scope_dimensions_remain_separate_and_order_independent) ... ok
+test_comparisons_do_not_confuse_added_rows_with_paired_accuracy (test_prediction.PredictionChecks.test_comparisons_do_not_confuse_added_rows_with_paired_accuracy) ... ok
+test_empty_predictions_have_null_errors_and_zero_coverage (test_prediction.PredictionChecks.test_empty_predictions_have_null_errors_and_zero_coverage) ... ok
+test_insufficient_training_data_fails_explicitly (test_prediction.PredictionChecks.test_insufficient_training_data_fails_explicitly) ... ok
+test_irrelevant_future_targets_bins_and_labels_cannot_change_prediction (test_prediction.PredictionChecks.test_irrelevant_future_targets_bins_and_labels_cannot_change_prediction) ... ok
+test_missing_primary_input_uses_complete_sparse_model (test_prediction.PredictionChecks.test_missing_primary_input_uses_complete_sparse_model) ... ok
+test_missing_sparse_input_never_imputes_or_reuses_previous_device (test_prediction.PredictionChecks.test_missing_sparse_input_never_imputes_or_reuses_previous_device) ... ok
+test_outputs_cannot_escape_workstream (test_prediction.PredictionChecks.test_outputs_cannot_escape_workstream) ... ok
+test_overflow_does_not_escape_as_infinity (test_prediction.PredictionChecks.test_overflow_does_not_escape_as_infinity) ... ok
+test_primary_is_preserved_even_when_sparse_disagrees (test_prediction.PredictionChecks.test_primary_is_preserved_even_when_sparse_disagrees) ... ok
+test_runtime_and_matrix_agree_with_missing_inputs (test_prediction.PredictionChecks.test_runtime_and_matrix_agree_with_missing_inputs) ... ok
+test_training_statistics_use_only_given_training_rows (test_prediction.PredictionChecks.test_training_statistics_use_only_given_training_rows) ... ok
+test_unknown_stage_abstains (test_prediction.PredictionChecks.test_unknown_stage_abstains) ... ok
+test_absent_flags_and_maps_are_unknown_not_false_or_empty (test_readiness.ReadinessChecks.test_absent_flags_and_maps_are_unknown_not_false_or_empty) ... ok
+test_actual_before_request_and_prediction_disagreement_do_not_join (test_readiness.ReadinessChecks.test_actual_before_request_and_prediction_disagreement_do_not_join) ... ok
+test_boundary_between_request_and_actual_blocks_join (test_readiness.ReadinessChecks.test_boundary_between_request_and_actual_blocks_join) ... ok
+test_complete_scope_and_unknown_metadata_remain_distinct (test_readiness.ReadinessChecks.test_complete_scope_and_unknown_metadata_remain_distinct) ... ok
+test_conflicting_same_event_id_excludes_both_versions (test_readiness.ReadinessChecks.test_conflicting_same_event_id_excludes_both_versions) ... ok
+test_duplicate_prediction_ids_across_sites_fail_closed (test_readiness.ReadinessChecks.test_duplicate_prediction_ids_across_sites_fail_closed) ... ok
+test_duplicate_request_id_is_ambiguous_even_if_values_equal (test_readiness.ReadinessChecks.test_duplicate_request_id_is_ambiguous_even_if_values_equal) ... ok
+test_equal_values_with_distinct_actual_ids_are_ambiguous (test_readiness.ReadinessChecks.test_equal_values_with_distinct_actual_ids_are_ambiguous) ... ok
+test_exact_event_retries_deduplicate (test_readiness.ReadinessChecks.test_exact_event_retries_deduplicate) ... ok
+test_incomplete_coverage_and_named_missing_input (test_readiness.ReadinessChecks.test_incomplete_coverage_and_named_missing_input) ... ok
+test_invalid_action_json_keeps_sequence_failure (test_readiness.ReadinessChecks.test_invalid_action_json_keeps_sequence_failure) ... ok
+test_invalid_stage_and_boolean_coverage_do_not_claim_readiness (test_readiness.ReadinessChecks.test_invalid_stage_and_boolean_coverage_do_not_claim_readiness) ... ok
+test_lifecycle_changed_flag_blocks_readiness_and_join (test_readiness.ReadinessChecks.test_lifecycle_changed_flag_blocks_readiness_and_join) ... ok
+test_missing_site_cannot_disappear_from_denominator (test_readiness.ReadinessChecks.test_missing_site_cannot_disappear_from_denominator) ... ok
+test_nonfinite_or_null_actual_is_unavailable (test_readiness.ReadinessChecks.test_nonfinite_or_null_actual_is_unavailable) ... ok
+test_output_cannot_escape_workstream (test_readiness.ReadinessChecks.test_output_cannot_escape_workstream) ... ok
+test_receipt_cannot_be_reused_or_borrow_next_actions_success (test_readiness.ReadinessChecks.test_receipt_cannot_be_reused_or_borrow_next_actions_success) ... ok
+test_receipt_requires_exact_action_and_adjacent_success (test_readiness.ReadinessChecks.test_receipt_requires_exact_action_and_adjacent_success) ... ok
+test_same_ids_in_separate_runs_remain_separate (test_readiness.ReadinessChecks.test_same_ids_in_separate_runs_remain_separate) ... ok
+test_strict_json_rejects_duplicate_keys_and_nonfinite (test_readiness.ReadinessChecks.test_strict_json_rejects_duplicate_keys_and_nonfinite) ... ok
+test_unknown_expected_sites_never_claims_complete (test_readiness.ReadinessChecks.test_unknown_expected_sites_never_claims_complete) ... ok
+test_unknown_latency_does_not_become_zero (test_readiness.ReadinessChecks.test_unknown_latency_does_not_become_zero) ... ok
+test_wrong_scope_never_joins (test_readiness.ReadinessChecks.test_wrong_scope_never_joins) ... ok
+test_baseline_fails_only_w25 (test_spread_audit.AcceptanceChecks.test_baseline_fails_only_w25) ... ok
+test_duplicate_extra_alert_not_deduplicated_away (test_spread_audit.AcceptanceChecks.test_duplicate_extra_alert_not_deduplicated_away) ... ok
+test_each_normal_wafer_extra_alert_fails_including_fit_and_w2 (test_spread_audit.AcceptanceChecks.test_each_normal_wafer_extra_alert_fails_including_fit_and_w2) ... ok
+test_extra_abnormal_category_reported (test_spread_audit.AcceptanceChecks.test_extra_abnormal_category_reported) ... ok
+test_future_or_invalid_alert_count_rejected (test_spread_audit.AcceptanceChecks.test_future_or_invalid_alert_count_rejected) ... ok
+test_matrix_never_calls_reused_data_independent_validation (test_spread_audit.AcceptanceChecks.test_matrix_never_calls_reused_data_independent_validation) ... ok
+test_missing_devices_rejected (test_spread_audit.AcceptanceChecks.test_missing_devices_rejected) ... ok
+test_missing_or_duplicate_wafer_rejected (test_spread_audit.AcceptanceChecks.test_missing_or_duplicate_wafer_rejected) ... ok
+test_other_labeled_category_cannot_be_delayed (test_spread_audit.AcceptanceChecks.test_other_labeled_category_cannot_be_delayed) ... ok
+test_output_rejects_parent_and_sibling_escape (test_spread_audit.AcceptanceChecks.test_output_rejects_parent_and_sibling_escape) ... ok
+test_output_writers_reject_outside_path_before_writing (test_spread_audit.AcceptanceChecks.test_output_writers_reject_outside_path_before_writing) ... ok
+test_w25_addition_passes_wafer_gates_but_not_unrun_controls (test_spread_audit.AcceptanceChecks.test_w25_addition_passes_wafer_gates_but_not_unrun_controls) ... ok
+test_w2_low_yield_must_not_be_suppressed (test_spread_audit.AcceptanceChecks.test_w2_low_yield_must_not_be_suppressed) ... ok
+test_constant_observed_is_zero_but_constant_reference_is_unknown (test_spread_audit.DispersionChecks.test_constant_observed_is_zero_but_constant_reference_is_unknown) ... ok
+test_family_denominator_reports_missing (test_spread_audit.DispersionChecks.test_family_denominator_reports_missing) ... ok
+test_missing_reference_not_silently_imputed (test_spread_audit.DispersionChecks.test_missing_reference_not_silently_imputed) ... ok
+test_no_eligible_family_is_unknown (test_spread_audit.DispersionChecks.test_no_eligible_family_is_unknown) ... ok
+test_one_sample_is_not_zero_spread (test_spread_audit.DispersionChecks.test_one_sample_is_not_zero_spread) ... ok
+test_population_sd_and_nonfinite_counts (test_spread_audit.DispersionChecks.test_population_sd_and_nonfinite_counts) ... ok
+test_quality_parser_distinguishes_blank_nonfinite_and_malformed (test_spread_audit.DispersionChecks.test_quality_parser_distinguishes_blank_nonfinite_and_malformed) ... ok
+test_site_name_permutation_preserves_within_sd (test_spread_audit.DispersionChecks.test_site_name_permutation_preserves_within_sd) ... ok
+test_subject_excluded_from_normal_reference (test_spread_audit.DispersionChecks.test_subject_excluded_from_normal_reference) ... ERROR
+test_synthetic_no_change_shift_missing_and_future_controls (test_spread_audit.DispersionChecks.test_synthetic_no_change_shift_missing_and_future_controls) ... ok
+test_temporal_future_rows_do_not_change_prefix (test_spread_audit.DispersionChecks.test_temporal_future_rows_do_not_change_prefix) ... ok
+test_temporal_missing_does_not_compact_across_gap (test_spread_audit.DispersionChecks.test_temporal_missing_does_not_compact_across_gap) ... ok
+test_temporal_reduction_within_each_site (test_spread_audit.DispersionChecks.test_temporal_reduction_within_each_site) ... ok
+test_unknown_site_fails_within_closed (test_spread_audit.DispersionChecks.test_unknown_site_fails_within_closed) ... ok
+
+======================================================================
+ERROR: test_subject_excluded_from_normal_reference (test_spread_audit.DispersionChecks.test_subject_excluded_from_normal_reference)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\USER\Documents\hackathon2026\workstreams\prediction\test_spread_audit.py", line 54, in test_subject_excluded_from_normal_reference
+    refs, median, minimum = reference_sd({(1, 32): stats(.001), (2, 32): stats(2),
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USER\Documents\hackathon2026\workstreams\prediction\spread_audit.py", line 144, in reference_sd
+    median[~valid] = np.nan; minimum[~valid] = np.nan
+                             ~~~~~~~^^^^^^^^
+ValueError: cannot convert float NaN to integer
+
+----------------------------------------------------------------------
+Ran 68 tests in 0.361s
+
+FAILED (errors=1)

@@ -1,0 +1,468 @@
+{
+  "round": "R3-20260919",
+  "root": "workstreams/prediction",
+  "file_count": 56,
+  "files": [
+    {
+      "path": ".gitattributes",
+      "references": [
+        "Git attributes for retained workstream evidence"
+      ],
+      "purpose": "retained prior reproducibility evidence",
+      "prior_at_base": true
+    },
+    {
+      "path": "audit.log",
+      "references": [
+        "EVALUATION.md"
+      ],
+      "purpose": "retained prior reproducibility evidence; execution log",
+      "prior_at_base": true
+    },
+    {
+      "path": "audit.py",
+      "references": [
+        "EVALUATION.md",
+        "ROUND2.md"
+      ],
+      "purpose": "reusable evaluation/test code; no production integration",
+      "prior_at_base": true
+    },
+    {
+      "path": "candidate.py",
+      "references": [
+        "evaluate.py",
+        "test_prediction.py",
+        "results/provenance.json"
+      ],
+      "purpose": "reusable evaluation/test code; no production integration",
+      "prior_at_base": true
+    },
+    {
+      "path": "challenge_pooled.py",
+      "references": [
+        "ROUND3.md",
+        "test_pooled_challenge.py"
+      ],
+      "purpose": "reusable evaluation/test code; no production integration",
+      "prior_at_base": false
+    },
+    {
+      "path": "evaluate.py",
+      "references": [
+        "EVALUATION.md",
+        "test_prediction.py",
+        "results/provenance.json"
+      ],
+      "purpose": "reusable evaluation/test code; no production integration",
+      "prior_at_base": true
+    },
+    {
+      "path": "evaluation.log",
+      "references": [
+        "EVALUATION.md"
+      ],
+      "purpose": "retained prior reproducibility evidence; execution log",
+      "prior_at_base": true
+    },
+    {
+      "path": "EVALUATION.md",
+      "references": [
+        "EVALUATION.md"
+      ],
+      "purpose": "retained prior reproducibility evidence",
+      "prior_at_base": true
+    },
+    {
+      "path": "NOTES.md",
+      "references": [
+        "SYSTEM.md",
+        "team/B_PREDICTION.md"
+      ],
+      "purpose": "retained prior reproducibility evidence",
+      "prior_at_base": true
+    },
+    {
+      "path": "readiness_audit.py",
+      "references": [
+        "ROUND2.md",
+        "test_readiness.py"
+      ],
+      "purpose": "reusable evaluation/test code; no production integration",
+      "prior_at_base": true
+    },
+    {
+      "path": "results/audit.json",
+      "references": [
+        "EVALUATION.md"
+      ],
+      "purpose": "retained prior reproducibility evidence",
+      "prior_at_base": true
+    },
+    {
+      "path": "results/candidate.json",
+      "references": [
+        "EVALUATION.md"
+      ],
+      "purpose": "retained prior reproducibility evidence",
+      "prior_at_base": true
+    },
+    {
+      "path": "results/checks.json",
+      "references": [
+        "EVALUATION.md"
+      ],
+      "purpose": "retained prior reproducibility evidence",
+      "prior_at_base": true
+    },
+    {
+      "path": "results/fold_models.json",
+      "references": [
+        "EVALUATION.md"
+      ],
+      "purpose": "retained prior reproducibility evidence",
+      "prior_at_base": true
+    },
+    {
+      "path": "results/metrics.json",
+      "references": [
+        "EVALUATION.md"
+      ],
+      "purpose": "retained prior reproducibility evidence",
+      "prior_at_base": true
+    },
+    {
+      "path": "results/predictions.csv.gz",
+      "references": [
+        "EVALUATION.md"
+      ],
+      "purpose": "retained prior reproducibility evidence",
+      "prior_at_base": true
+    },
+    {
+      "path": "results/provenance.json",
+      "references": [
+        "EVALUATION.md"
+      ],
+      "purpose": "retained prior reproducibility evidence",
+      "prior_at_base": true
+    },
+    {
+      "path": "results/summary.csv",
+      "references": [
+        "EVALUATION.md"
+      ],
+      "purpose": "retained prior reproducibility evidence",
+      "prior_at_base": true
+    },
+    {
+      "path": "review_pooled_snapshot.py",
+      "references": [
+        "ROUND3.md",
+        "round3/c-snapshot-controls.json"
+      ],
+      "purpose": "reusable evaluation/test code; no production integration",
+      "prior_at_base": false
+    },
+    {
+      "path": "round2/prior-audit.json",
+      "references": [
+        "ROUND2.md"
+      ],
+      "purpose": "retained prior reproducibility evidence",
+      "prior_at_base": true
+    },
+    {
+      "path": "round2/readiness.json",
+      "references": [
+        "ROUND2.md"
+      ],
+      "purpose": "retained prior reproducibility evidence",
+      "prior_at_base": true
+    },
+    {
+      "path": "round2/readiness.log",
+      "references": [
+        "ROUND2.md"
+      ],
+      "purpose": "retained prior reproducibility evidence; execution log",
+      "prior_at_base": true
+    },
+    {
+      "path": "round2/tests.log",
+      "references": [
+        "ROUND2.md"
+      ],
+      "purpose": "retained prior reproducibility evidence; execution log",
+      "prior_at_base": true
+    },
+    {
+      "path": "round2/validation.json",
+      "references": [
+        "ROUND2.md"
+      ],
+      "purpose": "retained prior reproducibility evidence",
+      "prior_at_base": true
+    },
+    {
+      "path": "ROUND2.md",
+      "references": [
+        "ROUND2.md"
+      ],
+      "purpose": "retained prior reproducibility evidence",
+      "prior_at_base": true
+    },
+    {
+      "path": "round3/acceptance-matrix.json",
+      "references": [
+        "ROUND3.md"
+      ],
+      "purpose": "R3 negative-research evidence",
+      "prior_at_base": false
+    },
+    {
+      "path": "round3/baseline-acceptance.json",
+      "references": [
+        "ROUND3.md"
+      ],
+      "purpose": "R3 negative-research evidence",
+      "prior_at_base": false
+    },
+    {
+      "path": "round3/baseline.json",
+      "references": [
+        "ROUND3.md"
+      ],
+      "purpose": "R3 negative-research evidence",
+      "prior_at_base": false
+    },
+    {
+      "path": "round3/c-snapshot-controls-initial.json",
+      "references": [
+        "ROUND3.md"
+      ],
+      "purpose": "preserved initial failed run or original snapshot evidence",
+      "prior_at_base": false
+    },
+    {
+      "path": "round3/c-snapshot-controls.json",
+      "references": [
+        "ROUND3.md"
+      ],
+      "purpose": "R3 negative-research evidence",
+      "prior_at_base": false
+    },
+    {
+      "path": "round3/c-source-9b5f530d47cf11ae6ee0009cb348b5101bae40a8332ebd32bdea3c347560aba8.txt",
+      "references": [
+        "ROUND3.md"
+      ],
+      "purpose": "exact rejected C source bytes for repeatable controls",
+      "prior_at_base": false
+    },
+    {
+      "path": "round3/controls.json",
+      "references": [
+        "ROUND3.md"
+      ],
+      "purpose": "R3 negative-research evidence",
+      "prior_at_base": false
+    },
+    {
+      "path": "round3/diagnostics.json",
+      "references": [
+        "ROUND3.md"
+      ],
+      "purpose": "R3 negative-research evidence",
+      "prior_at_base": false
+    },
+    {
+      "path": "round3/family-prefix.csv.gz",
+      "references": [
+        "ROUND3.md"
+      ],
+      "purpose": "R3 negative-research evidence",
+      "prior_at_base": false
+    },
+    {
+      "path": "round3/initial-failure-provenance.json",
+      "references": [
+        "ROUND3.md"
+      ],
+      "purpose": "preserved initial failed run or original snapshot evidence",
+      "prior_at_base": false
+    },
+    {
+      "path": "round3/inventory.json",
+      "references": [
+        "ROUND3.md"
+      ],
+      "purpose": "final handoff metadata; validation self hash excluded to prevent cycles",
+      "prior_at_base": false
+    },
+    {
+      "path": "round3/pooled-challenge.json",
+      "references": [
+        "ROUND3.md"
+      ],
+      "purpose": "R3 negative-research evidence",
+      "prior_at_base": false
+    },
+    {
+      "path": "round3/pooled-oracle-acceptance.json",
+      "references": [
+        "ROUND3.md"
+      ],
+      "purpose": "R3 negative-research evidence",
+      "prior_at_base": false
+    },
+    {
+      "path": "round3/pooled-oracle-summary.json",
+      "references": [
+        "ROUND3.md"
+      ],
+      "purpose": "R3 negative-research evidence",
+      "prior_at_base": false
+    },
+    {
+      "path": "round3/provenance.json",
+      "references": [
+        "ROUND3.md"
+      ],
+      "purpose": "R3 negative-research evidence",
+      "prior_at_base": false
+    },
+    {
+      "path": "round3/temporal-prefix.csv.gz",
+      "references": [
+        "ROUND3.md"
+      ],
+      "purpose": "R3 negative-research evidence",
+      "prior_at_base": false
+    },
+    {
+      "path": "round3/test-site-dispersion.csv.gz",
+      "references": [
+        "ROUND3.md"
+      ],
+      "purpose": "R3 negative-research evidence",
+      "prior_at_base": false
+    },
+    {
+      "path": "round3/validation.json",
+      "references": [
+        "ROUND3.md"
+      ],
+      "purpose": "final handoff metadata; validation self hash excluded to prevent cycles",
+      "prior_at_base": false
+    },
+    {
+      "path": "round3-challenge.log",
+      "references": [
+        "ROUND3.md"
+      ],
+      "purpose": "R3 negative-research evidence; execution log",
+      "prior_at_base": false
+    },
+    {
+      "path": "round3-initial-run.log",
+      "references": [
+        "ROUND3.md"
+      ],
+      "purpose": "preserved initial failed run or original snapshot evidence; execution log",
+      "prior_at_base": false
+    },
+    {
+      "path": "round3-initial-tests.log",
+      "references": [
+        "ROUND3.md"
+      ],
+      "purpose": "preserved initial failed run or original snapshot evidence; execution log",
+      "prior_at_base": false
+    },
+    {
+      "path": "round3-run.log",
+      "references": [
+        "ROUND3.md"
+      ],
+      "purpose": "R3 negative-research evidence; execution log",
+      "prior_at_base": false
+    },
+    {
+      "path": "round3-snapshot.log",
+      "references": [
+        "ROUND3.md"
+      ],
+      "purpose": "R3 negative-research evidence; execution log",
+      "prior_at_base": false
+    },
+    {
+      "path": "round3-tests.log",
+      "references": [
+        "ROUND3.md"
+      ],
+      "purpose": "R3 negative-research evidence; execution log",
+      "prior_at_base": false
+    },
+    {
+      "path": "ROUND3.md",
+      "references": [
+        "NOTES.md",
+        "team/B_PREDICTION.md"
+      ],
+      "purpose": "R3 negative-research evidence",
+      "prior_at_base": false
+    },
+    {
+      "path": "spread_audit.py",
+      "references": [
+        "ROUND3.md",
+        "challenge_pooled.py",
+        "test_spread_audit.py"
+      ],
+      "purpose": "reusable evaluation/test code; no production integration",
+      "prior_at_base": false
+    },
+    {
+      "path": "test_pooled_challenge.py",
+      "references": [
+        "ROUND3.md"
+      ],
+      "purpose": "reusable evaluation/test code; no production integration",
+      "prior_at_base": false
+    },
+    {
+      "path": "test_prediction.py",
+      "references": [
+        "EVALUATION.md"
+      ],
+      "purpose": "reusable evaluation/test code; no production integration",
+      "prior_at_base": true
+    },
+    {
+      "path": "test_readiness.py",
+      "references": [
+        "ROUND2.md"
+      ],
+      "purpose": "reusable evaluation/test code; no production integration",
+      "prior_at_base": true
+    },
+    {
+      "path": "test_spread_audit.py",
+      "references": [
+        "ROUND3.md"
+      ],
+      "purpose": "reusable evaluation/test code; no production integration",
+      "prior_at_base": false
+    },
+    {
+      "path": "unit-tests.log",
+      "references": [
+        "EVALUATION.md"
+      ],
+      "purpose": "retained prior reproducibility evidence; execution log",
+      "prior_at_base": true
+    }
+  ],
+  "retention": "All files retained; no cleanup. Per-file final hashes in validation.json, except its self hash."
+}
