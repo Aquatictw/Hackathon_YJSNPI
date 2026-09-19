@@ -4,15 +4,24 @@ import math
 import statistics
 from collections import defaultdict
 from pathlib import Path
+from .sparse_burst import ARTIFACT_NAME, SparseBurstSpreadDown, load_calibration
 
 
 class RuntimeModels:
-    def __init__(self, path):
+    def __init__(self, path, sparse_burst_path=None):
         self.artifact = json.loads(Path(path).read_text(encoding='utf-8'))
         self.models = self.artifact['models']
         self.by_number = defaultdict(list)
         for name in self.artifact['columns']:
             self.by_number[int(name.split('_', 1)[0])].append(name)
+        # Separate artifact keeps the prediction model SHA unchanged; a missing
+        # or invalid file disables only the supplement (fail closed).
+        self.sparse_burst, self.sparse_burst_status = load_calibration(
+            sparse_burst_path or Path(path).with_name(ARTIFACT_NAME))
+
+    def detector(self):
+        return WaferDetector(self.artifact['baselines'], self.artifact.get('family_thresholds'),
+                             self.sparse_burst, self.sparse_burst_status)
 
     def feature(self, number, suite, pin=None):
         names = self.by_number.get(int(number), [])
@@ -40,7 +49,8 @@ class RuntimeModels:
 
 
 class WaferDetector:
-    def __init__(self, baselines, family_thresholds=None):
+    def __init__(self, baselines, family_thresholds=None, sparse_burst=None, sparse_burst_status=None):
+        self.sparse_burst = SparseBurstSpreadDown(sparse_burst, sparse_burst_status)
         self.baselines = baselines
         self.family_thresholds = family_thresholds or {}
         self.family_streak = {}
@@ -52,7 +62,8 @@ class WaferDetector:
         self.yield_series = []
         self.last_analyzed = 0
 
-    def add(self, site, values, passed):
+    def add(self, site, values, passed, device=None):
+        self.sparse_burst.add(site, values, device)
         self.completed += 1
         if passed:
             self.good += 1
@@ -63,6 +74,13 @@ class WaferDetector:
                 self.site_values[name][str(site)].append(value)
 
     def analyze(self, final=False):
+        # Supplementary alerts keep their own emission state and never alter
+        # or suppress the core detector's payloads.
+        alerts = self._analyze_core(final)
+        alerts.extend(self.sparse_burst.analyze(final))
+        return alerts
+
+    def _analyze_core(self, final=False):
         if self.completed == self.last_analyzed or (not final and self.completed % 8):
             return []
         self.last_analyzed = self.completed

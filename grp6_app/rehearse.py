@@ -19,7 +19,7 @@ def run(data, output, artifacts=None):
     wafers=[]; errors={str(s):[] for s in range(1,7)}; max_scan=0.; max_prediction=0.
     with (output/'replay.jsonl').open('w',encoding='utf-8') as log:
         for path in sorted(Path(data).glob('*_RawResult.csv')):
-            detector=WaferDetector(models.artifact['baselines'],models.artifact.get('family_thresholds')); alerts=[]
+            detector=models.detector(); alerts=[]
             with path.open(encoding='utf-8-sig',newline='') as handle:
                 reader=csv.reader(handle); header=next(reader)
                 for _ in range(4): next(reader)
@@ -33,7 +33,7 @@ def run(data, output, artifacts=None):
                         max_prediction=max(max_prediction,time.perf_counter()-started)
                         if prediction is None: raise ValueError('Missing replay features')
                         errors[str(stage)].append(abs(prediction-values[TARGETS[stage]]))
-                    detector.add(meta['Site'],values,meta['SBin']=='1')
+                    detector.add(meta['Site'],values,meta['SBin']=='1',meta['PID'])
                     started=time.perf_counter(); new=detector.analyze(); max_scan=max(max_scan,time.perf_counter()-started)
                     for alert in new:
                         alerts.append(alert); log.write(json.dumps({'kind':'alert','mode':'replay','wafer':wafer,'lot':meta['Lot'],'alert':alert})+'\n')
@@ -52,8 +52,13 @@ def run(data, output, artifacts=None):
        'prediction_in_sample_mae':{k:sum(v)/len(v) for k,v in errors.items()},
        'validation':json.loads((base/'validation.json').read_text()),
        'calibration':models.artifact['detector_calibration'],
+       'supplementary_detectors':[{'detector':'sparse_burst_spread_down_v1','status':models.sparse_burst_status,
+           'calibration':models.sparse_burst.summary() if models.sparse_burst else None,
+           'alerts':[{'wafer':w['wafer'],'kind':a['kind'],'family':a.get('family'),'completed_devices':a['completed_devices']}
+                     for w in wafers for a in w['alerts'] if a.get('detector')=='sparse_burst_spread_down_v1']}],
        'limitations':['Replay is not live SDK evidence.','Prediction replay uses fitted training devices; use wafer-held-out metrics for accuracy.',
        'Abnormal wafers are development examples. Five normal holdout wafers are too few to estimate deployment false alarm rates reliably.',
+       'The sparse-burst spread_down supplement was designed after W15/W25 were examined; its W25 match is development evidence, not independent validation.',
        'W2 is labeled normal but its SBin-derived yield is 53.75%; the measured yield alert must not be suppressed.']}
     (output/'summary.json').write_text(json.dumps(summary,indent=2,allow_nan=False),encoding='utf-8')
     from .report import render_evidence
