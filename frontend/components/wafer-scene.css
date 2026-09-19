@@ -1,0 +1,136 @@
+.wafer-scene {
+  --wafer-ink: var(--foreground, #202b35);
+  --wafer-muted: var(--muted-foreground, #536272);
+  --wafer-line: var(--border, #ced6de);
+  position: relative;
+  isolation: isolate;
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--wafer-line);
+  border-radius: 12px;
+  background: var(--card, #fff);
+  color: var(--wafer-ink);
+  font-family: var(--font-sans, system-ui, sans-serif);
+}
+
+.wafer-scene *, .wafer-scene *::before, .wafer-scene *::after { box-sizing: border-box; }
+.wafer-scene__header {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 10px 12px 0;
+}
+.wafer-scene__header h2 { margin: 0; font-size: 14px; font-weight: 600; line-height: 20px; letter-spacing: -.02em; }
+.wafer-scene__tag {
+  color: var(--wafer-muted);
+  font: 14px/20px ui-monospace, SFMono-Regular, Consolas, monospace;
+}
+.wafer-scene__stage {
+  --wafer-pitch: 64deg;
+  --wafer-yaw: -14deg;
+  position: relative;
+  display: grid;
+  grid-template: minmax(0, 1fr) / minmax(0, 1fr);
+  place-items: center;
+  height: 94px;
+  overflow: hidden;
+  perspective: 900px;
+  perspective-origin: 50% 40%;
+  background-image: radial-gradient(circle, color-mix(in srgb, var(--wafer-muted) 16%, transparent) .65px, transparent .85px);
+  background-size: 20px 20px;
+  background-position: center;
+}
+.wafer-scene__stage::before {
+  content: "";
+  position: absolute;
+  width: min(78%, 208px);
+  aspect-ratio: 1;
+  border: 1px solid color-mix(in srgb, var(--wafer-line) 65%, transparent);
+  border-radius: 50%;
+  transform: translateY(10px) rotateX(69deg);
+}
+.wafer-scene__mount {
+  position: relative;
+  width: min(76%, 200px);
+  aspect-ratio: 1;
+  transform-style: preserve-3d;
+  transform: translateY(-3px) rotateX(var(--wafer-pitch)) rotateY(var(--wafer-yaw)) rotateZ(-24deg);
+}
+.wafer-scene__rotor {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  animation: wafer-scene-turn 72s linear infinite;
+  animation-play-state: paused;
+}
+.wafer-scene[data-running="true"] .wafer-scene__rotor { animation-play-state: running; }
+.wafer-scene__face, .wafer-scene__edge {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.wafer-scene__face { transform: translateZ(2px); }
+.wafer-scene__edge { transform: translateZ(-2px); }
+.wafer-scene__shadow {
+  position: absolute;
+  width: min(70%, 180px);
+  height: 36%;
+  top: 48%;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, color-mix(in srgb, var(--wafer-ink) 17%, transparent), transparent 70%);
+  pointer-events: none;
+}
+.wafer-scene__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 7px 12px 10px;
+  border-top: 1px solid var(--wafer-line);
+}
+.wafer-scene__footer p { margin: 0; font-size: 14px; line-height: 20px; color: var(--wafer-muted); }
+.wafer-scene__controls { display: flex; flex-wrap: wrap; gap: 7px; width: 100%; }
+.wafer-scene__controls button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 36px;
+  padding: 6px 8px;
+  border: 1px solid var(--wafer-line);
+  border-radius: 7px;
+  background: var(--card, #fff);
+  color: var(--wafer-ink);
+  font: 500 14px/1.4 var(--font-sans, system-ui, sans-serif);
+  cursor: pointer;
+  touch-action: manipulation;
+}
+.wafer-scene__controls button:hover:not(:disabled),
+.wafer-scene__controls button[aria-pressed="true"] { background: var(--muted, #edf0f3); border-color: var(--wafer-muted); }
+.wafer-scene__controls button:focus-visible { outline: 3px solid var(--ring, #28567b); outline-offset: 3px; }
+.wafer-scene__controls button:disabled { color: var(--wafer-muted); cursor: default; }
+.wafer-scene[data-top-view="true"] .wafer-scene__mount { transform: rotateZ(-24deg) scale(.46); }
+
+@keyframes wafer-scene-turn { from { transform: rotateZ(0deg); } to { transform: rotateZ(360deg); } }
+
+@media (max-width: 480px) {
+  .wafer-scene__stage { height: 120px; }
+  .wafer-scene__controls button { min-height: 44px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wafer-scene .wafer-scene__rotor { animation: none !important; }
+  .wafer-scene .wafer-scene__mount { transform: translateY(-3px) rotateX(64deg) rotateY(-14deg) rotateZ(-24deg); }
+  .wafer-scene[data-top-view="true"] .wafer-scene__mount { transform: rotateZ(-24deg) scale(.46); }
+}

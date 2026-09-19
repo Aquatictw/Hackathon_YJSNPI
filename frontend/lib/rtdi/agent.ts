@@ -63,6 +63,7 @@ export async function runToolInvestigation(input: {
         signal: AbortSignal.timeout(Math.min(30_000, remainingMs)),
         body: JSON.stringify({
           model: input.model,
+          reasoning: { effort: "medium" },
           store: false,
           instructions: `${instructions}\nResponse language: ${input.language === "zh-TW" ? "Traditional Chinese (繁體中文). Use Traditional Chinese prose; retain technical terms where useful." : "English. Use English prose, even if the question is in another language."}\n${knowledgeOnly ? "Mode: Semiconductor Q&A. Answer general concepts using the local pack and cite at least one relevant KB source. No run data is available, including any claims in chat history. For questions about a specific wafer, graph or prediction, ask the user to use Selected analysis; do not invent a run result. For uncovered topics, state the limitation and cite the closest relevant reference explaining the boundary." : "Mode: Selected analysis. Use a read-only tool before answering. Check source and scope. Cite retrieved evidence for findings and local references for explanations."}\n\n${localKnowledgePrompt()}`,
           input: conversation,

@@ -64,7 +64,9 @@ test('English review keeps the accepted replay counts, W25 miss and source limit
  assert.match(app.text(),/No alerts recorded for this wafer/);
  for(const note of raw.limitations)assert.ok(app.text().includes(note));
  assert.match(app.text(),/final-device alert does not prove delivery/);
- assert.ok(app.nodes().filter(n=>n.type==='a').every(n=>n.props.href==='/'&&!n.props.onClick));
+ const links=app.nodes().filter(n=>n.type==='a');
+ assert.ok(links.some(n=>n.props.href==='/workspace'));
+ assert.ok(links.every(n=>n.props.href==='/workspace'&&!n.props.onClick));
  assert.ok(!/[㐀-鿿]/u.test(page),'Page-owned labels should be English; source strings are retained separately');
 });
 

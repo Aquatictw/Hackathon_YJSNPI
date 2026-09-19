@@ -9,17 +9,30 @@ Cite concepts/methods with [KB-id] from the supplied pack and run findings with 
 For analysis, distinguish observations, possible explanations and suggested checks. Never assert that correlation proves a physical root cause. Preserve replay/simulation/live labels, unconfirmed units and receipt limitations. Never infer a result from a wafer number or evaluation label. Missing data or no alert does not mean normal. Do not invent temperatures, accuracy, limits or measurements.
 You have no equipment-control tools. Recommendations are advisory; do not claim to have sent a command, confirmed tester receipt or changed the system.`;
 
-/** Explicit, offline rule-based sandbox response; never presented as model output. */
-export function demoAnswer(view: EventView, question: string): string {
-  const e = view.evidence[0];
-  const ref = e ? `[${e.evidence_id}]` : `[${view.event.event_id}]`;
-  if (/receipt|deliver|received|tester|ACK|收到|回傳|機台/i.test(question))
-    return `Tester delivery is unconfirmed. A queued response does not establish a correlated tester receipt. This rule-based explanation sends no equipment commands. Check the command ID, Edge acknowledgement and tester receipt. ${ref}`;
-  if (view.event.data_quality === "partial" || !e)
-    return `Insufficient data: do not classify this as normal or invent a prediction. ${e ? `The record includes ${e.sample_count} samples; verify missing features and scope.` : "No evidence record is attached."} Check whether the required tests have completed. This is a rule-based demonstration. ${ref}`;
-  if (!view.event.event_id.startsWith("demo-event-"))
-    return `An external record is available, but this rule-based demonstration cannot diagnose its cause. Inspect the original evidence, source mode, units and scope, or use the model-assisted investigation. ${ref}`;
-  if (view.event.kind === "normal")
-    return `This is a synthetic normal example, not a live result. The example does not establish that every test or the entire wafer is normal. Continue checking subsequent windows and retain the source measurements. ${ref}`;
-  return `This is a synthetic anomaly example, not a live result. Compare the observed series with its reference and other sites before forming a hypothesis. Contact, calibration and environmental effects require separate checks; the example does not establish a root cause. This is rule-based output, not model reasoning. ${ref}`;
+export function demoAnswer(view:EventView,question:string):string{
+ const e=view.evidence[0];const ref=e?`[${e.evidence_id}]`:`[${view.event.event_id}]`;
+ if(/收到|回傳|機台|ack|receipt|delivered|tester.*(receive|confirm)/i.test(question))return `Tester receipt: Unconfirmed.
+
+This sandbox has no tester command transport. A queued response is not a tester receipt, and generated analysis does not send a message. [${view.event.event_id}]
+
+Next checks: Match the command ID to the Edge acknowledgment and tester receipt before reporting confirmation.`;
+ if(!view.event.event_id.startsWith("demo-event-"))return `Observation: An external event record was received. [${view.event.event_id}]
+
+This rule-based demonstration does not infer missing thresholds, trends or units from imported text. Review the source record and attached evidence. Use an explicit model investigation for an English interpretation.`;
+ if(view.event.data_quality==="partial"||!e)return `Insufficient data to determine normal or anomalous behavior.
+
+${e?`Available inputs: ${e.sample_count}. Coverage: ${Math.round((e.observed??0)*100)}%. Missing fields: ${e.missing_fields.length}.`:'No usable evidence is attached to this event.'} ${ref}
+
+Next checks: Confirm test execution, missing records and device/site identity. Stage 3 must not use later measurements or return a fabricated temperature.`;
+ if(view.event.kind==="normal")return `Observation: This is a synthetic normal fixture. The mean of ${e.sample_count} samples is ${e.observed?.toFixed(4)} ${e.unit}, within the fixture threshold of ${e.threshold}. ${ref}
+
+No mean shift is shown in this window; this does not establish that all tests or the entire wafer are normal.
+
+Next checks: Compare subsequent windows and retain the original measurements.`;
+ const change=e.baseline&&e.observed?((e.observed-e.baseline)/e.baseline*100).toFixed(1):null;
+ return `Observation: Site ${view.event.site} has an upward trend across ${e.sample_count} samples. The mean is ${e.observed?.toFixed(4)} ${e.unit}, above the fixture threshold of ${e.threshold}${change?`, a ${change}% increase from the reference`:''}. ${ref}
+
+Possible causes: Contact conditions, calibration drift or environmental changes warrant inspection. One site window cannot establish a root cause.
+
+Next checks: Compare the same test across sites, locate the onset and review contact and calibration records. This is a rule-based fixture demonstration; no model API was called.`;
 }

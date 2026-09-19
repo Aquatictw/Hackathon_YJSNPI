@@ -11,6 +11,12 @@ await mkdir(output,{recursive:true});
 const browser=await chromium.launch({headless:true,...(process.env.PLAYWRIGHT_EXECUTABLE?{executablePath:process.env.PLAYWRIGHT_EXECUTABLE}:{})});
 const report={base,checkedAt:new Date().toISOString(),modelCalls:0,simulatedAnswers:0,checks:[],errors:[]};
 const check=name=>report.checks.push(name);
+async function header(page, active) {
+ const nav=page.getByRole('navigation',{name:'Main navigation'});
+ assert.deepEqual(await nav.locator('a').evaluateAll(nodes=>nodes.map(node=>({href:node.getAttribute('href'),text:node.textContent.trim()}))),[
+  {href:'/',text:'Replay analysis'},{href:'/workspace',text:'Run workspace'},{href:'/sandbox',text:'Sandbox'}]);
+ assert.equal(await nav.locator('a[aria-current="page"]').getAttribute('href'),active);
+}
 try {
  const context=await browser.newContext({viewport:{width:1440,height:1000}});
  const page=await context.newPage();
@@ -27,6 +33,10 @@ try {
   ? (/\/chat(?:\?|$)/.test(route.request().url()) ? route.fallback() : route.abort('blockedbyclient'))
   : route.fallback());
  await page.goto(base,{waitUntil:'networkidle'});
+ await page.locator('.wafer-tile').first().waitFor();
+ await header(page,'/');
+ await page.locator('.app-nav a[href="/workspace"]').click();await page.waitForURL('**/workspace');
+ await header(page,'/workspace');check('Replay homepage and shared three-page navigation');
  const response=await context.request.get(base+'/api/v1/runs/grp6-replay-demo?tester_id=grp6-replay');
  assert.equal(response.status(),200);snapshot=await response.json();
  assert.equal(snapshot.events.length,114);check('Persisted replay snapshot: 114 events');
@@ -44,6 +54,15 @@ try {
  await page.getByText('Browser test response: evidence reviewed (simulated).',{exact:true}).waitFor();
  await page.locator('#tab-predictions').click();
  assert.equal(await page.locator('#batch-panel tbody tr').count(),24);
+ assert.equal(await page.locator('#tab-predictions').innerText(),'Temperature');
+ await page.getByRole('heading',{name:'Temperature prediction vs actual',exact:true}).waitFor();
+ const temperatureRow=page.locator('.dc-temperature-table tbody tr').first();
+ assert.equal(await temperatureRow.locator('.dc-temperature-value').count(),2);
+ const pair=await temperatureRow.locator('.dc-temperature-value').evaluateAll(nodes=>nodes.map(node=>Number(node.title.split(': ')[1])));
+ const delta=Number((await temperatureRow.locator('.dc-temperature-difference').getAttribute('title')).split(': ')[1]);
+ assert.ok(Math.abs(delta-(pair[0]-pair[1]))<1e-10);
+ assert.ok(await temperatureRow.locator('.dc-temperature-value').first().evaluate(node=>parseFloat(getComputedStyle(node).fontSize)>=24));
+ check('Temperature tab emphasizes predicted/actual values with signed difference and source units');
  await page.locator('#tab-commands').click();await page.locator('#tab-evidence').click();
  assert.equal(await page.locator('.dc-chat-message.assistant').count(),1);
  check('Prediction/command tabs preserve investigation log; 24 prediction rows');
@@ -61,7 +80,7 @@ try {
  check('Search and citation retain completed conversation');
  await page.reload({waitUntil:'networkidle'});await page.locator('.dc-chat-message.assistant').waitFor();
  check('Reload restores run and conversation after fresh snapshot');
- await page.locator('.dc-nav a[href="/replay"]').click();await page.waitForURL('**/replay');
+ await page.locator('.app-nav a[href="/"]').click();await page.waitForURL(base+'/');
  await page.locator('.wafer-tile').first().waitFor();assert.equal(await page.locator('.wafer-tile').count(),25);
  await page.locator('.wafer-tile').last().click();
  assert.match(await page.locator('.replay-detail').innerText(),/expected category not detected/i);
@@ -69,7 +88,7 @@ try {
  assert.equal(await page.locator('.model-panel tbody tr').count(),6);
  await page.getByRole('tab',{name:'Limitations',exact:true}).click();await page.locator('.limitations-panel').waitFor();
  check('Replay navigation, W25 miss disclosure, validation and limitations');
- await page.locator('.return-link').click();await page.waitForURL(base+'/');
+ await page.locator('.app-nav a[href="/workspace"]').click();await page.waitForURL('**/workspace');
  await page.locator('.dc-chat-message.assistant').waitFor();check('Route round-trip retains conversation');
  await page.locator('#tab-evidence').focus();await page.keyboard.press('ArrowRight');
  assert.equal(await page.locator('#tab-predictions').getAttribute('aria-selected'),'true');
@@ -88,14 +107,15 @@ try {
  await page.getByLabel('Run ID',{exact:true}).fill('grp6-replay-demo');
  await page.locator('form.dc-connect button[type=submit]').click();await page.locator('.dc-chat-message.assistant').waitFor();
  check('Missing run clears stale scope; valid retry restores its conversation');
- await page.locator('.dc-nav a[href="/sandbox"]').click();await page.waitForURL('**/sandbox');
- await page.locator('a.brand').click();await page.waitForURL(base+'/');check('Sandbox route and return');
+ await page.locator('.app-nav a[href="/sandbox"]').click();await page.waitForURL('**/sandbox');
+ await header(page,'/sandbox');
+ await page.locator('a.app-brand').click();await page.waitForURL(base+'/');check('Sandbox shared navigation and brand returns to replay homepage');
  await context.close();
  // Fresh browser context: screenshots contain real replay, no simulated answer.
  const visual=await browser.newContext({viewport:{width:1440,height:1000}});const screen=await visual.newPage();
  await visual.route('**/*',route=>route.request().method()==='POST'?route.abort('blockedbyclient'):route.fallback());
  screen.on('pageerror',error=>report.errors.push(error.message));
- await screen.goto(base,{waitUntil:'networkidle'});await screen.locator('form.dc-connect button[type=submit]').click();
+ await screen.goto(base+'/workspace',{waitUntil:'networkidle'});await screen.locator('form.dc-connect button[type=submit]').click();
  await screen.locator('.dc-event-list button').first().waitFor();
  for(const theme of ['light','dark']) {
   await screen.getByLabel('Color theme').selectOption(theme);
@@ -104,12 +124,52 @@ try {
  }
  await screen.reload({waitUntil:'networkidle'});assert.equal(await screen.getByLabel('Color theme').inputValue(),'dark');
  check('Light/dark selection persists across reload');
+ await screen.locator('#tab-predictions').click();
+ await screen.screenshot({path:resolve(output,'temperature-desktop.png'),fullPage:true});
+ await screen.locator('#tab-evidence').click();
  await screen.setViewportSize({width:390,height:844});
  await screen.screenshot({path:resolve(output,'dashboard-mobile.png'),fullPage:true});
  assert.ok(await screen.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth+1),'Dashboard viewport overflow');
  await screen.locator('#tab-predictions').click();
  assert.ok(await screen.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth+1),'Prediction table viewport overflow');
- check('390px layout and contained table scrolling');await visual.close();
+ await screen.screenshot({path:resolve(output,'temperature-mobile.png'),fullPage:true});
+ check('390px layout and contained table scrolling');
+ for (const selector of ['.dc-connect input','.dc-stream-status','.dc-composer textarea']) {
+  const sizes=await screen.locator(selector).evaluateAll(nodes=>nodes.map(node=>parseFloat(getComputedStyle(node).fontSize)));
+  assert.ok(sizes.length && sizes.every(size=>size >= (selector==='.dc-stream-status'?14:16)),selector+' too small');
+ }
+ assert.equal(await screen.getByText('Investigation available',{exact:true}).count(),0);
+ check('Readable run fields and stream status; healthy investigation banner removed');
+ await screen.setViewportSize({width:1440,height:1000});
+ await screen.goto(base,{waitUntil:'networkidle'});await screen.locator('.wafer-scene').waitFor();
+ await screen.waitForFunction(()=>document.querySelector('.wafer-scene')?.dataset.running==='true');
+ await screen.getByRole('button',{name:'Pause wafer motion',exact:true}).click();
+ assert.equal(await screen.locator('.wafer-scene').getAttribute('data-running'),'false');
+ await screen.getByRole('button',{name:'Resume wafer motion',exact:true}).click();
+ await screen.getByRole('button',{name:'Top view',exact:true}).click();
+ assert.equal(await screen.locator('.wafer-scene').getAttribute('data-top-view'),'true');
+ await screen.getByRole('button',{name:'Top view',exact:true}).click();
+ await screen.emulateMedia({reducedMotion:'reduce'});
+ await screen.getByRole('button',{name:'Animation disabled by reduced-motion preference'}).waitFor();
+ assert.equal(await screen.locator('.wafer-scene').getAttribute('data-running'),'false');
+ check('Wafer motion pause/resume, top view and reduced-motion preference');
+ for (const width of [1440,390]) {
+  await screen.setViewportSize({width,height:1000});
+  const stats=await screen.locator('.stats strong').evaluateAll(nodes=>nodes.filter(n=>n.querySelector('small')).map(n=>{
+   const r=document.createRange();r.selectNodeContents(n.firstChild);const value=r.getBoundingClientRect(),unit=n.querySelector('small').getBoundingClientRect();
+   return {value:{right:value.right,bottom:value.bottom},unit:{left:unit.left,top:unit.top}};
+  }));
+  assert.ok(stats.length && stats.every(({value,unit})=>value.right<=unit.left+1 || value.bottom<=unit.top+1),'Replay stat value/unit overlap');
+  assert.ok(await screen.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),'Replay overflow');
+  for (const theme of ['light','dark']) {
+   await screen.getByLabel('Color theme').selectOption(theme);
+   await screen.screenshot({path:resolve(output,`replay-${width}-${theme}.png`),fullPage:true});
+  }
+ }
+ check('Replay summary values and units do not overlap at desktop/mobile widths');
+ await screen.goto(base+'/replay',{waitUntil:'networkidle'});await screen.locator('.wafer-tile').first().waitFor();
+ assert.equal(await screen.locator('.wafer-tile').count(),25);check('Legacy /replay route remains functional');
+ await visual.close();
  assert.equal(report.simulatedAnswers,1,'Only the explicitly mocked model submission ran');
  assert.deepEqual(report.errors,[],'Uncaught browser errors');report.passed=true;
 }catch(error){report.passed=false;report.failure=error.stack;process.exitCode=1;}

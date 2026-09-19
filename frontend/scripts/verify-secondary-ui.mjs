@@ -17,7 +17,7 @@ const output = resolve(process.env.SECONDARY_UI_AUDIT_OUTPUT || resolve(root, '.
 const report = {base, checkedAt: new Date().toISOString(), modelCalls: 0, forwardedPosts: 0, simulatedAnswers: 0,
   checks: [], failures: [], errors: [], findings: [], blockedRequests: [], assistantRequests: [], screenshots: [],
   limits: ['Local browser UI acceptance only; no live tester or model validation.', 'Assistant and clipboard success/failure are browser test doubles.', 'Import fixtures stay in browser memory and are not uploaded.']};
-const sourcePaths = ['scripts/verify-secondary-ui.mjs', 'app/replay/page.tsx', 'app/sandbox/page.tsx', 'app/replay/replay.css', 'app/globals.css', 'lib/rtdi/replay.ts', 'lib/rtdi/fixtures.ts', 'lib/rtdi/edge-adapter.ts'];
+const sourcePaths = ['scripts/verify-secondary-ui.mjs', 'app/page.tsx', 'app/replay/page.tsx', 'app/sandbox/page.tsx', 'app/replay/replay.css', 'app/globals.css', 'components/app-header.tsx', 'components/app-header.css', 'components/wafer-scene.tsx', 'components/wafer-scene.css', 'lib/rtdi/replay.ts', 'lib/rtdi/fixtures.ts', 'lib/rtdi/edge-adapter.ts'];
 async function hashes() {
   return Object.fromEntries(await Promise.all(sourcePaths.map(async path => [path, createHash('sha256').update(await readFile(resolve(root, path))).digest('hex')])));
 }
@@ -53,7 +53,7 @@ async function chartReadability(label) {
   assert.ok(metrics.length, label + ' chart missing');
   for (const chart of metrics) {
     assert.ok(chart.width >= 649, label + ' chart scaled below its source width');
-    assert.ok(chart.axes.length && chart.axes.every(size => size >= 11.9), label + ' rendered axes below 12px');
+    assert.ok(chart.axes.length && chart.axes.every(size => size >= 13.9), label + ' rendered axes below 14px');
     assert.ok(['auto', 'scroll'].includes(chart.overflow), label + ' chart lacks contained scrolling');
   }
   report.chartMetrics ??= {}; report.chartMetrics[label] = metrics;

@@ -37,7 +37,7 @@ test('agent performs a bounded multi-step tool investigation with evidence trace
   const responses = [
     { status: 'completed', output: [{ type: 'function_call', name: 'get_run_summary', arguments: '{"run_id":"RUN-1","tester_id":"T-1"}', call_id: 'call-1' }] },
     { status: 'completed', output: [{ type: 'function_call', name: 'get_incident_evidence', arguments: '{"run_id":"RUN-1","incident_id":"INC-1"}', call_id: 'call-2' }] },
-    { status: 'completed', output: [{ type: 'message', content: [{ type: 'output_text', text: 'Observation: Site 1 shows an upward shift. [EV-1]\nThe cause is unconfirmed. Compare other sites.' }] }] },
+    { status: 'completed', output: [{ type: 'message', content: [{ type: 'output_text', text: 'Observations: Site 1 has a mean increase. [EV-1]\nPossible causes: Unconfirmed.\nNext checks: Compare other sites.' }] }] },
   ];
   const requestBodies = [];
   const fetcher = async (_url, options) => {
@@ -51,12 +51,14 @@ test('agent performs a bounded multi-step tool investigation with evidence trace
       ? { output: { run_id: 'RUN-1', source_mode: 'replay' }, evidence_ids: [] }
       : { output: { incident_id: 'INC-1', observed: 1.42 }, evidence_ids: ['EV-1'] };
   };
-  const result = await runToolInvestigation({ apiKey: 'test-key', model: 'test-model', question: '哪個 site 異常？', history: [], scope: { run_id: 'RUN-1', tester_id: 'T-1', incident_id: 'INC-1' }, executeTool, fetcher });
+  const result = await runToolInvestigation({ apiKey: 'test-key', model: 'gpt-5.6-sol', question: '哪個 site 異常？', history: [{role: 'assistant', content: '先前使用中文的回答。'}], scope: { run_id: 'RUN-1', tester_id: 'T-1', incident_id: 'INC-1' }, executeTool, fetcher });
   assert.deepEqual(calls.map(call => call.name), ['get_run_summary', 'get_incident_evidence']);
   assert.deepEqual(result.evidence_ids, ['EV-1']);
   assert.equal(result.tool_trace.length, 2);
   assert.equal(requestBodies[0].tools.every(tool => tool.strict === true), true);
   assert.equal(requestBodies[0].tool_choice, 'required');
+  assert.ok(requestBodies.every(body => body.model === 'gpt-5.6-sol' && body.reasoning.effort === 'medium'));
+  assert.ok(requestBodies.every(body => /Response language: English/.test(body.instructions)));
   assert.equal(requestBodies[1].tool_choice, 'auto');
   assert.equal(requestBodies[1].input.some(item => item.type === 'function_call_output' && item.call_id === 'call-1'), true);
 });

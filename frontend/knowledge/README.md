@@ -14,6 +14,8 @@ historical incident answers and live deployment claims are deliberately excluded
 
 ## Runtime
 
+The assistant is on `/workspace`; `/` remains the replay landing page.
+
 - Prompts: `../lib/rtdi/assistant.ts`; mode/language rules: `../lib/rtdi/agent.ts`.
 - Both chat modes receive the complete small reference pack. No extra model call
   is used to classify a question, translate it or retrieve local documents.
