@@ -487,3 +487,285 @@ test('R2 command HTTP responses retain status codes, confirmation guards and sco
   assert.equal(ackRows().length, 1);
   assert.equal((await repo.getRunSnapshot('r2-run', 'r2-tester')).commands[0].tester_receipt_id, 'synthetic-http-receipt');
 });
+
+// R3 feature flows exercise route handlers and actual SQLite persistence.
+const formalBatch = (events, batch_id = crypto.randomUUID()) => ({ schema_version: 1, edge_id: 'r3-edge', batch_id, events });
+const evidenceEvent = (overrides = {}) => ({ event_id: 'r3-event', type: 'evidence', source_mode: 'replay', run_id: 'r3-run', tester_id: 'r3-tester',
+  timestamp: '2026-09-19T08:00:00.000Z', evidence_id: 'r3-evidence', incident_id: 'r3-incident', lot_id: 'lot', wafer_id: '1',
+  site_id: 1, sample_count: 3, current_value: 1.3, baseline: 1, threshold: 0, series: [1, 1.1, 1.3], site_series: { '1': [1, 1.1, 1.3], '2': [1, 1, 1] },
+  unit: null, severity: 'warning', message: 'Observed shift', ...overrides });
+const postFormal = value => ingestRoute.POST(request(value));
+const persistedCount = table => env.DB.sql.prepare(`SELECT COUNT(*) AS n FROM ${table}`).get().n;
+const routeContext = id => ({ params: Promise.resolve({ id }) });
+
+test('R3 concurrent ingest retries preserve original ACK identities and transaction isolation', { timeout: 5000 }, async () => {
+  for (const sameBatch of [true, false]) {
+    reset();
+    const incoming = formalBatch([evidenceEvent()], 'r3-batch');
+    const barrier = pauseCommandWrite('batches');
+    const delayed = postFormal(incoming);
+    await barrier.entered;
+    const winner = await postFormal({ ...incoming, batch_id: sameBatch ? incoming.batch_id : 'winner' });
+    assert.equal(winner.status, 200);
+    barrier.release();
+    const retry = await delayed;
+    assert.equal(retry.status, 200);
+    assert.deepEqual((await retry.json()).duplicates, ['r3-event']);
+    for (const table of ['events', 'evidence', 'incidents']) assert.equal(persistedCount(table), 1);
+  }
+});
+
+test('R3 racing conflicts reject the whole losing batch without acknowledging its valid record', { timeout: 5000 }, async () => {
+  reset();
+  const barrier = pauseCommandWrite('batches');
+  const delayed = postFormal(formalBatch([evidenceEvent(), evidenceEvent({ event_id: 'loser-only', evidence_id: 'loser-evidence' })]));
+  await barrier.entered;
+  assert.equal((await postFormal(formalBatch([evidenceEvent({ current_value: 9 })]))).status, 200);
+  barrier.release();
+  const rejected = await delayed;
+  assert.equal(rejected.status, 409);
+  assert.equal((await rejected.json()).accepted, undefined);
+  assert.equal(persistedCount('events'), 1);
+  assert.equal(persistedCount('batches'), 1);
+});
+
+test('R3 mixed invalid/conflicting batches store nothing partially and failed commits have no ACK', async () => {
+  reset();
+  const valid = evidenceEvent();
+  const invalid = { ...evidenceEvent({ event_id: 'invalid', evidence_id: 'invalid' }), type: 'prediction_actual', request_id: 'request' };
+  const response = await postFormal(formalBatch([valid, invalid]));
+  assert.equal(response.status, 422); assert.equal((await response.json()).accepted, undefined);
+  assert.equal(persistedCount('events'), 0);
+  await postFormal(formalBatch([valid]));
+  const conflict = await postFormal(formalBatch([evidenceEvent({ event_id: 'new', evidence_id: 'new' }), { ...valid, current_value: 999 }]));
+  assert.equal(conflict.status, 409); assert.equal(persistedCount('events'), 1);
+  env.DB.failCommit = true;
+  assert.equal((await postFormal(formalBatch([evidenceEvent({ event_id: 'failed', evidence_id: 'failed' })]))).status, 503);
+  assert.equal(persistedCount('events'), 1);
+});
+
+test('R3 late data cannot regress run scope, evidence chronology or incident severity', async () => {
+  reset();
+  await postFormal(formalBatch([evidenceEvent({ timestamp: '2026-09-19T12:00:00+02:00', wafer_id: 'latest', severity: 'info', message: 'newer' })]));
+  await postFormal(formalBatch([evidenceEvent({ event_id: 'old', evidence_id: 'old', timestamp: '2026-09-19T09:00:00Z', wafer_id: 'older', severity: 'warning', message: 'older' })]));
+  const snapshot = await repo.getRunSnapshot('r3-run', 'r3-tester');
+  assert.equal(snapshot.run.wafer_id, 'latest'); assert.equal(snapshot.run.data_quality, 'partial');
+  assert.equal(snapshot.incidents[0].first_seen, '2026-09-19T09:00:00Z');
+  assert.equal(snapshot.incidents[0].last_seen, '2026-09-19T12:00:00+02:00');
+  assert.equal(snapshot.incidents[0].severity, 'warning'); assert.equal(snapshot.incidents[0].title, 'newer');
+});
+
+test('R3 snapshot, incident and read-only tools retain complete evidence while rejecting wrong scopes', async () => {
+  reset();
+  const source = evidenceEvent({ series: Array.from({ length: 320 }, (_, i) => i / 10) });
+  await postFormal(formalBatch([source]));
+  const snapshotRoute = await import('../app/api/v1/runs/[id]/route.ts');
+  const incidentRoute = await import('../app/api/v1/incidents/[id]/route.ts');
+  const snapshotResponse = await snapshotRoute.GET(new Request('https://example.test/api/v1/runs/r3-run?tester_id=r3-tester'), routeContext('r3-run'));
+  const snapshot = await snapshotResponse.json();
+  assert.equal(snapshotResponse.status, 200); assert.deepEqual(snapshot.evidence, [source]);
+  const incident = await incidentRoute.GET(new Request('https://example.test/api/v1/incidents/r3-incident?run_id=r3-run'), routeContext('r3-incident'));
+  assert.deepEqual((await incident.json()).evidence, [source]);
+  const { persistentToolExecutor } = await import('../lib/rtdi/investigation-tools.ts');
+  const tool = persistentToolExecutor({ run_id: 'r3-run', tester_id: 'r3-tester' });
+  const read = await tool('get_incident_evidence', { run_id: 'r3-run', incident_id: 'r3-incident' });
+  assert.deepEqual(read.output.evidence, [source]); assert.deepEqual(read.evidence_ids, ['r3-evidence']);
+  const compared = await tool('compare_sites', { run_id: 'r3-run', tester_id: null, incident_id: 'r3-incident' });
+  assert.equal(compared.output.sites.length, 2);
+  await assert.rejects(tool('get_run_summary', { run_id: 'wrong', tester_id: null }), /scope/);
+  await assert.rejects(tool('compare_sites', { run_id: 'r3-run', tester_id: 'wrong', incident_id: null }), /scope/);
+  assert.equal(persistedCount('commands'), 0); assert.equal(persistedCount('investigations'), 0);
+});
+
+test('R3 incident tools use resolved tester scope even when public incident IDs are ambiguous', async () => {
+  reset();
+  await postFormal(formalBatch([evidenceEvent(), evidenceEvent({ tester_id: 'other-tester', current_value: 999 })]));
+  const { persistentToolExecutor } = await import('../lib/rtdi/investigation-tools.ts');
+  const tool = persistentToolExecutor({ run_id: 'r3-run', tester_id: 'r3-tester' });
+  const result = await tool('get_incident_evidence', { run_id: 'r3-run', incident_id: 'r3-incident' });
+  assert.equal(result.output.tester_id, 'r3-tester'); assert.equal(result.output.evidence[0].current_value, 1.3);
+  await assert.rejects(repo.getIncident('r3-incident', 'r3-run'), repo.AmbiguousScopeError);
+  await assert.rejects(persistentToolExecutor({ run_id: 'r3-run' })('get_run_summary', { run_id: 'r3-run', tester_id: 'other-tester' }), repo.AmbiguousScopeError);
+});
+
+test('R3 empty/missing/ambiguous runs and unavailable feature routes return honest errors', async () => {
+  reset();
+  const snapshotRoute = await import('../app/api/v1/runs/[id]/route.ts');
+  const streamRoute = await import('../app/api/v1/runs/[id]/events/route.ts');
+  const incidentRoute = await import('../app/api/v1/incidents/[id]/route.ts');
+  const pendingRoute = await import('../app/api/v1/commands/pending/route.ts');
+  for (const route of [snapshotRoute, streamRoute]) assert.equal((await route.GET(new Request('https://example.test/api'), routeContext('missing'))).status, 404);
+  assert.equal((await incidentRoute.GET(new Request('https://example.test/api'), routeContext('missing'))).status, 404);
+  await repo.ingestEdgeBatch(edgeBatchSchema.parse(formalBatch([{ event_id: 'heartbeat', type: 'heartbeat', run_id: 'empty', tester_id: 'tester', source_mode: 'replay', timestamp: base.timestamp ? new Date(base.timestamp * 1000).toISOString() : '' }])));
+  const empty = await repo.getRunSnapshot('empty', 'tester');
+  assert.deepEqual(empty.evidence, []); assert.deepEqual(empty.commands, []); assert.deepEqual(empty.incidents, []);
+  await postFormal(formalBatch([evidenceEvent(), evidenceEvent({ tester_id: 'other' })]));
+  for (const route of [snapshotRoute, streamRoute]) assert.equal((await route.GET(new Request('https://example.test/api'), routeContext('r3-run'))).status, 409);
+  assert.equal((await snapshotRoute.GET(new Request('https://example.test/api?tester_id=wrong'), routeContext('r3-run'))).status, 404);
+  delete env.COMMAND_TOKEN;
+  assert.equal((await pendingRoute.GET(new Request('https://example.test/api?tester_id=r3-tester'))).status, 503);
+  const saved = env.DB; delete env.DB;
+  assert.equal((await snapshotRoute.GET(new Request('https://example.test/api'), routeContext('r3-run'))).status, 503);
+  env.DB = saved;
+});
+
+test('R3 SSE delivers persisted records, resumes by cursor and closes when the reader cancels', async () => {
+  reset(); await postFormal(formalBatch([evidenceEvent()]));
+  const { GET } = await import('../app/api/v1/runs/[id]/events/route.ts');
+  const abort = new AbortController();
+  const response = await GET(new Request('https://example.test/api?tester_id=r3-tester', { signal: abort.signal }), routeContext('r3-run'));
+  assert.equal(response.status, 200); assert.match(response.headers.get('content-type'), /text\/event-stream/);
+  const reader = response.body.getReader();
+  assert.match(new TextDecoder().decode((await reader.read()).value), /event: ready/);
+  const frame = new TextDecoder().decode((await reader.read()).value);
+  assert.match(frame, /event: edge_event/); assert.equal(JSON.parse(frame.split('\ndata: ')[1]).event_id, 'r3-event');
+  const cursor = frame.match(/^id: (\d+)/)[1];
+  abort.abort(); await reader.cancel();
+  const resumedAbort = new AbortController();
+  const resumed = await GET(new Request('https://example.test/api?tester_id=r3-tester', { headers: { 'Last-Event-ID': cursor }, signal: resumedAbort.signal }), routeContext('r3-run'));
+  const resumedReader = resumed.body.getReader();
+  assert.match(new TextDecoder().decode((await resumedReader.read()).value), new RegExp(`"cursor":${cursor}`));
+  resumedAbort.abort(); await resumedReader.cancel();
+});
+
+const chatBody = { mode: 'openai', question: 'Explain the stored evidence.' };
+const chatRequest = (body, query = '') => new Request(`https://example.test/api/v1/runs/r3-run/chat${query}`, { method: 'POST', headers: { 'Content-Type': 'application/json', Origin: 'https://example.test' }, body: JSON.stringify(body) });
+const modelTool = (name, args) => ({ status: 'completed', output: [{ type: 'function_call', name, arguments: JSON.stringify(args), call_id: crypto.randomUUID() }] });
+const modelAnswer = text => ({ status: 'completed', output: [{ type: 'message', content: [{ type: 'output_text', text }] }] });
+async function withModelResponses(responses, action) {
+  const original = globalThis.fetch;
+  globalThis.fetch = async () => {
+    const next = responses.shift(); assert.ok(next, 'Unexpected extra model request');
+    return next instanceof Response ? next : new Response(JSON.stringify(next), { headers: { 'Content-Type': 'application/json' } });
+  };
+  try { return await action(); } finally { globalThis.fetch = original; delete env.OPENAI_API_KEY; }
+}
+
+test('R3 persisted investigation stores supplied model answer, scoped evidence and trace without commands', async () => {
+  reset(); await postFormal(formalBatch([evidenceEvent()])); env.OPENAI_API_KEY = 'synthetic-model-key';
+  const { POST } = await import('../app/api/v1/runs/[id]/chat/route.ts');
+  await withModelResponses([
+    modelTool('get_incident_evidence', { run_id: 'r3-run', incident_id: 'r3-incident' }), modelAnswer('Observed shift [r3-evidence]'),
+  ], async () => {
+    const response = await POST(chatRequest(chatBody, '?tester_id=r3-tester'), routeContext('r3-run'));
+    assert.equal(response.status, 200); const answer = await response.json();
+    const row = env.DB.sql.prepare('SELECT * FROM investigations WHERE investigation_id = ?').get(answer.investigation_id);
+    assert.equal(row.status, 'complete'); assert.equal(row.answer, answer.answer); assert.equal(row.tester_id, 'r3-tester');
+    assert.deepEqual(JSON.parse(row.evidence_ids), ['r3-evidence']); assert.equal(JSON.parse(row.tool_trace)[0].ok, true);
+    assert.equal(persistedCount('commands'), 0);
+  });
+});
+
+test('R3 investigation resolves query tester, rejects mismatched scope and retains safe failed tool traces', async () => {
+  reset(); await postFormal(formalBatch([evidenceEvent(), evidenceEvent({ tester_id: 'other' })])); env.OPENAI_API_KEY = 'synthetic-model-key';
+  const { POST } = await import('../app/api/v1/runs/[id]/chat/route.ts');
+  await withModelResponses([
+    modelTool('get_incident_evidence', { run_id: 'r3-run', incident_id: 'r3-incident' }), new Response('private provider detail', { status: 429 }),
+  ], async () => {
+    assert.equal((await POST(chatRequest({ ...chatBody, tester_id: 'other' }, '?tester_id=r3-tester'), routeContext('r3-run'))).status, 409);
+    const response = await POST(chatRequest(chatBody, '?tester_id=r3-tester'), routeContext('r3-run'));
+    assert.equal(response.status, 502); const error = await response.json();
+    assert.equal(error.answer, undefined); assert.equal(error.code, 'upstream_error');
+    const row = env.DB.sql.prepare('SELECT * FROM investigations').get();
+    assert.equal(row.status, 'failed'); assert.equal(row.tester_id, 'r3-tester'); assert.equal(row.answer, null);
+    assert.equal(JSON.parse(row.tool_trace).length, 1); assert.deepEqual(JSON.parse(row.evidence_ids), ['r3-evidence']);
+    assert.doesNotMatch(JSON.stringify(row), /private provider detail|synthetic-model-key/);
+  });
+});
+
+test('R3 unavailable AI never produces demo/model answers or fake investigation records', async () => {
+  reset(); delete env.OPENAI_API_KEY;
+  const previousKey = process.env.OPENAI_API_KEY; delete process.env.OPENAI_API_KEY;
+  try {
+    const { POST } = await import('../app/api/v1/runs/[id]/chat/route.ts');
+    const response = await POST(chatRequest(chatBody), routeContext('r3-run'));
+    assert.equal(response.status, 503); const error = await response.json();
+    assert.equal(error.code, 'missing_api_key'); assert.equal(error.answer, undefined); assert.equal(persistedCount('investigations'), 0);
+  } finally { if (previousKey !== undefined) process.env.OPENAI_API_KEY = previousKey; }
+});
+
+test('R3 SSE reader cancellation stops polling without an aborted request', { timeout: 3000 }, async () => {
+  reset(); await postFormal(formalBatch([evidenceEvent()]));
+  const { GET } = await import('../app/api/v1/runs/[id]/events/route.ts');
+  const response = await GET(new Request('https://example.test/api?tester_id=r3-tester'), routeContext('r3-run'));
+  const reader = response.body.getReader();
+  await reader.read(); await reader.read();
+  await reader.cancel();
+  let readsAfterCancel = 0;
+  env.DB.beforeExecute = () => { readsAfterCancel += 1; };
+  await new Promise(resolve => setTimeout(resolve, 1100));
+  assert.equal(readsAfterCancel, 0);
+});
+
+test('R3 measurement HTTP pages preserve records and distinguish empty, exhausted and wrong scopes', async () => {
+  reset();
+  const measurements = [{ value: 0, unit: null, flags: '0x0' }, { value: null, unit: null, flags: 'unverified' }];
+  await ingest([{ ...base, event_id: 'device', event_type: 'device_completed', measurements },
+    { ...base, event_id: 'empty-device', event_type: 'device_completed', measurements: [] }]);
+  const call = (run, tester, event, offset = 0) => measurementRoute.GET(new Request(`https://example.test/api?tester_id=${tester}&event_id=${event}&offset=${offset}&limit=1`), routeContext(run));
+  const first = await (await call('run', 'tester', 'device')).json();
+  const second = await (await call('run', 'tester', 'device', first.next_offset)).json();
+  assert.deepEqual([...first.measurements, ...second.measurements], measurements);
+  assert.equal(first.total, 2); assert.equal(second.next_offset, null);
+  for (const [event, offset] of [['device', 2], ['empty-device', 0]]) {
+    const response = await call('run', 'tester', event, offset);
+    assert.equal(response.status, 200); assert.deepEqual((await response.json()).measurements, []);
+  }
+  for (const [run, tester, event] of [['wrong', 'tester', 'device'], ['run', 'wrong', 'device'], ['run', 'tester', 'absent']]) {
+    assert.equal((await call(run, tester, event)).status, 404);
+  }
+});
+
+test('R3 evidence identity races and mixed duplicate/new batches preserve atomic ACKs', { timeout: 5000 }, async () => {
+  reset();
+  const barrier = pauseCommandWrite('batches');
+  const delayed = postFormal(formalBatch([evidenceEvent({ event_id: 'other-source' })]));
+  await barrier.entered;
+  await postFormal(formalBatch([evidenceEvent()]));
+  barrier.release();
+  assert.equal((await delayed).status, 409); assert.equal(persistedCount('events'), 1);
+  const mixed = await postFormal(formalBatch([evidenceEvent(), evidenceEvent({ event_id: 'new', evidence_id: 'new' })]));
+  const ack = await mixed.json();
+  assert.equal(mixed.status, 200); assert.deepEqual(ack.accepted, ['new']); assert.deepEqual(ack.duplicates, ['r3-event']);
+  assert.equal(persistedCount('events'), 2);
+});
+
+test('R3 chat validates selected incident before model work and persists sanitized tool failures', async () => {
+  reset(); await postFormal(formalBatch([evidenceEvent()])); env.OPENAI_API_KEY = 'synthetic-model-key';
+  const { POST } = await import('../app/api/v1/runs/[id]/chat/route.ts');
+  let calls = 0;
+  const original = globalThis.fetch;
+  globalThis.fetch = async (_url, options) => {
+    calls += 1;
+    if (calls === 1) return Response.json(modelTool('get_incident_evidence', { run_id: 'wrong-run', incident_id: 'r3-incident' }));
+    const toolOutput = JSON.parse(options.body).input.find(item => item.type === 'function_call_output');
+    assert.deepEqual(JSON.parse(toolOutput.output), { error: 'Read-only tool unavailable or requested scope invalid.' });
+    return new Response('private provider detail', { status: 500 });
+  };
+  try {
+    assert.equal((await POST(chatRequest({ ...chatBody, incident_id: 'absent' }), routeContext('r3-run'))).status, 404);
+    assert.equal(calls, 0); assert.equal(persistedCount('investigations'), 0);
+    assert.equal((await POST(chatRequest(chatBody), routeContext('r3-run'))).status, 502);
+    const row = env.DB.sql.prepare('SELECT * FROM investigations').get();
+    assert.equal(row.status, 'failed'); assert.equal(row.answer, null);
+    assert.deepEqual(JSON.parse(row.tool_trace).map(item => item.ok), [false]);
+    assert.deepEqual(JSON.parse(row.evidence_ids), []); assert.equal(row.error, 'investigation failed');
+  } finally { globalThis.fetch = original; delete env.OPENAI_API_KEY; }
+});
+
+test('R3 failed answer persistence never returns an uncommitted model answer', async () => {
+  reset(); await postFormal(formalBatch([evidenceEvent()])); env.OPENAI_API_KEY = 'synthetic-model-key';
+  env.DB.beforeExecute = statements => {
+    if (statements.some(item => /UPDATE investigations/.test(item.query) && item.args[0] === 'complete')) throw Error('private database detail');
+  };
+  const { POST } = await import('../app/api/v1/runs/[id]/chat/route.ts');
+  await withModelResponses([
+    modelTool('get_incident_evidence', { run_id: 'r3-run', incident_id: 'r3-incident' }), modelAnswer('Observed shift [r3-evidence]'),
+  ], async () => {
+    const response = await POST(chatRequest(chatBody), routeContext('r3-run'));
+    assert.equal(response.status, 502); assert.equal((await response.json()).answer, undefined);
+    const row = env.DB.sql.prepare('SELECT * FROM investigations').get();
+    assert.equal(row.status, 'failed'); assert.equal(row.answer, null); assert.equal(row.error, 'investigation failed');
+    assert.deepEqual(JSON.parse(row.evidence_ids), ['r3-evidence']); assert.equal(JSON.parse(row.tool_trace)[0].ok, true);
+  });
+});

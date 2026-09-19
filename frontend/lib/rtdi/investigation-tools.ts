@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { getIncident, getRunSnapshot, type RunSnapshot } from "./repository";
+import { getRunSnapshot, type RunSnapshot } from "./repository";
 import type { EventView } from "./contracts";
 import type { EdgeRecord } from "./wire";
 import type { ToolExecutor } from "./tool-contract";
@@ -66,24 +66,34 @@ const requireScope = (actualRun: string, allowedRun: string, actualTester: strin
 };
 
 export function persistentToolExecutor(scope: { run_id: string; tester_id?: string | null }): ToolExecutor {
+  let resolvedTester = scope.tester_id ?? null;
+  const scopedSnapshot = async (requestedTester: string | null) => {
+    // Resolve an omitted tester from persisted scope, never from model arguments.
+    const snapshot = await getRunSnapshot(scope.run_id, resolvedTester);
+    if (!snapshot) throw new Error("run not found in allowed scope");
+    resolvedTester = snapshot.run.tester_id;
+    requireScope(scope.run_id, scope.run_id, requestedTester, resolvedTester);
+    return snapshot;
+  };
   return async (name, rawArguments) => {
     if (name === "get_run_summary") {
-      const args = runArgs.parse(rawArguments); requireScope(args.run_id, scope.run_id, args.tester_id, scope.tester_id);
-      const snapshot = await getRunSnapshot(args.run_id, args.tester_id ?? scope.tester_id);
-      if (!snapshot) throw new Error("run not found");
-      const output = summarize(snapshot);
-      return { output, evidence_ids: [] };
+      const args = runArgs.parse(rawArguments); requireScope(args.run_id, scope.run_id, args.tester_id, resolvedTester);
+      const snapshot = await scopedSnapshot(args.tester_id);
+      return { output: summarize(snapshot), evidence_ids: [] };
     }
     if (name === "get_incident_evidence") {
-      const args = incidentArgs.parse(rawArguments); requireScope(args.run_id, scope.run_id, null, scope.tester_id);
-      const result = await getIncident(args.incident_id, args.run_id);
-      if (!result || (scope.tester_id && result.tester_id !== scope.tester_id)) throw new Error("incident not found in allowed scope");
-      const evidenceIds = result.evidence.flatMap(record => record.evidence_id ? [record.evidence_id] : []);
-      return { output: result, evidence_ids: evidenceIds };
+      const args = incidentArgs.parse(rawArguments); requireScope(args.run_id, scope.run_id, null, resolvedTester);
+      const snapshot = await scopedSnapshot(null);
+      const incident = snapshot.incidents.find(item => item.incident_id === args.incident_id);
+      if (!incident) throw new Error("incident not found in allowed scope");
+      const evidence = snapshot.evidence.filter(item => item.incident_id === args.incident_id);
+      return { output: { incident, evidence, run_id: scope.run_id, tester_id: resolvedTester },
+        evidence_ids: evidence.flatMap(record => record.evidence_id ? [record.evidence_id] : []) };
     }
-    const args = compareArgs.parse(rawArguments); requireScope(args.run_id, scope.run_id, args.tester_id, scope.tester_id);
-    const snapshot = await getRunSnapshot(args.run_id, args.tester_id ?? scope.tester_id);
-    if (!snapshot) throw new Error("run not found");
+    if (name !== "compare_sites") throw new Error("unsupported read-only tool");
+    const args = compareArgs.parse(rawArguments); requireScope(args.run_id, scope.run_id, args.tester_id, resolvedTester);
+    const snapshot = await scopedSnapshot(args.tester_id);
+    if (args.incident_id && !snapshot.incidents.some(item => item.incident_id === args.incident_id)) throw new Error("incident not found in allowed scope");
     const output = compareEvidence(snapshot.evidence, args.incident_id);
     return { output, evidence_ids: output.sites.flatMap(site => site.evidence_ids) };
   };
