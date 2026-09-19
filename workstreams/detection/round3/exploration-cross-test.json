@@ -1,0 +1,1202 @@
+[
+  {
+    "wafer": 1,
+    "family": "Main",
+    "median_raw_cross_test_iqr": 6.561125,
+    "test_mean_sd": 12.191503614952396
+  },
+  {
+    "wafer": 2,
+    "family": "Main",
+    "median_raw_cross_test_iqr": 6.6377500000000005,
+    "test_mean_sd": 12.206084363420567
+  },
+  {
+    "wafer": 3,
+    "family": "Main",
+    "median_raw_cross_test_iqr": 6.853375000000001,
+    "test_mean_sd": 12.233491365655935
+  },
+  {
+    "wafer": 4,
+    "family": "Main",
+    "median_raw_cross_test_iqr": 6.892625,
+    "test_mean_sd": 12.305311365360886
+  },
+  {
+    "wafer": 5,
+    "family": "Main",
+    "median_raw_cross_test_iqr": 6.837875,
+    "test_mean_sd": 12.231134839610027
+  },
+  {
+    "wafer": 6,
+    "family": "Main",
+    "median_raw_cross_test_iqr": 6.859375,
+    "test_mean_sd": 12.23323450937195
+  },
+  {
+    "wafer": 7,
+    "family": "Main",
+    "median_raw_cross_test_iqr": 6.82825,
+    "test_mean_sd": 12.20663903958662
+  },
+  {
+    "wafer": 8,
+    "family": "Main",
+    "median_raw_cross_test_iqr": 6.841000000000001,
+    "test_mean_sd": 12.210684027526337
+  },
+  {
+    "wafer": 9,
+    "family": "Main",
+    "median_raw_cross_test_iqr": 6.846499999999999,
+    "test_mean_sd": 12.235945505305702
+  },
+  {
+    "wafer": 10,
+    "family": "Main",
+    "median_raw_cross_test_iqr": 6.900625000000001,
+    "test_mean_sd": 12.300912908593855
+  },
+  {
+    "wafer": 11,
+    "family": "Main",
+    "median_raw_cross_test_iqr": 6.9365000000000006,
+    "test_mean_sd": 12.385125413065289
+  },
+  {
+    "wafer": 12,
+    "family": "Main",
+    "median_raw_cross_test_iqr": 6.92075,
+    "test_mean_sd": 12.354607402935214
+  },
+  {
+    "wafer": 13,
+    "family": "Main",
+    "median_raw_cross_test_iqr": 6.90375,
+    "test_mean_sd": 12.31556561152156
+  },
+  {
+    "wafer": 14,
+    "family": "Main",
+    "median_raw_cross_test_iqr": 6.848125000000001,
+    "test_mean_sd": 12.231371905569533
+  },
+  {
+    "wafer": 15,
+    "family": "Main",
+    "median_raw_cross_test_iqr": 6.9125,
+    "test_mean_sd": 12.326666362842877
+  },
+  {
+    "wafer": 16,
+    "family": "Main",
+    "median_raw_cross_test_iqr": 6.937375000000001,
+    "test_mean_sd": 12.365361053847321
+  },
+  {
+    "wafer": 17,
+    "family": "Main",
+    "median_raw_cross_test_iqr": 6.853124999999999,
+    "test_mean_sd": 12.235185279462657
+  },
+  {
+    "wafer": 18,
+    "family": "Main",
+    "median_raw_cross_test_iqr": 6.85125,
+    "test_mean_sd": 12.232641771810519
+  },
+  {
+    "wafer": 19,
+    "family": "Main",
+    "median_raw_cross_test_iqr": 6.914875,
+    "test_mean_sd": 12.331940410915555
+  },
+  {
+    "wafer": 20,
+    "family": "Main",
+    "median_raw_cross_test_iqr": 6.906625,
+    "test_mean_sd": 12.32298535693151
+  },
+  {
+    "wafer": 21,
+    "family": "Main",
+    "median_raw_cross_test_iqr": 6.93275,
+    "test_mean_sd": 12.361527730442585
+  },
+  {
+    "wafer": 22,
+    "family": "Main",
+    "median_raw_cross_test_iqr": 6.92225,
+    "test_mean_sd": 12.352373049582035
+  },
+  {
+    "wafer": 23,
+    "family": "Main",
+    "median_raw_cross_test_iqr": 6.907125,
+    "test_mean_sd": 12.322705844239321
+  },
+  {
+    "wafer": 24,
+    "family": "Main",
+    "median_raw_cross_test_iqr": 6.923250000000001,
+    "test_mean_sd": 12.337673269146618
+  },
+  {
+    "wafer": 25,
+    "family": "Main",
+    "median_raw_cross_test_iqr": 6.895250000000001,
+    "test_mean_sd": 12.312585482876361
+  },
+  {
+    "wafer": 1,
+    "family": "Main.IDDQ_flow",
+    "median_raw_cross_test_iqr": 7.49175,
+    "test_mean_sd": 13.13847362420688
+  },
+  {
+    "wafer": 2,
+    "family": "Main.IDDQ_flow",
+    "median_raw_cross_test_iqr": 7.62725,
+    "test_mean_sd": 13.070927773948249
+  },
+  {
+    "wafer": 3,
+    "family": "Main.IDDQ_flow",
+    "median_raw_cross_test_iqr": 6.85575,
+    "test_mean_sd": 11.819372535395317
+  },
+  {
+    "wafer": 4,
+    "family": "Main.IDDQ_flow",
+    "median_raw_cross_test_iqr": 6.9525,
+    "test_mean_sd": 11.934050810067609
+  },
+  {
+    "wafer": 5,
+    "family": "Main.IDDQ_flow",
+    "median_raw_cross_test_iqr": 6.85125,
+    "test_mean_sd": 11.757259665893008
+  },
+  {
+    "wafer": 6,
+    "family": "Main.IDDQ_flow",
+    "median_raw_cross_test_iqr": 6.80225,
+    "test_mean_sd": 11.788590356964356
+  },
+  {
+    "wafer": 7,
+    "family": "Main.IDDQ_flow",
+    "median_raw_cross_test_iqr": 6.784749999999999,
+    "test_mean_sd": 11.761913267674128
+  },
+  {
+    "wafer": 8,
+    "family": "Main.IDDQ_flow",
+    "median_raw_cross_test_iqr": 6.852,
+    "test_mean_sd": 11.790773286092346
+  },
+  {
+    "wafer": 9,
+    "family": "Main.IDDQ_flow",
+    "median_raw_cross_test_iqr": 6.81475,
+    "test_mean_sd": 11.76271696762067
+  },
+  {
+    "wafer": 10,
+    "family": "Main.IDDQ_flow",
+    "median_raw_cross_test_iqr": 6.94825,
+    "test_mean_sd": 11.920078490751505
+  },
+  {
+    "wafer": 11,
+    "family": "Main.IDDQ_flow",
+    "median_raw_cross_test_iqr": 7.085249999999999,
+    "test_mean_sd": 12.113475766585534
+  },
+  {
+    "wafer": 12,
+    "family": "Main.IDDQ_flow",
+    "median_raw_cross_test_iqr": 7.02475,
+    "test_mean_sd": 12.071115178029112
+  },
+  {
+    "wafer": 13,
+    "family": "Main.IDDQ_flow",
+    "median_raw_cross_test_iqr": 6.944,
+    "test_mean_sd": 11.960064550495522
+  },
+  {
+    "wafer": 14,
+    "family": "Main.IDDQ_flow",
+    "median_raw_cross_test_iqr": 6.853999999999999,
+    "test_mean_sd": 11.78239862682675
+  },
+  {
+    "wafer": 15,
+    "family": "Main.IDDQ_flow",
+    "median_raw_cross_test_iqr": 6.947249999999999,
+    "test_mean_sd": 11.985034675287704
+  },
+  {
+    "wafer": 16,
+    "family": "Main.IDDQ_flow",
+    "median_raw_cross_test_iqr": 7.065999999999999,
+    "test_mean_sd": 12.085667338456604
+  },
+  {
+    "wafer": 17,
+    "family": "Main.IDDQ_flow",
+    "median_raw_cross_test_iqr": 6.8157499999999995,
+    "test_mean_sd": 11.774882182220797
+  },
+  {
+    "wafer": 18,
+    "family": "Main.IDDQ_flow",
+    "median_raw_cross_test_iqr": 6.8149999999999995,
+    "test_mean_sd": 11.789082221736129
+  },
+  {
+    "wafer": 19,
+    "family": "Main.IDDQ_flow",
+    "median_raw_cross_test_iqr": 6.973000000000001,
+    "test_mean_sd": 12.073050656921042
+  },
+  {
+    "wafer": 20,
+    "family": "Main.IDDQ_flow",
+    "median_raw_cross_test_iqr": 6.922750000000001,
+    "test_mean_sd": 11.991941478972267
+  },
+  {
+    "wafer": 21,
+    "family": "Main.IDDQ_flow",
+    "median_raw_cross_test_iqr": 7.0605,
+    "test_mean_sd": 12.095242745325951
+  },
+  {
+    "wafer": 22,
+    "family": "Main.IDDQ_flow",
+    "median_raw_cross_test_iqr": 7.019,
+    "test_mean_sd": 12.098700960904843
+  },
+  {
+    "wafer": 23,
+    "family": "Main.IDDQ_flow",
+    "median_raw_cross_test_iqr": 6.948250000000001,
+    "test_mean_sd": 11.978585179498237
+  },
+  {
+    "wafer": 24,
+    "family": "Main.IDDQ_flow",
+    "median_raw_cross_test_iqr": 7.00875,
+    "test_mean_sd": 12.028074365084336
+  },
+  {
+    "wafer": 25,
+    "family": "Main.IDDQ_flow",
+    "median_raw_cross_test_iqr": 6.89875,
+    "test_mean_sd": 11.950755305186453
+  },
+  {
+    "wafer": 1,
+    "family": "Main.subflow1",
+    "median_raw_cross_test_iqr": 0.31062500000000015,
+    "test_mean_sd": 0.1823946396064314
+  },
+  {
+    "wafer": 2,
+    "family": "Main.subflow1",
+    "median_raw_cross_test_iqr": 0.30937499999999996,
+    "test_mean_sd": 0.1857853470386776
+  },
+  {
+    "wafer": 3,
+    "family": "Main.subflow1",
+    "median_raw_cross_test_iqr": 0.31225,
+    "test_mean_sd": 0.18853138484149662
+  },
+  {
+    "wafer": 4,
+    "family": "Main.subflow1",
+    "median_raw_cross_test_iqr": 0.3102499999999999,
+    "test_mean_sd": 0.18483295937665412
+  },
+  {
+    "wafer": 5,
+    "family": "Main.subflow1",
+    "median_raw_cross_test_iqr": 0.310875,
+    "test_mean_sd": 0.18501294260682144
+  },
+  {
+    "wafer": 6,
+    "family": "Main.subflow1",
+    "median_raw_cross_test_iqr": 0.31325000000000003,
+    "test_mean_sd": 0.18629261019361448
+  },
+  {
+    "wafer": 7,
+    "family": "Main.subflow1",
+    "median_raw_cross_test_iqr": 0.31062499999999993,
+    "test_mean_sd": 0.18613786567034796
+  },
+  {
+    "wafer": 8,
+    "family": "Main.subflow1",
+    "median_raw_cross_test_iqr": 0.3105000000000001,
+    "test_mean_sd": 0.18543441182983675
+  },
+  {
+    "wafer": 9,
+    "family": "Main.subflow1",
+    "median_raw_cross_test_iqr": 0.3121250000000001,
+    "test_mean_sd": 0.1874110388325952
+  },
+  {
+    "wafer": 10,
+    "family": "Main.subflow1",
+    "median_raw_cross_test_iqr": 0.310125,
+    "test_mean_sd": 0.18593682706752176
+  },
+  {
+    "wafer": 11,
+    "family": "Main.subflow1",
+    "median_raw_cross_test_iqr": 0.3125,
+    "test_mean_sd": 0.1862471692799299
+  },
+  {
+    "wafer": 12,
+    "family": "Main.subflow1",
+    "median_raw_cross_test_iqr": 0.30999999999999994,
+    "test_mean_sd": 0.1855231646326056
+  },
+  {
+    "wafer": 13,
+    "family": "Main.subflow1",
+    "median_raw_cross_test_iqr": 0.3102499999999999,
+    "test_mean_sd": 0.1843773126625721
+  },
+  {
+    "wafer": 14,
+    "family": "Main.subflow1",
+    "median_raw_cross_test_iqr": 0.30974999999999997,
+    "test_mean_sd": 0.18606932119492456
+  },
+  {
+    "wafer": 15,
+    "family": "Main.subflow1",
+    "median_raw_cross_test_iqr": 0.30999999999999983,
+    "test_mean_sd": 0.18452175801006504
+  },
+  {
+    "wafer": 16,
+    "family": "Main.subflow1",
+    "median_raw_cross_test_iqr": 0.31037499999999985,
+    "test_mean_sd": 0.18547704770756002
+  },
+  {
+    "wafer": 17,
+    "family": "Main.subflow1",
+    "median_raw_cross_test_iqr": 0.31225000000000014,
+    "test_mean_sd": 0.18575061539563434
+  },
+  {
+    "wafer": 18,
+    "family": "Main.subflow1",
+    "median_raw_cross_test_iqr": 0.31037499999999985,
+    "test_mean_sd": 0.18609652375057112
+  },
+  {
+    "wafer": 19,
+    "family": "Main.subflow1",
+    "median_raw_cross_test_iqr": 0.30974999999999997,
+    "test_mean_sd": 0.18657558089166573
+  },
+  {
+    "wafer": 20,
+    "family": "Main.subflow1",
+    "median_raw_cross_test_iqr": 0.3115,
+    "test_mean_sd": 0.18506565954522736
+  },
+  {
+    "wafer": 21,
+    "family": "Main.subflow1",
+    "median_raw_cross_test_iqr": 0.3114999999999999,
+    "test_mean_sd": 0.1855711592412379
+  },
+  {
+    "wafer": 22,
+    "family": "Main.subflow1",
+    "median_raw_cross_test_iqr": 0.309875,
+    "test_mean_sd": 0.18515439948446405
+  },
+  {
+    "wafer": 23,
+    "family": "Main.subflow1",
+    "median_raw_cross_test_iqr": 0.31099999999999994,
+    "test_mean_sd": 0.18574044768490117
+  },
+  {
+    "wafer": 24,
+    "family": "Main.subflow1",
+    "median_raw_cross_test_iqr": 0.3114999999999999,
+    "test_mean_sd": 0.18532980854812592
+  },
+  {
+    "wafer": 25,
+    "family": "Main.subflow1",
+    "median_raw_cross_test_iqr": 0.3132499999999999,
+    "test_mean_sd": 0.18688969599004113
+  },
+  {
+    "wafer": 1,
+    "family": "Main.subflow2",
+    "median_raw_cross_test_iqr": 0.26700000000000007,
+    "test_mean_sd": 0.15588694239211273
+  },
+  {
+    "wafer": 2,
+    "family": "Main.subflow2",
+    "median_raw_cross_test_iqr": 0.26837500000000003,
+    "test_mean_sd": 0.15617030096959858
+  },
+  {
+    "wafer": 3,
+    "family": "Main.subflow2",
+    "median_raw_cross_test_iqr": 0.2676250000000001,
+    "test_mean_sd": 0.15594663686446358
+  },
+  {
+    "wafer": 4,
+    "family": "Main.subflow2",
+    "median_raw_cross_test_iqr": 0.266875,
+    "test_mean_sd": 0.15559755287334012
+  },
+  {
+    "wafer": 5,
+    "family": "Main.subflow2",
+    "median_raw_cross_test_iqr": 0.26612500000000006,
+    "test_mean_sd": 0.156114922732764
+  },
+  {
+    "wafer": 6,
+    "family": "Main.subflow2",
+    "median_raw_cross_test_iqr": 0.26812500000000006,
+    "test_mean_sd": 0.15564108101255553
+  },
+  {
+    "wafer": 7,
+    "family": "Main.subflow2",
+    "median_raw_cross_test_iqr": 0.26825000000000004,
+    "test_mean_sd": 0.15580967154973888
+  },
+  {
+    "wafer": 8,
+    "family": "Main.subflow2",
+    "median_raw_cross_test_iqr": 0.2661250000000002,
+    "test_mean_sd": 0.15611238777743583
+  },
+  {
+    "wafer": 9,
+    "family": "Main.subflow2",
+    "median_raw_cross_test_iqr": 0.266875,
+    "test_mean_sd": 0.15610800120273105
+  },
+  {
+    "wafer": 10,
+    "family": "Main.subflow2",
+    "median_raw_cross_test_iqr": 0.26737499999999986,
+    "test_mean_sd": 0.15569034428474524
+  },
+  {
+    "wafer": 11,
+    "family": "Main.subflow2",
+    "median_raw_cross_test_iqr": 0.26675000000000004,
+    "test_mean_sd": 0.15619030078053822
+  },
+  {
+    "wafer": 12,
+    "family": "Main.subflow2",
+    "median_raw_cross_test_iqr": 0.26649999999999996,
+    "test_mean_sd": 0.15561327345370476
+  },
+  {
+    "wafer": 13,
+    "family": "Main.subflow2",
+    "median_raw_cross_test_iqr": 0.26999999999999996,
+    "test_mean_sd": 0.15633499045731894
+  },
+  {
+    "wafer": 14,
+    "family": "Main.subflow2",
+    "median_raw_cross_test_iqr": 0.26900000000000013,
+    "test_mean_sd": 0.15870868952558176
+  },
+  {
+    "wafer": 15,
+    "family": "Main.subflow2",
+    "median_raw_cross_test_iqr": 0.266125,
+    "test_mean_sd": 0.15558465087833015
+  },
+  {
+    "wafer": 16,
+    "family": "Main.subflow2",
+    "median_raw_cross_test_iqr": 0.26712499999999995,
+    "test_mean_sd": 0.15634020223972103
+  },
+  {
+    "wafer": 17,
+    "family": "Main.subflow2",
+    "median_raw_cross_test_iqr": 0.26662500000000017,
+    "test_mean_sd": 0.15545501744865578
+  },
+  {
+    "wafer": 18,
+    "family": "Main.subflow2",
+    "median_raw_cross_test_iqr": 0.2675,
+    "test_mean_sd": 0.15624281062967346
+  },
+  {
+    "wafer": 19,
+    "family": "Main.subflow2",
+    "median_raw_cross_test_iqr": 0.269125,
+    "test_mean_sd": 0.15617977946203535
+  },
+  {
+    "wafer": 20,
+    "family": "Main.subflow2",
+    "median_raw_cross_test_iqr": 0.26724999999999993,
+    "test_mean_sd": 0.15629061004918848
+  },
+  {
+    "wafer": 21,
+    "family": "Main.subflow2",
+    "median_raw_cross_test_iqr": 0.26712499999999995,
+    "test_mean_sd": 0.15578448265773095
+  },
+  {
+    "wafer": 22,
+    "family": "Main.subflow2",
+    "median_raw_cross_test_iqr": 0.2670000000000001,
+    "test_mean_sd": 0.15557353864525575
+  },
+  {
+    "wafer": 23,
+    "family": "Main.subflow2",
+    "median_raw_cross_test_iqr": 0.26837500000000003,
+    "test_mean_sd": 0.1561767499436856
+  },
+  {
+    "wafer": 24,
+    "family": "Main.subflow2",
+    "median_raw_cross_test_iqr": 0.26637500000000014,
+    "test_mean_sd": 0.1559522977099408
+  },
+  {
+    "wafer": 25,
+    "family": "Main.subflow2",
+    "median_raw_cross_test_iqr": 0.269125,
+    "test_mean_sd": 0.15620523946678294
+  },
+  {
+    "wafer": 1,
+    "family": "Main.subflow3",
+    "median_raw_cross_test_iqr": 0.32799999999999996,
+    "test_mean_sd": 0.19248976845516197
+  },
+  {
+    "wafer": 2,
+    "family": "Main.subflow3",
+    "median_raw_cross_test_iqr": 0.33062499999999995,
+    "test_mean_sd": 0.19261983506057176
+  },
+  {
+    "wafer": 3,
+    "family": "Main.subflow3",
+    "median_raw_cross_test_iqr": 0.3308749999999999,
+    "test_mean_sd": 0.19273962833395697
+  },
+  {
+    "wafer": 4,
+    "family": "Main.subflow3",
+    "median_raw_cross_test_iqr": 0.3292499999999998,
+    "test_mean_sd": 0.1927648236937224
+  },
+  {
+    "wafer": 5,
+    "family": "Main.subflow3",
+    "median_raw_cross_test_iqr": 0.33137499999999986,
+    "test_mean_sd": 0.1929859667719699
+  },
+  {
+    "wafer": 6,
+    "family": "Main.subflow3",
+    "median_raw_cross_test_iqr": 0.32925000000000004,
+    "test_mean_sd": 0.1926459924699496
+  },
+  {
+    "wafer": 7,
+    "family": "Main.subflow3",
+    "median_raw_cross_test_iqr": 0.3311249999999998,
+    "test_mean_sd": 0.19260333217019507
+  },
+  {
+    "wafer": 8,
+    "family": "Main.subflow3",
+    "median_raw_cross_test_iqr": 0.32899999999999996,
+    "test_mean_sd": 0.19269161801246054
+  },
+  {
+    "wafer": 9,
+    "family": "Main.subflow3",
+    "median_raw_cross_test_iqr": 0.328125,
+    "test_mean_sd": 0.19237915271975775
+  },
+  {
+    "wafer": 10,
+    "family": "Main.subflow3",
+    "median_raw_cross_test_iqr": 0.32937499999999986,
+    "test_mean_sd": 0.19292797116834823
+  },
+  {
+    "wafer": 11,
+    "family": "Main.subflow3",
+    "median_raw_cross_test_iqr": 0.3320000000000001,
+    "test_mean_sd": 0.19311461260281906
+  },
+  {
+    "wafer": 12,
+    "family": "Main.subflow3",
+    "median_raw_cross_test_iqr": 0.32762500000000006,
+    "test_mean_sd": 0.19234454871706627
+  },
+  {
+    "wafer": 13,
+    "family": "Main.subflow3",
+    "median_raw_cross_test_iqr": 0.3294999999999999,
+    "test_mean_sd": 0.19236381898513782
+  },
+  {
+    "wafer": 14,
+    "family": "Main.subflow3",
+    "median_raw_cross_test_iqr": 0.33087500000000014,
+    "test_mean_sd": 0.19319323725818535
+  },
+  {
+    "wafer": 15,
+    "family": "Main.subflow3",
+    "median_raw_cross_test_iqr": 0.32875,
+    "test_mean_sd": 0.1923057030533741
+  },
+  {
+    "wafer": 16,
+    "family": "Main.subflow3",
+    "median_raw_cross_test_iqr": 0.33125000000000004,
+    "test_mean_sd": 0.1931482633521526
+  },
+  {
+    "wafer": 17,
+    "family": "Main.subflow3",
+    "median_raw_cross_test_iqr": 0.32987500000000003,
+    "test_mean_sd": 0.19275732065774442
+  },
+  {
+    "wafer": 18,
+    "family": "Main.subflow3",
+    "median_raw_cross_test_iqr": 0.33424999999999994,
+    "test_mean_sd": 0.19393680048054796
+  },
+  {
+    "wafer": 19,
+    "family": "Main.subflow3",
+    "median_raw_cross_test_iqr": 0.3273750000000001,
+    "test_mean_sd": 0.192591461027936
+  },
+  {
+    "wafer": 20,
+    "family": "Main.subflow3",
+    "median_raw_cross_test_iqr": 0.3293750000000001,
+    "test_mean_sd": 0.19224999920229355
+  },
+  {
+    "wafer": 21,
+    "family": "Main.subflow3",
+    "median_raw_cross_test_iqr": 0.33025000000000004,
+    "test_mean_sd": 0.19281752605980218
+  },
+  {
+    "wafer": 22,
+    "family": "Main.subflow3",
+    "median_raw_cross_test_iqr": 0.32925000000000004,
+    "test_mean_sd": 0.19256190465811246
+  },
+  {
+    "wafer": 23,
+    "family": "Main.subflow3",
+    "median_raw_cross_test_iqr": 0.3285000000000001,
+    "test_mean_sd": 0.19338112049005715
+  },
+  {
+    "wafer": 24,
+    "family": "Main.subflow3",
+    "median_raw_cross_test_iqr": 0.32975,
+    "test_mean_sd": 0.19279486472102125
+  },
+  {
+    "wafer": 25,
+    "family": "Main.subflow3",
+    "median_raw_cross_test_iqr": 0.32924999999999993,
+    "test_mean_sd": 0.1924317498986248
+  },
+  {
+    "wafer": 1,
+    "family": "Main.subflow4",
+    "median_raw_cross_test_iqr": 0.25600000000000006,
+    "test_mean_sd": 0.14936580437269603
+  },
+  {
+    "wafer": 2,
+    "family": "Main.subflow4",
+    "median_raw_cross_test_iqr": 0.25537499999999985,
+    "test_mean_sd": 0.149352524843512
+  },
+  {
+    "wafer": 3,
+    "family": "Main.subflow4",
+    "median_raw_cross_test_iqr": 0.2582499999999999,
+    "test_mean_sd": 0.14987680643114032
+  },
+  {
+    "wafer": 4,
+    "family": "Main.subflow4",
+    "median_raw_cross_test_iqr": 0.25925,
+    "test_mean_sd": 0.14963073863751017
+  },
+  {
+    "wafer": 5,
+    "family": "Main.subflow4",
+    "median_raw_cross_test_iqr": 0.25637499999999996,
+    "test_mean_sd": 0.14990929247568968
+  },
+  {
+    "wafer": 6,
+    "family": "Main.subflow4",
+    "median_raw_cross_test_iqr": 0.2558749999999999,
+    "test_mean_sd": 0.14976466930733362
+  },
+  {
+    "wafer": 7,
+    "family": "Main.subflow4",
+    "median_raw_cross_test_iqr": 0.25612499999999994,
+    "test_mean_sd": 0.14965565049961152
+  },
+  {
+    "wafer": 8,
+    "family": "Main.subflow4",
+    "median_raw_cross_test_iqr": 0.2581249999999999,
+    "test_mean_sd": 0.14962747545765742
+  },
+  {
+    "wafer": 9,
+    "family": "Main.subflow4",
+    "median_raw_cross_test_iqr": 0.26037499999999986,
+    "test_mean_sd": 0.14982968101583502
+  },
+  {
+    "wafer": 10,
+    "family": "Main.subflow4",
+    "median_raw_cross_test_iqr": 0.25724999999999987,
+    "test_mean_sd": 0.14965985615548974
+  },
+  {
+    "wafer": 11,
+    "family": "Main.subflow4",
+    "median_raw_cross_test_iqr": 0.25750000000000006,
+    "test_mean_sd": 0.14977594792613358
+  },
+  {
+    "wafer": 12,
+    "family": "Main.subflow4",
+    "median_raw_cross_test_iqr": 0.25775000000000003,
+    "test_mean_sd": 0.14947399317677934
+  },
+  {
+    "wafer": 13,
+    "family": "Main.subflow4",
+    "median_raw_cross_test_iqr": 0.2574999999999999,
+    "test_mean_sd": 0.1497128082010082
+  },
+  {
+    "wafer": 14,
+    "family": "Main.subflow4",
+    "median_raw_cross_test_iqr": 0.256,
+    "test_mean_sd": 0.14936058893889145
+  },
+  {
+    "wafer": 15,
+    "family": "Main.subflow4",
+    "median_raw_cross_test_iqr": 0.2582499999999999,
+    "test_mean_sd": 0.14990087867336493
+  },
+  {
+    "wafer": 16,
+    "family": "Main.subflow4",
+    "median_raw_cross_test_iqr": 0.25712500000000016,
+    "test_mean_sd": 0.1497998690792882
+  },
+  {
+    "wafer": 17,
+    "family": "Main.subflow4",
+    "median_raw_cross_test_iqr": 0.258125,
+    "test_mean_sd": 0.14985089258331094
+  },
+  {
+    "wafer": 18,
+    "family": "Main.subflow4",
+    "median_raw_cross_test_iqr": 0.257125,
+    "test_mean_sd": 0.1496023272549261
+  },
+  {
+    "wafer": 19,
+    "family": "Main.subflow4",
+    "median_raw_cross_test_iqr": 0.2588749999999999,
+    "test_mean_sd": 0.14977020018061002
+  },
+  {
+    "wafer": 20,
+    "family": "Main.subflow4",
+    "median_raw_cross_test_iqr": 0.2583749999999999,
+    "test_mean_sd": 0.14992227527475696
+  },
+  {
+    "wafer": 21,
+    "family": "Main.subflow4",
+    "median_raw_cross_test_iqr": 0.25750000000000006,
+    "test_mean_sd": 0.14942938639610015
+  },
+  {
+    "wafer": 22,
+    "family": "Main.subflow4",
+    "median_raw_cross_test_iqr": 0.25750000000000006,
+    "test_mean_sd": 0.1489568783278906
+  },
+  {
+    "wafer": 23,
+    "family": "Main.subflow4",
+    "median_raw_cross_test_iqr": 0.259,
+    "test_mean_sd": 0.14996714324839625
+  },
+  {
+    "wafer": 24,
+    "family": "Main.subflow4",
+    "median_raw_cross_test_iqr": 0.2583749999999999,
+    "test_mean_sd": 0.1497329316745401
+  },
+  {
+    "wafer": 25,
+    "family": "Main.subflow4",
+    "median_raw_cross_test_iqr": 0.25787499999999997,
+    "test_mean_sd": 0.14934783964080298
+  },
+  {
+    "wafer": 1,
+    "family": "Main.subflow5",
+    "median_raw_cross_test_iqr": 0.3551249999999999,
+    "test_mean_sd": 0.20609215465705505
+  },
+  {
+    "wafer": 2,
+    "family": "Main.subflow5",
+    "median_raw_cross_test_iqr": 0.35425000000000006,
+    "test_mean_sd": 0.20603829658305636
+  },
+  {
+    "wafer": 3,
+    "family": "Main.subflow5",
+    "median_raw_cross_test_iqr": 0.35662499999999997,
+    "test_mean_sd": 0.20605799010336112
+  },
+  {
+    "wafer": 4,
+    "family": "Main.subflow5",
+    "median_raw_cross_test_iqr": 0.355125,
+    "test_mean_sd": 0.206324277617262
+  },
+  {
+    "wafer": 5,
+    "family": "Main.subflow5",
+    "median_raw_cross_test_iqr": 0.35599999999999987,
+    "test_mean_sd": 0.20601209866697756
+  },
+  {
+    "wafer": 6,
+    "family": "Main.subflow5",
+    "median_raw_cross_test_iqr": 0.35925000000000007,
+    "test_mean_sd": 0.20610482695375398
+  },
+  {
+    "wafer": 7,
+    "family": "Main.subflow5",
+    "median_raw_cross_test_iqr": 0.35775,
+    "test_mean_sd": 0.2056549556527936
+  },
+  {
+    "wafer": 8,
+    "family": "Main.subflow5",
+    "median_raw_cross_test_iqr": 0.35862499999999997,
+    "test_mean_sd": 0.20598913249703704
+  },
+  {
+    "wafer": 9,
+    "family": "Main.subflow5",
+    "median_raw_cross_test_iqr": 0.35750000000000004,
+    "test_mean_sd": 0.20619931057788937
+  },
+  {
+    "wafer": 10,
+    "family": "Main.subflow5",
+    "median_raw_cross_test_iqr": 0.35762499999999986,
+    "test_mean_sd": 0.2058645685036099
+  },
+  {
+    "wafer": 11,
+    "family": "Main.subflow5",
+    "median_raw_cross_test_iqr": 0.35562499999999997,
+    "test_mean_sd": 0.20586980521354997
+  },
+  {
+    "wafer": 12,
+    "family": "Main.subflow5",
+    "median_raw_cross_test_iqr": 0.357125,
+    "test_mean_sd": 0.2058617227799464
+  },
+  {
+    "wafer": 13,
+    "family": "Main.subflow5",
+    "median_raw_cross_test_iqr": 0.35787499999999994,
+    "test_mean_sd": 0.2061569915785116
+  },
+  {
+    "wafer": 14,
+    "family": "Main.subflow5",
+    "median_raw_cross_test_iqr": 0.35725000000000007,
+    "test_mean_sd": 0.20616246614357936
+  },
+  {
+    "wafer": 15,
+    "family": "Main.subflow5",
+    "median_raw_cross_test_iqr": 0.36012500000000003,
+    "test_mean_sd": 0.20665701391190883
+  },
+  {
+    "wafer": 16,
+    "family": "Main.subflow5",
+    "median_raw_cross_test_iqr": 0.3583749999999999,
+    "test_mean_sd": 0.2059213683467187
+  },
+  {
+    "wafer": 17,
+    "family": "Main.subflow5",
+    "median_raw_cross_test_iqr": 0.35650000000000004,
+    "test_mean_sd": 0.20534775391975163
+  },
+  {
+    "wafer": 18,
+    "family": "Main.subflow5",
+    "median_raw_cross_test_iqr": 0.35750000000000004,
+    "test_mean_sd": 0.20561077292577595
+  },
+  {
+    "wafer": 19,
+    "family": "Main.subflow5",
+    "median_raw_cross_test_iqr": 0.356125,
+    "test_mean_sd": 0.20588753226651896
+  },
+  {
+    "wafer": 20,
+    "family": "Main.subflow5",
+    "median_raw_cross_test_iqr": 0.354125,
+    "test_mean_sd": 0.20623523289659282
+  },
+  {
+    "wafer": 21,
+    "family": "Main.subflow5",
+    "median_raw_cross_test_iqr": 0.35562499999999986,
+    "test_mean_sd": 0.20577659328069847
+  },
+  {
+    "wafer": 22,
+    "family": "Main.subflow5",
+    "median_raw_cross_test_iqr": 0.3583750000000002,
+    "test_mean_sd": 0.20618775755591676
+  },
+  {
+    "wafer": 23,
+    "family": "Main.subflow5",
+    "median_raw_cross_test_iqr": 0.358375,
+    "test_mean_sd": 0.20616109610710232
+  },
+  {
+    "wafer": 24,
+    "family": "Main.subflow5",
+    "median_raw_cross_test_iqr": 0.357125,
+    "test_mean_sd": 0.20546392768899088
+  },
+  {
+    "wafer": 25,
+    "family": "Main.subflow5",
+    "median_raw_cross_test_iqr": 0.356375,
+    "test_mean_sd": 0.2056735393613794
+  },
+  {
+    "wafer": 1,
+    "family": "Main.subflow6",
+    "median_raw_cross_test_iqr": 0.3979999999999999,
+    "test_mean_sd": 0.23440602665630608
+  },
+  {
+    "wafer": 2,
+    "family": "Main.subflow6",
+    "median_raw_cross_test_iqr": 0.40112499999999984,
+    "test_mean_sd": 0.23492767774928497
+  },
+  {
+    "wafer": 3,
+    "family": "Main.subflow6",
+    "median_raw_cross_test_iqr": 0.39949999999999986,
+    "test_mean_sd": 0.23390942708330506
+  },
+  {
+    "wafer": 4,
+    "family": "Main.subflow6",
+    "median_raw_cross_test_iqr": 0.4016250000000001,
+    "test_mean_sd": 0.2342031315909546
+  },
+  {
+    "wafer": 5,
+    "family": "Main.subflow6",
+    "median_raw_cross_test_iqr": 0.40249999999999997,
+    "test_mean_sd": 0.2343775964592499
+  },
+  {
+    "wafer": 6,
+    "family": "Main.subflow6",
+    "median_raw_cross_test_iqr": 0.40125,
+    "test_mean_sd": 0.23481348002251035
+  },
+  {
+    "wafer": 7,
+    "family": "Main.subflow6",
+    "median_raw_cross_test_iqr": 0.40112500000000006,
+    "test_mean_sd": 0.23552690820989408
+  },
+  {
+    "wafer": 8,
+    "family": "Main.subflow6",
+    "median_raw_cross_test_iqr": 0.39749999999999996,
+    "test_mean_sd": 0.23467460965628026
+  },
+  {
+    "wafer": 9,
+    "family": "Main.subflow6",
+    "median_raw_cross_test_iqr": 0.4002500000000001,
+    "test_mean_sd": 0.23406351133613285
+  },
+  {
+    "wafer": 10,
+    "family": "Main.subflow6",
+    "median_raw_cross_test_iqr": 0.40137500000000015,
+    "test_mean_sd": 0.23465424538892724
+  },
+  {
+    "wafer": 11,
+    "family": "Main.subflow6",
+    "median_raw_cross_test_iqr": 0.39887499999999987,
+    "test_mean_sd": 0.23394185762115524
+  },
+  {
+    "wafer": 12,
+    "family": "Main.subflow6",
+    "median_raw_cross_test_iqr": 0.40149999999999986,
+    "test_mean_sd": 0.23456790553185763
+  },
+  {
+    "wafer": 13,
+    "family": "Main.subflow6",
+    "median_raw_cross_test_iqr": 0.40087499999999987,
+    "test_mean_sd": 0.23402424263622107
+  },
+  {
+    "wafer": 14,
+    "family": "Main.subflow6",
+    "median_raw_cross_test_iqr": 0.39875000000000005,
+    "test_mean_sd": 0.23480429364257135
+  },
+  {
+    "wafer": 15,
+    "family": "Main.subflow6",
+    "median_raw_cross_test_iqr": 0.398,
+    "test_mean_sd": 0.23388929437139033
+  },
+  {
+    "wafer": 16,
+    "family": "Main.subflow6",
+    "median_raw_cross_test_iqr": 0.40112499999999984,
+    "test_mean_sd": 0.23436612022861128
+  },
+  {
+    "wafer": 17,
+    "family": "Main.subflow6",
+    "median_raw_cross_test_iqr": 0.40174999999999994,
+    "test_mean_sd": 0.23463595314724253
+  },
+  {
+    "wafer": 18,
+    "family": "Main.subflow6",
+    "median_raw_cross_test_iqr": 0.3999999999999999,
+    "test_mean_sd": 0.2341357499635241
+  },
+  {
+    "wafer": 19,
+    "family": "Main.subflow6",
+    "median_raw_cross_test_iqr": 0.40012500000000006,
+    "test_mean_sd": 0.2344224733162584
+  },
+  {
+    "wafer": 20,
+    "family": "Main.subflow6",
+    "median_raw_cross_test_iqr": 0.399875,
+    "test_mean_sd": 0.23424612793678148
+  },
+  {
+    "wafer": 21,
+    "family": "Main.subflow6",
+    "median_raw_cross_test_iqr": 0.40212499999999973,
+    "test_mean_sd": 0.23440697158771084
+  },
+  {
+    "wafer": 22,
+    "family": "Main.subflow6",
+    "median_raw_cross_test_iqr": 0.3997499999999998,
+    "test_mean_sd": 0.2343910533185727
+  },
+  {
+    "wafer": 23,
+    "family": "Main.subflow6",
+    "median_raw_cross_test_iqr": 0.4035000000000001,
+    "test_mean_sd": 0.23427658991683847
+  },
+  {
+    "wafer": 24,
+    "family": "Main.subflow6",
+    "median_raw_cross_test_iqr": 0.3963749999999998,
+    "test_mean_sd": 0.23394754280410276
+  },
+  {
+    "wafer": 25,
+    "family": "Main.subflow6",
+    "median_raw_cross_test_iqr": 0.39837500000000003,
+    "test_mean_sd": 0.23347982396238626
+  }
+]

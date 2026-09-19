@@ -1,0 +1,8402 @@
+[
+  {
+    "wafer": 1,
+    "count": 32,
+    "family": "Main",
+    "q95": 0.6472867796647135
+  },
+  {
+    "wafer": 1,
+    "count": 32,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.25879083144827525
+  },
+  {
+    "wafer": 1,
+    "count": 32,
+    "family": "Main.subflow1",
+    "q95": 0.45719225455951296
+  },
+  {
+    "wafer": 1,
+    "count": 32,
+    "family": "Main.subflow2",
+    "q95": 0.4401370737445544
+  },
+  {
+    "wafer": 1,
+    "count": 32,
+    "family": "Main.subflow3",
+    "q95": 0.4439658233497244
+  },
+  {
+    "wafer": 1,
+    "count": 32,
+    "family": "Main.subflow4",
+    "q95": 0.44573671367734224
+  },
+  {
+    "wafer": 1,
+    "count": 32,
+    "family": "Main.subflow5",
+    "q95": 0.5093292799897756
+  },
+  {
+    "wafer": 1,
+    "count": 32,
+    "family": "Main.subflow6",
+    "q95": 0.4694986819718808
+  },
+  {
+    "wafer": 1,
+    "count": 40,
+    "family": "Main",
+    "q95": 0.5145896011748852
+  },
+  {
+    "wafer": 1,
+    "count": 40,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.3447344135426026
+  },
+  {
+    "wafer": 1,
+    "count": 40,
+    "family": "Main.subflow1",
+    "q95": 0.4605439486516589
+  },
+  {
+    "wafer": 1,
+    "count": 40,
+    "family": "Main.subflow2",
+    "q95": 0.41674479478693366
+  },
+  {
+    "wafer": 1,
+    "count": 40,
+    "family": "Main.subflow3",
+    "q95": 0.36110043694683436
+  },
+  {
+    "wafer": 1,
+    "count": 40,
+    "family": "Main.subflow4",
+    "q95": 0.41451676812157656
+  },
+  {
+    "wafer": 1,
+    "count": 40,
+    "family": "Main.subflow5",
+    "q95": 0.4208902522498273
+  },
+  {
+    "wafer": 1,
+    "count": 40,
+    "family": "Main.subflow6",
+    "q95": 0.4237281779821367
+  },
+  {
+    "wafer": 1,
+    "count": 48,
+    "family": "Main",
+    "q95": 0.3112498683274942
+  },
+  {
+    "wafer": 1,
+    "count": 48,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.24216966427004516
+  },
+  {
+    "wafer": 1,
+    "count": 48,
+    "family": "Main.subflow1",
+    "q95": 1.1177233782002434
+  },
+  {
+    "wafer": 1,
+    "count": 48,
+    "family": "Main.subflow2",
+    "q95": 0.39385737993506265
+  },
+  {
+    "wafer": 1,
+    "count": 48,
+    "family": "Main.subflow3",
+    "q95": 0.3585269786277634
+  },
+  {
+    "wafer": 1,
+    "count": 48,
+    "family": "Main.subflow4",
+    "q95": 0.3840692593162782
+  },
+  {
+    "wafer": 1,
+    "count": 48,
+    "family": "Main.subflow5",
+    "q95": 0.34101784220881703
+  },
+  {
+    "wafer": 1,
+    "count": 48,
+    "family": "Main.subflow6",
+    "q95": 0.3665861836850701
+  },
+  {
+    "wafer": 1,
+    "count": 56,
+    "family": "Main",
+    "q95": 0.20585145291003398
+  },
+  {
+    "wafer": 1,
+    "count": 56,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.28217918218379257
+  },
+  {
+    "wafer": 1,
+    "count": 56,
+    "family": "Main.subflow1",
+    "q95": 1.2544766902306181
+  },
+  {
+    "wafer": 1,
+    "count": 56,
+    "family": "Main.subflow2",
+    "q95": 0.35233796611285123
+  },
+  {
+    "wafer": 1,
+    "count": 56,
+    "family": "Main.subflow3",
+    "q95": 0.3177342004720661
+  },
+  {
+    "wafer": 1,
+    "count": 56,
+    "family": "Main.subflow4",
+    "q95": 0.33626007423195003
+  },
+  {
+    "wafer": 1,
+    "count": 56,
+    "family": "Main.subflow5",
+    "q95": 0.3401323147977702
+  },
+  {
+    "wafer": 1,
+    "count": 56,
+    "family": "Main.subflow6",
+    "q95": 0.3261853173185808
+  },
+  {
+    "wafer": 1,
+    "count": 64,
+    "family": "Main",
+    "q95": 0.21532248355974526
+  },
+  {
+    "wafer": 1,
+    "count": 64,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.2143993323699343
+  },
+  {
+    "wafer": 1,
+    "count": 64,
+    "family": "Main.subflow1",
+    "q95": 1.4108471642628
+  },
+  {
+    "wafer": 1,
+    "count": 64,
+    "family": "Main.subflow2",
+    "q95": 0.31876704493699093
+  },
+  {
+    "wafer": 1,
+    "count": 64,
+    "family": "Main.subflow3",
+    "q95": 0.30034609552022434
+  },
+  {
+    "wafer": 1,
+    "count": 64,
+    "family": "Main.subflow4",
+    "q95": 0.30032803079644704
+  },
+  {
+    "wafer": 1,
+    "count": 64,
+    "family": "Main.subflow5",
+    "q95": 0.2825725641836292
+  },
+  {
+    "wafer": 1,
+    "count": 64,
+    "family": "Main.subflow6",
+    "q95": 0.2938213471485883
+  },
+  {
+    "wafer": 1,
+    "count": 72,
+    "family": "Main",
+    "q95": 0.22225343979062906
+  },
+  {
+    "wafer": 1,
+    "count": 72,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.20437425418216476
+  },
+  {
+    "wafer": 1,
+    "count": 72,
+    "family": "Main.subflow1",
+    "q95": 1.4015490367259282
+  },
+  {
+    "wafer": 1,
+    "count": 72,
+    "family": "Main.subflow2",
+    "q95": 0.2974052401325731
+  },
+  {
+    "wafer": 1,
+    "count": 72,
+    "family": "Main.subflow3",
+    "q95": 0.27047660015386543
+  },
+  {
+    "wafer": 1,
+    "count": 72,
+    "family": "Main.subflow4",
+    "q95": 0.2616077301312525
+  },
+  {
+    "wafer": 1,
+    "count": 72,
+    "family": "Main.subflow5",
+    "q95": 0.2565367725361533
+  },
+  {
+    "wafer": 1,
+    "count": 72,
+    "family": "Main.subflow6",
+    "q95": 0.2624645032354618
+  },
+  {
+    "wafer": 1,
+    "count": 80,
+    "family": "Main",
+    "q95": 0.27629705866526383
+  },
+  {
+    "wafer": 1,
+    "count": 80,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.1801389026767846
+  },
+  {
+    "wafer": 1,
+    "count": 80,
+    "family": "Main.subflow1",
+    "q95": 1.450392274282679
+  },
+  {
+    "wafer": 1,
+    "count": 80,
+    "family": "Main.subflow2",
+    "q95": 0.2865870136535457
+  },
+  {
+    "wafer": 1,
+    "count": 80,
+    "family": "Main.subflow3",
+    "q95": 0.2750462082831439
+  },
+  {
+    "wafer": 1,
+    "count": 80,
+    "family": "Main.subflow4",
+    "q95": 0.23877725097762806
+  },
+  {
+    "wafer": 1,
+    "count": 80,
+    "family": "Main.subflow5",
+    "q95": 0.2628237751963264
+  },
+  {
+    "wafer": 1,
+    "count": 80,
+    "family": "Main.subflow6",
+    "q95": 0.24611607883898626
+  },
+  {
+    "wafer": 2,
+    "count": 32,
+    "family": "Main",
+    "q95": 0.5114597527067193
+  },
+  {
+    "wafer": 2,
+    "count": 32,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.4586823968562633
+  },
+  {
+    "wafer": 2,
+    "count": 32,
+    "family": "Main.subflow1",
+    "q95": 0.45613904467541083
+  },
+  {
+    "wafer": 2,
+    "count": 32,
+    "family": "Main.subflow2",
+    "q95": 0.4833555631970776
+  },
+  {
+    "wafer": 2,
+    "count": 32,
+    "family": "Main.subflow3",
+    "q95": 0.4275662722615153
+  },
+  {
+    "wafer": 2,
+    "count": 32,
+    "family": "Main.subflow4",
+    "q95": 0.44001520799064203
+  },
+  {
+    "wafer": 2,
+    "count": 32,
+    "family": "Main.subflow5",
+    "q95": 0.448772515060619
+  },
+  {
+    "wafer": 2,
+    "count": 32,
+    "family": "Main.subflow6",
+    "q95": 0.44414177568854907
+  },
+  {
+    "wafer": 2,
+    "count": 40,
+    "family": "Main",
+    "q95": 0.3861293040409706
+  },
+  {
+    "wafer": 2,
+    "count": 40,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.23186795203364116
+  },
+  {
+    "wafer": 2,
+    "count": 40,
+    "family": "Main.subflow1",
+    "q95": 0.4075912160618745
+  },
+  {
+    "wafer": 2,
+    "count": 40,
+    "family": "Main.subflow2",
+    "q95": 0.4010808822702638
+  },
+  {
+    "wafer": 2,
+    "count": 40,
+    "family": "Main.subflow3",
+    "q95": 0.4461246989003037
+  },
+  {
+    "wafer": 2,
+    "count": 40,
+    "family": "Main.subflow4",
+    "q95": 0.4006101504670673
+  },
+  {
+    "wafer": 2,
+    "count": 40,
+    "family": "Main.subflow5",
+    "q95": 0.43071814255996194
+  },
+  {
+    "wafer": 2,
+    "count": 40,
+    "family": "Main.subflow6",
+    "q95": 0.42882660523878346
+  },
+  {
+    "wafer": 2,
+    "count": 48,
+    "family": "Main",
+    "q95": 0.4599273203080523
+  },
+  {
+    "wafer": 2,
+    "count": 48,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.2010667995200699
+  },
+  {
+    "wafer": 2,
+    "count": 48,
+    "family": "Main.subflow1",
+    "q95": 0.36467983788676056
+  },
+  {
+    "wafer": 2,
+    "count": 48,
+    "family": "Main.subflow2",
+    "q95": 0.33708351280216164
+  },
+  {
+    "wafer": 2,
+    "count": 48,
+    "family": "Main.subflow3",
+    "q95": 0.3820906995941721
+  },
+  {
+    "wafer": 2,
+    "count": 48,
+    "family": "Main.subflow4",
+    "q95": 0.35246129908284235
+  },
+  {
+    "wafer": 2,
+    "count": 48,
+    "family": "Main.subflow5",
+    "q95": 0.35215195481570477
+  },
+  {
+    "wafer": 2,
+    "count": 48,
+    "family": "Main.subflow6",
+    "q95": 0.3522508193551606
+  },
+  {
+    "wafer": 2,
+    "count": 56,
+    "family": "Main",
+    "q95": 0.3891011020676258
+  },
+  {
+    "wafer": 2,
+    "count": 56,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.26691223989388135
+  },
+  {
+    "wafer": 2,
+    "count": 56,
+    "family": "Main.subflow1",
+    "q95": 0.34267606288843117
+  },
+  {
+    "wafer": 2,
+    "count": 56,
+    "family": "Main.subflow2",
+    "q95": 0.2913026784861001
+  },
+  {
+    "wafer": 2,
+    "count": 56,
+    "family": "Main.subflow3",
+    "q95": 0.3378606251971306
+  },
+  {
+    "wafer": 2,
+    "count": 56,
+    "family": "Main.subflow4",
+    "q95": 0.32609966953334857
+  },
+  {
+    "wafer": 2,
+    "count": 56,
+    "family": "Main.subflow5",
+    "q95": 0.3032954044242637
+  },
+  {
+    "wafer": 2,
+    "count": 56,
+    "family": "Main.subflow6",
+    "q95": 0.33173567886913174
+  },
+  {
+    "wafer": 2,
+    "count": 64,
+    "family": "Main",
+    "q95": 0.24361990027935393
+  },
+  {
+    "wafer": 2,
+    "count": 64,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.28163232518228526
+  },
+  {
+    "wafer": 2,
+    "count": 64,
+    "family": "Main.subflow1",
+    "q95": 0.33621351277818434
+  },
+  {
+    "wafer": 2,
+    "count": 64,
+    "family": "Main.subflow2",
+    "q95": 0.2863540750727021
+  },
+  {
+    "wafer": 2,
+    "count": 64,
+    "family": "Main.subflow3",
+    "q95": 0.327646637911307
+  },
+  {
+    "wafer": 2,
+    "count": 64,
+    "family": "Main.subflow4",
+    "q95": 0.2884257982575384
+  },
+  {
+    "wafer": 2,
+    "count": 64,
+    "family": "Main.subflow5",
+    "q95": 0.32138784665911
+  },
+  {
+    "wafer": 2,
+    "count": 64,
+    "family": "Main.subflow6",
+    "q95": 0.2807627821697733
+  },
+  {
+    "wafer": 2,
+    "count": 72,
+    "family": "Main",
+    "q95": 0.2567320244692972
+  },
+  {
+    "wafer": 2,
+    "count": 72,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.24162911391354494
+  },
+  {
+    "wafer": 2,
+    "count": 72,
+    "family": "Main.subflow1",
+    "q95": 0.3150610878210585
+  },
+  {
+    "wafer": 2,
+    "count": 72,
+    "family": "Main.subflow2",
+    "q95": 0.29547999536356856
+  },
+  {
+    "wafer": 2,
+    "count": 72,
+    "family": "Main.subflow3",
+    "q95": 0.301295707054503
+  },
+  {
+    "wafer": 2,
+    "count": 72,
+    "family": "Main.subflow4",
+    "q95": 0.28573829969792175
+  },
+  {
+    "wafer": 2,
+    "count": 72,
+    "family": "Main.subflow5",
+    "q95": 0.2810761678699315
+  },
+  {
+    "wafer": 2,
+    "count": 72,
+    "family": "Main.subflow6",
+    "q95": 0.2901134526481301
+  },
+  {
+    "wafer": 2,
+    "count": 80,
+    "family": "Main",
+    "q95": 0.26389424935615646
+  },
+  {
+    "wafer": 2,
+    "count": 80,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.17656055786209535
+  },
+  {
+    "wafer": 2,
+    "count": 80,
+    "family": "Main.subflow1",
+    "q95": 0.2782864431005583
+  },
+  {
+    "wafer": 2,
+    "count": 80,
+    "family": "Main.subflow2",
+    "q95": 0.26969917579383557
+  },
+  {
+    "wafer": 2,
+    "count": 80,
+    "family": "Main.subflow3",
+    "q95": 0.24974730218232324
+  },
+  {
+    "wafer": 2,
+    "count": 80,
+    "family": "Main.subflow4",
+    "q95": 0.2564941317840969
+  },
+  {
+    "wafer": 2,
+    "count": 80,
+    "family": "Main.subflow5",
+    "q95": 0.27847653009912604
+  },
+  {
+    "wafer": 2,
+    "count": 80,
+    "family": "Main.subflow6",
+    "q95": 0.28360938440643463
+  },
+  {
+    "wafer": 3,
+    "count": 32,
+    "family": "Main",
+    "q95": 0.506264946710207
+  },
+  {
+    "wafer": 3,
+    "count": 32,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.5751222510406733
+  },
+  {
+    "wafer": 3,
+    "count": 32,
+    "family": "Main.subflow1",
+    "q95": 2.6252359718780154
+  },
+  {
+    "wafer": 3,
+    "count": 32,
+    "family": "Main.subflow2",
+    "q95": 0.48726305370322676
+  },
+  {
+    "wafer": 3,
+    "count": 32,
+    "family": "Main.subflow3",
+    "q95": 0.5118193221113082
+  },
+  {
+    "wafer": 3,
+    "count": 32,
+    "family": "Main.subflow4",
+    "q95": 0.4689094231756097
+  },
+  {
+    "wafer": 3,
+    "count": 32,
+    "family": "Main.subflow5",
+    "q95": 0.4630523320454215
+  },
+  {
+    "wafer": 3,
+    "count": 32,
+    "family": "Main.subflow6",
+    "q95": 0.4379765320827388
+  },
+  {
+    "wafer": 3,
+    "count": 40,
+    "family": "Main",
+    "q95": 0.39026457404384757
+  },
+  {
+    "wafer": 3,
+    "count": 40,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.3793014330993668
+  },
+  {
+    "wafer": 3,
+    "count": 40,
+    "family": "Main.subflow1",
+    "q95": 2.5832549289135596
+  },
+  {
+    "wafer": 3,
+    "count": 40,
+    "family": "Main.subflow2",
+    "q95": 0.39709530004448
+  },
+  {
+    "wafer": 3,
+    "count": 40,
+    "family": "Main.subflow3",
+    "q95": 0.391566464260647
+  },
+  {
+    "wafer": 3,
+    "count": 40,
+    "family": "Main.subflow4",
+    "q95": 0.3936775825730709
+  },
+  {
+    "wafer": 3,
+    "count": 40,
+    "family": "Main.subflow5",
+    "q95": 0.41585262507398235
+  },
+  {
+    "wafer": 3,
+    "count": 40,
+    "family": "Main.subflow6",
+    "q95": 0.38545322001215154
+  },
+  {
+    "wafer": 3,
+    "count": 48,
+    "family": "Main",
+    "q95": 0.25293335741807305
+  },
+  {
+    "wafer": 3,
+    "count": 48,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.17395324575409377
+  },
+  {
+    "wafer": 3,
+    "count": 48,
+    "family": "Main.subflow1",
+    "q95": 2.2499713029576767
+  },
+  {
+    "wafer": 3,
+    "count": 48,
+    "family": "Main.subflow2",
+    "q95": 0.36553321165153263
+  },
+  {
+    "wafer": 3,
+    "count": 48,
+    "family": "Main.subflow3",
+    "q95": 0.35724318383284825
+  },
+  {
+    "wafer": 3,
+    "count": 48,
+    "family": "Main.subflow4",
+    "q95": 0.3543700731456739
+  },
+  {
+    "wafer": 3,
+    "count": 48,
+    "family": "Main.subflow5",
+    "q95": 0.34808786162356364
+  },
+  {
+    "wafer": 3,
+    "count": 48,
+    "family": "Main.subflow6",
+    "q95": 0.33945988324931226
+  },
+  {
+    "wafer": 3,
+    "count": 56,
+    "family": "Main",
+    "q95": 0.34023824705581984
+  },
+  {
+    "wafer": 3,
+    "count": 56,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.35909478603705697
+  },
+  {
+    "wafer": 3,
+    "count": 56,
+    "family": "Main.subflow1",
+    "q95": 2.1641870505093586
+  },
+  {
+    "wafer": 3,
+    "count": 56,
+    "family": "Main.subflow2",
+    "q95": 0.3259480701870919
+  },
+  {
+    "wafer": 3,
+    "count": 56,
+    "family": "Main.subflow3",
+    "q95": 0.3140771806688082
+  },
+  {
+    "wafer": 3,
+    "count": 56,
+    "family": "Main.subflow4",
+    "q95": 0.35997496595677403
+  },
+  {
+    "wafer": 3,
+    "count": 56,
+    "family": "Main.subflow5",
+    "q95": 0.314967579385907
+  },
+  {
+    "wafer": 3,
+    "count": 56,
+    "family": "Main.subflow6",
+    "q95": 0.321446332888223
+  },
+  {
+    "wafer": 3,
+    "count": 64,
+    "family": "Main",
+    "q95": 0.3816319801207983
+  },
+  {
+    "wafer": 3,
+    "count": 64,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.19855924861604013
+  },
+  {
+    "wafer": 3,
+    "count": 64,
+    "family": "Main.subflow1",
+    "q95": 2.6282233424184445
+  },
+  {
+    "wafer": 3,
+    "count": 64,
+    "family": "Main.subflow2",
+    "q95": 0.2778369575984587
+  },
+  {
+    "wafer": 3,
+    "count": 64,
+    "family": "Main.subflow3",
+    "q95": 0.27638067668896943
+  },
+  {
+    "wafer": 3,
+    "count": 64,
+    "family": "Main.subflow4",
+    "q95": 0.3015836896334147
+  },
+  {
+    "wafer": 3,
+    "count": 64,
+    "family": "Main.subflow5",
+    "q95": 0.28096403245950347
+  },
+  {
+    "wafer": 3,
+    "count": 64,
+    "family": "Main.subflow6",
+    "q95": 0.27656883509256336
+  },
+  {
+    "wafer": 3,
+    "count": 72,
+    "family": "Main",
+    "q95": 0.26199208270408897
+  },
+  {
+    "wafer": 3,
+    "count": 72,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.24165601418807847
+  },
+  {
+    "wafer": 3,
+    "count": 72,
+    "family": "Main.subflow1",
+    "q95": 1.9607763762193378
+  },
+  {
+    "wafer": 3,
+    "count": 72,
+    "family": "Main.subflow2",
+    "q95": 0.29141245396615156
+  },
+  {
+    "wafer": 3,
+    "count": 72,
+    "family": "Main.subflow3",
+    "q95": 0.27338111546542554
+  },
+  {
+    "wafer": 3,
+    "count": 72,
+    "family": "Main.subflow4",
+    "q95": 0.29130791163789127
+  },
+  {
+    "wafer": 3,
+    "count": 72,
+    "family": "Main.subflow5",
+    "q95": 0.2617419172664396
+  },
+  {
+    "wafer": 3,
+    "count": 72,
+    "family": "Main.subflow6",
+    "q95": 0.2749671931824916
+  },
+  {
+    "wafer": 3,
+    "count": 80,
+    "family": "Main",
+    "q95": 0.27865743934136716
+  },
+  {
+    "wafer": 3,
+    "count": 80,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.24420412774814854
+  },
+  {
+    "wafer": 3,
+    "count": 80,
+    "family": "Main.subflow1",
+    "q95": 1.9204947408323014
+  },
+  {
+    "wafer": 3,
+    "count": 80,
+    "family": "Main.subflow2",
+    "q95": 0.2812967528929569
+  },
+  {
+    "wafer": 3,
+    "count": 80,
+    "family": "Main.subflow3",
+    "q95": 0.26347359067453463
+  },
+  {
+    "wafer": 3,
+    "count": 80,
+    "family": "Main.subflow4",
+    "q95": 0.2747751658402503
+  },
+  {
+    "wafer": 3,
+    "count": 80,
+    "family": "Main.subflow5",
+    "q95": 0.2791312424096423
+  },
+  {
+    "wafer": 3,
+    "count": 80,
+    "family": "Main.subflow6",
+    "q95": 0.274159457954726
+  },
+  {
+    "wafer": 4,
+    "count": 32,
+    "family": "Main",
+    "q95": 0.33462165346250516
+  },
+  {
+    "wafer": 4,
+    "count": 32,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.21371566529243338
+  },
+  {
+    "wafer": 4,
+    "count": 32,
+    "family": "Main.subflow1",
+    "q95": 0.5562124766057752
+  },
+  {
+    "wafer": 4,
+    "count": 32,
+    "family": "Main.subflow2",
+    "q95": 0.48630644116409305
+  },
+  {
+    "wafer": 4,
+    "count": 32,
+    "family": "Main.subflow3",
+    "q95": 0.4956845004542454
+  },
+  {
+    "wafer": 4,
+    "count": 32,
+    "family": "Main.subflow4",
+    "q95": 0.4723833094421403
+  },
+  {
+    "wafer": 4,
+    "count": 32,
+    "family": "Main.subflow5",
+    "q95": 0.48769876607613244
+  },
+  {
+    "wafer": 4,
+    "count": 32,
+    "family": "Main.subflow6",
+    "q95": 0.5001854108800216
+  },
+  {
+    "wafer": 4,
+    "count": 40,
+    "family": "Main",
+    "q95": 0.4852545069619505
+  },
+  {
+    "wafer": 4,
+    "count": 40,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.2796341675727305
+  },
+  {
+    "wafer": 4,
+    "count": 40,
+    "family": "Main.subflow1",
+    "q95": 0.4226913369236168
+  },
+  {
+    "wafer": 4,
+    "count": 40,
+    "family": "Main.subflow2",
+    "q95": 0.40131675989481774
+  },
+  {
+    "wafer": 4,
+    "count": 40,
+    "family": "Main.subflow3",
+    "q95": 0.4121163897449495
+  },
+  {
+    "wafer": 4,
+    "count": 40,
+    "family": "Main.subflow4",
+    "q95": 0.3664471625161696
+  },
+  {
+    "wafer": 4,
+    "count": 40,
+    "family": "Main.subflow5",
+    "q95": 0.45003809961641544
+  },
+  {
+    "wafer": 4,
+    "count": 40,
+    "family": "Main.subflow6",
+    "q95": 0.39888515413110254
+  },
+  {
+    "wafer": 4,
+    "count": 48,
+    "family": "Main",
+    "q95": 0.23602784859211193
+  },
+  {
+    "wafer": 4,
+    "count": 48,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.2700600181734214
+  },
+  {
+    "wafer": 4,
+    "count": 48,
+    "family": "Main.subflow1",
+    "q95": 0.3668598880389955
+  },
+  {
+    "wafer": 4,
+    "count": 48,
+    "family": "Main.subflow2",
+    "q95": 0.3778229162831545
+  },
+  {
+    "wafer": 4,
+    "count": 48,
+    "family": "Main.subflow3",
+    "q95": 0.4001355486180208
+  },
+  {
+    "wafer": 4,
+    "count": 48,
+    "family": "Main.subflow4",
+    "q95": 0.37001532436400747
+  },
+  {
+    "wafer": 4,
+    "count": 48,
+    "family": "Main.subflow5",
+    "q95": 0.41686197478715337
+  },
+  {
+    "wafer": 4,
+    "count": 48,
+    "family": "Main.subflow6",
+    "q95": 0.37010909640075534
+  },
+  {
+    "wafer": 4,
+    "count": 56,
+    "family": "Main",
+    "q95": 0.26023226739799893
+  },
+  {
+    "wafer": 4,
+    "count": 56,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.25657158536335734
+  },
+  {
+    "wafer": 4,
+    "count": 56,
+    "family": "Main.subflow1",
+    "q95": 0.36046469162576356
+  },
+  {
+    "wafer": 4,
+    "count": 56,
+    "family": "Main.subflow2",
+    "q95": 0.31421201430199835
+  },
+  {
+    "wafer": 4,
+    "count": 56,
+    "family": "Main.subflow3",
+    "q95": 0.33309930959409284
+  },
+  {
+    "wafer": 4,
+    "count": 56,
+    "family": "Main.subflow4",
+    "q95": 0.34544780504078515
+  },
+  {
+    "wafer": 4,
+    "count": 56,
+    "family": "Main.subflow5",
+    "q95": 0.33726649348321786
+  },
+  {
+    "wafer": 4,
+    "count": 56,
+    "family": "Main.subflow6",
+    "q95": 0.33803169601327554
+  },
+  {
+    "wafer": 4,
+    "count": 64,
+    "family": "Main",
+    "q95": 0.18443450744280362
+  },
+  {
+    "wafer": 4,
+    "count": 64,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.25942218998746625
+  },
+  {
+    "wafer": 4,
+    "count": 64,
+    "family": "Main.subflow1",
+    "q95": 0.3076025382435344
+  },
+  {
+    "wafer": 4,
+    "count": 64,
+    "family": "Main.subflow2",
+    "q95": 0.31743525491365204
+  },
+  {
+    "wafer": 4,
+    "count": 64,
+    "family": "Main.subflow3",
+    "q95": 0.30155051249812076
+  },
+  {
+    "wafer": 4,
+    "count": 64,
+    "family": "Main.subflow4",
+    "q95": 0.33343746230492083
+  },
+  {
+    "wafer": 4,
+    "count": 64,
+    "family": "Main.subflow5",
+    "q95": 0.2835789501601435
+  },
+  {
+    "wafer": 4,
+    "count": 64,
+    "family": "Main.subflow6",
+    "q95": 0.32789365977963786
+  },
+  {
+    "wafer": 4,
+    "count": 72,
+    "family": "Main",
+    "q95": 0.14206546043642826
+  },
+  {
+    "wafer": 4,
+    "count": 72,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.1475904517192221
+  },
+  {
+    "wafer": 4,
+    "count": 72,
+    "family": "Main.subflow1",
+    "q95": 0.3066635665161369
+  },
+  {
+    "wafer": 4,
+    "count": 72,
+    "family": "Main.subflow2",
+    "q95": 0.2677877021921305
+  },
+  {
+    "wafer": 4,
+    "count": 72,
+    "family": "Main.subflow3",
+    "q95": 0.2598298082895816
+  },
+  {
+    "wafer": 4,
+    "count": 72,
+    "family": "Main.subflow4",
+    "q95": 0.29157477023656825
+  },
+  {
+    "wafer": 4,
+    "count": 72,
+    "family": "Main.subflow5",
+    "q95": 0.2792510857597537
+  },
+  {
+    "wafer": 4,
+    "count": 72,
+    "family": "Main.subflow6",
+    "q95": 0.29347264641559434
+  },
+  {
+    "wafer": 4,
+    "count": 80,
+    "family": "Main",
+    "q95": 0.11765560503751031
+  },
+  {
+    "wafer": 4,
+    "count": 80,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.19304133467362167
+  },
+  {
+    "wafer": 4,
+    "count": 80,
+    "family": "Main.subflow1",
+    "q95": 0.29111081702004593
+  },
+  {
+    "wafer": 4,
+    "count": 80,
+    "family": "Main.subflow2",
+    "q95": 0.27190977125447763
+  },
+  {
+    "wafer": 4,
+    "count": 80,
+    "family": "Main.subflow3",
+    "q95": 0.24331934486330806
+  },
+  {
+    "wafer": 4,
+    "count": 80,
+    "family": "Main.subflow4",
+    "q95": 0.2742878827567436
+  },
+  {
+    "wafer": 4,
+    "count": 80,
+    "family": "Main.subflow5",
+    "q95": 0.2638609602620039
+  },
+  {
+    "wafer": 4,
+    "count": 80,
+    "family": "Main.subflow6",
+    "q95": 0.27183763517513043
+  },
+  {
+    "wafer": 5,
+    "count": 32,
+    "family": "Main",
+    "q95": 0.5675694865112152
+  },
+  {
+    "wafer": 5,
+    "count": 32,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.31191582209597646
+  },
+  {
+    "wafer": 5,
+    "count": 32,
+    "family": "Main.subflow1",
+    "q95": 0.4635708394422116
+  },
+  {
+    "wafer": 5,
+    "count": 32,
+    "family": "Main.subflow2",
+    "q95": 0.49083219058262256
+  },
+  {
+    "wafer": 5,
+    "count": 32,
+    "family": "Main.subflow3",
+    "q95": 0.4724050469245737
+  },
+  {
+    "wafer": 5,
+    "count": 32,
+    "family": "Main.subflow4",
+    "q95": 0.42039968711394177
+  },
+  {
+    "wafer": 5,
+    "count": 32,
+    "family": "Main.subflow5",
+    "q95": 0.5168411829540335
+  },
+  {
+    "wafer": 5,
+    "count": 32,
+    "family": "Main.subflow6",
+    "q95": 0.43433084194436133
+  },
+  {
+    "wafer": 5,
+    "count": 40,
+    "family": "Main",
+    "q95": 0.44274466666568324
+  },
+  {
+    "wafer": 5,
+    "count": 40,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.40693900518145254
+  },
+  {
+    "wafer": 5,
+    "count": 40,
+    "family": "Main.subflow1",
+    "q95": 0.45577231818583097
+  },
+  {
+    "wafer": 5,
+    "count": 40,
+    "family": "Main.subflow2",
+    "q95": 0.4253414571502012
+  },
+  {
+    "wafer": 5,
+    "count": 40,
+    "family": "Main.subflow3",
+    "q95": 0.3620681290941832
+  },
+  {
+    "wafer": 5,
+    "count": 40,
+    "family": "Main.subflow4",
+    "q95": 0.37194974122135716
+  },
+  {
+    "wafer": 5,
+    "count": 40,
+    "family": "Main.subflow5",
+    "q95": 0.40945543996248246
+  },
+  {
+    "wafer": 5,
+    "count": 40,
+    "family": "Main.subflow6",
+    "q95": 0.3777654003527218
+  },
+  {
+    "wafer": 5,
+    "count": 48,
+    "family": "Main",
+    "q95": 0.33980779574354525
+  },
+  {
+    "wafer": 5,
+    "count": 48,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.12120379765080543
+  },
+  {
+    "wafer": 5,
+    "count": 48,
+    "family": "Main.subflow1",
+    "q95": 0.4035605739373945
+  },
+  {
+    "wafer": 5,
+    "count": 48,
+    "family": "Main.subflow2",
+    "q95": 0.3870749379591595
+  },
+  {
+    "wafer": 5,
+    "count": 48,
+    "family": "Main.subflow3",
+    "q95": 0.3329788885491442
+  },
+  {
+    "wafer": 5,
+    "count": 48,
+    "family": "Main.subflow4",
+    "q95": 0.3372046158237465
+  },
+  {
+    "wafer": 5,
+    "count": 48,
+    "family": "Main.subflow5",
+    "q95": 0.389330366094288
+  },
+  {
+    "wafer": 5,
+    "count": 48,
+    "family": "Main.subflow6",
+    "q95": 0.36926532470817747
+  },
+  {
+    "wafer": 5,
+    "count": 56,
+    "family": "Main",
+    "q95": 0.313414346453455
+  },
+  {
+    "wafer": 5,
+    "count": 56,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.11220447944707959
+  },
+  {
+    "wafer": 5,
+    "count": 56,
+    "family": "Main.subflow1",
+    "q95": 0.39128290016997935
+  },
+  {
+    "wafer": 5,
+    "count": 56,
+    "family": "Main.subflow2",
+    "q95": 0.30579676000264916
+  },
+  {
+    "wafer": 5,
+    "count": 56,
+    "family": "Main.subflow3",
+    "q95": 0.31761322316872137
+  },
+  {
+    "wafer": 5,
+    "count": 56,
+    "family": "Main.subflow4",
+    "q95": 0.3101194577787319
+  },
+  {
+    "wafer": 5,
+    "count": 56,
+    "family": "Main.subflow5",
+    "q95": 0.3353658402013614
+  },
+  {
+    "wafer": 5,
+    "count": 56,
+    "family": "Main.subflow6",
+    "q95": 0.30992824887069736
+  },
+  {
+    "wafer": 5,
+    "count": 64,
+    "family": "Main",
+    "q95": 0.25325027700229685
+  },
+  {
+    "wafer": 5,
+    "count": 64,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.08340585725426183
+  },
+  {
+    "wafer": 5,
+    "count": 64,
+    "family": "Main.subflow1",
+    "q95": 0.3554866867511234
+  },
+  {
+    "wafer": 5,
+    "count": 64,
+    "family": "Main.subflow2",
+    "q95": 0.2808703255605005
+  },
+  {
+    "wafer": 5,
+    "count": 64,
+    "family": "Main.subflow3",
+    "q95": 0.271222778922043
+  },
+  {
+    "wafer": 5,
+    "count": 64,
+    "family": "Main.subflow4",
+    "q95": 0.2938788313919702
+  },
+  {
+    "wafer": 5,
+    "count": 64,
+    "family": "Main.subflow5",
+    "q95": 0.31069197479882255
+  },
+  {
+    "wafer": 5,
+    "count": 64,
+    "family": "Main.subflow6",
+    "q95": 0.30379060938301633
+  },
+  {
+    "wafer": 5,
+    "count": 72,
+    "family": "Main",
+    "q95": 0.3022110537871198
+  },
+  {
+    "wafer": 5,
+    "count": 72,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.12204128877212442
+  },
+  {
+    "wafer": 5,
+    "count": 72,
+    "family": "Main.subflow1",
+    "q95": 0.34862780073817123
+  },
+  {
+    "wafer": 5,
+    "count": 72,
+    "family": "Main.subflow2",
+    "q95": 0.2758817826100203
+  },
+  {
+    "wafer": 5,
+    "count": 72,
+    "family": "Main.subflow3",
+    "q95": 0.26077938986380955
+  },
+  {
+    "wafer": 5,
+    "count": 72,
+    "family": "Main.subflow4",
+    "q95": 0.29522976567367654
+  },
+  {
+    "wafer": 5,
+    "count": 72,
+    "family": "Main.subflow5",
+    "q95": 0.2932991571361095
+  },
+  {
+    "wafer": 5,
+    "count": 72,
+    "family": "Main.subflow6",
+    "q95": 0.2985398682180452
+  },
+  {
+    "wafer": 5,
+    "count": 80,
+    "family": "Main",
+    "q95": 0.2766829477141899
+  },
+  {
+    "wafer": 5,
+    "count": 80,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.10445012690917199
+  },
+  {
+    "wafer": 5,
+    "count": 80,
+    "family": "Main.subflow1",
+    "q95": 0.35270894556828425
+  },
+  {
+    "wafer": 5,
+    "count": 80,
+    "family": "Main.subflow2",
+    "q95": 0.26422653244427136
+  },
+  {
+    "wafer": 5,
+    "count": 80,
+    "family": "Main.subflow3",
+    "q95": 0.27722615339425266
+  },
+  {
+    "wafer": 5,
+    "count": 80,
+    "family": "Main.subflow4",
+    "q95": 0.2780994521271951
+  },
+  {
+    "wafer": 5,
+    "count": 80,
+    "family": "Main.subflow5",
+    "q95": 0.2619749738738834
+  },
+  {
+    "wafer": 5,
+    "count": 80,
+    "family": "Main.subflow6",
+    "q95": 0.2687822449028834
+  },
+  {
+    "wafer": 6,
+    "count": 32,
+    "family": "Main",
+    "q95": 0.39771186298509703
+  },
+  {
+    "wafer": 6,
+    "count": 32,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.5368615854320624
+  },
+  {
+    "wafer": 6,
+    "count": 32,
+    "family": "Main.subflow1",
+    "q95": 0.5130644031187024
+  },
+  {
+    "wafer": 6,
+    "count": 32,
+    "family": "Main.subflow2",
+    "q95": 0.4617884745696436
+  },
+  {
+    "wafer": 6,
+    "count": 32,
+    "family": "Main.subflow3",
+    "q95": 0.48775696666786267
+  },
+  {
+    "wafer": 6,
+    "count": 32,
+    "family": "Main.subflow4",
+    "q95": 0.43534360419824225
+  },
+  {
+    "wafer": 6,
+    "count": 32,
+    "family": "Main.subflow5",
+    "q95": 0.5026583230801313
+  },
+  {
+    "wafer": 6,
+    "count": 32,
+    "family": "Main.subflow6",
+    "q95": 0.4992445020389099
+  },
+  {
+    "wafer": 6,
+    "count": 40,
+    "family": "Main",
+    "q95": 0.3137124801678953
+  },
+  {
+    "wafer": 6,
+    "count": 40,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.40523691808086076
+  },
+  {
+    "wafer": 6,
+    "count": 40,
+    "family": "Main.subflow1",
+    "q95": 0.4394944136451363
+  },
+  {
+    "wafer": 6,
+    "count": 40,
+    "family": "Main.subflow2",
+    "q95": 0.4063008553261658
+  },
+  {
+    "wafer": 6,
+    "count": 40,
+    "family": "Main.subflow3",
+    "q95": 0.39574686978721146
+  },
+  {
+    "wafer": 6,
+    "count": 40,
+    "family": "Main.subflow4",
+    "q95": 0.41651311497547944
+  },
+  {
+    "wafer": 6,
+    "count": 40,
+    "family": "Main.subflow5",
+    "q95": 0.4430956333493052
+  },
+  {
+    "wafer": 6,
+    "count": 40,
+    "family": "Main.subflow6",
+    "q95": 0.42921805564061327
+  },
+  {
+    "wafer": 6,
+    "count": 48,
+    "family": "Main",
+    "q95": 0.22768642517095358
+  },
+  {
+    "wafer": 6,
+    "count": 48,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.18438333673120327
+  },
+  {
+    "wafer": 6,
+    "count": 48,
+    "family": "Main.subflow1",
+    "q95": 0.3978800964226528
+  },
+  {
+    "wafer": 6,
+    "count": 48,
+    "family": "Main.subflow2",
+    "q95": 0.3544872613497853
+  },
+  {
+    "wafer": 6,
+    "count": 48,
+    "family": "Main.subflow3",
+    "q95": 0.3854912369025808
+  },
+  {
+    "wafer": 6,
+    "count": 48,
+    "family": "Main.subflow4",
+    "q95": 0.34555132034743274
+  },
+  {
+    "wafer": 6,
+    "count": 48,
+    "family": "Main.subflow5",
+    "q95": 0.3698885988754061
+  },
+  {
+    "wafer": 6,
+    "count": 48,
+    "family": "Main.subflow6",
+    "q95": 0.36442719028662596
+  },
+  {
+    "wafer": 6,
+    "count": 56,
+    "family": "Main",
+    "q95": 0.15509182637532892
+  },
+  {
+    "wafer": 6,
+    "count": 56,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.24863367880856846
+  },
+  {
+    "wafer": 6,
+    "count": 56,
+    "family": "Main.subflow1",
+    "q95": 0.33244375577045243
+  },
+  {
+    "wafer": 6,
+    "count": 56,
+    "family": "Main.subflow2",
+    "q95": 0.34479106322380587
+  },
+  {
+    "wafer": 6,
+    "count": 56,
+    "family": "Main.subflow3",
+    "q95": 0.32054345980916826
+  },
+  {
+    "wafer": 6,
+    "count": 56,
+    "family": "Main.subflow4",
+    "q95": 0.2982440361591953
+  },
+  {
+    "wafer": 6,
+    "count": 56,
+    "family": "Main.subflow5",
+    "q95": 0.32729447678898427
+  },
+  {
+    "wafer": 6,
+    "count": 56,
+    "family": "Main.subflow6",
+    "q95": 0.3208286537467544
+  },
+  {
+    "wafer": 6,
+    "count": 64,
+    "family": "Main",
+    "q95": 0.2177109332459397
+  },
+  {
+    "wafer": 6,
+    "count": 64,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.25266176388004014
+  },
+  {
+    "wafer": 6,
+    "count": 64,
+    "family": "Main.subflow1",
+    "q95": 0.3641468231852485
+  },
+  {
+    "wafer": 6,
+    "count": 64,
+    "family": "Main.subflow2",
+    "q95": 0.30904202316217705
+  },
+  {
+    "wafer": 6,
+    "count": 64,
+    "family": "Main.subflow3",
+    "q95": 0.29436717287629
+  },
+  {
+    "wafer": 6,
+    "count": 64,
+    "family": "Main.subflow4",
+    "q95": 0.28378921523921313
+  },
+  {
+    "wafer": 6,
+    "count": 64,
+    "family": "Main.subflow5",
+    "q95": 0.30249627168965937
+  },
+  {
+    "wafer": 6,
+    "count": 64,
+    "family": "Main.subflow6",
+    "q95": 0.2935994478612565
+  },
+  {
+    "wafer": 6,
+    "count": 72,
+    "family": "Main",
+    "q95": 0.2508435253607922
+  },
+  {
+    "wafer": 6,
+    "count": 72,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.19815920290594674
+  },
+  {
+    "wafer": 6,
+    "count": 72,
+    "family": "Main.subflow1",
+    "q95": 0.3314011529581285
+  },
+  {
+    "wafer": 6,
+    "count": 72,
+    "family": "Main.subflow2",
+    "q95": 0.3204571827818012
+  },
+  {
+    "wafer": 6,
+    "count": 72,
+    "family": "Main.subflow3",
+    "q95": 0.2768511820832801
+  },
+  {
+    "wafer": 6,
+    "count": 72,
+    "family": "Main.subflow4",
+    "q95": 0.2688840641657249
+  },
+  {
+    "wafer": 6,
+    "count": 72,
+    "family": "Main.subflow5",
+    "q95": 0.3033798663410906
+  },
+  {
+    "wafer": 6,
+    "count": 72,
+    "family": "Main.subflow6",
+    "q95": 0.28708938512766957
+  },
+  {
+    "wafer": 6,
+    "count": 80,
+    "family": "Main",
+    "q95": 0.27155428675194093
+  },
+  {
+    "wafer": 6,
+    "count": 80,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.28927393588302525
+  },
+  {
+    "wafer": 6,
+    "count": 80,
+    "family": "Main.subflow1",
+    "q95": 0.3083605408899488
+  },
+  {
+    "wafer": 6,
+    "count": 80,
+    "family": "Main.subflow2",
+    "q95": 0.28275960235534675
+  },
+  {
+    "wafer": 6,
+    "count": 80,
+    "family": "Main.subflow3",
+    "q95": 0.26548542347611226
+  },
+  {
+    "wafer": 6,
+    "count": 80,
+    "family": "Main.subflow4",
+    "q95": 0.27440855081234217
+  },
+  {
+    "wafer": 6,
+    "count": 80,
+    "family": "Main.subflow5",
+    "q95": 0.2725658175151785
+  },
+  {
+    "wafer": 6,
+    "count": 80,
+    "family": "Main.subflow6",
+    "q95": 0.26248864761709423
+  },
+  {
+    "wafer": 7,
+    "count": 32,
+    "family": "Main",
+    "q95": 0.3165600731217946
+  },
+  {
+    "wafer": 7,
+    "count": 32,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.2793426856140395
+  },
+  {
+    "wafer": 7,
+    "count": 32,
+    "family": "Main.subflow1",
+    "q95": 0.5398698912494024
+  },
+  {
+    "wafer": 7,
+    "count": 32,
+    "family": "Main.subflow2",
+    "q95": 0.4855627570735788
+  },
+  {
+    "wafer": 7,
+    "count": 32,
+    "family": "Main.subflow3",
+    "q95": 0.5129360209219203
+  },
+  {
+    "wafer": 7,
+    "count": 32,
+    "family": "Main.subflow4",
+    "q95": 0.459486119621822
+  },
+  {
+    "wafer": 7,
+    "count": 32,
+    "family": "Main.subflow5",
+    "q95": 0.4817805854388783
+  },
+  {
+    "wafer": 7,
+    "count": 32,
+    "family": "Main.subflow6",
+    "q95": 0.5202811270662154
+  },
+  {
+    "wafer": 7,
+    "count": 40,
+    "family": "Main",
+    "q95": 0.3185645480571668
+  },
+  {
+    "wafer": 7,
+    "count": 40,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.19009230322979342
+  },
+  {
+    "wafer": 7,
+    "count": 40,
+    "family": "Main.subflow1",
+    "q95": 0.47044645648485145
+  },
+  {
+    "wafer": 7,
+    "count": 40,
+    "family": "Main.subflow2",
+    "q95": 0.3949208112385476
+  },
+  {
+    "wafer": 7,
+    "count": 40,
+    "family": "Main.subflow3",
+    "q95": 0.4024844640436
+  },
+  {
+    "wafer": 7,
+    "count": 40,
+    "family": "Main.subflow4",
+    "q95": 0.4051082419584617
+  },
+  {
+    "wafer": 7,
+    "count": 40,
+    "family": "Main.subflow5",
+    "q95": 0.43164629720848585
+  },
+  {
+    "wafer": 7,
+    "count": 40,
+    "family": "Main.subflow6",
+    "q95": 0.41761181156130295
+  },
+  {
+    "wafer": 7,
+    "count": 48,
+    "family": "Main",
+    "q95": 0.3294498703974488
+  },
+  {
+    "wafer": 7,
+    "count": 48,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.26201115806787145
+  },
+  {
+    "wafer": 7,
+    "count": 48,
+    "family": "Main.subflow1",
+    "q95": 0.4641018153215149
+  },
+  {
+    "wafer": 7,
+    "count": 48,
+    "family": "Main.subflow2",
+    "q95": 0.34996676055929826
+  },
+  {
+    "wafer": 7,
+    "count": 48,
+    "family": "Main.subflow3",
+    "q95": 0.37013684600123004
+  },
+  {
+    "wafer": 7,
+    "count": 48,
+    "family": "Main.subflow4",
+    "q95": 0.33473075821180986
+  },
+  {
+    "wafer": 7,
+    "count": 48,
+    "family": "Main.subflow5",
+    "q95": 0.3913138931493108
+  },
+  {
+    "wafer": 7,
+    "count": 48,
+    "family": "Main.subflow6",
+    "q95": 0.3763366455753171
+  },
+  {
+    "wafer": 7,
+    "count": 56,
+    "family": "Main",
+    "q95": 0.23813477039373573
+  },
+  {
+    "wafer": 7,
+    "count": 56,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.2229811229370283
+  },
+  {
+    "wafer": 7,
+    "count": 56,
+    "family": "Main.subflow1",
+    "q95": 0.42067633039029806
+  },
+  {
+    "wafer": 7,
+    "count": 56,
+    "family": "Main.subflow2",
+    "q95": 0.3612042360008462
+  },
+  {
+    "wafer": 7,
+    "count": 56,
+    "family": "Main.subflow3",
+    "q95": 0.3490994364152613
+  },
+  {
+    "wafer": 7,
+    "count": 56,
+    "family": "Main.subflow4",
+    "q95": 0.33429030730384096
+  },
+  {
+    "wafer": 7,
+    "count": 56,
+    "family": "Main.subflow5",
+    "q95": 0.34058705818456786
+  },
+  {
+    "wafer": 7,
+    "count": 56,
+    "family": "Main.subflow6",
+    "q95": 0.3461586731526482
+  },
+  {
+    "wafer": 7,
+    "count": 64,
+    "family": "Main",
+    "q95": 0.1953650279743784
+  },
+  {
+    "wafer": 7,
+    "count": 64,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.16643274076559883
+  },
+  {
+    "wafer": 7,
+    "count": 64,
+    "family": "Main.subflow1",
+    "q95": 0.38851069100416435
+  },
+  {
+    "wafer": 7,
+    "count": 64,
+    "family": "Main.subflow2",
+    "q95": 0.3138508929241279
+  },
+  {
+    "wafer": 7,
+    "count": 64,
+    "family": "Main.subflow3",
+    "q95": 0.32415777189965567
+  },
+  {
+    "wafer": 7,
+    "count": 64,
+    "family": "Main.subflow4",
+    "q95": 0.3146392672417281
+  },
+  {
+    "wafer": 7,
+    "count": 64,
+    "family": "Main.subflow5",
+    "q95": 0.31302427547319406
+  },
+  {
+    "wafer": 7,
+    "count": 64,
+    "family": "Main.subflow6",
+    "q95": 0.29711821836178104
+  },
+  {
+    "wafer": 7,
+    "count": 72,
+    "family": "Main",
+    "q95": 0.3302888583695187
+  },
+  {
+    "wafer": 7,
+    "count": 72,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.14215907919285442
+  },
+  {
+    "wafer": 7,
+    "count": 72,
+    "family": "Main.subflow1",
+    "q95": 0.33572936328029124
+  },
+  {
+    "wafer": 7,
+    "count": 72,
+    "family": "Main.subflow2",
+    "q95": 0.28775993165092734
+  },
+  {
+    "wafer": 7,
+    "count": 72,
+    "family": "Main.subflow3",
+    "q95": 0.28479671675487556
+  },
+  {
+    "wafer": 7,
+    "count": 72,
+    "family": "Main.subflow4",
+    "q95": 0.2820832034328613
+  },
+  {
+    "wafer": 7,
+    "count": 72,
+    "family": "Main.subflow5",
+    "q95": 0.2747202593421022
+  },
+  {
+    "wafer": 7,
+    "count": 72,
+    "family": "Main.subflow6",
+    "q95": 0.2644208451836369
+  },
+  {
+    "wafer": 7,
+    "count": 80,
+    "family": "Main",
+    "q95": 0.22875096061500358
+  },
+  {
+    "wafer": 7,
+    "count": 80,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.09719397571301483
+  },
+  {
+    "wafer": 7,
+    "count": 80,
+    "family": "Main.subflow1",
+    "q95": 0.4144179184107414
+  },
+  {
+    "wafer": 7,
+    "count": 80,
+    "family": "Main.subflow2",
+    "q95": 0.2732601038147678
+  },
+  {
+    "wafer": 7,
+    "count": 80,
+    "family": "Main.subflow3",
+    "q95": 0.2566076232158882
+  },
+  {
+    "wafer": 7,
+    "count": 80,
+    "family": "Main.subflow4",
+    "q95": 0.2804647534583727
+  },
+  {
+    "wafer": 7,
+    "count": 80,
+    "family": "Main.subflow5",
+    "q95": 0.27089938932951585
+  },
+  {
+    "wafer": 7,
+    "count": 80,
+    "family": "Main.subflow6",
+    "q95": 0.25905296347691104
+  },
+  {
+    "wafer": 8,
+    "count": 32,
+    "family": "Main",
+    "q95": 0.5569575029683758
+  },
+  {
+    "wafer": 8,
+    "count": 32,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.09116868718038881
+  },
+  {
+    "wafer": 8,
+    "count": 32,
+    "family": "Main.subflow1",
+    "q95": 0.52701297452788
+  },
+  {
+    "wafer": 8,
+    "count": 32,
+    "family": "Main.subflow2",
+    "q95": 0.4616867663124675
+  },
+  {
+    "wafer": 8,
+    "count": 32,
+    "family": "Main.subflow3",
+    "q95": 0.4962655419514429
+  },
+  {
+    "wafer": 8,
+    "count": 32,
+    "family": "Main.subflow4",
+    "q95": 0.47739379576634394
+  },
+  {
+    "wafer": 8,
+    "count": 32,
+    "family": "Main.subflow5",
+    "q95": 0.4302162712382985
+  },
+  {
+    "wafer": 8,
+    "count": 32,
+    "family": "Main.subflow6",
+    "q95": 0.5499192572551639
+  },
+  {
+    "wafer": 8,
+    "count": 40,
+    "family": "Main",
+    "q95": 0.41838216134540485
+  },
+  {
+    "wafer": 8,
+    "count": 40,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.2276183906292078
+  },
+  {
+    "wafer": 8,
+    "count": 40,
+    "family": "Main.subflow1",
+    "q95": 0.4428111648660461
+  },
+  {
+    "wafer": 8,
+    "count": 40,
+    "family": "Main.subflow2",
+    "q95": 0.45995795140282664
+  },
+  {
+    "wafer": 8,
+    "count": 40,
+    "family": "Main.subflow3",
+    "q95": 0.39619025305079764
+  },
+  {
+    "wafer": 8,
+    "count": 40,
+    "family": "Main.subflow4",
+    "q95": 0.36478159373963653
+  },
+  {
+    "wafer": 8,
+    "count": 40,
+    "family": "Main.subflow5",
+    "q95": 0.38729812925695856
+  },
+  {
+    "wafer": 8,
+    "count": 40,
+    "family": "Main.subflow6",
+    "q95": 0.43803654219323096
+  },
+  {
+    "wafer": 8,
+    "count": 48,
+    "family": "Main",
+    "q95": 0.30066281680326057
+  },
+  {
+    "wafer": 8,
+    "count": 48,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.1966316145193538
+  },
+  {
+    "wafer": 8,
+    "count": 48,
+    "family": "Main.subflow1",
+    "q95": 0.4176653207139008
+  },
+  {
+    "wafer": 8,
+    "count": 48,
+    "family": "Main.subflow2",
+    "q95": 0.3598390919572868
+  },
+  {
+    "wafer": 8,
+    "count": 48,
+    "family": "Main.subflow3",
+    "q95": 0.37422018933556844
+  },
+  {
+    "wafer": 8,
+    "count": 48,
+    "family": "Main.subflow4",
+    "q95": 0.3606194649389466
+  },
+  {
+    "wafer": 8,
+    "count": 48,
+    "family": "Main.subflow5",
+    "q95": 0.34735709537654486
+  },
+  {
+    "wafer": 8,
+    "count": 48,
+    "family": "Main.subflow6",
+    "q95": 0.3948238072279275
+  },
+  {
+    "wafer": 8,
+    "count": 56,
+    "family": "Main",
+    "q95": 0.38373330907365705
+  },
+  {
+    "wafer": 8,
+    "count": 56,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.23953733685862438
+  },
+  {
+    "wafer": 8,
+    "count": 56,
+    "family": "Main.subflow1",
+    "q95": 0.3705588225428784
+  },
+  {
+    "wafer": 8,
+    "count": 56,
+    "family": "Main.subflow2",
+    "q95": 0.3166458169563942
+  },
+  {
+    "wafer": 8,
+    "count": 56,
+    "family": "Main.subflow3",
+    "q95": 0.3141595345473034
+  },
+  {
+    "wafer": 8,
+    "count": 56,
+    "family": "Main.subflow4",
+    "q95": 0.34941933475963066
+  },
+  {
+    "wafer": 8,
+    "count": 56,
+    "family": "Main.subflow5",
+    "q95": 0.346527368289574
+  },
+  {
+    "wafer": 8,
+    "count": 56,
+    "family": "Main.subflow6",
+    "q95": 0.31737060837296927
+  },
+  {
+    "wafer": 8,
+    "count": 64,
+    "family": "Main",
+    "q95": 0.4286126667859629
+  },
+  {
+    "wafer": 8,
+    "count": 64,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.3622962913919684
+  },
+  {
+    "wafer": 8,
+    "count": 64,
+    "family": "Main.subflow1",
+    "q95": 0.32406089058665377
+  },
+  {
+    "wafer": 8,
+    "count": 64,
+    "family": "Main.subflow2",
+    "q95": 0.29590509092918704
+  },
+  {
+    "wafer": 8,
+    "count": 64,
+    "family": "Main.subflow3",
+    "q95": 0.3168503839019528
+  },
+  {
+    "wafer": 8,
+    "count": 64,
+    "family": "Main.subflow4",
+    "q95": 0.3116532849879835
+  },
+  {
+    "wafer": 8,
+    "count": 64,
+    "family": "Main.subflow5",
+    "q95": 0.2908519129213534
+  },
+  {
+    "wafer": 8,
+    "count": 64,
+    "family": "Main.subflow6",
+    "q95": 0.3209320636973674
+  },
+  {
+    "wafer": 8,
+    "count": 72,
+    "family": "Main",
+    "q95": 0.33418089015561186
+  },
+  {
+    "wafer": 8,
+    "count": 72,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.3417923486915668
+  },
+  {
+    "wafer": 8,
+    "count": 72,
+    "family": "Main.subflow1",
+    "q95": 0.314235197875788
+  },
+  {
+    "wafer": 8,
+    "count": 72,
+    "family": "Main.subflow2",
+    "q95": 0.28580429115256983
+  },
+  {
+    "wafer": 8,
+    "count": 72,
+    "family": "Main.subflow3",
+    "q95": 0.27790955817693874
+  },
+  {
+    "wafer": 8,
+    "count": 72,
+    "family": "Main.subflow4",
+    "q95": 0.2822757826967757
+  },
+  {
+    "wafer": 8,
+    "count": 72,
+    "family": "Main.subflow5",
+    "q95": 0.2975911897636215
+  },
+  {
+    "wafer": 8,
+    "count": 72,
+    "family": "Main.subflow6",
+    "q95": 0.2848290044970153
+  },
+  {
+    "wafer": 8,
+    "count": 80,
+    "family": "Main",
+    "q95": 0.3364360657636725
+  },
+  {
+    "wafer": 8,
+    "count": 80,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.316214830317512
+  },
+  {
+    "wafer": 8,
+    "count": 80,
+    "family": "Main.subflow1",
+    "q95": 0.2790379016281497
+  },
+  {
+    "wafer": 8,
+    "count": 80,
+    "family": "Main.subflow2",
+    "q95": 0.24932752529382995
+  },
+  {
+    "wafer": 8,
+    "count": 80,
+    "family": "Main.subflow3",
+    "q95": 0.2698413651201342
+  },
+  {
+    "wafer": 8,
+    "count": 80,
+    "family": "Main.subflow4",
+    "q95": 0.2674776818772297
+  },
+  {
+    "wafer": 8,
+    "count": 80,
+    "family": "Main.subflow5",
+    "q95": 0.23784784513158336
+  },
+  {
+    "wafer": 8,
+    "count": 80,
+    "family": "Main.subflow6",
+    "q95": 0.25982715306138654
+  },
+  {
+    "wafer": 9,
+    "count": 32,
+    "family": "Main",
+    "q95": 0.470807947841523
+  },
+  {
+    "wafer": 9,
+    "count": 32,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.3537187501904756
+  },
+  {
+    "wafer": 9,
+    "count": 32,
+    "family": "Main.subflow1",
+    "q95": 0.6548021522896399
+  },
+  {
+    "wafer": 9,
+    "count": 32,
+    "family": "Main.subflow2",
+    "q95": 0.5361058661824145
+  },
+  {
+    "wafer": 9,
+    "count": 32,
+    "family": "Main.subflow3",
+    "q95": 0.5093969363547783
+  },
+  {
+    "wafer": 9,
+    "count": 32,
+    "family": "Main.subflow4",
+    "q95": 0.49383021062731886
+  },
+  {
+    "wafer": 9,
+    "count": 32,
+    "family": "Main.subflow5",
+    "q95": 0.4976181680702836
+  },
+  {
+    "wafer": 9,
+    "count": 32,
+    "family": "Main.subflow6",
+    "q95": 0.4190530659880209
+  },
+  {
+    "wafer": 9,
+    "count": 40,
+    "family": "Main",
+    "q95": 0.3112823199379162
+  },
+  {
+    "wafer": 9,
+    "count": 40,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.24225316828633098
+  },
+  {
+    "wafer": 9,
+    "count": 40,
+    "family": "Main.subflow1",
+    "q95": 0.4653811291441891
+  },
+  {
+    "wafer": 9,
+    "count": 40,
+    "family": "Main.subflow2",
+    "q95": 0.38194976166579536
+  },
+  {
+    "wafer": 9,
+    "count": 40,
+    "family": "Main.subflow3",
+    "q95": 0.4129526123310084
+  },
+  {
+    "wafer": 9,
+    "count": 40,
+    "family": "Main.subflow4",
+    "q95": 0.3941625534912819
+  },
+  {
+    "wafer": 9,
+    "count": 40,
+    "family": "Main.subflow5",
+    "q95": 0.3605473225163185
+  },
+  {
+    "wafer": 9,
+    "count": 40,
+    "family": "Main.subflow6",
+    "q95": 0.38140635683396684
+  },
+  {
+    "wafer": 9,
+    "count": 48,
+    "family": "Main",
+    "q95": 0.2771850228439108
+  },
+  {
+    "wafer": 9,
+    "count": 48,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.2493708580669433
+  },
+  {
+    "wafer": 9,
+    "count": 48,
+    "family": "Main.subflow1",
+    "q95": 0.411905698933988
+  },
+  {
+    "wafer": 9,
+    "count": 48,
+    "family": "Main.subflow2",
+    "q95": 0.402610383986084
+  },
+  {
+    "wafer": 9,
+    "count": 48,
+    "family": "Main.subflow3",
+    "q95": 0.360123084451327
+  },
+  {
+    "wafer": 9,
+    "count": 48,
+    "family": "Main.subflow4",
+    "q95": 0.3626617475120426
+  },
+  {
+    "wafer": 9,
+    "count": 48,
+    "family": "Main.subflow5",
+    "q95": 0.34279546837069697
+  },
+  {
+    "wafer": 9,
+    "count": 48,
+    "family": "Main.subflow6",
+    "q95": 0.3352556940710644
+  },
+  {
+    "wafer": 9,
+    "count": 56,
+    "family": "Main",
+    "q95": 0.21776672072753378
+  },
+  {
+    "wafer": 9,
+    "count": 56,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.22944429699110347
+  },
+  {
+    "wafer": 9,
+    "count": 56,
+    "family": "Main.subflow1",
+    "q95": 0.3596597988838524
+  },
+  {
+    "wafer": 9,
+    "count": 56,
+    "family": "Main.subflow2",
+    "q95": 0.332595345183049
+  },
+  {
+    "wafer": 9,
+    "count": 56,
+    "family": "Main.subflow3",
+    "q95": 0.3274270534444309
+  },
+  {
+    "wafer": 9,
+    "count": 56,
+    "family": "Main.subflow4",
+    "q95": 0.32741863993330866
+  },
+  {
+    "wafer": 9,
+    "count": 56,
+    "family": "Main.subflow5",
+    "q95": 0.30799024331431823
+  },
+  {
+    "wafer": 9,
+    "count": 56,
+    "family": "Main.subflow6",
+    "q95": 0.2955017886713042
+  },
+  {
+    "wafer": 9,
+    "count": 64,
+    "family": "Main",
+    "q95": 0.17614089727368223
+  },
+  {
+    "wafer": 9,
+    "count": 64,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.30317873209365087
+  },
+  {
+    "wafer": 9,
+    "count": 64,
+    "family": "Main.subflow1",
+    "q95": 0.32320694854596743
+  },
+  {
+    "wafer": 9,
+    "count": 64,
+    "family": "Main.subflow2",
+    "q95": 0.30082056317433614
+  },
+  {
+    "wafer": 9,
+    "count": 64,
+    "family": "Main.subflow3",
+    "q95": 0.31500659773411693
+  },
+  {
+    "wafer": 9,
+    "count": 64,
+    "family": "Main.subflow4",
+    "q95": 0.3010635516691874
+  },
+  {
+    "wafer": 9,
+    "count": 64,
+    "family": "Main.subflow5",
+    "q95": 0.2819444228162296
+  },
+  {
+    "wafer": 9,
+    "count": 64,
+    "family": "Main.subflow6",
+    "q95": 0.30885670035962737
+  },
+  {
+    "wafer": 9,
+    "count": 72,
+    "family": "Main",
+    "q95": 0.12074261311164561
+  },
+  {
+    "wafer": 9,
+    "count": 72,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.30596744555157435
+  },
+  {
+    "wafer": 9,
+    "count": 72,
+    "family": "Main.subflow1",
+    "q95": 0.43054017851380516
+  },
+  {
+    "wafer": 9,
+    "count": 72,
+    "family": "Main.subflow2",
+    "q95": 0.3114622931942295
+  },
+  {
+    "wafer": 9,
+    "count": 72,
+    "family": "Main.subflow3",
+    "q95": 0.2923475595085083
+  },
+  {
+    "wafer": 9,
+    "count": 72,
+    "family": "Main.subflow4",
+    "q95": 0.26314119629050037
+  },
+  {
+    "wafer": 9,
+    "count": 72,
+    "family": "Main.subflow5",
+    "q95": 0.2681120364182061
+  },
+  {
+    "wafer": 9,
+    "count": 72,
+    "family": "Main.subflow6",
+    "q95": 0.27314215894638644
+  },
+  {
+    "wafer": 9,
+    "count": 80,
+    "family": "Main",
+    "q95": 0.13791304918794398
+  },
+  {
+    "wafer": 9,
+    "count": 80,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.3011357548127166
+  },
+  {
+    "wafer": 9,
+    "count": 80,
+    "family": "Main.subflow1",
+    "q95": 0.3881137478731075
+  },
+  {
+    "wafer": 9,
+    "count": 80,
+    "family": "Main.subflow2",
+    "q95": 0.26078264391409617
+  },
+  {
+    "wafer": 9,
+    "count": 80,
+    "family": "Main.subflow3",
+    "q95": 0.28002953373594397
+  },
+  {
+    "wafer": 9,
+    "count": 80,
+    "family": "Main.subflow4",
+    "q95": 0.24843621412482644
+  },
+  {
+    "wafer": 9,
+    "count": 80,
+    "family": "Main.subflow5",
+    "q95": 0.26671485278929524
+  },
+  {
+    "wafer": 9,
+    "count": 80,
+    "family": "Main.subflow6",
+    "q95": 0.2575327154689831
+  },
+  {
+    "wafer": 10,
+    "count": 32,
+    "family": "Main",
+    "q95": 0.35638361387229933
+  },
+  {
+    "wafer": 10,
+    "count": 32,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.25823098217537716
+  },
+  {
+    "wafer": 10,
+    "count": 32,
+    "family": "Main.subflow1",
+    "q95": 0.5143303724746126
+  },
+  {
+    "wafer": 10,
+    "count": 32,
+    "family": "Main.subflow2",
+    "q95": 0.5417753663467559
+  },
+  {
+    "wafer": 10,
+    "count": 32,
+    "family": "Main.subflow3",
+    "q95": 0.4670770344509185
+  },
+  {
+    "wafer": 10,
+    "count": 32,
+    "family": "Main.subflow4",
+    "q95": 0.5239173056403877
+  },
+  {
+    "wafer": 10,
+    "count": 32,
+    "family": "Main.subflow5",
+    "q95": 0.47705474798568975
+  },
+  {
+    "wafer": 10,
+    "count": 32,
+    "family": "Main.subflow6",
+    "q95": 0.4668917845247024
+  },
+  {
+    "wafer": 10,
+    "count": 40,
+    "family": "Main",
+    "q95": 0.4778959660687367
+  },
+  {
+    "wafer": 10,
+    "count": 40,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.3715795113813744
+  },
+  {
+    "wafer": 10,
+    "count": 40,
+    "family": "Main.subflow1",
+    "q95": 0.41004826735203287
+  },
+  {
+    "wafer": 10,
+    "count": 40,
+    "family": "Main.subflow2",
+    "q95": 0.4331068441003407
+  },
+  {
+    "wafer": 10,
+    "count": 40,
+    "family": "Main.subflow3",
+    "q95": 0.4036250505918854
+  },
+  {
+    "wafer": 10,
+    "count": 40,
+    "family": "Main.subflow4",
+    "q95": 0.42263217780298357
+  },
+  {
+    "wafer": 10,
+    "count": 40,
+    "family": "Main.subflow5",
+    "q95": 0.402607070059159
+  },
+  {
+    "wafer": 10,
+    "count": 40,
+    "family": "Main.subflow6",
+    "q95": 0.42242191153104663
+  },
+  {
+    "wafer": 10,
+    "count": 48,
+    "family": "Main",
+    "q95": 0.27243554275095744
+  },
+  {
+    "wafer": 10,
+    "count": 48,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.12793834571044188
+  },
+  {
+    "wafer": 10,
+    "count": 48,
+    "family": "Main.subflow1",
+    "q95": 0.42243542218370855
+  },
+  {
+    "wafer": 10,
+    "count": 48,
+    "family": "Main.subflow2",
+    "q95": 0.35739974604202696
+  },
+  {
+    "wafer": 10,
+    "count": 48,
+    "family": "Main.subflow3",
+    "q95": 0.3335501870580193
+  },
+  {
+    "wafer": 10,
+    "count": 48,
+    "family": "Main.subflow4",
+    "q95": 0.357009995600841
+  },
+  {
+    "wafer": 10,
+    "count": 48,
+    "family": "Main.subflow5",
+    "q95": 0.37419765559145973
+  },
+  {
+    "wafer": 10,
+    "count": 48,
+    "family": "Main.subflow6",
+    "q95": 0.3583624730721076
+  },
+  {
+    "wafer": 10,
+    "count": 56,
+    "family": "Main",
+    "q95": 0.21028795931539454
+  },
+  {
+    "wafer": 10,
+    "count": 56,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.24922660359341386
+  },
+  {
+    "wafer": 10,
+    "count": 56,
+    "family": "Main.subflow1",
+    "q95": 0.33063088721853356
+  },
+  {
+    "wafer": 10,
+    "count": 56,
+    "family": "Main.subflow2",
+    "q95": 0.33022021568631305
+  },
+  {
+    "wafer": 10,
+    "count": 56,
+    "family": "Main.subflow3",
+    "q95": 0.3374930996529897
+  },
+  {
+    "wafer": 10,
+    "count": 56,
+    "family": "Main.subflow4",
+    "q95": 0.3007301900633955
+  },
+  {
+    "wafer": 10,
+    "count": 56,
+    "family": "Main.subflow5",
+    "q95": 0.3496552071556278
+  },
+  {
+    "wafer": 10,
+    "count": 56,
+    "family": "Main.subflow6",
+    "q95": 0.31704764565189847
+  },
+  {
+    "wafer": 10,
+    "count": 64,
+    "family": "Main",
+    "q95": 0.22682006682536537
+  },
+  {
+    "wafer": 10,
+    "count": 64,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.15241848890868245
+  },
+  {
+    "wafer": 10,
+    "count": 64,
+    "family": "Main.subflow1",
+    "q95": 0.2955739179591628
+  },
+  {
+    "wafer": 10,
+    "count": 64,
+    "family": "Main.subflow2",
+    "q95": 0.2899932402895334
+  },
+  {
+    "wafer": 10,
+    "count": 64,
+    "family": "Main.subflow3",
+    "q95": 0.28518753929581947
+  },
+  {
+    "wafer": 10,
+    "count": 64,
+    "family": "Main.subflow4",
+    "q95": 0.32725383140814784
+  },
+  {
+    "wafer": 10,
+    "count": 64,
+    "family": "Main.subflow5",
+    "q95": 0.30477804972591743
+  },
+  {
+    "wafer": 10,
+    "count": 64,
+    "family": "Main.subflow6",
+    "q95": 0.2939186930432241
+  },
+  {
+    "wafer": 10,
+    "count": 72,
+    "family": "Main",
+    "q95": 0.23363166758583684
+  },
+  {
+    "wafer": 10,
+    "count": 72,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.08283978333125215
+  },
+  {
+    "wafer": 10,
+    "count": 72,
+    "family": "Main.subflow1",
+    "q95": 0.2793739936440605
+  },
+  {
+    "wafer": 10,
+    "count": 72,
+    "family": "Main.subflow2",
+    "q95": 0.27339588616272414
+  },
+  {
+    "wafer": 10,
+    "count": 72,
+    "family": "Main.subflow3",
+    "q95": 0.27127687601550665
+  },
+  {
+    "wafer": 10,
+    "count": 72,
+    "family": "Main.subflow4",
+    "q95": 0.29675731450092757
+  },
+  {
+    "wafer": 10,
+    "count": 72,
+    "family": "Main.subflow5",
+    "q95": 0.27426673976584237
+  },
+  {
+    "wafer": 10,
+    "count": 72,
+    "family": "Main.subflow6",
+    "q95": 0.3023477161607916
+  },
+  {
+    "wafer": 10,
+    "count": 80,
+    "family": "Main",
+    "q95": 0.1496999773533572
+  },
+  {
+    "wafer": 10,
+    "count": 80,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.11304907859500953
+  },
+  {
+    "wafer": 10,
+    "count": 80,
+    "family": "Main.subflow1",
+    "q95": 0.271667834744845
+  },
+  {
+    "wafer": 10,
+    "count": 80,
+    "family": "Main.subflow2",
+    "q95": 0.24125277990350658
+  },
+  {
+    "wafer": 10,
+    "count": 80,
+    "family": "Main.subflow3",
+    "q95": 0.24112788366657809
+  },
+  {
+    "wafer": 10,
+    "count": 80,
+    "family": "Main.subflow4",
+    "q95": 0.28140027017541236
+  },
+  {
+    "wafer": 10,
+    "count": 80,
+    "family": "Main.subflow5",
+    "q95": 0.2475086277133697
+  },
+  {
+    "wafer": 10,
+    "count": 80,
+    "family": "Main.subflow6",
+    "q95": 0.28913317574873326
+  },
+  {
+    "wafer": 11,
+    "count": 32,
+    "family": "Main",
+    "q95": 0.3604822832226378
+  },
+  {
+    "wafer": 11,
+    "count": 32,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.5332477871985342
+  },
+  {
+    "wafer": 11,
+    "count": 32,
+    "family": "Main.subflow1",
+    "q95": 0.47622169061684955
+  },
+  {
+    "wafer": 11,
+    "count": 32,
+    "family": "Main.subflow2",
+    "q95": 0.472471764032667
+  },
+  {
+    "wafer": 11,
+    "count": 32,
+    "family": "Main.subflow3",
+    "q95": 0.4538838362179847
+  },
+  {
+    "wafer": 11,
+    "count": 32,
+    "family": "Main.subflow4",
+    "q95": 0.47568655837717994
+  },
+  {
+    "wafer": 11,
+    "count": 32,
+    "family": "Main.subflow5",
+    "q95": 0.5060880075188469
+  },
+  {
+    "wafer": 11,
+    "count": 32,
+    "family": "Main.subflow6",
+    "q95": 0.495918137807385
+  },
+  {
+    "wafer": 11,
+    "count": 40,
+    "family": "Main",
+    "q95": 0.30364179004750314
+  },
+  {
+    "wafer": 11,
+    "count": 40,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.48411766701516756
+  },
+  {
+    "wafer": 11,
+    "count": 40,
+    "family": "Main.subflow1",
+    "q95": 0.4543864441588256
+  },
+  {
+    "wafer": 11,
+    "count": 40,
+    "family": "Main.subflow2",
+    "q95": 0.3627752124709321
+  },
+  {
+    "wafer": 11,
+    "count": 40,
+    "family": "Main.subflow3",
+    "q95": 0.40378253201958036
+  },
+  {
+    "wafer": 11,
+    "count": 40,
+    "family": "Main.subflow4",
+    "q95": 0.41992661797829595
+  },
+  {
+    "wafer": 11,
+    "count": 40,
+    "family": "Main.subflow5",
+    "q95": 0.45018883358718814
+  },
+  {
+    "wafer": 11,
+    "count": 40,
+    "family": "Main.subflow6",
+    "q95": 0.40414909672829624
+  },
+  {
+    "wafer": 11,
+    "count": 48,
+    "family": "Main",
+    "q95": 0.40884121053703704
+  },
+  {
+    "wafer": 11,
+    "count": 48,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.39165331946311377
+  },
+  {
+    "wafer": 11,
+    "count": 48,
+    "family": "Main.subflow1",
+    "q95": 0.3949815953506363
+  },
+  {
+    "wafer": 11,
+    "count": 48,
+    "family": "Main.subflow2",
+    "q95": 0.3530360612246728
+  },
+  {
+    "wafer": 11,
+    "count": 48,
+    "family": "Main.subflow3",
+    "q95": 0.36764183722873967
+  },
+  {
+    "wafer": 11,
+    "count": 48,
+    "family": "Main.subflow4",
+    "q95": 0.3855223479336844
+  },
+  {
+    "wafer": 11,
+    "count": 48,
+    "family": "Main.subflow5",
+    "q95": 0.35206007325243033
+  },
+  {
+    "wafer": 11,
+    "count": 48,
+    "family": "Main.subflow6",
+    "q95": 0.3713574108061313
+  },
+  {
+    "wafer": 11,
+    "count": 56,
+    "family": "Main",
+    "q95": 0.3571484575089512
+  },
+  {
+    "wafer": 11,
+    "count": 56,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.40334304883536565
+  },
+  {
+    "wafer": 11,
+    "count": 56,
+    "family": "Main.subflow1",
+    "q95": 0.4013888347770793
+  },
+  {
+    "wafer": 11,
+    "count": 56,
+    "family": "Main.subflow2",
+    "q95": 0.33673984373763854
+  },
+  {
+    "wafer": 11,
+    "count": 56,
+    "family": "Main.subflow3",
+    "q95": 0.3109100060643691
+  },
+  {
+    "wafer": 11,
+    "count": 56,
+    "family": "Main.subflow4",
+    "q95": 0.3193617147370104
+  },
+  {
+    "wafer": 11,
+    "count": 56,
+    "family": "Main.subflow5",
+    "q95": 0.3412791732737388
+  },
+  {
+    "wafer": 11,
+    "count": 56,
+    "family": "Main.subflow6",
+    "q95": 0.3120174767362999
+  },
+  {
+    "wafer": 11,
+    "count": 64,
+    "family": "Main",
+    "q95": 0.3163435955779072
+  },
+  {
+    "wafer": 11,
+    "count": 64,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.35746444556415524
+  },
+  {
+    "wafer": 11,
+    "count": 64,
+    "family": "Main.subflow1",
+    "q95": 0.34436974169187357
+  },
+  {
+    "wafer": 11,
+    "count": 64,
+    "family": "Main.subflow2",
+    "q95": 0.31901873592145086
+  },
+  {
+    "wafer": 11,
+    "count": 64,
+    "family": "Main.subflow3",
+    "q95": 0.30226979480762023
+  },
+  {
+    "wafer": 11,
+    "count": 64,
+    "family": "Main.subflow4",
+    "q95": 0.29887469493182206
+  },
+  {
+    "wafer": 11,
+    "count": 64,
+    "family": "Main.subflow5",
+    "q95": 0.34419822156028723
+  },
+  {
+    "wafer": 11,
+    "count": 64,
+    "family": "Main.subflow6",
+    "q95": 0.31723927140818553
+  },
+  {
+    "wafer": 11,
+    "count": 72,
+    "family": "Main",
+    "q95": 0.22679252959715837
+  },
+  {
+    "wafer": 11,
+    "count": 72,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.3062288137608977
+  },
+  {
+    "wafer": 11,
+    "count": 72,
+    "family": "Main.subflow1",
+    "q95": 0.3388779669983366
+  },
+  {
+    "wafer": 11,
+    "count": 72,
+    "family": "Main.subflow2",
+    "q95": 0.31013192792074373
+  },
+  {
+    "wafer": 11,
+    "count": 72,
+    "family": "Main.subflow3",
+    "q95": 0.2701131539701502
+  },
+  {
+    "wafer": 11,
+    "count": 72,
+    "family": "Main.subflow4",
+    "q95": 0.2712310251133267
+  },
+  {
+    "wafer": 11,
+    "count": 72,
+    "family": "Main.subflow5",
+    "q95": 0.3125235232574185
+  },
+  {
+    "wafer": 11,
+    "count": 72,
+    "family": "Main.subflow6",
+    "q95": 0.2869120318873213
+  },
+  {
+    "wafer": 11,
+    "count": 80,
+    "family": "Main",
+    "q95": 0.25439473180012573
+  },
+  {
+    "wafer": 11,
+    "count": 80,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.30688283186519827
+  },
+  {
+    "wafer": 11,
+    "count": 80,
+    "family": "Main.subflow1",
+    "q95": 0.3152913856582002
+  },
+  {
+    "wafer": 11,
+    "count": 80,
+    "family": "Main.subflow2",
+    "q95": 0.27804271422120386
+  },
+  {
+    "wafer": 11,
+    "count": 80,
+    "family": "Main.subflow3",
+    "q95": 0.25631523544629004
+  },
+  {
+    "wafer": 11,
+    "count": 80,
+    "family": "Main.subflow4",
+    "q95": 0.2692475378812553
+  },
+  {
+    "wafer": 11,
+    "count": 80,
+    "family": "Main.subflow5",
+    "q95": 0.2728851425932312
+  },
+  {
+    "wafer": 11,
+    "count": 80,
+    "family": "Main.subflow6",
+    "q95": 0.2839922678160946
+  },
+  {
+    "wafer": 12,
+    "count": 32,
+    "family": "Main",
+    "q95": 0.44401202512012233
+  },
+  {
+    "wafer": 12,
+    "count": 32,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.3607373255843023
+  },
+  {
+    "wafer": 12,
+    "count": 32,
+    "family": "Main.subflow1",
+    "q95": 0.44122423693954754
+  },
+  {
+    "wafer": 12,
+    "count": 32,
+    "family": "Main.subflow2",
+    "q95": 0.4907947518667041
+  },
+  {
+    "wafer": 12,
+    "count": 32,
+    "family": "Main.subflow3",
+    "q95": 0.4527769660740944
+  },
+  {
+    "wafer": 12,
+    "count": 32,
+    "family": "Main.subflow4",
+    "q95": 0.5383386084463716
+  },
+  {
+    "wafer": 12,
+    "count": 32,
+    "family": "Main.subflow5",
+    "q95": 0.45361428517999863
+  },
+  {
+    "wafer": 12,
+    "count": 32,
+    "family": "Main.subflow6",
+    "q95": 0.5028280511245286
+  },
+  {
+    "wafer": 12,
+    "count": 40,
+    "family": "Main",
+    "q95": 0.3105476504864883
+  },
+  {
+    "wafer": 12,
+    "count": 40,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.3033610686978179
+  },
+  {
+    "wafer": 12,
+    "count": 40,
+    "family": "Main.subflow1",
+    "q95": 0.4135666903367322
+  },
+  {
+    "wafer": 12,
+    "count": 40,
+    "family": "Main.subflow2",
+    "q95": 0.4341790348036764
+  },
+  {
+    "wafer": 12,
+    "count": 40,
+    "family": "Main.subflow3",
+    "q95": 0.4079461299259002
+  },
+  {
+    "wafer": 12,
+    "count": 40,
+    "family": "Main.subflow4",
+    "q95": 0.40946810634814584
+  },
+  {
+    "wafer": 12,
+    "count": 40,
+    "family": "Main.subflow5",
+    "q95": 0.40933922858175037
+  },
+  {
+    "wafer": 12,
+    "count": 40,
+    "family": "Main.subflow6",
+    "q95": 0.38811550879648804
+  },
+  {
+    "wafer": 12,
+    "count": 48,
+    "family": "Main",
+    "q95": 0.2901699606571113
+  },
+  {
+    "wafer": 12,
+    "count": 48,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.21523877092198312
+  },
+  {
+    "wafer": 12,
+    "count": 48,
+    "family": "Main.subflow1",
+    "q95": 0.35961779092576734
+  },
+  {
+    "wafer": 12,
+    "count": 48,
+    "family": "Main.subflow2",
+    "q95": 0.4042498665020998
+  },
+  {
+    "wafer": 12,
+    "count": 48,
+    "family": "Main.subflow3",
+    "q95": 0.3587097504053116
+  },
+  {
+    "wafer": 12,
+    "count": 48,
+    "family": "Main.subflow4",
+    "q95": 0.3783032372724632
+  },
+  {
+    "wafer": 12,
+    "count": 48,
+    "family": "Main.subflow5",
+    "q95": 0.3622211746546021
+  },
+  {
+    "wafer": 12,
+    "count": 48,
+    "family": "Main.subflow6",
+    "q95": 0.4018448502532363
+  },
+  {
+    "wafer": 12,
+    "count": 56,
+    "family": "Main",
+    "q95": 0.22435606089888588
+  },
+  {
+    "wafer": 12,
+    "count": 56,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.2848716041450088
+  },
+  {
+    "wafer": 12,
+    "count": 56,
+    "family": "Main.subflow1",
+    "q95": 0.34142815232797663
+  },
+  {
+    "wafer": 12,
+    "count": 56,
+    "family": "Main.subflow2",
+    "q95": 0.30615051286858114
+  },
+  {
+    "wafer": 12,
+    "count": 56,
+    "family": "Main.subflow3",
+    "q95": 0.33221498090800733
+  },
+  {
+    "wafer": 12,
+    "count": 56,
+    "family": "Main.subflow4",
+    "q95": 0.3381908626272463
+  },
+  {
+    "wafer": 12,
+    "count": 56,
+    "family": "Main.subflow5",
+    "q95": 0.31575718474447456
+  },
+  {
+    "wafer": 12,
+    "count": 56,
+    "family": "Main.subflow6",
+    "q95": 0.3397088473402353
+  },
+  {
+    "wafer": 12,
+    "count": 64,
+    "family": "Main",
+    "q95": 0.23148845741494561
+  },
+  {
+    "wafer": 12,
+    "count": 64,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.22420926648933648
+  },
+  {
+    "wafer": 12,
+    "count": 64,
+    "family": "Main.subflow1",
+    "q95": 0.29262146746480044
+  },
+  {
+    "wafer": 12,
+    "count": 64,
+    "family": "Main.subflow2",
+    "q95": 0.31487607606120976
+  },
+  {
+    "wafer": 12,
+    "count": 64,
+    "family": "Main.subflow3",
+    "q95": 0.2892727446162265
+  },
+  {
+    "wafer": 12,
+    "count": 64,
+    "family": "Main.subflow4",
+    "q95": 0.30787919135286196
+  },
+  {
+    "wafer": 12,
+    "count": 64,
+    "family": "Main.subflow5",
+    "q95": 0.31578774306684504
+  },
+  {
+    "wafer": 12,
+    "count": 64,
+    "family": "Main.subflow6",
+    "q95": 0.29144435080459724
+  },
+  {
+    "wafer": 12,
+    "count": 72,
+    "family": "Main",
+    "q95": 0.2887294742707597
+  },
+  {
+    "wafer": 12,
+    "count": 72,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.2456662690750394
+  },
+  {
+    "wafer": 12,
+    "count": 72,
+    "family": "Main.subflow1",
+    "q95": 0.29944101830815595
+  },
+  {
+    "wafer": 12,
+    "count": 72,
+    "family": "Main.subflow2",
+    "q95": 0.30311161438286566
+  },
+  {
+    "wafer": 12,
+    "count": 72,
+    "family": "Main.subflow3",
+    "q95": 0.29450941892858995
+  },
+  {
+    "wafer": 12,
+    "count": 72,
+    "family": "Main.subflow4",
+    "q95": 0.2565607920163463
+  },
+  {
+    "wafer": 12,
+    "count": 72,
+    "family": "Main.subflow5",
+    "q95": 0.26558829701121134
+  },
+  {
+    "wafer": 12,
+    "count": 72,
+    "family": "Main.subflow6",
+    "q95": 0.2879240855802282
+  },
+  {
+    "wafer": 12,
+    "count": 80,
+    "family": "Main",
+    "q95": 0.22081872306304925
+  },
+  {
+    "wafer": 12,
+    "count": 80,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.19825897327693132
+  },
+  {
+    "wafer": 12,
+    "count": 80,
+    "family": "Main.subflow1",
+    "q95": 0.2655645532369696
+  },
+  {
+    "wafer": 12,
+    "count": 80,
+    "family": "Main.subflow2",
+    "q95": 0.2601003650397195
+  },
+  {
+    "wafer": 12,
+    "count": 80,
+    "family": "Main.subflow3",
+    "q95": 0.2915412454769389
+  },
+  {
+    "wafer": 12,
+    "count": 80,
+    "family": "Main.subflow4",
+    "q95": 0.25417436024214896
+  },
+  {
+    "wafer": 12,
+    "count": 80,
+    "family": "Main.subflow5",
+    "q95": 0.24701207712703574
+  },
+  {
+    "wafer": 12,
+    "count": 80,
+    "family": "Main.subflow6",
+    "q95": 0.2526919781195827
+  },
+  {
+    "wafer": 13,
+    "count": 32,
+    "family": "Main",
+    "q95": 0.4615410271835782
+  },
+  {
+    "wafer": 13,
+    "count": 32,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.3253629116110841
+  },
+  {
+    "wafer": 13,
+    "count": 32,
+    "family": "Main.subflow1",
+    "q95": 0.48922976897031983
+  },
+  {
+    "wafer": 13,
+    "count": 32,
+    "family": "Main.subflow2",
+    "q95": 0.4829530526596215
+  },
+  {
+    "wafer": 13,
+    "count": 32,
+    "family": "Main.subflow3",
+    "q95": 0.43617079787006746
+  },
+  {
+    "wafer": 13,
+    "count": 32,
+    "family": "Main.subflow4",
+    "q95": 0.4211659907916651
+  },
+  {
+    "wafer": 13,
+    "count": 32,
+    "family": "Main.subflow5",
+    "q95": 0.5021547579521729
+  },
+  {
+    "wafer": 13,
+    "count": 32,
+    "family": "Main.subflow6",
+    "q95": 0.5297103945356585
+  },
+  {
+    "wafer": 13,
+    "count": 40,
+    "family": "Main",
+    "q95": 0.3887920712994324
+  },
+  {
+    "wafer": 13,
+    "count": 40,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.4045680907317982
+  },
+  {
+    "wafer": 13,
+    "count": 40,
+    "family": "Main.subflow1",
+    "q95": 0.4205383964919119
+  },
+  {
+    "wafer": 13,
+    "count": 40,
+    "family": "Main.subflow2",
+    "q95": 0.4244627128206908
+  },
+  {
+    "wafer": 13,
+    "count": 40,
+    "family": "Main.subflow3",
+    "q95": 0.40614779737323853
+  },
+  {
+    "wafer": 13,
+    "count": 40,
+    "family": "Main.subflow4",
+    "q95": 0.38612197442969337
+  },
+  {
+    "wafer": 13,
+    "count": 40,
+    "family": "Main.subflow5",
+    "q95": 0.4571822746470532
+  },
+  {
+    "wafer": 13,
+    "count": 40,
+    "family": "Main.subflow6",
+    "q95": 0.41350405218481495
+  },
+  {
+    "wafer": 13,
+    "count": 48,
+    "family": "Main",
+    "q95": 0.3438551151977474
+  },
+  {
+    "wafer": 13,
+    "count": 48,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.13209807073430502
+  },
+  {
+    "wafer": 13,
+    "count": 48,
+    "family": "Main.subflow1",
+    "q95": 0.3695505815797467
+  },
+  {
+    "wafer": 13,
+    "count": 48,
+    "family": "Main.subflow2",
+    "q95": 0.3549205473367945
+  },
+  {
+    "wafer": 13,
+    "count": 48,
+    "family": "Main.subflow3",
+    "q95": 0.3635789489451788
+  },
+  {
+    "wafer": 13,
+    "count": 48,
+    "family": "Main.subflow4",
+    "q95": 0.3695694566904132
+  },
+  {
+    "wafer": 13,
+    "count": 48,
+    "family": "Main.subflow5",
+    "q95": 0.38743486236369695
+  },
+  {
+    "wafer": 13,
+    "count": 48,
+    "family": "Main.subflow6",
+    "q95": 0.36621655021938904
+  },
+  {
+    "wafer": 13,
+    "count": 56,
+    "family": "Main",
+    "q95": 0.32786104059469606
+  },
+  {
+    "wafer": 13,
+    "count": 56,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.06582329762907854
+  },
+  {
+    "wafer": 13,
+    "count": 56,
+    "family": "Main.subflow1",
+    "q95": 0.342428802377905
+  },
+  {
+    "wafer": 13,
+    "count": 56,
+    "family": "Main.subflow2",
+    "q95": 0.31271333703726
+  },
+  {
+    "wafer": 13,
+    "count": 56,
+    "family": "Main.subflow3",
+    "q95": 0.3384353667189329
+  },
+  {
+    "wafer": 13,
+    "count": 56,
+    "family": "Main.subflow4",
+    "q95": 0.3377603012764422
+  },
+  {
+    "wafer": 13,
+    "count": 56,
+    "family": "Main.subflow5",
+    "q95": 0.3457167201359092
+  },
+  {
+    "wafer": 13,
+    "count": 56,
+    "family": "Main.subflow6",
+    "q95": 0.3330560762269383
+  },
+  {
+    "wafer": 13,
+    "count": 64,
+    "family": "Main",
+    "q95": 0.25803931646633743
+  },
+  {
+    "wafer": 13,
+    "count": 64,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.11232834974268904
+  },
+  {
+    "wafer": 13,
+    "count": 64,
+    "family": "Main.subflow1",
+    "q95": 0.33241084928418113
+  },
+  {
+    "wafer": 13,
+    "count": 64,
+    "family": "Main.subflow2",
+    "q95": 0.27990858299619076
+  },
+  {
+    "wafer": 13,
+    "count": 64,
+    "family": "Main.subflow3",
+    "q95": 0.3094009746336523
+  },
+  {
+    "wafer": 13,
+    "count": 64,
+    "family": "Main.subflow4",
+    "q95": 0.29400600106282004
+  },
+  {
+    "wafer": 13,
+    "count": 64,
+    "family": "Main.subflow5",
+    "q95": 0.3067431962113914
+  },
+  {
+    "wafer": 13,
+    "count": 64,
+    "family": "Main.subflow6",
+    "q95": 0.3136617756585802
+  },
+  {
+    "wafer": 13,
+    "count": 72,
+    "family": "Main",
+    "q95": 0.1994396198205256
+  },
+  {
+    "wafer": 13,
+    "count": 72,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.1299926024764917
+  },
+  {
+    "wafer": 13,
+    "count": 72,
+    "family": "Main.subflow1",
+    "q95": 0.31265264032222667
+  },
+  {
+    "wafer": 13,
+    "count": 72,
+    "family": "Main.subflow2",
+    "q95": 0.2811136209022185
+  },
+  {
+    "wafer": 13,
+    "count": 72,
+    "family": "Main.subflow3",
+    "q95": 0.28323320087023024
+  },
+  {
+    "wafer": 13,
+    "count": 72,
+    "family": "Main.subflow4",
+    "q95": 0.2703012255408725
+  },
+  {
+    "wafer": 13,
+    "count": 72,
+    "family": "Main.subflow5",
+    "q95": 0.26442916704576497
+  },
+  {
+    "wafer": 13,
+    "count": 72,
+    "family": "Main.subflow6",
+    "q95": 0.260417770189858
+  },
+  {
+    "wafer": 13,
+    "count": 80,
+    "family": "Main",
+    "q95": 0.17685021394521108
+  },
+  {
+    "wafer": 13,
+    "count": 80,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.19130552361520226
+  },
+  {
+    "wafer": 13,
+    "count": 80,
+    "family": "Main.subflow1",
+    "q95": 0.327292427925907
+  },
+  {
+    "wafer": 13,
+    "count": 80,
+    "family": "Main.subflow2",
+    "q95": 0.2659739720698419
+  },
+  {
+    "wafer": 13,
+    "count": 80,
+    "family": "Main.subflow3",
+    "q95": 0.27542526382486715
+  },
+  {
+    "wafer": 13,
+    "count": 80,
+    "family": "Main.subflow4",
+    "q95": 0.26317907086747205
+  },
+  {
+    "wafer": 13,
+    "count": 80,
+    "family": "Main.subflow5",
+    "q95": 0.2711627601523963
+  },
+  {
+    "wafer": 13,
+    "count": 80,
+    "family": "Main.subflow6",
+    "q95": 0.2545737811055481
+  },
+  {
+    "wafer": 14,
+    "count": 32,
+    "family": "Main",
+    "q95": 0.3984531018125404
+  },
+  {
+    "wafer": 14,
+    "count": 32,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.267470894148373
+  },
+  {
+    "wafer": 14,
+    "count": 32,
+    "family": "Main.subflow1",
+    "q95": 0.5204526997266539
+  },
+  {
+    "wafer": 14,
+    "count": 32,
+    "family": "Main.subflow2",
+    "q95": 0.5417877932461456
+  },
+  {
+    "wafer": 14,
+    "count": 32,
+    "family": "Main.subflow3",
+    "q95": 0.4808057295721661
+  },
+  {
+    "wafer": 14,
+    "count": 32,
+    "family": "Main.subflow4",
+    "q95": 0.4955771822066549
+  },
+  {
+    "wafer": 14,
+    "count": 32,
+    "family": "Main.subflow5",
+    "q95": 0.49257849043965796
+  },
+  {
+    "wafer": 14,
+    "count": 32,
+    "family": "Main.subflow6",
+    "q95": 0.5292108790473246
+  },
+  {
+    "wafer": 14,
+    "count": 40,
+    "family": "Main",
+    "q95": 0.43757189086272735
+  },
+  {
+    "wafer": 14,
+    "count": 40,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.45184184233938324
+  },
+  {
+    "wafer": 14,
+    "count": 40,
+    "family": "Main.subflow1",
+    "q95": 0.4034180881432262
+  },
+  {
+    "wafer": 14,
+    "count": 40,
+    "family": "Main.subflow2",
+    "q95": 0.3756756233714744
+  },
+  {
+    "wafer": 14,
+    "count": 40,
+    "family": "Main.subflow3",
+    "q95": 0.4074419481199043
+  },
+  {
+    "wafer": 14,
+    "count": 40,
+    "family": "Main.subflow4",
+    "q95": 0.40780557052218713
+  },
+  {
+    "wafer": 14,
+    "count": 40,
+    "family": "Main.subflow5",
+    "q95": 0.4130907287262848
+  },
+  {
+    "wafer": 14,
+    "count": 40,
+    "family": "Main.subflow6",
+    "q95": 0.3976286847007326
+  },
+  {
+    "wafer": 14,
+    "count": 48,
+    "family": "Main",
+    "q95": 0.22532032273593539
+  },
+  {
+    "wafer": 14,
+    "count": 48,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.39154324296219156
+  },
+  {
+    "wafer": 14,
+    "count": 48,
+    "family": "Main.subflow1",
+    "q95": 0.3600776997094087
+  },
+  {
+    "wafer": 14,
+    "count": 48,
+    "family": "Main.subflow2",
+    "q95": 0.3630024557347331
+  },
+  {
+    "wafer": 14,
+    "count": 48,
+    "family": "Main.subflow3",
+    "q95": 0.3462779410146804
+  },
+  {
+    "wafer": 14,
+    "count": 48,
+    "family": "Main.subflow4",
+    "q95": 0.35196953650600193
+  },
+  {
+    "wafer": 14,
+    "count": 48,
+    "family": "Main.subflow5",
+    "q95": 0.35645644688113726
+  },
+  {
+    "wafer": 14,
+    "count": 48,
+    "family": "Main.subflow6",
+    "q95": 0.35438195046166654
+  },
+  {
+    "wafer": 14,
+    "count": 56,
+    "family": "Main",
+    "q95": 0.23070386005486238
+  },
+  {
+    "wafer": 14,
+    "count": 56,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.34813009519703453
+  },
+  {
+    "wafer": 14,
+    "count": 56,
+    "family": "Main.subflow1",
+    "q95": 0.35342992196032413
+  },
+  {
+    "wafer": 14,
+    "count": 56,
+    "family": "Main.subflow2",
+    "q95": 1.820461827449063
+  },
+  {
+    "wafer": 14,
+    "count": 56,
+    "family": "Main.subflow3",
+    "q95": 0.32782695735253414
+  },
+  {
+    "wafer": 14,
+    "count": 56,
+    "family": "Main.subflow4",
+    "q95": 0.3307953636545656
+  },
+  {
+    "wafer": 14,
+    "count": 56,
+    "family": "Main.subflow5",
+    "q95": 0.3158245731067435
+  },
+  {
+    "wafer": 14,
+    "count": 56,
+    "family": "Main.subflow6",
+    "q95": 0.3034333062161988
+  },
+  {
+    "wafer": 14,
+    "count": 64,
+    "family": "Main",
+    "q95": 0.359108612333606
+  },
+  {
+    "wafer": 14,
+    "count": 64,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.39609283717705723
+  },
+  {
+    "wafer": 14,
+    "count": 64,
+    "family": "Main.subflow1",
+    "q95": 0.3030156925689416
+  },
+  {
+    "wafer": 14,
+    "count": 64,
+    "family": "Main.subflow2",
+    "q95": 1.8493514077522633
+  },
+  {
+    "wafer": 14,
+    "count": 64,
+    "family": "Main.subflow3",
+    "q95": 0.2842368531220651
+  },
+  {
+    "wafer": 14,
+    "count": 64,
+    "family": "Main.subflow4",
+    "q95": 0.31316711732409536
+  },
+  {
+    "wafer": 14,
+    "count": 64,
+    "family": "Main.subflow5",
+    "q95": 0.2974205632000271
+  },
+  {
+    "wafer": 14,
+    "count": 64,
+    "family": "Main.subflow6",
+    "q95": 0.2622639545793134
+  },
+  {
+    "wafer": 14,
+    "count": 72,
+    "family": "Main",
+    "q95": 0.2889682490334035
+  },
+  {
+    "wafer": 14,
+    "count": 72,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.32617106018609343
+  },
+  {
+    "wafer": 14,
+    "count": 72,
+    "family": "Main.subflow1",
+    "q95": 0.3311313824952117
+  },
+  {
+    "wafer": 14,
+    "count": 72,
+    "family": "Main.subflow2",
+    "q95": 1.7745221997584155
+  },
+  {
+    "wafer": 14,
+    "count": 72,
+    "family": "Main.subflow3",
+    "q95": 0.29341770080259494
+  },
+  {
+    "wafer": 14,
+    "count": 72,
+    "family": "Main.subflow4",
+    "q95": 0.28968130676401765
+  },
+  {
+    "wafer": 14,
+    "count": 72,
+    "family": "Main.subflow5",
+    "q95": 0.3042577003100667
+  },
+  {
+    "wafer": 14,
+    "count": 72,
+    "family": "Main.subflow6",
+    "q95": 0.2476485949070251
+  },
+  {
+    "wafer": 14,
+    "count": 80,
+    "family": "Main",
+    "q95": 0.2641637925621847
+  },
+  {
+    "wafer": 14,
+    "count": 80,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.27731585564974487
+  },
+  {
+    "wafer": 14,
+    "count": 80,
+    "family": "Main.subflow1",
+    "q95": 0.328892063048175
+  },
+  {
+    "wafer": 14,
+    "count": 80,
+    "family": "Main.subflow2",
+    "q95": 1.7331769553545566
+  },
+  {
+    "wafer": 14,
+    "count": 80,
+    "family": "Main.subflow3",
+    "q95": 0.2637458562923708
+  },
+  {
+    "wafer": 14,
+    "count": 80,
+    "family": "Main.subflow4",
+    "q95": 0.273720586978475
+  },
+  {
+    "wafer": 14,
+    "count": 80,
+    "family": "Main.subflow5",
+    "q95": 0.2975453691833848
+  },
+  {
+    "wafer": 14,
+    "count": 80,
+    "family": "Main.subflow6",
+    "q95": 0.23406082236640874
+  },
+  {
+    "wafer": 15,
+    "count": 32,
+    "family": "Main",
+    "q95": 0.3533287560022992
+  },
+  {
+    "wafer": 15,
+    "count": 32,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.29458007422705346
+  },
+  {
+    "wafer": 15,
+    "count": 32,
+    "family": "Main.subflow1",
+    "q95": 0.4882657270666027
+  },
+  {
+    "wafer": 15,
+    "count": 32,
+    "family": "Main.subflow2",
+    "q95": 0.4573413631703282
+  },
+  {
+    "wafer": 15,
+    "count": 32,
+    "family": "Main.subflow3",
+    "q95": 0.49439626571616224
+  },
+  {
+    "wafer": 15,
+    "count": 32,
+    "family": "Main.subflow4",
+    "q95": 0.49307090896115385
+  },
+  {
+    "wafer": 15,
+    "count": 32,
+    "family": "Main.subflow5",
+    "q95": 0.48786991786031103
+  },
+  {
+    "wafer": 15,
+    "count": 32,
+    "family": "Main.subflow6",
+    "q95": 0.47719009864150974
+  },
+  {
+    "wafer": 15,
+    "count": 40,
+    "family": "Main",
+    "q95": 0.38484354234093465
+  },
+  {
+    "wafer": 15,
+    "count": 40,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.3848827977330128
+  },
+  {
+    "wafer": 15,
+    "count": 40,
+    "family": "Main.subflow1",
+    "q95": 0.4709733727457332
+  },
+  {
+    "wafer": 15,
+    "count": 40,
+    "family": "Main.subflow2",
+    "q95": 0.35377031941609394
+  },
+  {
+    "wafer": 15,
+    "count": 40,
+    "family": "Main.subflow3",
+    "q95": 0.38913702671274775
+  },
+  {
+    "wafer": 15,
+    "count": 40,
+    "family": "Main.subflow4",
+    "q95": 0.42407274950865065
+  },
+  {
+    "wafer": 15,
+    "count": 40,
+    "family": "Main.subflow5",
+    "q95": 0.40900045893782355
+  },
+  {
+    "wafer": 15,
+    "count": 40,
+    "family": "Main.subflow6",
+    "q95": 0.44086618704287356
+  },
+  {
+    "wafer": 15,
+    "count": 48,
+    "family": "Main",
+    "q95": 0.416986985029465
+  },
+  {
+    "wafer": 15,
+    "count": 48,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.46998796463758263
+  },
+  {
+    "wafer": 15,
+    "count": 48,
+    "family": "Main.subflow1",
+    "q95": 0.43861850727164275
+  },
+  {
+    "wafer": 15,
+    "count": 48,
+    "family": "Main.subflow2",
+    "q95": 0.36474860282953453
+  },
+  {
+    "wafer": 15,
+    "count": 48,
+    "family": "Main.subflow3",
+    "q95": 0.369294622323916
+  },
+  {
+    "wafer": 15,
+    "count": 48,
+    "family": "Main.subflow4",
+    "q95": 0.39785654232569534
+  },
+  {
+    "wafer": 15,
+    "count": 48,
+    "family": "Main.subflow5",
+    "q95": 0.35362947052712757
+  },
+  {
+    "wafer": 15,
+    "count": 48,
+    "family": "Main.subflow6",
+    "q95": 0.38547798435149494
+  },
+  {
+    "wafer": 15,
+    "count": 56,
+    "family": "Main",
+    "q95": 0.30145519859324027
+  },
+  {
+    "wafer": 15,
+    "count": 56,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.2693043579972291
+  },
+  {
+    "wafer": 15,
+    "count": 56,
+    "family": "Main.subflow1",
+    "q95": 0.6851615213759357
+  },
+  {
+    "wafer": 15,
+    "count": 56,
+    "family": "Main.subflow2",
+    "q95": 0.30804770891079386
+  },
+  {
+    "wafer": 15,
+    "count": 56,
+    "family": "Main.subflow3",
+    "q95": 0.3319081677264678
+  },
+  {
+    "wafer": 15,
+    "count": 56,
+    "family": "Main.subflow4",
+    "q95": 0.37305973477958665
+  },
+  {
+    "wafer": 15,
+    "count": 56,
+    "family": "Main.subflow5",
+    "q95": 0.3287283963691573
+  },
+  {
+    "wafer": 15,
+    "count": 56,
+    "family": "Main.subflow6",
+    "q95": 0.3332260261595836
+  },
+  {
+    "wafer": 15,
+    "count": 64,
+    "family": "Main",
+    "q95": 0.21515754393649522
+  },
+  {
+    "wafer": 15,
+    "count": 64,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.33569868141358306
+  },
+  {
+    "wafer": 15,
+    "count": 64,
+    "family": "Main.subflow1",
+    "q95": 0.6202297841415446
+  },
+  {
+    "wafer": 15,
+    "count": 64,
+    "family": "Main.subflow2",
+    "q95": 0.28955781062378033
+  },
+  {
+    "wafer": 15,
+    "count": 64,
+    "family": "Main.subflow3",
+    "q95": 0.2897853254137152
+  },
+  {
+    "wafer": 15,
+    "count": 64,
+    "family": "Main.subflow4",
+    "q95": 0.3107095503313804
+  },
+  {
+    "wafer": 15,
+    "count": 64,
+    "family": "Main.subflow5",
+    "q95": 0.32393197161041076
+  },
+  {
+    "wafer": 15,
+    "count": 64,
+    "family": "Main.subflow6",
+    "q95": 0.28723742829794957
+  },
+  {
+    "wafer": 15,
+    "count": 72,
+    "family": "Main",
+    "q95": 0.14756628756417
+  },
+  {
+    "wafer": 15,
+    "count": 72,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.24292531406672643
+  },
+  {
+    "wafer": 15,
+    "count": 72,
+    "family": "Main.subflow1",
+    "q95": 0.48075286060809913
+  },
+  {
+    "wafer": 15,
+    "count": 72,
+    "family": "Main.subflow2",
+    "q95": 0.2759756226647683
+  },
+  {
+    "wafer": 15,
+    "count": 72,
+    "family": "Main.subflow3",
+    "q95": 0.2869890475927851
+  },
+  {
+    "wafer": 15,
+    "count": 72,
+    "family": "Main.subflow4",
+    "q95": 0.314245403527775
+  },
+  {
+    "wafer": 15,
+    "count": 72,
+    "family": "Main.subflow5",
+    "q95": 0.29951794424882267
+  },
+  {
+    "wafer": 15,
+    "count": 72,
+    "family": "Main.subflow6",
+    "q95": 0.31872774930374626
+  },
+  {
+    "wafer": 15,
+    "count": 80,
+    "family": "Main",
+    "q95": 0.19573658221291332
+  },
+  {
+    "wafer": 15,
+    "count": 80,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.31868055873204115
+  },
+  {
+    "wafer": 15,
+    "count": 80,
+    "family": "Main.subflow1",
+    "q95": 0.3968295940783284
+  },
+  {
+    "wafer": 15,
+    "count": 80,
+    "family": "Main.subflow2",
+    "q95": 0.27534034536790036
+  },
+  {
+    "wafer": 15,
+    "count": 80,
+    "family": "Main.subflow3",
+    "q95": 0.2559115015674058
+  },
+  {
+    "wafer": 15,
+    "count": 80,
+    "family": "Main.subflow4",
+    "q95": 0.2533025860666183
+  },
+  {
+    "wafer": 15,
+    "count": 80,
+    "family": "Main.subflow5",
+    "q95": 0.27647128607363797
+  },
+  {
+    "wafer": 15,
+    "count": 80,
+    "family": "Main.subflow6",
+    "q95": 0.2797059524411586
+  },
+  {
+    "wafer": 16,
+    "count": 32,
+    "family": "Main",
+    "q95": 0.45235831782125985
+  },
+  {
+    "wafer": 16,
+    "count": 32,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.3501485684631318
+  },
+  {
+    "wafer": 16,
+    "count": 32,
+    "family": "Main.subflow1",
+    "q95": 0.5501811613498173
+  },
+  {
+    "wafer": 16,
+    "count": 32,
+    "family": "Main.subflow2",
+    "q95": 0.516631583217164
+  },
+  {
+    "wafer": 16,
+    "count": 32,
+    "family": "Main.subflow3",
+    "q95": 0.4736380833992367
+  },
+  {
+    "wafer": 16,
+    "count": 32,
+    "family": "Main.subflow4",
+    "q95": 0.4527691317909582
+  },
+  {
+    "wafer": 16,
+    "count": 32,
+    "family": "Main.subflow5",
+    "q95": 0.4742029414744492
+  },
+  {
+    "wafer": 16,
+    "count": 32,
+    "family": "Main.subflow6",
+    "q95": 0.47640597047148847
+  },
+  {
+    "wafer": 16,
+    "count": 40,
+    "family": "Main",
+    "q95": 0.30610002740683084
+  },
+  {
+    "wafer": 16,
+    "count": 40,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.3663321475192277
+  },
+  {
+    "wafer": 16,
+    "count": 40,
+    "family": "Main.subflow1",
+    "q95": 0.464808403948019
+  },
+  {
+    "wafer": 16,
+    "count": 40,
+    "family": "Main.subflow2",
+    "q95": 0.4044756992731061
+  },
+  {
+    "wafer": 16,
+    "count": 40,
+    "family": "Main.subflow3",
+    "q95": 0.3657355430535002
+  },
+  {
+    "wafer": 16,
+    "count": 40,
+    "family": "Main.subflow4",
+    "q95": 0.37367923184048835
+  },
+  {
+    "wafer": 16,
+    "count": 40,
+    "family": "Main.subflow5",
+    "q95": 0.41725409648497547
+  },
+  {
+    "wafer": 16,
+    "count": 40,
+    "family": "Main.subflow6",
+    "q95": 0.41124378167912834
+  },
+  {
+    "wafer": 16,
+    "count": 48,
+    "family": "Main",
+    "q95": 0.33991669348425435
+  },
+  {
+    "wafer": 16,
+    "count": 48,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.2943293181865795
+  },
+  {
+    "wafer": 16,
+    "count": 48,
+    "family": "Main.subflow1",
+    "q95": 0.40445959681859445
+  },
+  {
+    "wafer": 16,
+    "count": 48,
+    "family": "Main.subflow2",
+    "q95": 0.36853031420347016
+  },
+  {
+    "wafer": 16,
+    "count": 48,
+    "family": "Main.subflow3",
+    "q95": 0.37432484598631466
+  },
+  {
+    "wafer": 16,
+    "count": 48,
+    "family": "Main.subflow4",
+    "q95": 0.38124255871512436
+  },
+  {
+    "wafer": 16,
+    "count": 48,
+    "family": "Main.subflow5",
+    "q95": 0.356786822950416
+  },
+  {
+    "wafer": 16,
+    "count": 48,
+    "family": "Main.subflow6",
+    "q95": 0.3604569783983805
+  },
+  {
+    "wafer": 16,
+    "count": 56,
+    "family": "Main",
+    "q95": 0.3111443563359794
+  },
+  {
+    "wafer": 16,
+    "count": 56,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.29287250275064886
+  },
+  {
+    "wafer": 16,
+    "count": 56,
+    "family": "Main.subflow1",
+    "q95": 0.3673698872291995
+  },
+  {
+    "wafer": 16,
+    "count": 56,
+    "family": "Main.subflow2",
+    "q95": 0.3269529138377499
+  },
+  {
+    "wafer": 16,
+    "count": 56,
+    "family": "Main.subflow3",
+    "q95": 0.31910029692589215
+  },
+  {
+    "wafer": 16,
+    "count": 56,
+    "family": "Main.subflow4",
+    "q95": 0.3295816683678941
+  },
+  {
+    "wafer": 16,
+    "count": 56,
+    "family": "Main.subflow5",
+    "q95": 0.3515326865742452
+  },
+  {
+    "wafer": 16,
+    "count": 56,
+    "family": "Main.subflow6",
+    "q95": 0.33544248348936445
+  },
+  {
+    "wafer": 16,
+    "count": 64,
+    "family": "Main",
+    "q95": 0.38067781240490994
+  },
+  {
+    "wafer": 16,
+    "count": 64,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.33964929616358897
+  },
+  {
+    "wafer": 16,
+    "count": 64,
+    "family": "Main.subflow1",
+    "q95": 0.33493699378267794
+  },
+  {
+    "wafer": 16,
+    "count": 64,
+    "family": "Main.subflow2",
+    "q95": 0.289913489177764
+  },
+  {
+    "wafer": 16,
+    "count": 64,
+    "family": "Main.subflow3",
+    "q95": 0.30015546432046375
+  },
+  {
+    "wafer": 16,
+    "count": 64,
+    "family": "Main.subflow4",
+    "q95": 0.31793107917562474
+  },
+  {
+    "wafer": 16,
+    "count": 64,
+    "family": "Main.subflow5",
+    "q95": 0.30730563962350776
+  },
+  {
+    "wafer": 16,
+    "count": 64,
+    "family": "Main.subflow6",
+    "q95": 0.3283779850518963
+  },
+  {
+    "wafer": 16,
+    "count": 72,
+    "family": "Main",
+    "q95": 0.3018731486490798
+  },
+  {
+    "wafer": 16,
+    "count": 72,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.3362022375864951
+  },
+  {
+    "wafer": 16,
+    "count": 72,
+    "family": "Main.subflow1",
+    "q95": 0.3310919022084991
+  },
+  {
+    "wafer": 16,
+    "count": 72,
+    "family": "Main.subflow2",
+    "q95": 0.31653001512412704
+  },
+  {
+    "wafer": 16,
+    "count": 72,
+    "family": "Main.subflow3",
+    "q95": 0.27711962558522335
+  },
+  {
+    "wafer": 16,
+    "count": 72,
+    "family": "Main.subflow4",
+    "q95": 0.2817800321443939
+  },
+  {
+    "wafer": 16,
+    "count": 72,
+    "family": "Main.subflow5",
+    "q95": 0.26957539552142534
+  },
+  {
+    "wafer": 16,
+    "count": 72,
+    "family": "Main.subflow6",
+    "q95": 0.28945167227535257
+  },
+  {
+    "wafer": 16,
+    "count": 80,
+    "family": "Main",
+    "q95": 0.2342358491170203
+  },
+  {
+    "wafer": 16,
+    "count": 80,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.2866199186161205
+  },
+  {
+    "wafer": 16,
+    "count": 80,
+    "family": "Main.subflow1",
+    "q95": 0.2853854908730018
+  },
+  {
+    "wafer": 16,
+    "count": 80,
+    "family": "Main.subflow2",
+    "q95": 0.2760649236775942
+  },
+  {
+    "wafer": 16,
+    "count": 80,
+    "family": "Main.subflow3",
+    "q95": 0.272947282082026
+  },
+  {
+    "wafer": 16,
+    "count": 80,
+    "family": "Main.subflow4",
+    "q95": 0.26495954466123955
+  },
+  {
+    "wafer": 16,
+    "count": 80,
+    "family": "Main.subflow5",
+    "q95": 0.27070329879022015
+  },
+  {
+    "wafer": 16,
+    "count": 80,
+    "family": "Main.subflow6",
+    "q95": 0.25083562998086145
+  },
+  {
+    "wafer": 17,
+    "count": 32,
+    "family": "Main",
+    "q95": 0.24450631604325399
+  },
+  {
+    "wafer": 17,
+    "count": 32,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.4971710500925244
+  },
+  {
+    "wafer": 17,
+    "count": 32,
+    "family": "Main.subflow1",
+    "q95": 0.48229531314057716
+  },
+  {
+    "wafer": 17,
+    "count": 32,
+    "family": "Main.subflow2",
+    "q95": 0.5147782690248816
+  },
+  {
+    "wafer": 17,
+    "count": 32,
+    "family": "Main.subflow3",
+    "q95": 0.5064353913648378
+  },
+  {
+    "wafer": 17,
+    "count": 32,
+    "family": "Main.subflow4",
+    "q95": 0.47093247575524777
+  },
+  {
+    "wafer": 17,
+    "count": 32,
+    "family": "Main.subflow5",
+    "q95": 0.4404887820627977
+  },
+  {
+    "wafer": 17,
+    "count": 32,
+    "family": "Main.subflow6",
+    "q95": 0.4967270698831708
+  },
+  {
+    "wafer": 17,
+    "count": 40,
+    "family": "Main",
+    "q95": 0.3184657931601373
+  },
+  {
+    "wafer": 17,
+    "count": 40,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.3910852522588636
+  },
+  {
+    "wafer": 17,
+    "count": 40,
+    "family": "Main.subflow1",
+    "q95": 0.39296280242060694
+  },
+  {
+    "wafer": 17,
+    "count": 40,
+    "family": "Main.subflow2",
+    "q95": 0.41374582646805963
+  },
+  {
+    "wafer": 17,
+    "count": 40,
+    "family": "Main.subflow3",
+    "q95": 0.42636132460488163
+  },
+  {
+    "wafer": 17,
+    "count": 40,
+    "family": "Main.subflow4",
+    "q95": 0.3928694585945646
+  },
+  {
+    "wafer": 17,
+    "count": 40,
+    "family": "Main.subflow5",
+    "q95": 0.42909281327101473
+  },
+  {
+    "wafer": 17,
+    "count": 40,
+    "family": "Main.subflow6",
+    "q95": 0.3884756889563391
+  },
+  {
+    "wafer": 17,
+    "count": 48,
+    "family": "Main",
+    "q95": 0.3570363124119378
+  },
+  {
+    "wafer": 17,
+    "count": 48,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.4108764215976112
+  },
+  {
+    "wafer": 17,
+    "count": 48,
+    "family": "Main.subflow1",
+    "q95": 0.3988865863019983
+  },
+  {
+    "wafer": 17,
+    "count": 48,
+    "family": "Main.subflow2",
+    "q95": 0.3590940242876231
+  },
+  {
+    "wafer": 17,
+    "count": 48,
+    "family": "Main.subflow3",
+    "q95": 0.3789378688170061
+  },
+  {
+    "wafer": 17,
+    "count": 48,
+    "family": "Main.subflow4",
+    "q95": 0.34462154023041375
+  },
+  {
+    "wafer": 17,
+    "count": 48,
+    "family": "Main.subflow5",
+    "q95": 0.3642264383832126
+  },
+  {
+    "wafer": 17,
+    "count": 48,
+    "family": "Main.subflow6",
+    "q95": 0.3331034798075326
+  },
+  {
+    "wafer": 17,
+    "count": 56,
+    "family": "Main",
+    "q95": 0.2992952226908205
+  },
+  {
+    "wafer": 17,
+    "count": 56,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.3198488167924751
+  },
+  {
+    "wafer": 17,
+    "count": 56,
+    "family": "Main.subflow1",
+    "q95": 0.38872359242324006
+  },
+  {
+    "wafer": 17,
+    "count": 56,
+    "family": "Main.subflow2",
+    "q95": 0.3416293131723577
+  },
+  {
+    "wafer": 17,
+    "count": 56,
+    "family": "Main.subflow3",
+    "q95": 0.33769933514035516
+  },
+  {
+    "wafer": 17,
+    "count": 56,
+    "family": "Main.subflow4",
+    "q95": 0.34100556297365675
+  },
+  {
+    "wafer": 17,
+    "count": 56,
+    "family": "Main.subflow5",
+    "q95": 0.32095788009539356
+  },
+  {
+    "wafer": 17,
+    "count": 56,
+    "family": "Main.subflow6",
+    "q95": 0.2987083958033672
+  },
+  {
+    "wafer": 17,
+    "count": 64,
+    "family": "Main",
+    "q95": 0.24847679277803583
+  },
+  {
+    "wafer": 17,
+    "count": 64,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.28077325400207276
+  },
+  {
+    "wafer": 17,
+    "count": 64,
+    "family": "Main.subflow1",
+    "q95": 0.3465109513619768
+  },
+  {
+    "wafer": 17,
+    "count": 64,
+    "family": "Main.subflow2",
+    "q95": 0.3047172022396545
+  },
+  {
+    "wafer": 17,
+    "count": 64,
+    "family": "Main.subflow3",
+    "q95": 0.27244484047642764
+  },
+  {
+    "wafer": 17,
+    "count": 64,
+    "family": "Main.subflow4",
+    "q95": 0.3185511819556306
+  },
+  {
+    "wafer": 17,
+    "count": 64,
+    "family": "Main.subflow5",
+    "q95": 0.28970543515989283
+  },
+  {
+    "wafer": 17,
+    "count": 64,
+    "family": "Main.subflow6",
+    "q95": 0.2831224514965672
+  },
+  {
+    "wafer": 17,
+    "count": 72,
+    "family": "Main",
+    "q95": 0.24331256219932784
+  },
+  {
+    "wafer": 17,
+    "count": 72,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.3169317005868544
+  },
+  {
+    "wafer": 17,
+    "count": 72,
+    "family": "Main.subflow1",
+    "q95": 0.3034638234180373
+  },
+  {
+    "wafer": 17,
+    "count": 72,
+    "family": "Main.subflow2",
+    "q95": 0.2932622142481041
+  },
+  {
+    "wafer": 17,
+    "count": 72,
+    "family": "Main.subflow3",
+    "q95": 0.26486129560763233
+  },
+  {
+    "wafer": 17,
+    "count": 72,
+    "family": "Main.subflow4",
+    "q95": 0.3031541933762878
+  },
+  {
+    "wafer": 17,
+    "count": 72,
+    "family": "Main.subflow5",
+    "q95": 0.2628292396770725
+  },
+  {
+    "wafer": 17,
+    "count": 72,
+    "family": "Main.subflow6",
+    "q95": 0.2749196843730544
+  },
+  {
+    "wafer": 17,
+    "count": 80,
+    "family": "Main",
+    "q95": 0.2672641964309614
+  },
+  {
+    "wafer": 17,
+    "count": 80,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.3259619512690709
+  },
+  {
+    "wafer": 17,
+    "count": 80,
+    "family": "Main.subflow1",
+    "q95": 0.31925753864894063
+  },
+  {
+    "wafer": 17,
+    "count": 80,
+    "family": "Main.subflow2",
+    "q95": 0.25171676837009294
+  },
+  {
+    "wafer": 17,
+    "count": 80,
+    "family": "Main.subflow3",
+    "q95": 0.2848217378900133
+  },
+  {
+    "wafer": 17,
+    "count": 80,
+    "family": "Main.subflow4",
+    "q95": 0.2628253241356628
+  },
+  {
+    "wafer": 17,
+    "count": 80,
+    "family": "Main.subflow5",
+    "q95": 0.24141332151895534
+  },
+  {
+    "wafer": 17,
+    "count": 80,
+    "family": "Main.subflow6",
+    "q95": 0.258991461654037
+  },
+  {
+    "wafer": 18,
+    "count": 32,
+    "family": "Main",
+    "q95": 0.25467577110188566
+  },
+  {
+    "wafer": 18,
+    "count": 32,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.5297692327113581
+  },
+  {
+    "wafer": 18,
+    "count": 32,
+    "family": "Main.subflow1",
+    "q95": 0.7050720987950279
+  },
+  {
+    "wafer": 18,
+    "count": 32,
+    "family": "Main.subflow2",
+    "q95": 0.4516747167926627
+  },
+  {
+    "wafer": 18,
+    "count": 32,
+    "family": "Main.subflow3",
+    "q95": 0.4403219023971206
+  },
+  {
+    "wafer": 18,
+    "count": 32,
+    "family": "Main.subflow4",
+    "q95": 0.4896228906365603
+  },
+  {
+    "wafer": 18,
+    "count": 32,
+    "family": "Main.subflow5",
+    "q95": 0.4896651508182285
+  },
+  {
+    "wafer": 18,
+    "count": 32,
+    "family": "Main.subflow6",
+    "q95": 0.47480484477307533
+  },
+  {
+    "wafer": 18,
+    "count": 40,
+    "family": "Main",
+    "q95": 0.35915353983365284
+  },
+  {
+    "wafer": 18,
+    "count": 40,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.3750536227750306
+  },
+  {
+    "wafer": 18,
+    "count": 40,
+    "family": "Main.subflow1",
+    "q95": 0.5188363195774508
+  },
+  {
+    "wafer": 18,
+    "count": 40,
+    "family": "Main.subflow2",
+    "q95": 0.45121079428364486
+  },
+  {
+    "wafer": 18,
+    "count": 40,
+    "family": "Main.subflow3",
+    "q95": 0.3935565221088172
+  },
+  {
+    "wafer": 18,
+    "count": 40,
+    "family": "Main.subflow4",
+    "q95": 0.4331690878690556
+  },
+  {
+    "wafer": 18,
+    "count": 40,
+    "family": "Main.subflow5",
+    "q95": 0.3949916447116395
+  },
+  {
+    "wafer": 18,
+    "count": 40,
+    "family": "Main.subflow6",
+    "q95": 0.43203284137473796
+  },
+  {
+    "wafer": 18,
+    "count": 48,
+    "family": "Main",
+    "q95": 0.37636097920642253
+  },
+  {
+    "wafer": 18,
+    "count": 48,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.39395293532519404
+  },
+  {
+    "wafer": 18,
+    "count": 48,
+    "family": "Main.subflow1",
+    "q95": 0.4911749297835512
+  },
+  {
+    "wafer": 18,
+    "count": 48,
+    "family": "Main.subflow2",
+    "q95": 0.39319546692690266
+  },
+  {
+    "wafer": 18,
+    "count": 48,
+    "family": "Main.subflow3",
+    "q95": 0.3470438841362529
+  },
+  {
+    "wafer": 18,
+    "count": 48,
+    "family": "Main.subflow4",
+    "q95": 0.37731553146114555
+  },
+  {
+    "wafer": 18,
+    "count": 48,
+    "family": "Main.subflow5",
+    "q95": 0.35281232678650143
+  },
+  {
+    "wafer": 18,
+    "count": 48,
+    "family": "Main.subflow6",
+    "q95": 0.40362000258184644
+  },
+  {
+    "wafer": 18,
+    "count": 56,
+    "family": "Main",
+    "q95": 0.35193971977985977
+  },
+  {
+    "wafer": 18,
+    "count": 56,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.29722071866834016
+  },
+  {
+    "wafer": 18,
+    "count": 56,
+    "family": "Main.subflow1",
+    "q95": 0.9948325710647518
+  },
+  {
+    "wafer": 18,
+    "count": 56,
+    "family": "Main.subflow2",
+    "q95": 0.33664577981166155
+  },
+  {
+    "wafer": 18,
+    "count": 56,
+    "family": "Main.subflow3",
+    "q95": 1.864675013326732
+  },
+  {
+    "wafer": 18,
+    "count": 56,
+    "family": "Main.subflow4",
+    "q95": 0.3454026982983439
+  },
+  {
+    "wafer": 18,
+    "count": 56,
+    "family": "Main.subflow5",
+    "q95": 0.3838024481776991
+  },
+  {
+    "wafer": 18,
+    "count": 56,
+    "family": "Main.subflow6",
+    "q95": 0.32721325899584186
+  },
+  {
+    "wafer": 18,
+    "count": 64,
+    "family": "Main",
+    "q95": 0.27452811454126147
+  },
+  {
+    "wafer": 18,
+    "count": 64,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.14677149672227202
+  },
+  {
+    "wafer": 18,
+    "count": 64,
+    "family": "Main.subflow1",
+    "q95": 0.597571150485705
+  },
+  {
+    "wafer": 18,
+    "count": 64,
+    "family": "Main.subflow2",
+    "q95": 0.3081220692267483
+  },
+  {
+    "wafer": 18,
+    "count": 64,
+    "family": "Main.subflow3",
+    "q95": 1.8353536980221061
+  },
+  {
+    "wafer": 18,
+    "count": 64,
+    "family": "Main.subflow4",
+    "q95": 0.30073338995225507
+  },
+  {
+    "wafer": 18,
+    "count": 64,
+    "family": "Main.subflow5",
+    "q95": 0.3260371351364028
+  },
+  {
+    "wafer": 18,
+    "count": 64,
+    "family": "Main.subflow6",
+    "q95": 0.30377396387932204
+  },
+  {
+    "wafer": 18,
+    "count": 72,
+    "family": "Main",
+    "q95": 0.19015876438679108
+  },
+  {
+    "wafer": 18,
+    "count": 72,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.18562134405089512
+  },
+  {
+    "wafer": 18,
+    "count": 72,
+    "family": "Main.subflow1",
+    "q95": 0.5153385193959507
+  },
+  {
+    "wafer": 18,
+    "count": 72,
+    "family": "Main.subflow2",
+    "q95": 0.27730166657003985
+  },
+  {
+    "wafer": 18,
+    "count": 72,
+    "family": "Main.subflow3",
+    "q95": 1.8415132639949041
+  },
+  {
+    "wafer": 18,
+    "count": 72,
+    "family": "Main.subflow4",
+    "q95": 0.2718833198710122
+  },
+  {
+    "wafer": 18,
+    "count": 72,
+    "family": "Main.subflow5",
+    "q95": 0.30763521961055385
+  },
+  {
+    "wafer": 18,
+    "count": 72,
+    "family": "Main.subflow6",
+    "q95": 0.26045413485689356
+  },
+  {
+    "wafer": 18,
+    "count": 80,
+    "family": "Main",
+    "q95": 0.1983116020262252
+  },
+  {
+    "wafer": 18,
+    "count": 80,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.21192024760641914
+  },
+  {
+    "wafer": 18,
+    "count": 80,
+    "family": "Main.subflow1",
+    "q95": 0.4324713162330407
+  },
+  {
+    "wafer": 18,
+    "count": 80,
+    "family": "Main.subflow2",
+    "q95": 0.27705315747912374
+  },
+  {
+    "wafer": 18,
+    "count": 80,
+    "family": "Main.subflow3",
+    "q95": 1.763952348815708
+  },
+  {
+    "wafer": 18,
+    "count": 80,
+    "family": "Main.subflow4",
+    "q95": 0.25080412406220937
+  },
+  {
+    "wafer": 18,
+    "count": 80,
+    "family": "Main.subflow5",
+    "q95": 0.29877347676249005
+  },
+  {
+    "wafer": 18,
+    "count": 80,
+    "family": "Main.subflow6",
+    "q95": 0.25744728997271504
+  },
+  {
+    "wafer": 19,
+    "count": 32,
+    "family": "Main",
+    "q95": 0.4493614804079844
+  },
+  {
+    "wafer": 19,
+    "count": 32,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.32314828743742563
+  },
+  {
+    "wafer": 19,
+    "count": 32,
+    "family": "Main.subflow1",
+    "q95": 0.48091330309744634
+  },
+  {
+    "wafer": 19,
+    "count": 32,
+    "family": "Main.subflow2",
+    "q95": 0.44283320467502907
+  },
+  {
+    "wafer": 19,
+    "count": 32,
+    "family": "Main.subflow3",
+    "q95": 0.4746327588350821
+  },
+  {
+    "wafer": 19,
+    "count": 32,
+    "family": "Main.subflow4",
+    "q95": 0.4595572548860953
+  },
+  {
+    "wafer": 19,
+    "count": 32,
+    "family": "Main.subflow5",
+    "q95": 0.46834600670016047
+  },
+  {
+    "wafer": 19,
+    "count": 32,
+    "family": "Main.subflow6",
+    "q95": 0.517865915439428
+  },
+  {
+    "wafer": 19,
+    "count": 40,
+    "family": "Main",
+    "q95": 0.35006343398507306
+  },
+  {
+    "wafer": 19,
+    "count": 40,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.6869674848341292
+  },
+  {
+    "wafer": 19,
+    "count": 40,
+    "family": "Main.subflow1",
+    "q95": 0.483658552298244
+  },
+  {
+    "wafer": 19,
+    "count": 40,
+    "family": "Main.subflow2",
+    "q95": 0.38530284251453395
+  },
+  {
+    "wafer": 19,
+    "count": 40,
+    "family": "Main.subflow3",
+    "q95": 0.40955237655286864
+  },
+  {
+    "wafer": 19,
+    "count": 40,
+    "family": "Main.subflow4",
+    "q95": 0.3875632635552432
+  },
+  {
+    "wafer": 19,
+    "count": 40,
+    "family": "Main.subflow5",
+    "q95": 0.41792246005300665
+  },
+  {
+    "wafer": 19,
+    "count": 40,
+    "family": "Main.subflow6",
+    "q95": 0.4046916332758429
+  },
+  {
+    "wafer": 19,
+    "count": 48,
+    "family": "Main",
+    "q95": 0.2930178185077824
+  },
+  {
+    "wafer": 19,
+    "count": 48,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.22855537006243032
+  },
+  {
+    "wafer": 19,
+    "count": 48,
+    "family": "Main.subflow1",
+    "q95": 0.5147639163593904
+  },
+  {
+    "wafer": 19,
+    "count": 48,
+    "family": "Main.subflow2",
+    "q95": 0.3469500300053331
+  },
+  {
+    "wafer": 19,
+    "count": 48,
+    "family": "Main.subflow3",
+    "q95": 0.3499175680735078
+  },
+  {
+    "wafer": 19,
+    "count": 48,
+    "family": "Main.subflow4",
+    "q95": 0.3206364322420533
+  },
+  {
+    "wafer": 19,
+    "count": 48,
+    "family": "Main.subflow5",
+    "q95": 0.3841273549032309
+  },
+  {
+    "wafer": 19,
+    "count": 48,
+    "family": "Main.subflow6",
+    "q95": 0.3458268026742093
+  },
+  {
+    "wafer": 19,
+    "count": 56,
+    "family": "Main",
+    "q95": 0.1851558640307991
+  },
+  {
+    "wafer": 19,
+    "count": 56,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.2766091435292337
+  },
+  {
+    "wafer": 19,
+    "count": 56,
+    "family": "Main.subflow1",
+    "q95": 0.47585281259261275
+  },
+  {
+    "wafer": 19,
+    "count": 56,
+    "family": "Main.subflow2",
+    "q95": 0.33111273695193716
+  },
+  {
+    "wafer": 19,
+    "count": 56,
+    "family": "Main.subflow3",
+    "q95": 0.3187412977644606
+  },
+  {
+    "wafer": 19,
+    "count": 56,
+    "family": "Main.subflow4",
+    "q95": 0.29454132968120095
+  },
+  {
+    "wafer": 19,
+    "count": 56,
+    "family": "Main.subflow5",
+    "q95": 0.3639334184030135
+  },
+  {
+    "wafer": 19,
+    "count": 56,
+    "family": "Main.subflow6",
+    "q95": 0.3410053969477649
+  },
+  {
+    "wafer": 19,
+    "count": 64,
+    "family": "Main",
+    "q95": 0.27492636232761064
+  },
+  {
+    "wafer": 19,
+    "count": 64,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.24218998405627057
+  },
+  {
+    "wafer": 19,
+    "count": 64,
+    "family": "Main.subflow1",
+    "q95": 0.43667231338468276
+  },
+  {
+    "wafer": 19,
+    "count": 64,
+    "family": "Main.subflow2",
+    "q95": 0.2973272188039455
+  },
+  {
+    "wafer": 19,
+    "count": 64,
+    "family": "Main.subflow3",
+    "q95": 0.2891566286722538
+  },
+  {
+    "wafer": 19,
+    "count": 64,
+    "family": "Main.subflow4",
+    "q95": 0.28454661930206054
+  },
+  {
+    "wafer": 19,
+    "count": 64,
+    "family": "Main.subflow5",
+    "q95": 0.3252578761476214
+  },
+  {
+    "wafer": 19,
+    "count": 64,
+    "family": "Main.subflow6",
+    "q95": 0.27966461720945635
+  },
+  {
+    "wafer": 19,
+    "count": 72,
+    "family": "Main",
+    "q95": 0.2445514480766053
+  },
+  {
+    "wafer": 19,
+    "count": 72,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.11806193805302136
+  },
+  {
+    "wafer": 19,
+    "count": 72,
+    "family": "Main.subflow1",
+    "q95": 0.4029061445592667
+  },
+  {
+    "wafer": 19,
+    "count": 72,
+    "family": "Main.subflow2",
+    "q95": 0.2678210468981386
+  },
+  {
+    "wafer": 19,
+    "count": 72,
+    "family": "Main.subflow3",
+    "q95": 0.27499505542072195
+  },
+  {
+    "wafer": 19,
+    "count": 72,
+    "family": "Main.subflow4",
+    "q95": 0.26401580085248316
+  },
+  {
+    "wafer": 19,
+    "count": 72,
+    "family": "Main.subflow5",
+    "q95": 0.28304352444569963
+  },
+  {
+    "wafer": 19,
+    "count": 72,
+    "family": "Main.subflow6",
+    "q95": 0.2700120441843007
+  },
+  {
+    "wafer": 19,
+    "count": 80,
+    "family": "Main",
+    "q95": 0.2859193261934004
+  },
+  {
+    "wafer": 19,
+    "count": 80,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.127083031456688
+  },
+  {
+    "wafer": 19,
+    "count": 80,
+    "family": "Main.subflow1",
+    "q95": 0.31966000516346665
+  },
+  {
+    "wafer": 19,
+    "count": 80,
+    "family": "Main.subflow2",
+    "q95": 0.2657934367633846
+  },
+  {
+    "wafer": 19,
+    "count": 80,
+    "family": "Main.subflow3",
+    "q95": 0.27915388543087455
+  },
+  {
+    "wafer": 19,
+    "count": 80,
+    "family": "Main.subflow4",
+    "q95": 0.2517589053353279
+  },
+  {
+    "wafer": 19,
+    "count": 80,
+    "family": "Main.subflow5",
+    "q95": 0.27465582770433067
+  },
+  {
+    "wafer": 19,
+    "count": 80,
+    "family": "Main.subflow6",
+    "q95": 0.25091136651479357
+  },
+  {
+    "wafer": 20,
+    "count": 32,
+    "family": "Main",
+    "q95": 0.38980831389609505
+  },
+  {
+    "wafer": 20,
+    "count": 32,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.37797499431748793
+  },
+  {
+    "wafer": 20,
+    "count": 32,
+    "family": "Main.subflow1",
+    "q95": 0.4572661586994188
+  },
+  {
+    "wafer": 20,
+    "count": 32,
+    "family": "Main.subflow2",
+    "q95": 0.4921065459072335
+  },
+  {
+    "wafer": 20,
+    "count": 32,
+    "family": "Main.subflow3",
+    "q95": 0.5434495050284743
+  },
+  {
+    "wafer": 20,
+    "count": 32,
+    "family": "Main.subflow4",
+    "q95": 0.48594736198152205
+  },
+  {
+    "wafer": 20,
+    "count": 32,
+    "family": "Main.subflow5",
+    "q95": 0.4583682882561495
+  },
+  {
+    "wafer": 20,
+    "count": 32,
+    "family": "Main.subflow6",
+    "q95": 0.5276739142709669
+  },
+  {
+    "wafer": 20,
+    "count": 40,
+    "family": "Main",
+    "q95": 0.24781575204281323
+  },
+  {
+    "wafer": 20,
+    "count": 40,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.27244825794306116
+  },
+  {
+    "wafer": 20,
+    "count": 40,
+    "family": "Main.subflow1",
+    "q95": 0.3983331627997079
+  },
+  {
+    "wafer": 20,
+    "count": 40,
+    "family": "Main.subflow2",
+    "q95": 0.3997474522294152
+  },
+  {
+    "wafer": 20,
+    "count": 40,
+    "family": "Main.subflow3",
+    "q95": 0.43513148355562964
+  },
+  {
+    "wafer": 20,
+    "count": 40,
+    "family": "Main.subflow4",
+    "q95": 0.41714773725605037
+  },
+  {
+    "wafer": 20,
+    "count": 40,
+    "family": "Main.subflow5",
+    "q95": 0.44596690034596626
+  },
+  {
+    "wafer": 20,
+    "count": 40,
+    "family": "Main.subflow6",
+    "q95": 0.45854864552808433
+  },
+  {
+    "wafer": 20,
+    "count": 48,
+    "family": "Main",
+    "q95": 0.2731103510201847
+  },
+  {
+    "wafer": 20,
+    "count": 48,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.18920697303487735
+  },
+  {
+    "wafer": 20,
+    "count": 48,
+    "family": "Main.subflow1",
+    "q95": 0.37792758285184874
+  },
+  {
+    "wafer": 20,
+    "count": 48,
+    "family": "Main.subflow2",
+    "q95": 0.38075028034669123
+  },
+  {
+    "wafer": 20,
+    "count": 48,
+    "family": "Main.subflow3",
+    "q95": 0.3753730059449536
+  },
+  {
+    "wafer": 20,
+    "count": 48,
+    "family": "Main.subflow4",
+    "q95": 0.34933493983863706
+  },
+  {
+    "wafer": 20,
+    "count": 48,
+    "family": "Main.subflow5",
+    "q95": 0.3836304343964268
+  },
+  {
+    "wafer": 20,
+    "count": 48,
+    "family": "Main.subflow6",
+    "q95": 0.3939340972263296
+  },
+  {
+    "wafer": 20,
+    "count": 56,
+    "family": "Main",
+    "q95": 0.13194842290616018
+  },
+  {
+    "wafer": 20,
+    "count": 56,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.2591652181880599
+  },
+  {
+    "wafer": 20,
+    "count": 56,
+    "family": "Main.subflow1",
+    "q95": 0.3157098783971163
+  },
+  {
+    "wafer": 20,
+    "count": 56,
+    "family": "Main.subflow2",
+    "q95": 0.31454890450321266
+  },
+  {
+    "wafer": 20,
+    "count": 56,
+    "family": "Main.subflow3",
+    "q95": 0.3430447827491395
+  },
+  {
+    "wafer": 20,
+    "count": 56,
+    "family": "Main.subflow4",
+    "q95": 0.34770784196686494
+  },
+  {
+    "wafer": 20,
+    "count": 56,
+    "family": "Main.subflow5",
+    "q95": 0.34067759349615667
+  },
+  {
+    "wafer": 20,
+    "count": 56,
+    "family": "Main.subflow6",
+    "q95": 0.3264249997520568
+  },
+  {
+    "wafer": 20,
+    "count": 64,
+    "family": "Main",
+    "q95": 0.20524547804784093
+  },
+  {
+    "wafer": 20,
+    "count": 64,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.2547661001925738
+  },
+  {
+    "wafer": 20,
+    "count": 64,
+    "family": "Main.subflow1",
+    "q95": 0.3070046141607744
+  },
+  {
+    "wafer": 20,
+    "count": 64,
+    "family": "Main.subflow2",
+    "q95": 0.30647192166411585
+  },
+  {
+    "wafer": 20,
+    "count": 64,
+    "family": "Main.subflow3",
+    "q95": 0.2756020595807902
+  },
+  {
+    "wafer": 20,
+    "count": 64,
+    "family": "Main.subflow4",
+    "q95": 0.30946907891327474
+  },
+  {
+    "wafer": 20,
+    "count": 64,
+    "family": "Main.subflow5",
+    "q95": 0.3242941884406811
+  },
+  {
+    "wafer": 20,
+    "count": 64,
+    "family": "Main.subflow6",
+    "q95": 0.30527046274803876
+  },
+  {
+    "wafer": 20,
+    "count": 72,
+    "family": "Main",
+    "q95": 0.1935863767162315
+  },
+  {
+    "wafer": 20,
+    "count": 72,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.16365890641954234
+  },
+  {
+    "wafer": 20,
+    "count": 72,
+    "family": "Main.subflow1",
+    "q95": 0.2838477098281854
+  },
+  {
+    "wafer": 20,
+    "count": 72,
+    "family": "Main.subflow2",
+    "q95": 0.3078694480458691
+  },
+  {
+    "wafer": 20,
+    "count": 72,
+    "family": "Main.subflow3",
+    "q95": 0.30894249010821345
+  },
+  {
+    "wafer": 20,
+    "count": 72,
+    "family": "Main.subflow4",
+    "q95": 0.28998870826094536
+  },
+  {
+    "wafer": 20,
+    "count": 72,
+    "family": "Main.subflow5",
+    "q95": 0.2962543940663549
+  },
+  {
+    "wafer": 20,
+    "count": 72,
+    "family": "Main.subflow6",
+    "q95": 0.2813472072761367
+  },
+  {
+    "wafer": 20,
+    "count": 80,
+    "family": "Main",
+    "q95": 0.20528885120998747
+  },
+  {
+    "wafer": 20,
+    "count": 80,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.19926645384440705
+  },
+  {
+    "wafer": 20,
+    "count": 80,
+    "family": "Main.subflow1",
+    "q95": 0.27796708184124375
+  },
+  {
+    "wafer": 20,
+    "count": 80,
+    "family": "Main.subflow2",
+    "q95": 0.2775868987456356
+  },
+  {
+    "wafer": 20,
+    "count": 80,
+    "family": "Main.subflow3",
+    "q95": 0.28591981263663385
+  },
+  {
+    "wafer": 20,
+    "count": 80,
+    "family": "Main.subflow4",
+    "q95": 0.25721053465820115
+  },
+  {
+    "wafer": 20,
+    "count": 80,
+    "family": "Main.subflow5",
+    "q95": 0.28619422231020475
+  },
+  {
+    "wafer": 20,
+    "count": 80,
+    "family": "Main.subflow6",
+    "q95": 0.24580789908571687
+  },
+  {
+    "wafer": 21,
+    "count": 32,
+    "family": "Main",
+    "q95": 0.47518866515024766
+  },
+  {
+    "wafer": 21,
+    "count": 32,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.6173143686387935
+  },
+  {
+    "wafer": 21,
+    "count": 32,
+    "family": "Main.subflow1",
+    "q95": 0.5346978944359028
+  },
+  {
+    "wafer": 21,
+    "count": 32,
+    "family": "Main.subflow2",
+    "q95": 0.5239535528137991
+  },
+  {
+    "wafer": 21,
+    "count": 32,
+    "family": "Main.subflow3",
+    "q95": 0.5270257244768782
+  },
+  {
+    "wafer": 21,
+    "count": 32,
+    "family": "Main.subflow4",
+    "q95": 0.5141924114592634
+  },
+  {
+    "wafer": 21,
+    "count": 32,
+    "family": "Main.subflow5",
+    "q95": 0.4650674132457429
+  },
+  {
+    "wafer": 21,
+    "count": 32,
+    "family": "Main.subflow6",
+    "q95": 0.4324964962468518
+  },
+  {
+    "wafer": 21,
+    "count": 40,
+    "family": "Main",
+    "q95": 0.4322672894199336
+  },
+  {
+    "wafer": 21,
+    "count": 40,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.4639741033524427
+  },
+  {
+    "wafer": 21,
+    "count": 40,
+    "family": "Main.subflow1",
+    "q95": 0.4156642586596003
+  },
+  {
+    "wafer": 21,
+    "count": 40,
+    "family": "Main.subflow2",
+    "q95": 0.43327524054534816
+  },
+  {
+    "wafer": 21,
+    "count": 40,
+    "family": "Main.subflow3",
+    "q95": 0.4164072763217614
+  },
+  {
+    "wafer": 21,
+    "count": 40,
+    "family": "Main.subflow4",
+    "q95": 0.4340190340054172
+  },
+  {
+    "wafer": 21,
+    "count": 40,
+    "family": "Main.subflow5",
+    "q95": 0.4154009953307346
+  },
+  {
+    "wafer": 21,
+    "count": 40,
+    "family": "Main.subflow6",
+    "q95": 0.42131105288575926
+  },
+  {
+    "wafer": 21,
+    "count": 48,
+    "family": "Main",
+    "q95": 0.4118666851278869
+  },
+  {
+    "wafer": 21,
+    "count": 48,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.23049242504801812
+  },
+  {
+    "wafer": 21,
+    "count": 48,
+    "family": "Main.subflow1",
+    "q95": 0.3924935476783896
+  },
+  {
+    "wafer": 21,
+    "count": 48,
+    "family": "Main.subflow2",
+    "q95": 0.3701213605312977
+  },
+  {
+    "wafer": 21,
+    "count": 48,
+    "family": "Main.subflow3",
+    "q95": 0.32972193066762334
+  },
+  {
+    "wafer": 21,
+    "count": 48,
+    "family": "Main.subflow4",
+    "q95": 0.3461519336658651
+  },
+  {
+    "wafer": 21,
+    "count": 48,
+    "family": "Main.subflow5",
+    "q95": 0.3568020663900222
+  },
+  {
+    "wafer": 21,
+    "count": 48,
+    "family": "Main.subflow6",
+    "q95": 0.3716647039983667
+  },
+  {
+    "wafer": 21,
+    "count": 56,
+    "family": "Main",
+    "q95": 0.36624377577787653
+  },
+  {
+    "wafer": 21,
+    "count": 56,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.30065705573043555
+  },
+  {
+    "wafer": 21,
+    "count": 56,
+    "family": "Main.subflow1",
+    "q95": 0.3364414143299307
+  },
+  {
+    "wafer": 21,
+    "count": 56,
+    "family": "Main.subflow2",
+    "q95": 0.31252240348330484
+  },
+  {
+    "wafer": 21,
+    "count": 56,
+    "family": "Main.subflow3",
+    "q95": 0.3111365935443779
+  },
+  {
+    "wafer": 21,
+    "count": 56,
+    "family": "Main.subflow4",
+    "q95": 0.32138310672083886
+  },
+  {
+    "wafer": 21,
+    "count": 56,
+    "family": "Main.subflow5",
+    "q95": 0.36003929043584976
+  },
+  {
+    "wafer": 21,
+    "count": 56,
+    "family": "Main.subflow6",
+    "q95": 0.3779565692034421
+  },
+  {
+    "wafer": 21,
+    "count": 64,
+    "family": "Main",
+    "q95": 0.26321356501419957
+  },
+  {
+    "wafer": 21,
+    "count": 64,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.3188810585391929
+  },
+  {
+    "wafer": 21,
+    "count": 64,
+    "family": "Main.subflow1",
+    "q95": 0.3057444365345743
+  },
+  {
+    "wafer": 21,
+    "count": 64,
+    "family": "Main.subflow2",
+    "q95": 0.27881037841594886
+  },
+  {
+    "wafer": 21,
+    "count": 64,
+    "family": "Main.subflow3",
+    "q95": 0.2885803205066797
+  },
+  {
+    "wafer": 21,
+    "count": 64,
+    "family": "Main.subflow4",
+    "q95": 0.27398918355008095
+  },
+  {
+    "wafer": 21,
+    "count": 64,
+    "family": "Main.subflow5",
+    "q95": 0.32065431930293464
+  },
+  {
+    "wafer": 21,
+    "count": 64,
+    "family": "Main.subflow6",
+    "q95": 0.3106889337345822
+  },
+  {
+    "wafer": 21,
+    "count": 72,
+    "family": "Main",
+    "q95": 0.20569830040666143
+  },
+  {
+    "wafer": 21,
+    "count": 72,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.3663468983001363
+  },
+  {
+    "wafer": 21,
+    "count": 72,
+    "family": "Main.subflow1",
+    "q95": 0.26967895842664485
+  },
+  {
+    "wafer": 21,
+    "count": 72,
+    "family": "Main.subflow2",
+    "q95": 0.2733239368655467
+  },
+  {
+    "wafer": 21,
+    "count": 72,
+    "family": "Main.subflow3",
+    "q95": 0.27111988287241856
+  },
+  {
+    "wafer": 21,
+    "count": 72,
+    "family": "Main.subflow4",
+    "q95": 0.28420889335238825
+  },
+  {
+    "wafer": 21,
+    "count": 72,
+    "family": "Main.subflow5",
+    "q95": 0.2745621945853339
+  },
+  {
+    "wafer": 21,
+    "count": 72,
+    "family": "Main.subflow6",
+    "q95": 0.2829802751843729
+  },
+  {
+    "wafer": 21,
+    "count": 80,
+    "family": "Main",
+    "q95": 0.1946334552092068
+  },
+  {
+    "wafer": 21,
+    "count": 80,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.2805545328532036
+  },
+  {
+    "wafer": 21,
+    "count": 80,
+    "family": "Main.subflow1",
+    "q95": 0.26267470842622664
+  },
+  {
+    "wafer": 21,
+    "count": 80,
+    "family": "Main.subflow2",
+    "q95": 0.2606605480672945
+  },
+  {
+    "wafer": 21,
+    "count": 80,
+    "family": "Main.subflow3",
+    "q95": 0.28014486970004926
+  },
+  {
+    "wafer": 21,
+    "count": 80,
+    "family": "Main.subflow4",
+    "q95": 0.2809903951932557
+  },
+  {
+    "wafer": 21,
+    "count": 80,
+    "family": "Main.subflow5",
+    "q95": 0.29051181254459724
+  },
+  {
+    "wafer": 21,
+    "count": 80,
+    "family": "Main.subflow6",
+    "q95": 0.26637189724685234
+  },
+  {
+    "wafer": 22,
+    "count": 32,
+    "family": "Main",
+    "q95": 0.6013314031218073
+  },
+  {
+    "wafer": 22,
+    "count": 32,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.5244677479660156
+  },
+  {
+    "wafer": 22,
+    "count": 32,
+    "family": "Main.subflow1",
+    "q95": 0.47346975495827154
+  },
+  {
+    "wafer": 22,
+    "count": 32,
+    "family": "Main.subflow2",
+    "q95": 0.45448803454664916
+  },
+  {
+    "wafer": 22,
+    "count": 32,
+    "family": "Main.subflow3",
+    "q95": 0.4529215271335291
+  },
+  {
+    "wafer": 22,
+    "count": 32,
+    "family": "Main.subflow4",
+    "q95": 0.48890777035544
+  },
+  {
+    "wafer": 22,
+    "count": 32,
+    "family": "Main.subflow5",
+    "q95": 0.5090463855904305
+  },
+  {
+    "wafer": 22,
+    "count": 32,
+    "family": "Main.subflow6",
+    "q95": 0.4938532479742234
+  },
+  {
+    "wafer": 22,
+    "count": 40,
+    "family": "Main",
+    "q95": 0.324705733838267
+  },
+  {
+    "wafer": 22,
+    "count": 40,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.3587054797550479
+  },
+  {
+    "wafer": 22,
+    "count": 40,
+    "family": "Main.subflow1",
+    "q95": 0.43630379002358916
+  },
+  {
+    "wafer": 22,
+    "count": 40,
+    "family": "Main.subflow2",
+    "q95": 0.390627226940122
+  },
+  {
+    "wafer": 22,
+    "count": 40,
+    "family": "Main.subflow3",
+    "q95": 0.3854753469775128
+  },
+  {
+    "wafer": 22,
+    "count": 40,
+    "family": "Main.subflow4",
+    "q95": 0.4162849454580698
+  },
+  {
+    "wafer": 22,
+    "count": 40,
+    "family": "Main.subflow5",
+    "q95": 0.4021967889438624
+  },
+  {
+    "wafer": 22,
+    "count": 40,
+    "family": "Main.subflow6",
+    "q95": 0.4054699928790644
+  },
+  {
+    "wafer": 22,
+    "count": 48,
+    "family": "Main",
+    "q95": 0.4155580769683642
+  },
+  {
+    "wafer": 22,
+    "count": 48,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.35399420135186344
+  },
+  {
+    "wafer": 22,
+    "count": 48,
+    "family": "Main.subflow1",
+    "q95": 0.4151027331600285
+  },
+  {
+    "wafer": 22,
+    "count": 48,
+    "family": "Main.subflow2",
+    "q95": 0.33928449988502607
+  },
+  {
+    "wafer": 22,
+    "count": 48,
+    "family": "Main.subflow3",
+    "q95": 0.38989261461835395
+  },
+  {
+    "wafer": 22,
+    "count": 48,
+    "family": "Main.subflow4",
+    "q95": 0.3693314732300935
+  },
+  {
+    "wafer": 22,
+    "count": 48,
+    "family": "Main.subflow5",
+    "q95": 0.3309692779615237
+  },
+  {
+    "wafer": 22,
+    "count": 48,
+    "family": "Main.subflow6",
+    "q95": 0.34380425976320134
+  },
+  {
+    "wafer": 22,
+    "count": 56,
+    "family": "Main",
+    "q95": 0.41700292340968315
+  },
+  {
+    "wafer": 22,
+    "count": 56,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.28387824345964796
+  },
+  {
+    "wafer": 22,
+    "count": 56,
+    "family": "Main.subflow1",
+    "q95": 0.35961709386306007
+  },
+  {
+    "wafer": 22,
+    "count": 56,
+    "family": "Main.subflow2",
+    "q95": 0.29508734529923547
+  },
+  {
+    "wafer": 22,
+    "count": 56,
+    "family": "Main.subflow3",
+    "q95": 0.3106072513657588
+  },
+  {
+    "wafer": 22,
+    "count": 56,
+    "family": "Main.subflow4",
+    "q95": 0.32302947697265944
+  },
+  {
+    "wafer": 22,
+    "count": 56,
+    "family": "Main.subflow5",
+    "q95": 0.30989318273166583
+  },
+  {
+    "wafer": 22,
+    "count": 56,
+    "family": "Main.subflow6",
+    "q95": 0.29920424346881747
+  },
+  {
+    "wafer": 22,
+    "count": 64,
+    "family": "Main",
+    "q95": 0.3492128272654003
+  },
+  {
+    "wafer": 22,
+    "count": 64,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.13799233081836446
+  },
+  {
+    "wafer": 22,
+    "count": 64,
+    "family": "Main.subflow1",
+    "q95": 0.33121699202936505
+  },
+  {
+    "wafer": 22,
+    "count": 64,
+    "family": "Main.subflow2",
+    "q95": 0.30058357021770943
+  },
+  {
+    "wafer": 22,
+    "count": 64,
+    "family": "Main.subflow3",
+    "q95": 0.2857796376254499
+  },
+  {
+    "wafer": 22,
+    "count": 64,
+    "family": "Main.subflow4",
+    "q95": 0.2902382235663034
+  },
+  {
+    "wafer": 22,
+    "count": 64,
+    "family": "Main.subflow5",
+    "q95": 0.28680304118926747
+  },
+  {
+    "wafer": 22,
+    "count": 64,
+    "family": "Main.subflow6",
+    "q95": 0.28707168621385226
+  },
+  {
+    "wafer": 22,
+    "count": 72,
+    "family": "Main",
+    "q95": 0.3203727589878078
+  },
+  {
+    "wafer": 22,
+    "count": 72,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.30758794476134776
+  },
+  {
+    "wafer": 22,
+    "count": 72,
+    "family": "Main.subflow1",
+    "q95": 0.2909098276103019
+  },
+  {
+    "wafer": 22,
+    "count": 72,
+    "family": "Main.subflow2",
+    "q95": 0.2785606190028108
+  },
+  {
+    "wafer": 22,
+    "count": 72,
+    "family": "Main.subflow3",
+    "q95": 0.25776255696001094
+  },
+  {
+    "wafer": 22,
+    "count": 72,
+    "family": "Main.subflow4",
+    "q95": 0.27368244002574943
+  },
+  {
+    "wafer": 22,
+    "count": 72,
+    "family": "Main.subflow5",
+    "q95": 0.25922004285629346
+  },
+  {
+    "wafer": 22,
+    "count": 72,
+    "family": "Main.subflow6",
+    "q95": 0.28203027017881904
+  },
+  {
+    "wafer": 22,
+    "count": 80,
+    "family": "Main",
+    "q95": 0.30338451300206626
+  },
+  {
+    "wafer": 22,
+    "count": 80,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.1515959457306011
+  },
+  {
+    "wafer": 22,
+    "count": 80,
+    "family": "Main.subflow1",
+    "q95": 0.29059713092210965
+  },
+  {
+    "wafer": 22,
+    "count": 80,
+    "family": "Main.subflow2",
+    "q95": 0.24600188566473052
+  },
+  {
+    "wafer": 22,
+    "count": 80,
+    "family": "Main.subflow3",
+    "q95": 0.26990619651248715
+  },
+  {
+    "wafer": 22,
+    "count": 80,
+    "family": "Main.subflow4",
+    "q95": 0.24532504403094677
+  },
+  {
+    "wafer": 22,
+    "count": 80,
+    "family": "Main.subflow5",
+    "q95": 0.2630154987186833
+  },
+  {
+    "wafer": 22,
+    "count": 80,
+    "family": "Main.subflow6",
+    "q95": 0.2728455707667772
+  },
+  {
+    "wafer": 23,
+    "count": 32,
+    "family": "Main",
+    "q95": 0.29873623156944334
+  },
+  {
+    "wafer": 23,
+    "count": 32,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.5394363983985456
+  },
+  {
+    "wafer": 23,
+    "count": 32,
+    "family": "Main.subflow1",
+    "q95": 0.5419659380148046
+  },
+  {
+    "wafer": 23,
+    "count": 32,
+    "family": "Main.subflow2",
+    "q95": 0.4799985359570082
+  },
+  {
+    "wafer": 23,
+    "count": 32,
+    "family": "Main.subflow3",
+    "q95": 0.5237314801797652
+  },
+  {
+    "wafer": 23,
+    "count": 32,
+    "family": "Main.subflow4",
+    "q95": 0.4876555135954739
+  },
+  {
+    "wafer": 23,
+    "count": 32,
+    "family": "Main.subflow5",
+    "q95": 0.46092384028446
+  },
+  {
+    "wafer": 23,
+    "count": 32,
+    "family": "Main.subflow6",
+    "q95": 0.39996477932322644
+  },
+  {
+    "wafer": 23,
+    "count": 40,
+    "family": "Main",
+    "q95": 0.14600106364868423
+  },
+  {
+    "wafer": 23,
+    "count": 40,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.48180818029087946
+  },
+  {
+    "wafer": 23,
+    "count": 40,
+    "family": "Main.subflow1",
+    "q95": 0.5717625689806546
+  },
+  {
+    "wafer": 23,
+    "count": 40,
+    "family": "Main.subflow2",
+    "q95": 0.3759882593297396
+  },
+  {
+    "wafer": 23,
+    "count": 40,
+    "family": "Main.subflow3",
+    "q95": 0.4156860388909805
+  },
+  {
+    "wafer": 23,
+    "count": 40,
+    "family": "Main.subflow4",
+    "q95": 0.44770726728532795
+  },
+  {
+    "wafer": 23,
+    "count": 40,
+    "family": "Main.subflow5",
+    "q95": 0.4400042799060579
+  },
+  {
+    "wafer": 23,
+    "count": 40,
+    "family": "Main.subflow6",
+    "q95": 0.39464429006452667
+  },
+  {
+    "wafer": 23,
+    "count": 48,
+    "family": "Main",
+    "q95": 0.21241883516167412
+  },
+  {
+    "wafer": 23,
+    "count": 48,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.3897186742504292
+  },
+  {
+    "wafer": 23,
+    "count": 48,
+    "family": "Main.subflow1",
+    "q95": 0.4941877323346144
+  },
+  {
+    "wafer": 23,
+    "count": 48,
+    "family": "Main.subflow2",
+    "q95": 0.380588690334401
+  },
+  {
+    "wafer": 23,
+    "count": 48,
+    "family": "Main.subflow3",
+    "q95": 0.37172063341936074
+  },
+  {
+    "wafer": 23,
+    "count": 48,
+    "family": "Main.subflow4",
+    "q95": 0.3699021189384324
+  },
+  {
+    "wafer": 23,
+    "count": 48,
+    "family": "Main.subflow5",
+    "q95": 0.4410815313048669
+  },
+  {
+    "wafer": 23,
+    "count": 48,
+    "family": "Main.subflow6",
+    "q95": 0.4347695874058924
+  },
+  {
+    "wafer": 23,
+    "count": 56,
+    "family": "Main",
+    "q95": 0.20197291582258023
+  },
+  {
+    "wafer": 23,
+    "count": 56,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.3701986958176323
+  },
+  {
+    "wafer": 23,
+    "count": 56,
+    "family": "Main.subflow1",
+    "q95": 0.641330713181273
+  },
+  {
+    "wafer": 23,
+    "count": 56,
+    "family": "Main.subflow2",
+    "q95": 0.33198119798894665
+  },
+  {
+    "wafer": 23,
+    "count": 56,
+    "family": "Main.subflow3",
+    "q95": 0.3418079567002636
+  },
+  {
+    "wafer": 23,
+    "count": 56,
+    "family": "Main.subflow4",
+    "q95": 0.30814411229029265
+  },
+  {
+    "wafer": 23,
+    "count": 56,
+    "family": "Main.subflow5",
+    "q95": 0.3231768155809878
+  },
+  {
+    "wafer": 23,
+    "count": 56,
+    "family": "Main.subflow6",
+    "q95": 1.233583559979286
+  },
+  {
+    "wafer": 23,
+    "count": 64,
+    "family": "Main",
+    "q95": 0.215831139296913
+  },
+  {
+    "wafer": 23,
+    "count": 64,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.22044056265556228
+  },
+  {
+    "wafer": 23,
+    "count": 64,
+    "family": "Main.subflow1",
+    "q95": 0.5139873587752428
+  },
+  {
+    "wafer": 23,
+    "count": 64,
+    "family": "Main.subflow2",
+    "q95": 0.3070955642728516
+  },
+  {
+    "wafer": 23,
+    "count": 64,
+    "family": "Main.subflow3",
+    "q95": 0.33977979123865537
+  },
+  {
+    "wafer": 23,
+    "count": 64,
+    "family": "Main.subflow4",
+    "q95": 0.32247477310367556
+  },
+  {
+    "wafer": 23,
+    "count": 64,
+    "family": "Main.subflow5",
+    "q95": 0.302599945373957
+  },
+  {
+    "wafer": 23,
+    "count": 64,
+    "family": "Main.subflow6",
+    "q95": 1.1781600311215785
+  },
+  {
+    "wafer": 23,
+    "count": 72,
+    "family": "Main",
+    "q95": 0.17429871284712584
+  },
+  {
+    "wafer": 23,
+    "count": 72,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.29081735921430485
+  },
+  {
+    "wafer": 23,
+    "count": 72,
+    "family": "Main.subflow1",
+    "q95": 0.42241955601178915
+  },
+  {
+    "wafer": 23,
+    "count": 72,
+    "family": "Main.subflow2",
+    "q95": 0.27696155161102004
+  },
+  {
+    "wafer": 23,
+    "count": 72,
+    "family": "Main.subflow3",
+    "q95": 0.28059002422992113
+  },
+  {
+    "wafer": 23,
+    "count": 72,
+    "family": "Main.subflow4",
+    "q95": 0.302751583916454
+  },
+  {
+    "wafer": 23,
+    "count": 72,
+    "family": "Main.subflow5",
+    "q95": 0.2873588386894579
+  },
+  {
+    "wafer": 23,
+    "count": 72,
+    "family": "Main.subflow6",
+    "q95": 1.1333755668922498
+  },
+  {
+    "wafer": 23,
+    "count": 80,
+    "family": "Main",
+    "q95": 0.28830902431571276
+  },
+  {
+    "wafer": 23,
+    "count": 80,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.3158494851714285
+  },
+  {
+    "wafer": 23,
+    "count": 80,
+    "family": "Main.subflow1",
+    "q95": 0.4197865202530236
+  },
+  {
+    "wafer": 23,
+    "count": 80,
+    "family": "Main.subflow2",
+    "q95": 0.2484287626998869
+  },
+  {
+    "wafer": 23,
+    "count": 80,
+    "family": "Main.subflow3",
+    "q95": 0.24547598335814527
+  },
+  {
+    "wafer": 23,
+    "count": 80,
+    "family": "Main.subflow4",
+    "q95": 0.2428377022802034
+  },
+  {
+    "wafer": 23,
+    "count": 80,
+    "family": "Main.subflow5",
+    "q95": 0.2554461712718019
+  },
+  {
+    "wafer": 23,
+    "count": 80,
+    "family": "Main.subflow6",
+    "q95": 1.0799172712517473
+  },
+  {
+    "wafer": 24,
+    "count": 32,
+    "family": "Main",
+    "q95": 0.5989952296442178
+  },
+  {
+    "wafer": 24,
+    "count": 32,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.6121490040524901
+  },
+  {
+    "wafer": 24,
+    "count": 32,
+    "family": "Main.subflow1",
+    "q95": 0.5705553077557663
+  },
+  {
+    "wafer": 24,
+    "count": 32,
+    "family": "Main.subflow2",
+    "q95": 0.49072718177115626
+  },
+  {
+    "wafer": 24,
+    "count": 32,
+    "family": "Main.subflow3",
+    "q95": 0.4880123493415748
+  },
+  {
+    "wafer": 24,
+    "count": 32,
+    "family": "Main.subflow4",
+    "q95": 0.4887326611744794
+  },
+  {
+    "wafer": 24,
+    "count": 32,
+    "family": "Main.subflow5",
+    "q95": 0.46989921324920453
+  },
+  {
+    "wafer": 24,
+    "count": 32,
+    "family": "Main.subflow6",
+    "q95": 0.4937592160460096
+  },
+  {
+    "wafer": 24,
+    "count": 40,
+    "family": "Main",
+    "q95": 0.28547294772498755
+  },
+  {
+    "wafer": 24,
+    "count": 40,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.21148147685569024
+  },
+  {
+    "wafer": 24,
+    "count": 40,
+    "family": "Main.subflow1",
+    "q95": 0.4956298540178306
+  },
+  {
+    "wafer": 24,
+    "count": 40,
+    "family": "Main.subflow2",
+    "q95": 0.4599328275924562
+  },
+  {
+    "wafer": 24,
+    "count": 40,
+    "family": "Main.subflow3",
+    "q95": 0.40747155441904964
+  },
+  {
+    "wafer": 24,
+    "count": 40,
+    "family": "Main.subflow4",
+    "q95": 0.4208338605069627
+  },
+  {
+    "wafer": 24,
+    "count": 40,
+    "family": "Main.subflow5",
+    "q95": 0.4285124051334915
+  },
+  {
+    "wafer": 24,
+    "count": 40,
+    "family": "Main.subflow6",
+    "q95": 0.4651479022165671
+  },
+  {
+    "wafer": 24,
+    "count": 48,
+    "family": "Main",
+    "q95": 0.3804931989186508
+  },
+  {
+    "wafer": 24,
+    "count": 48,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.20113452247962246
+  },
+  {
+    "wafer": 24,
+    "count": 48,
+    "family": "Main.subflow1",
+    "q95": 0.38268035251035404
+  },
+  {
+    "wafer": 24,
+    "count": 48,
+    "family": "Main.subflow2",
+    "q95": 0.3875257316999393
+  },
+  {
+    "wafer": 24,
+    "count": 48,
+    "family": "Main.subflow3",
+    "q95": 0.3714623536711786
+  },
+  {
+    "wafer": 24,
+    "count": 48,
+    "family": "Main.subflow4",
+    "q95": 0.33568515206688254
+  },
+  {
+    "wafer": 24,
+    "count": 48,
+    "family": "Main.subflow5",
+    "q95": 0.3497444774668239
+  },
+  {
+    "wafer": 24,
+    "count": 48,
+    "family": "Main.subflow6",
+    "q95": 0.3786404479746193
+  },
+  {
+    "wafer": 24,
+    "count": 56,
+    "family": "Main",
+    "q95": 0.32750094365586
+  },
+  {
+    "wafer": 24,
+    "count": 56,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.28997274012024227
+  },
+  {
+    "wafer": 24,
+    "count": 56,
+    "family": "Main.subflow1",
+    "q95": 0.3551522184130743
+  },
+  {
+    "wafer": 24,
+    "count": 56,
+    "family": "Main.subflow2",
+    "q95": 0.3601871285469975
+  },
+  {
+    "wafer": 24,
+    "count": 56,
+    "family": "Main.subflow3",
+    "q95": 0.3344583944260332
+  },
+  {
+    "wafer": 24,
+    "count": 56,
+    "family": "Main.subflow4",
+    "q95": 0.3176440398599815
+  },
+  {
+    "wafer": 24,
+    "count": 56,
+    "family": "Main.subflow5",
+    "q95": 0.3108419427672265
+  },
+  {
+    "wafer": 24,
+    "count": 56,
+    "family": "Main.subflow6",
+    "q95": 0.32383775129869585
+  },
+  {
+    "wafer": 24,
+    "count": 64,
+    "family": "Main",
+    "q95": 0.2277079672165025
+  },
+  {
+    "wafer": 24,
+    "count": 64,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.2113421742695067
+  },
+  {
+    "wafer": 24,
+    "count": 64,
+    "family": "Main.subflow1",
+    "q95": 0.38574166444387864
+  },
+  {
+    "wafer": 24,
+    "count": 64,
+    "family": "Main.subflow2",
+    "q95": 0.305923183890114
+  },
+  {
+    "wafer": 24,
+    "count": 64,
+    "family": "Main.subflow3",
+    "q95": 0.31422244033200813
+  },
+  {
+    "wafer": 24,
+    "count": 64,
+    "family": "Main.subflow4",
+    "q95": 0.2886949928776759
+  },
+  {
+    "wafer": 24,
+    "count": 64,
+    "family": "Main.subflow5",
+    "q95": 0.3093999384824124
+  },
+  {
+    "wafer": 24,
+    "count": 64,
+    "family": "Main.subflow6",
+    "q95": 0.3163903976720445
+  },
+  {
+    "wafer": 24,
+    "count": 72,
+    "family": "Main",
+    "q95": 0.17385512394238425
+  },
+  {
+    "wafer": 24,
+    "count": 72,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.24855737690768742
+  },
+  {
+    "wafer": 24,
+    "count": 72,
+    "family": "Main.subflow1",
+    "q95": 0.38721655286823015
+  },
+  {
+    "wafer": 24,
+    "count": 72,
+    "family": "Main.subflow2",
+    "q95": 0.26718820289510475
+  },
+  {
+    "wafer": 24,
+    "count": 72,
+    "family": "Main.subflow3",
+    "q95": 0.27309359129941024
+  },
+  {
+    "wafer": 24,
+    "count": 72,
+    "family": "Main.subflow4",
+    "q95": 0.2837211494637548
+  },
+  {
+    "wafer": 24,
+    "count": 72,
+    "family": "Main.subflow5",
+    "q95": 0.30698156868833304
+  },
+  {
+    "wafer": 24,
+    "count": 72,
+    "family": "Main.subflow6",
+    "q95": 0.309198592798865
+  },
+  {
+    "wafer": 24,
+    "count": 80,
+    "family": "Main",
+    "q95": 0.13040817388193832
+  },
+  {
+    "wafer": 24,
+    "count": 80,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.17591446300025948
+  },
+  {
+    "wafer": 24,
+    "count": 80,
+    "family": "Main.subflow1",
+    "q95": 0.4003950184558865
+  },
+  {
+    "wafer": 24,
+    "count": 80,
+    "family": "Main.subflow2",
+    "q95": 0.23212541904338546
+  },
+  {
+    "wafer": 24,
+    "count": 80,
+    "family": "Main.subflow3",
+    "q95": 0.26589381106542664
+  },
+  {
+    "wafer": 24,
+    "count": 80,
+    "family": "Main.subflow4",
+    "q95": 0.27208446971995887
+  },
+  {
+    "wafer": 24,
+    "count": 80,
+    "family": "Main.subflow5",
+    "q95": 0.26861701717482456
+  },
+  {
+    "wafer": 24,
+    "count": 80,
+    "family": "Main.subflow6",
+    "q95": 0.28643718401032464
+  },
+  {
+    "wafer": 25,
+    "count": 32,
+    "family": "Main",
+    "q95": 0.3000949304485665
+  },
+  {
+    "wafer": 25,
+    "count": 32,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.5511168385416831
+  },
+  {
+    "wafer": 25,
+    "count": 32,
+    "family": "Main.subflow1",
+    "q95": 0.5650795539954659
+  },
+  {
+    "wafer": 25,
+    "count": 32,
+    "family": "Main.subflow2",
+    "q95": 0.5117601834068297
+  },
+  {
+    "wafer": 25,
+    "count": 32,
+    "family": "Main.subflow3",
+    "q95": 0.4245936423120035
+  },
+  {
+    "wafer": 25,
+    "count": 32,
+    "family": "Main.subflow4",
+    "q95": 0.4625052689571988
+  },
+  {
+    "wafer": 25,
+    "count": 32,
+    "family": "Main.subflow5",
+    "q95": 0.49019219704362454
+  },
+  {
+    "wafer": 25,
+    "count": 32,
+    "family": "Main.subflow6",
+    "q95": 0.49399239797362376
+  },
+  {
+    "wafer": 25,
+    "count": 40,
+    "family": "Main",
+    "q95": 0.30055868729842977
+  },
+  {
+    "wafer": 25,
+    "count": 40,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.4240242464417949
+  },
+  {
+    "wafer": 25,
+    "count": 40,
+    "family": "Main.subflow1",
+    "q95": 0.8025182349575042
+  },
+  {
+    "wafer": 25,
+    "count": 40,
+    "family": "Main.subflow2",
+    "q95": 0.43031823867065977
+  },
+  {
+    "wafer": 25,
+    "count": 40,
+    "family": "Main.subflow3",
+    "q95": 0.3856083613083006
+  },
+  {
+    "wafer": 25,
+    "count": 40,
+    "family": "Main.subflow4",
+    "q95": 0.4174611757747718
+  },
+  {
+    "wafer": 25,
+    "count": 40,
+    "family": "Main.subflow5",
+    "q95": 0.38688164642708095
+  },
+  {
+    "wafer": 25,
+    "count": 40,
+    "family": "Main.subflow6",
+    "q95": 0.40848520158269114
+  },
+  {
+    "wafer": 25,
+    "count": 48,
+    "family": "Main",
+    "q95": 0.17414764796139887
+  },
+  {
+    "wafer": 25,
+    "count": 48,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.22155584105222076
+  },
+  {
+    "wafer": 25,
+    "count": 48,
+    "family": "Main.subflow1",
+    "q95": 0.5924934259301179
+  },
+  {
+    "wafer": 25,
+    "count": 48,
+    "family": "Main.subflow2",
+    "q95": 0.38318154033287066
+  },
+  {
+    "wafer": 25,
+    "count": 48,
+    "family": "Main.subflow3",
+    "q95": 0.3706957790459834
+  },
+  {
+    "wafer": 25,
+    "count": 48,
+    "family": "Main.subflow4",
+    "q95": 0.3826400655174816
+  },
+  {
+    "wafer": 25,
+    "count": 48,
+    "family": "Main.subflow5",
+    "q95": 0.3241110227063881
+  },
+  {
+    "wafer": 25,
+    "count": 48,
+    "family": "Main.subflow6",
+    "q95": 0.3250679259288015
+  },
+  {
+    "wafer": 25,
+    "count": 56,
+    "family": "Main",
+    "q95": 0.21354289491296471
+  },
+  {
+    "wafer": 25,
+    "count": 56,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.0808404916577704
+  },
+  {
+    "wafer": 25,
+    "count": 56,
+    "family": "Main.subflow1",
+    "q95": 0.49953378765268824
+  },
+  {
+    "wafer": 25,
+    "count": 56,
+    "family": "Main.subflow2",
+    "q95": 0.383383664431693
+  },
+  {
+    "wafer": 25,
+    "count": 56,
+    "family": "Main.subflow3",
+    "q95": 0.33546427967744286
+  },
+  {
+    "wafer": 25,
+    "count": 56,
+    "family": "Main.subflow4",
+    "q95": 0.32406756035399015
+  },
+  {
+    "wafer": 25,
+    "count": 56,
+    "family": "Main.subflow5",
+    "q95": 0.32986577392495137
+  },
+  {
+    "wafer": 25,
+    "count": 56,
+    "family": "Main.subflow6",
+    "q95": 0.342004700115103
+  },
+  {
+    "wafer": 25,
+    "count": 64,
+    "family": "Main",
+    "q95": 0.253608219216758
+  },
+  {
+    "wafer": 25,
+    "count": 64,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.1162056533724212
+  },
+  {
+    "wafer": 25,
+    "count": 64,
+    "family": "Main.subflow1",
+    "q95": 0.4173037889730953
+  },
+  {
+    "wafer": 25,
+    "count": 64,
+    "family": "Main.subflow2",
+    "q95": 0.33778304339267584
+  },
+  {
+    "wafer": 25,
+    "count": 64,
+    "family": "Main.subflow3",
+    "q95": 0.30756188320795597
+  },
+  {
+    "wafer": 25,
+    "count": 64,
+    "family": "Main.subflow4",
+    "q95": 0.30137112113209535
+  },
+  {
+    "wafer": 25,
+    "count": 64,
+    "family": "Main.subflow5",
+    "q95": 0.3226208299987754
+  },
+  {
+    "wafer": 25,
+    "count": 64,
+    "family": "Main.subflow6",
+    "q95": 0.2794206182903535
+  },
+  {
+    "wafer": 25,
+    "count": 72,
+    "family": "Main",
+    "q95": 0.2832697003615968
+  },
+  {
+    "wafer": 25,
+    "count": 72,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.08864175905222983
+  },
+  {
+    "wafer": 25,
+    "count": 72,
+    "family": "Main.subflow1",
+    "q95": 1.4073632647938585
+  },
+  {
+    "wafer": 25,
+    "count": 72,
+    "family": "Main.subflow2",
+    "q95": 0.29281950265453127
+  },
+  {
+    "wafer": 25,
+    "count": 72,
+    "family": "Main.subflow3",
+    "q95": 0.28987073040201566
+  },
+  {
+    "wafer": 25,
+    "count": 72,
+    "family": "Main.subflow4",
+    "q95": 0.2795134357694878
+  },
+  {
+    "wafer": 25,
+    "count": 72,
+    "family": "Main.subflow5",
+    "q95": 0.27535566337498474
+  },
+  {
+    "wafer": 25,
+    "count": 72,
+    "family": "Main.subflow6",
+    "q95": 0.26427402208502304
+  },
+  {
+    "wafer": 25,
+    "count": 80,
+    "family": "Main",
+    "q95": 0.27680220093544194
+  },
+  {
+    "wafer": 25,
+    "count": 80,
+    "family": "Main.IDDQ_flow",
+    "q95": 0.16548574196926824
+  },
+  {
+    "wafer": 25,
+    "count": 80,
+    "family": "Main.subflow1",
+    "q95": 1.6177418909209487
+  },
+  {
+    "wafer": 25,
+    "count": 80,
+    "family": "Main.subflow2",
+    "q95": 0.25144388202584217
+  },
+  {
+    "wafer": 25,
+    "count": 80,
+    "family": "Main.subflow3",
+    "q95": 0.2611622376291326
+  },
+  {
+    "wafer": 25,
+    "count": 80,
+    "family": "Main.subflow4",
+    "q95": 0.298513780126786
+  },
+  {
+    "wafer": 25,
+    "count": 80,
+    "family": "Main.subflow5",
+    "q95": 0.2598873719305591
+  },
+  {
+    "wafer": 25,
+    "count": 80,
+    "family": "Main.subflow6",
+    "q95": 0.2636857013669373
+  }
+]
