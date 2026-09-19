@@ -1,0 +1,6652 @@
+[
+  {
+    "wafer": 1,
+    "count": 32,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 1,
+        "fraction": 0.002
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 2,
+    "count": 32,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 3,
+    "count": 32,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 4,
+    "count": 32,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 5,
+    "count": 32,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 6,
+    "count": 32,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 7,
+    "count": 32,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 8,
+    "count": 32,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 9,
+    "count": 32,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 10,
+    "count": 32,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 11,
+    "count": 32,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 12,
+    "count": 32,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 1,
+        "fraction": 0.002
+      }
+    }
+  },
+  {
+    "wafer": 13,
+    "count": 32,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 14,
+    "count": 32,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 15,
+    "count": 32,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 16,
+    "count": 32,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 17,
+    "count": 32,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 18,
+    "count": 32,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 1,
+        "fraction": 0.002
+      }
+    }
+  },
+  {
+    "wafer": 19,
+    "count": 32,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 20,
+    "count": 32,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 21,
+    "count": 32,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 22,
+    "count": 32,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 23,
+    "count": 32,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 1,
+        "fraction": 0.002
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 24,
+    "count": 32,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 1,
+        "fraction": 0.002
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 25,
+    "count": 32,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 1,
+    "count": 40,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 2,
+    "count": 40,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 3,
+    "count": 40,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 4,
+    "count": 40,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 5,
+    "count": 40,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 6,
+    "count": 40,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 7,
+    "count": 40,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 8,
+    "count": 40,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 9,
+    "count": 40,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 10,
+    "count": 40,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 11,
+    "count": 40,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 12,
+    "count": 40,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 13,
+    "count": 40,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 14,
+    "count": 40,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 15,
+    "count": 40,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 16,
+    "count": 40,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 17,
+    "count": 40,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 18,
+    "count": 40,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 19,
+    "count": 40,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 20,
+    "count": 40,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 21,
+    "count": 40,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 22,
+    "count": 40,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 23,
+    "count": 40,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 24,
+    "count": 40,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 25,
+    "count": 40,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 1,
+    "count": 48,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 2,
+    "count": 48,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 3,
+    "count": 48,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 4,
+    "count": 48,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 5,
+    "count": 48,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 6,
+    "count": 48,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 7,
+    "count": 48,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 8,
+    "count": 48,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 9,
+    "count": 48,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 10,
+    "count": 48,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 11,
+    "count": 48,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 12,
+    "count": 48,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 13,
+    "count": 48,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 14,
+    "count": 48,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 15,
+    "count": 48,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 16,
+    "count": 48,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 17,
+    "count": 48,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 18,
+    "count": 48,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 19,
+    "count": 48,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 20,
+    "count": 48,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 21,
+    "count": 48,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 22,
+    "count": 48,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 23,
+    "count": 48,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 24,
+    "count": 48,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 25,
+    "count": 48,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 1,
+    "count": 56,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 2,
+    "count": 56,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 3,
+    "count": 56,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 4,
+    "count": 56,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 5,
+    "count": 56,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 6,
+    "count": 56,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 7,
+    "count": 56,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 8,
+    "count": 56,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 9,
+    "count": 56,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 10,
+    "count": 56,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 11,
+    "count": 56,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 12,
+    "count": 56,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 13,
+    "count": 56,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 14,
+    "count": 56,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 15,
+    "count": 56,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 16,
+    "count": 56,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 17,
+    "count": 56,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 18,
+    "count": 56,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 19,
+    "count": 56,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 20,
+    "count": 56,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 21,
+    "count": 56,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 22,
+    "count": 56,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 23,
+    "count": 56,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 24,
+    "count": 56,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 25,
+    "count": 56,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 1,
+    "count": 64,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 2,
+    "count": 64,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 3,
+    "count": 64,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 4,
+    "count": 64,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 5,
+    "count": 64,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 6,
+    "count": 64,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 7,
+    "count": 64,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 8,
+    "count": 64,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 9,
+    "count": 64,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 10,
+    "count": 64,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 11,
+    "count": 64,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 12,
+    "count": 64,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 13,
+    "count": 64,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 14,
+    "count": 64,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 15,
+    "count": 64,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 16,
+    "count": 64,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 17,
+    "count": 64,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 18,
+    "count": 64,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 19,
+    "count": 64,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 20,
+    "count": 64,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 21,
+    "count": 64,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 22,
+    "count": 64,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 23,
+    "count": 64,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 24,
+    "count": 64,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 25,
+    "count": 64,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 1,
+    "count": 72,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 2,
+    "count": 72,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 3,
+    "count": 72,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 4,
+    "count": 72,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 5,
+    "count": 72,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 6,
+    "count": 72,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 7,
+    "count": 72,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 8,
+    "count": 72,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 9,
+    "count": 72,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 10,
+    "count": 72,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 11,
+    "count": 72,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 12,
+    "count": 72,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 13,
+    "count": 72,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 14,
+    "count": 72,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 15,
+    "count": 72,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 16,
+    "count": 72,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 17,
+    "count": 72,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 18,
+    "count": 72,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 19,
+    "count": 72,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 20,
+    "count": 72,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 21,
+    "count": 72,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 22,
+    "count": 72,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 23,
+    "count": 72,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 24,
+    "count": 72,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 25,
+    "count": 72,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 1,
+    "count": 80,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 2,
+    "count": 80,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 3,
+    "count": 80,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 4,
+    "count": 80,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 5,
+    "count": 80,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 6,
+    "count": 80,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 7,
+    "count": 80,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 8,
+    "count": 80,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 9,
+    "count": 80,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 10,
+    "count": 80,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 11,
+    "count": 80,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 12,
+    "count": 80,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 13,
+    "count": 80,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 14,
+    "count": 80,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 15,
+    "count": 80,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 16,
+    "count": 80,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 17,
+    "count": 80,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 18,
+    "count": 80,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 19,
+    "count": 80,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 20,
+    "count": 80,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 21,
+    "count": 80,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 22,
+    "count": 80,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 23,
+    "count": 80,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 24,
+    "count": 80,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  },
+  {
+    "wafer": 25,
+    "count": 80,
+    "families": {
+      "Main": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.IDDQ_flow": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow1": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow2": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow3": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow4": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow5": {
+        "hits": 0,
+        "fraction": 0.0
+      },
+      "Main.subflow6": {
+        "hits": 0,
+        "fraction": 0.0
+      }
+    }
+  }
+]

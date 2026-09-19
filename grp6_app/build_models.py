@@ -96,7 +96,8 @@ def build(source, output):
     names, rows, x = load_matrix(Path(source)/'training/Data')
     manifest = flow_manifest(Path(source)/'SmarTest/Case_Smt870/src/TestCase1', names)
     groups = np.array([int(row['Wafer']) for row in rows])
-    models, evaluation = {}, {}
+    models, evaluation, grouped, folds = {}, {}, {}, {}
+    sites = np.array([row['Site'] for row in rows])
     for stage, target in TARGETS.items():
         fs = manifest['stages'][stage]
         idx = [names.index(n) for n in fs]
@@ -110,6 +111,19 @@ def build(source, output):
             prediction[test] = infer_matrix(model, x[test], names)
             baseline[test] = np.mean(y[train])
         evaluation[stage] = metrics(y[valid], prediction[valid], baseline[valid])
+        grouped[stage] = {}
+        for wafer in sorted(set(groups.tolist())):
+            wafer_mask = valid & (groups == wafer)
+            grouped[stage][str(wafer)] = {
+                'fold': wafer % 5,
+                'metrics': metrics(y[wafer_mask], prediction[wafer_mask], baseline[wafer_mask]),
+                'sites': {str(site): metrics(y[mask], prediction[mask], baseline[mask])
+                          for site in sorted(set(sites[wafer_mask]))
+                          for mask in [wafer_mask & (sites == site)]}}
+        folds[stage] = [{
+            'fold': fold, 'train_wafers': sorted(set(groups[valid & (groups % 5 != fold)].tolist())),
+            'test_wafers': sorted(set(groups[valid & (groups % 5 == fold)].tolist()))}
+            for fold in range(5)]
         models[stage] = fit_linear(x[valid][:,idx], y[valid], fs)
         print('stage', stage, 'allowlist', len(fs), evaluation[stage], flush=True)
     normal_wafers = [2,4,5,6,7,8,10,11,12,13,15,16,17,19,20,21,22,24]
@@ -125,6 +139,7 @@ def build(source, output):
     detail = {'mode': 'wafer_grouped_5_fold', 'split': 'wafer number modulo 5',
               'feature_selection': 'within each training fold', 'devices': len(rows),
               'wafers': sorted(set(groups.tolist())), 'metrics': evaluation,
+              'by_wafer_site': grouped, 'folds': folds,
               'units': 'CSV numeric units; sensor physical units require live confirmation'}
     (output/'validation.json').write_text(json.dumps(detail, indent=2), encoding='utf-8')
     print('devices', len(rows), 'measurements', x.shape, 'artifacts', output, flush=True)

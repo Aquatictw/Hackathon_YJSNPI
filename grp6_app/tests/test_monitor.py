@@ -88,5 +88,67 @@ class ProtocolTests(unittest.TestCase):
         for request in ['bad','{"key":"predict","data":7}','{"key":"predict","data":true}']:
             self.assertEqual(self.core.consumeTPRequest(self.tc,request),'')
         self.assertEqual(sum(c[0]=='wait' for c in self.actions.calls),0)
+    def test_delayed_measurements_can_finish_before_request_deadline(self):
+        from threading import Thread, Event as ThreadEvent
+        waiting = ThreadEvent()
+        original_wait = self.core.data_ready.wait
+        def observed_wait(timeout):
+            waiting.set()
+            return original_wait(timeout)
+        self.core.data_ready.wait = observed_wait
+        self.core.feature_wait_seconds = 1.0
+        result = []
+        worker = Thread(target=lambda: result.append(self.core.consumeTPRequest(
+            self.tc, '{"key":"predict","data":1}')))
+        worker.start()
+        self.assertTrue(waiting.wait(1))
+        with self.core.lock:
+            model = self.core.models.models['1']
+            for site in ['1','2']:
+                for name,value in zip(model['features'],model['mean']):
+                    self.core.state.record(self.tc.testerId,site,name,value)
+            self.core.data_ready.notify_all()
+        worker.join(2)
+        self.assertFalse(worker.is_alive())
+        self.assertIn('prediction 1:', result[0])
+        self.assertIn('"waited_for_measurements": true', Path(self.tmp.name,'evidence.jsonl').read_text())
+    def test_waiting_request_never_uses_next_touchdown(self):
+        from threading import Thread, Event as ThreadEvent
+        waiting = ThreadEvent()
+        original_wait = self.core.data_ready.wait
+        def observed_wait(timeout):
+            waiting.set()
+            return original_wait(timeout)
+        self.core.data_ready.wait = observed_wait
+        self.core.feature_wait_seconds = 1.0
+        result=[]
+        worker=Thread(target=lambda: result.append(self.core.consumeTPRequest(
+            self.tc, '{"key":"predict","data":1}')))
+        worker.start()
+        self.assertTrue(waiting.wait(1))
+        with self.core.lock:
+            self.start()
+            model=self.core.models.models['1']
+            for site in ['1','2']:
+                for name,value in zip(model['features'],model['mean']):
+                    self.core.state.record(self.tc.testerId,site,name,value)
+        worker.join(2)
+        self.assertFalse(worker.is_alive())
+        self.assertNotIn('prediction 1:',result[0])
+        self.assertIn('"lifecycle_changed": true',Path(self.tmp.name,'evidence.jsonl').read_text())
+    def test_future_measurements_cannot_change_earlier_predictions(self):
+        artifact=Path(__file__).parents[1]/'artifacts'
+        manifest=json.loads((artifact/'manifest.json').read_text())
+        for stage in range(1,7):
+            allowed=set(manifest['stages'][str(stage)])
+            model=self.core.models.models[str(stage)]
+            self.assertTrue(set(model['features']) <= allowed)
+            current=dict(zip(model['features'],model['mean']))
+            before=self.core.models.predict(stage,current)
+            future=set(self.core.models.artifact['columns'])-allowed
+            self.assertTrue(future)
+            for replacement in [1e12,-1e12,float('nan')]:
+                modified=dict(current,**dict.fromkeys(future,replacement))
+                self.assertEqual(self.core.models.predict(stage,modified),before)
 
 if __name__=='__main__':unittest.main()

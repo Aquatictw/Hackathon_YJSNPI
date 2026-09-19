@@ -485,7 +485,12 @@ sha256sum /tmp/debugger_project_grp6.tar.gz
 - [x] 原版 image 在 grp6 建置／推送成功，8 個 runtime tests 在 image 與 code-server 通過；版本與 digest 已記錄於 `CONTEST.md`。
 - [x] Nexus 顯示 app running，ONEAPI event／command 連線與 tester 的 test-program acknowledgment 已觀察到。
 - [x] 本機修正 `PartFlag=0x0` callback 錯誤，加入原始 flag 保存與 stdout evidence；14 個本機測試通過（`results/fix_tests.log`）。
-- [ ] 修正版 image 部署後，實際 TestEnd 完成且無 callback error。
+- [x] hex-flag 修正版 image 部署後，工程測試四個 site 的 TestEnd 完成且無 callback error（grp6 `grp6_livefix_edge.log`：12,183 callbacks／12,124 mapped measurements）。
+- [x] 工程測試第 2／3／4／6 階段四個 site coverage 均 100%；tester Message Center 實際顯示第 4／6 階段。第 1／5 階段不足，尚不算六階段通過。
+- [x] 加入 measurement channel 延遲的有界等待、跨 touchdown 拒絕、future-feature invariance 測試；17 個本機測試通過（`results/channel_fix_tests.log`）。等待修正尚待 VM 驗證。
+- [x] 每階段、wafer、site 的五折 out-of-fold 誤差及 train/test wafer 清單已保存（`results/model_revalidation/validation.json`）；重算結果與原 aggregate metrics 一致。
+- [ ] channel 等待修正版在 VM 通過六階段 coverage 與 timeout 測試。
+- [x] channel 修正版在 grp6 image 通過 12 個 runtime tests；單次工程測試六階段、四 site coverage 全為 100%，callback audit 無錯誤，延遲 0.57–1.05 ms（遠端 `grp6_channel_audit.json`）。此次沒有進入等待分支，不能宣稱 live 延遲恢復／timeout 已驗收。
 - [ ] Live 六階段所有 active site 均有完整合法特徵，並有 tester 接受預測的紀錄。
 - [ ] 真實偵測異常經 `set_message`、`prod_action` 到 tester 顯示，具備可關聯的完整證據。
 - [ ] W25 漏報完成原因分析與可重現評估；不得依 wafer 編號硬編判斷。

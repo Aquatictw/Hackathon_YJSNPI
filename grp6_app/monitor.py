@@ -6,13 +6,13 @@ import hashlib
 from concurrent.futures import ThreadPoolExecutor
 from collections import Counter
 from pathlib import Path
-from threading import RLock
+from threading import RLock, Condition
 from .runtime import RuntimeModels, WaferDetector
 from .state import LiveState
 
 
 class MonitorCore:
-    def __init__(self, artifacts, actions, data_types, to_site, evidence):
+    def __init__(self, artifacts, actions, data_types, to_site, evidence, feature_wait_seconds=0.2):
         self.models = RuntimeModels(artifacts)
         self.actions, self.types, self.to_site = actions, data_types, to_site
         self.state = LiveState()
@@ -20,6 +20,8 @@ class MonitorCore:
         self.identity = {}
         self.counts = Counter()
         self.lock = RLock()
+        self.data_ready = Condition(self.lock)
+        self.feature_wait_seconds = max(0., float(feature_wait_seconds))
         self.evidence = Path(evidence)
         self.evidence.parent.mkdir(parents=True, exist_ok=True)
         self.stream = self.evidence.open('a', encoding='utf-8', buffering=1)
@@ -150,6 +152,8 @@ class MonitorCore:
                 self.counts['callback_errors'] += 1
                 self.log('callback_error', tester=str(tc.testerId), error=str(exc))
                 logging.exception('ONEAPI callback failed')
+            finally:
+                self.data_ready.notify_all()
 
     def consumeTPRequest(self, tc, request):
         started = time.perf_counter()
@@ -162,6 +166,29 @@ class MonitorCore:
                     if type(stage) is not int or stage not in range(1,7):
                         raise ValueError('Invalid prediction stage')
                     sites = self.state.snapshot(tester)
+                    initial_state = self.state.testers.get(str(tester))
+                    initial_touchdown = initial_state.touchdown if initial_state else None
+                    initial_sites = set(sites)
+                    deadline = started + self.feature_wait_seconds
+                    waited = False
+                    lifecycle_changed = False
+                    # The command and measurement channels can arrive out of order.
+                    # Release the callback lock while waiting for already-executed
+                    # features; never cross a touchdown or wafer boundary.
+                    required = self.models.models[str(stage)]['features']
+                    while sites and any(any(n not in v for n in required) for v in sites.values()):
+                        remaining = deadline - time.perf_counter()
+                        if remaining <= 0:
+                            break
+                        waited = True
+                        self.data_ready.wait(remaining)
+                        current = self.state.testers.get(str(tester))
+                        sites = self.state.snapshot(tester)
+                        if (current is not initial_state or current.touchdown != initial_touchdown
+                                or set(sites) != initial_sites):
+                            lifecycle_changed = True
+                            sites = {}
+                            break
                     predictions, coverage = {}, {}
                     for site, values in sites.items():
                         value, fraction = self.models.predict(stage,values)
@@ -178,6 +205,8 @@ class MonitorCore:
                         status = 'insufficient_current_data'
                     response = self.actions.get(tester)
                     self.log('prediction_request',tester=str(tester),stage=stage,status=status,
+                             waited_for_measurements=waited,lifecycle_changed=lifecycle_changed,
+                             missing_features={s:[n for n in required if n not in v] for s,v in sites.items()},
                              predictions=predictions,coverage=coverage,response=str(response),
                              feature_counts={s:len(v) for s,v in sites.items()},
                              latency_ms=(time.perf_counter()-started)*1000)
