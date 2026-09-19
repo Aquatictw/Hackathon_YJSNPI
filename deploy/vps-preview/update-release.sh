@@ -72,7 +72,8 @@ for attempt in {1..60}; do
   sleep 1
 done
 [[ $healthy == 1 ]]
-node -e 'const c=require(process.argv[1]);if(!c.backend_connected || c.openai_configured) process.exit(1)' "$backup/config.json"
+# Configuration-only health check: AI may be configured, but never invoke it.
+node -e 'const c=require(process.argv[1]);if(c.backend_connected!==true || c.ingest_configured!==true || c.commands_configured!==false || typeof c.openai_configured!=="boolean") process.exit(1)' "$backup/config.json"
 run_app node scripts/local-backend.mjs seed
 curl --fail --silent --max-time 15 http://127.0.0.1:5173/ > "$backup/home.html"
 curl --fail --silent --max-time 15 http://127.0.0.1:5173/replay > "$backup/replay.html"
