@@ -1,0 +1,4 @@
+warning: in the working copy of 'workstreams/detection/NOTES.md', LF will be replaced by CRLF the next time Git touches it
+PASS: 25 wafers / 2000 devices; exact baseline reproduction; 6/7 -> 6/7 coverage; 2 additional alerts.
+PASS: all input/code hashes and calibration hash; W2 preserved; W25 miss explicit; evidence persistence/axes.
+PASS: 18 changed/untracked paths are inside workstreams/detection/.

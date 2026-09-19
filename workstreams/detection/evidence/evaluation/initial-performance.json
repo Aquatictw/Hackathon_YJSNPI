@@ -1,0 +1,36 @@
+{
+  "purpose": "Before replacing statistics.pstdev rational arithmetic with bounded two-pass floating-point calculation; same candidate thresholds.",
+  "evaluated_code_sha256": {
+    "workstreams/detection/candidate.py": "2eaf4e41dc8064371f0750997622d9f0643b264c3217a004607e614edd2b324d",
+    "workstreams/detection/evaluate.py": "6f02ff9674c4dc35b6e4d76605889695b4ada42f3806cb8e22e1eba400378f26"
+  },
+  "latency": {
+    "baseline_scan": {
+      "n": 200,
+      "median_ms": 96.90729999999999,
+      "p95_ms": 125.046355,
+      "max_ms": 177.9282
+    },
+    "candidate_scan": {
+      "n": 125,
+      "median_ms": 640.7724,
+      "p95_ms": 719.1319799999999,
+      "max_ms": 748.1307
+    },
+    "candidate_add": {
+      "n": 2000,
+      "median_ms": 1.60415,
+      "p95_ms": 2.3025599999999997,
+      "max_ms": 3.6239
+    },
+    "combined_scan": {
+      "n": 200,
+      "median_ms": 725.1911500000001,
+      "p95_ms": 814.5622449999998,
+      "max_ms": 846.2265
+    }
+  },
+  "baseline_coverage": 6,
+  "candidate_coverage": 6,
+  "additional_alerts": 2
+}

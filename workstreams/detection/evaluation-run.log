@@ -1,0 +1,60 @@
+Calibration frozen: 3024 tests; SHA256 da3a2b139cfaf1e4b7f9faae218f206f402901f9a81e22b4d458621e51dd64ee
+W01: baseline=1 candidate_additions=1 strongest_score=1.339
+W02: baseline=1 candidate_additions=0 strongest_score=0.872
+W03: baseline=1 candidate_additions=0 strongest_score=1.786
+W04: baseline=0 candidate_additions=0 strongest_score=0.855
+W05: baseline=0 candidate_additions=0 strongest_score=0.912
+W06: baseline=0 candidate_additions=0 strongest_score=0.893
+W07: baseline=0 candidate_additions=0 strongest_score=0.758
+W08: baseline=0 candidate_additions=0 strongest_score=0.670
+W09: baseline=1 candidate_additions=0 strongest_score=0.812
+W10: baseline=0 candidate_additions=0 strongest_score=0.855
+W11: baseline=0 candidate_additions=0 strongest_score=0.779
+W12: baseline=0 candidate_additions=0 strongest_score=0.871
+W13: baseline=0 candidate_additions=0 strongest_score=0.831
+W14: baseline=3 candidate_additions=0 strongest_score=0.943
+W15: baseline=0 candidate_additions=0 strongest_score=0.547
+W16: baseline=0 candidate_additions=0 strongest_score=0.670
+W17: baseline=0 candidate_additions=0 strongest_score=0.893
+W18: baseline=3 candidate_additions=0 strongest_score=0.912
+W19: baseline=0 candidate_additions=0 strongest_score=0.936
+W20: baseline=0 candidate_additions=0 strongest_score=0.893
+W21: baseline=0 candidate_additions=0 strongest_score=1.116
+W22: baseline=0 candidate_additions=0 strongest_score=0.446
+W23: baseline=4 candidate_additions=1 strongest_score=1.230
+W24: baseline=0 candidate_additions=0 strongest_score=0.730
+W25: baseline=0 candidate_additions=0 strongest_score=0.670
+{
+  "baseline_coverage": 6,
+  "combined_coverage": 6,
+  "additional_alerts": 2,
+  "normal_labeled_alert_wafers": [
+    2
+  ],
+  "latency": {
+    "baseline_scan": {
+      "n": 200,
+      "median_ms": 86.2569,
+      "p95_ms": 112.95555999999995,
+      "max_ms": 194.6605
+    },
+    "candidate_scan": {
+      "n": 125,
+      "median_ms": 94.5043,
+      "p95_ms": 109.3305,
+      "max_ms": 159.5524
+    },
+    "candidate_add": {
+      "n": 2000,
+      "median_ms": 1.31285,
+      "p95_ms": 1.93401,
+      "max_ms": 4.4195
+    },
+    "combined_scan": {
+      "n": 200,
+      "median_ms": 179.25029999999998,
+      "p95_ms": 222.00785499999998,
+      "max_ms": 329.0952
+    }
+  }
+}
