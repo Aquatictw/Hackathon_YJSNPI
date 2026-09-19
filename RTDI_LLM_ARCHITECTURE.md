@@ -478,6 +478,11 @@ cd /home/user/Case_Event/SmarTest
 
 ### 完整場景驗收（未完成項保留未勾選）
 
+- [x] Production ZIP 已下載並通過 CRC；本機 audit 確認 sequence 1–765、80 devices、120 complete requests、480 actuals、零 audit errors，最大 callback 8.350 ms。
+- [x] 120/120 prediction response 完整 action JSON 與 matching tester EDL 相符，各有 Exec Pass 1 / Fail 0；見 `results/vm_production/tester_receipt_audit.json`。告警 receipt 仍未驗證。
+- [x] Remote exporter / versioned packaging / D backend 合併後，本機 core 37 tests、frontend/backend 23 tests 通過；保留共用 identity 與 tester response failure isolation。
+- [ ] 合併後 optional exporter 的 grp6 部署及 HTTPS backend smoke test；現有 image、模型與 production evidence 保留，無須為 Git 合併重新訓練或重跑原 lot。
+
 - [ ] 六個 target 名稱、pin、unit 與請求編號已核對。
 - [ ] cutoff 要確認是 TP 執行順序或 callback 到達時間。目前最多等 200 ms 收取 stage-eligible 特徵；future-feature invariance 本機已通過，live 時序/deadline 待驗證。
 - [ ] 多 device/site/head、重測、跨 wafer 不會混用特徵或聚合回覆。

@@ -16,7 +16,8 @@ from .metadata import decode_ascii, metadata_field
 
 
 class MonitorCore:
-    def __init__(self, artifacts, actions, data_types, to_site, evidence, feature_wait_seconds=0.2):
+    def __init__(self, artifacts, actions, data_types, to_site, evidence, feature_wait_seconds=0.2,
+                 exporter=None, to_head=None, mode='live'):
         self.models = RuntimeModels(artifacts)
         self.actions, self.types, self.to_site = actions, data_types, to_site
         self.state = LiveState()
@@ -35,6 +36,10 @@ class MonitorCore:
         self.pending_messages = {}
         self.metadata = {}
         self.model_sha256 = hashlib.sha256(Path(artifacts).read_bytes()).hexdigest()
+        self.exporter, self.to_head, self.mode = exporter, to_head, str(mode)
+        self.sequences = Counter()
+        self.device_measurements = {}
+        self.device_quality = {}
         self.evidence = Path(evidence)
         self.evidence.parent.mkdir(parents=True, exist_ok=True)
         self.stream = self.evidence.open('a', encoding='utf-8', buffering=1)
@@ -60,6 +65,8 @@ class MonitorCore:
         except Exception as exc:
             self.log('report_error',error=str(exc))
         self.stream.close()
+        if self.exporter is not None:
+            self.exporter.close()
 
     def log(self, kind, **fields):
         with self.log_lock:
@@ -72,14 +79,55 @@ class MonitorCore:
                          test_id=self.test_context.get(tester))
             event_id = uuid.uuid4().hex
             event = dict(scope, schema_version=1, run_id=self.tester_runs.get(tester, self.run_id), event_id=event_id,
-                         sequence=self.sequence, source_mode='live', time=now,
+                         sequence=self.sequence, source_mode=self.mode, time=now,
                          timestamp=datetime.fromtimestamp(now, timezone.utc).isoformat(),
                          model_sha256=self.model_sha256, kind=kind)
             event.update(fields)
             record = json.dumps(event, allow_nan=False)
             self.stream.write(record+'\n')
             print('GRP6_EVIDENCE '+record, flush=True)
+            if kind in ('prediction_actual', 'action_message', 'production_action_response'):
+                exported = self.event(tester, kind, **{k: v for k, v in event.items()
+                    if k not in ('kind', 'tester', 'schema_version', 'sequence', 'timestamp')})
+                self.export(exported)
             return event_id
+
+    @staticmethod
+    def safe(data, name, *args):
+        try:
+            method = getattr(data, name)
+            return method(*args)
+        except Exception:
+            return None
+
+    def event(self, tester, event_type, **payload):
+        if self.exporter is None:
+            return {}
+        tester = str(tester)
+        self.sequences[tester] += 1
+        lot, wafer = self.identity.get(tester, ('', ''))
+        event = dict(
+            schema_version='1', event_id=str(uuid.uuid4()),
+            sequence=self.sequences[tester], mode=self.mode,
+            event_type=event_type, timestamp=time.time(), tester_id=tester,
+            run_id=self.tester_runs.get(tester, self.run_id), lot_id=lot or None,
+            wafer_id=wafer or None, model_sha256=self.model_sha256)
+        event.update(payload)
+        return event
+
+    def export(self, event):
+        if self.exporter is None:
+            return
+        try:
+            if self.exporter.submit(event):
+                return
+            reason = 'memory_queue_full'
+        except Exception as exc:
+            reason = 'exporter_submit_error: ' + str(exc)
+        if reason:
+            self.counts['export_dropped'] += 1
+            self.log('export_drop', dropped_event_id=event.get('event_id'),
+                     event_type=event.get('event_type'), reason=reason)
 
     def send_message(self, tester, message, alert_id=None):
         try:
@@ -100,6 +148,7 @@ class MonitorCore:
         for alert in detector.analyze(final):
             lot, wafer = self.identity.get(str(tester), ('',''))
             alert_id = self.log('alert', tester=str(tester), lot=lot, wafer=wafer, alert=alert)
+            self.export(self.event(tester, 'alert', event_id=alert_id, alert=alert, final=bool(final)))
             self.send_message(tester, 'grp6 [{}] wafer {}: {}'.format(alert_id[:12],wafer,alert['message']), alert_id)
 
     def record_metadata(self, tester, site, field, value):
@@ -133,6 +182,7 @@ class MonitorCore:
                     self.tester_runs[tester] = uuid.uuid4().hex
                     lot = str(data.get_LotId())
                     self.identity[tester] = (lot, '')
+                    self.sequences[tester] = 0
                     self.state.reset(tester, lot=lot)
                     self.detectors.pop(tester, None)
                     self.test_context.pop(tester, None)
@@ -140,6 +190,29 @@ class MonitorCore:
                     self.metadata.pop(tester, None)
                     self.pending_messages.pop(tester, None)
                     self.log('lot_start', tester=tester, lot=lot)
+                    artifact = self.models.artifact
+                    self.export(self.event(
+                        tester, 'detector_baseline_artifact',
+                        artifact_version=artifact.get('version'),
+                        artifact_sha256=self.model_sha256,
+                        created_at=None,
+                        baseline_location_semantics='median_stored_in_legacy_mean_field',
+                        threshold_semantics={
+                            'site_imbalance': 'difference_between_site_means_divided_by_baseline_sd',
+                            'mean_drift': 'absolute_first_vs_last_window_mean_change_divided_by_baseline_sd',
+                            'spread': 'absolute_log(last_window_sd/first_window_sd)',
+                            'family_order': ['site_imbalance', 'mean_drift', 'spread_up', 'spread_down'],
+                        },
+                        baselines=artifact.get('baselines', {}),
+                        family_thresholds=artifact.get('family_thresholds', {}),
+                        baseline_wafers=artifact.get('baseline_wafers', []),
+                        calibration=artifact.get('detector_calibration', {}),
+                        unit_status='unit_unverified',
+                        known_gaps=['per-test sample_count unavailable',
+                                    'per-test missing_rate unavailable',
+                                    'artifact build timestamp unavailable']))
+                    self.export(self.event(tester, 'lot_start',
+                                           source_timestamp_us=self.safe(data, 'get_TimeStamp')))
                 elif is_type('DATA_TYP_PRODUCTION_WAFERSTART'):
                     lot = self.identity.get(tester, ('',''))[0]
                     wafer = str(data.get_WaferId())
@@ -149,6 +222,8 @@ class MonitorCore:
                     self.pending_predictions.pop(tester, None)
                     self.detectors[tester] = WaferDetector(self.models.artifact['baselines'],self.models.artifact.get('family_thresholds'))
                     self.log('wafer_start',tester=tester,lot=lot,wafer=wafer)
+                    self.export(self.event(tester, 'wafer_start',
+                                           source_timestamp_us=self.safe(data, 'get_TimeStamp')))
                 elif is_type('DATA_TYP_PRODUCTION_TESTSTART'):
                     sites = [self.to_site(data.query_HeadSite(i)) for i in range(data.get_ResultCount())]
                     if len(sites) != len(set(sites)):
@@ -158,6 +233,9 @@ class MonitorCore:
                     self.test_context[tester] = uuid.uuid4().hex
                     self.pending_predictions[tester] = {}
                     self.metadata[tester] = {}
+                    self.device_measurements[tester] = {str(site): {} for site in sites}
+                    self.device_quality[tester] = {
+                        str(site): {'runtime_unmapped': [], 'invalid': []} for site in sites}
                     self.detectors.setdefault(tester, WaferDetector(self.models.artifact['baselines'],self.models.artifact.get('family_thresholds')))
                     self.log('test_start',tester=tester,touchdown=td,sites=sites)
                 elif is_type('DATA_TYP_MEASURED_PARAMETRIC') or is_type('DATA_TYP_MEASURED_MULTI_PARAM'):
@@ -179,6 +257,23 @@ class MonitorCore:
                                 self.counts["metadata_measurements"]+=1
                                 continue
                             feature = self.models.feature(number,suite,pin)
+                            if self.exporter is not None:
+                                canonical = feature or ('{}_{}{}'.format(
+                                    number, suite, '#'+str(pin) if pin is not None else ''))
+                                measurement = {
+                                    'canonical_feature': canonical,
+                                    'test_number': number, 'suite': suite, 'pin': pin,
+                                    'raw_value': value,
+                                    'unit': self.safe(data, 'query_Unit', i),
+                                    'result_scaling': self.safe(data, 'query_ResultScaling', i),
+                                    'low_limit': self.safe(data, 'query_LowLimit', i),
+                                    'high_limit': self.safe(data, 'query_HighLimit', i),
+                                    'low_limit_scaling': self.safe(data, 'query_LowLimitScaling', i),
+                                    'high_limit_scaling': self.safe(data, 'query_HighLimitScaling', i),
+                                    'test_flag': self.safe(data, 'query_TestFlag', i),
+                                    'param_flag': self.safe(data, 'query_ParamFlag', i),
+                                }
+                                self.device_measurements.setdefault(tester, {}).setdefault(str(site), {})[canonical] = measurement
                             if feature and self.state.record(tester,site,feature,value):
                                 self.counts['measurements'] += 1
                                 if self.counts['measurements']<=12:
@@ -188,6 +283,11 @@ class MonitorCore:
                                              scaling=str(data.query_ResultScaling(i)) if hasattr(data,'query_ResultScaling') else None)
                             else:
                                 self.counts['unmapped_or_rejected'] += 1
+                                if self.exporter is not None:
+                                    quality = self.device_quality.setdefault(tester, {}).setdefault(
+                                        str(site), {'runtime_unmapped': [], 'invalid': []})
+                                    key = 'runtime_unmapped' if not feature else 'invalid'
+                                    quality[key].append(canonical)
                                 if self.counts['unmapped_or_rejected']<=12:
                                     self.log('unmapped_measurement',tester=tester,number=number,suite=suite,pin=pin)
                 elif is_type('DATA_TYP_PRODUCTION_TESTEND'):
@@ -195,7 +295,8 @@ class MonitorCore:
                     detector = self.detectors.get(tester)
                     ended = []
                     for i in range(data.get_ResultCount()):
-                        site = str(self.to_site(data.query_HeadSite(i)))
+                        packed_head_site = data.query_HeadSite(i)
+                        site = str(self.to_site(packed_head_site))
                         ended.append(site)
                         flag = str(data.query_PartFlag(i))
                         # Verified supplied common/DefineBins.java: bin 1 passes,
@@ -217,6 +318,34 @@ class MonitorCore:
                                  device_id=self.device_id(tester, site),
                                  part_flag=flag,sbin=int(data.query_SBinResult(i)),features=len(snapshots.get(site,{})))
                         self.pending_predictions.get(tester, {}).pop(site, None)
+                        if self.exporter is not None:
+                            measurements = list(self.device_measurements.get(tester, {}).get(site, {}).values())
+                            measurements.sort(key=lambda item: (item['test_number'], item['canonical_feature']))
+                            quality = self.device_quality.get(tester, {}).get(
+                                site, {'runtime_unmapped': [], 'invalid': []})
+                            expected = len(self.models.artifact.get('columns', []))
+                            hbin = self.safe(data, 'query_HBinResult', i)
+                            part = str(data.query_PartId(i))
+                            state = self.state.testers.get(tester)
+                            bundle = self.event(
+                                tester, 'device_completed', bundle_type='DeviceCompletedBundle',
+                                source_timestamp_us=self.safe(data, 'get_TimeStamp'),
+                                touchdown=state.touchdown if state else None,
+                                device_id=self.device_id(tester, site), part_id=part, attempt=None,
+                                attempt_status='unverified_sdk_field', site=site,
+                                head=self.to_head(packed_head_site) if self.to_head else None,
+                                raw_head_site=packed_head_site,
+                                x=self.safe(data, 'query_XCoord', i),
+                                y=self.safe(data, 'query_YCoord', i),
+                                test_time_us=self.safe(data, 'query_TestTime', i),
+                                sbin=sbin, hbin=hbin, part_flag=flag, passed=(sbin == 1),
+                                measurements=measurements,
+                                expected_count=expected, received_count=len(measurements),
+                                missing_count=max(0, expected-len(measurements)),
+                                runtime_unmapped=quality['runtime_unmapped'],
+                                invalid=quality['invalid'],
+                                data_quality='complete' if len(measurements) >= expected and not quality['invalid'] else 'incomplete')
+                            self.export(bundle)
                     self.state.end(tester,ended)
                     self.emit_alerts(tc.testerId)
                     if detector:
@@ -228,6 +357,9 @@ class MonitorCore:
                         self.update_report()
                 elif is_type('DATA_TYP_PRODUCTION_WAFEREND') or is_type('DATA_TYP_PRODUCTION_LOTEND'):
                     self.emit_alerts(tc.testerId,True)
+                    boundary = 'wafer_end' if is_type('DATA_TYP_PRODUCTION_WAFEREND') else 'lot_end'
+                    self.export(self.event(tester, boundary,
+                                           source_timestamp_us=self.safe(data, 'get_TimeStamp')))
                     self.state.end(tester)
                     self.pending_predictions.pop(tester, None)
                     self.log('boundary_end',tester=tester,counts=dict(self.counts))
@@ -305,7 +437,7 @@ class MonitorCore:
                         self.pending_predictions.setdefault(str(tester), {}).setdefault(site, []).append(dict(
                             request_id=request_id, prediction_id=prediction_id, value=value,
                             device_id=self.device_id(tester, site), stage=stage, status=status))
-                    self.log('prediction_request',tester=str(tester),stage=stage,status=status,
+                    request_event_id = self.log('prediction_request',tester=str(tester),stage=stage,status=status,
                              run_id=initial_run,lot=initial_lot,wafer=initial_wafer,
                              touchdown=initial_touchdown,test_id=initial_test_id,
                              request_id=request_id, prediction_ids=prediction_ids,
@@ -316,6 +448,14 @@ class MonitorCore:
                              predictions=predictions,coverage=coverage,response=str(response),
                              feature_counts={s:len(v) for s,v in sites.items()},
                              latency_ms=(time.perf_counter()-started)*1000)
+                    self.export(self.event(tester, 'prediction_request', stage=stage, status=status,
+                                           event_id=request_event_id, run_id=initial_run,
+                                           lot_id=initial_lot, wafer_id=initial_wafer,
+                                           request_id=request_id, prediction_ids=prediction_ids,
+                                           device_ids={s:self.device_id(tester,s) for s in sites},
+                                           predictions=predictions, coverage=coverage,
+                                           feature_counts={s:len(v) for s,v in sites.items()},
+                                           latency_ms=(time.perf_counter()-started)*1000))
                     return response
                 if obj.get('key')=='prod_action':
                     response = self.actions.get_prod(tester)
@@ -346,12 +486,14 @@ class MonitorCore:
 
 
 def create_monitor(artifacts, evidence):
-    from oneapi import Monitor, DataType, toSite
+    from oneapi import Monitor, DataType, toSite, toHead
     from libACSAction import ActionManager
+    from .exporter import HttpsOutboxExporter
     class Grp6Monitor(Monitor):
         def __init__(self):
             Monitor.__init__(self)
-            self.core = MonitorCore(artifacts,ActionManager,DataType,toSite,evidence)
+            self.core = MonitorCore(artifacts,ActionManager,DataType,toSite,evidence,
+                                    exporter=HttpsOutboxExporter.from_env(), to_head=toHead)
         def consumeData(self,tc,data):
             return self.core.consumeData(tc,data)
         def consumeTPRequest(self,tc,request):

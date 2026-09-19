@@ -1,3 +1,7 @@
 # Copy to .dev.vars for the local Cloudflare/Vinext runtime.
 OPENAI_API_KEY=""
 OPENAI_MODEL="gpt-6-astra"
+# Long random server-side token used only by the Edge exporter.
+INGEST_TOKEN=""
+# Separate token for polling commands and reporting delivery results.
+COMMAND_TOKEN=""

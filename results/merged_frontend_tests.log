@@ -1,0 +1,35 @@
+
+> grp6-rtdi-insight@0.1.0 test
+> node --test tests/*.test.mjs
+
+✔ Edge v1 requires explicit provenance and unique scoped event ids (10.7544ms)
+✔ canonical hashes stay stable across object key order (15.16ms)
+✔ agent performs a bounded multi-step tool investigation with evidence trace (27.752ms)
+✔ agent rejects citations that were not returned by tools (1.3864ms)
+✔ agent refuses an unbounded tool-call chain (1.2966ms)
+✔ commands require an explicit user confirmation and a stable request id (0.6774ms)
+✔ tester confirmation requires a receipt and command states cannot move backward (0.4576ms)
+✔ SSE frames preserve a resumable numeric cursor (0.4105ms)
+✔ the real grp6 replay JSONL converts to deterministic Edge v1 batches (12.3708ms)
+✔ the merged grp6 exporter envelope normalizes alerts and preserves raw events (1.1544ms)
+✔ gzip JSON input is bounded by compressed and decompressed limits (18.4788ms)
+✔ large UTF-8 raw payloads are split into D1-safe base64 chunks (0.7836ms)
+✔ all synthetic scenarios conform and stage IDs stay in range (11.965ms)
+✔ identical retry and new-batch retry never create a second incident (2.64ms)
+✔ conflicting batch or event identity is rejected atomically (2.2934ms)
+✔ wrong site/run evidence is excluded and cannot reach AI context (4.1983ms)
+✔ late evidence enriches the existing event (1.1459ms)
+✔ tester confirmation requires an explicit receipt reference (0.478ms)
+✔ missing features produce no invented temperatures or normal claims (1.225ms)
+✔ AI explanation never changes command state or claims tester delivery (1.5299ms)
+✔ invalid schema and non-finite measurements are rejected (1.2217ms)
+✔ wire v1 measurement is displayed without pretending to be an anomaly (1.0512ms)
+✔ wire actual joins only the matching run and never invents receipt or coverage (1.0978ms)
+ℹ tests 23
+ℹ suites 0
+ℹ pass 23
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 376.1341
