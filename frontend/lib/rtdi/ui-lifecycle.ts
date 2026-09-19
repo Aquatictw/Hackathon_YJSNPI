@@ -1,32 +1,36 @@
 import {z} from 'zod';
 import {parseSnapshot, runUrl, type Snapshot} from './dashboard.ts';
+import {conversationKey, createConversationCache, type ConversationContext, type ConversationMessage, type ConversationScope, type ConversationStorage} from './ui-conversations.ts';
 
-type Scope = {run: string; tester: string};
-type Message = {role: 'user' | 'assistant'; text: string; refs?: string[]; id?: string};
+type Scope = ConversationScope;
+type Message = ConversationMessage;
+export type DashboardLifecycleOptions = {conversationStorage?: ConversationStorage};
 export type DashboardState = {
   scope: Scope | null; data: Snapshot | null; status: string; error: string;
   selected: string; search: string; question: string; busy: boolean;
   chatError: string; messages: Message[];
 };
 export const initialDashboardState = (): DashboardState => ({
-  scope: null, data: null, status: '尚未連線', error: '', selected: '', search: '',
+  scope: null, data: null, status: 'Not connected', error: '', selected: '', search: '',
   question: '', busy: false, chatError: '', messages: [],
 });
 export function dashboardEvidence(state: DashboardState) {
   const evidence = state.data?.evidence ?? [];
   const filtered = evidence.filter(e => `${e.kind} ${e.wafer_id} ${e.message} ${e.test_name} ${e.affected_tests?.join(' ')}`.toLowerCase().includes(state.search.toLowerCase()));
-  return {evidence, filtered, current: evidence.find(e => e.event_id === state.selected) ?? filtered[0]};
+  return {evidence, filtered, current: evidence.find(e => e.event_id === state.selected) ?? evidence[0]};
 }
 type Stream = {addEventListener(type: string, listener: () => void): void; onerror: EventSource['onerror']; close(): void};
 type Transport = {fetch: typeof fetch; eventSource: (url: string) => Stream};
-const errorText = (value: unknown) => value instanceof Error ? value.message : '讀取失敗';
+const errorText = (value: unknown) => value instanceof Error ? value.message : 'Request failed';
 const responseError = (payload: unknown, fallback: string) => z.object({error: z.string()}).safeParse(payload).data?.error ?? fallback;
 const answerSchema = z.object({answer: z.string(), evidence_ids: z.array(z.string()).optional(), investigation_id: z.string().nullable().optional()});
 
 /** The page and deferred-transport tests use this same lifecycle. Abort is only
  * resource cleanup: generation checks also reject transports that ignore it. */
-export function createDashboardLifecycle(transport: Transport, publish: (state: DashboardState) => void) {
+export function createDashboardLifecycle(transport: Transport, publish: (state: DashboardState) => void, options: DashboardLifecycleOptions = {}) {
   let state = initialDashboardState();
+  const conversations = createConversationCache(options.conversationStorage);
+  let pendingQuestion = '';
   let generation = 0, chatGeneration = 0, disposed = false;
   let cancel: AbortController | undefined, chatCancel: AbortController | undefined, stream: Stream | undefined;
   const patch = (update: Partial<DashboardState>) => {
@@ -34,31 +38,53 @@ export function createDashboardLifecycle(transport: Transport, publish: (state: 
     state = {...state, ...update};
     publish(state);
   };
-  const cancelChat = () => {chatGeneration++; chatCancel?.abort();};
+  const cancelChat = () => {
+    chatGeneration++; chatCancel?.abort();
+    state = {...state, busy: false, question: state.question || pendingQuestion};
+    pendingQuestion = '';
+  };
   const stop = () => {generation++; cancel?.abort(); stream?.close(); stream = undefined; cancelChat();};
-  const resetChat = () => {cancelChat(); patch({busy: false, messages: [], chatError: '', question: ''});};
-  const context = () => {
-    const current = dashboardEvidence(state).current;
-    return JSON.stringify([current?.event_id, current?.incident_id]);
+  const context = (value: DashboardState): ConversationContext => {
+    const current = dashboardEvidence(value).current;
+    return current?.incident_id ? ['incident', current.incident_id]
+      : current ? ['event', current.event_id] : ['run', ''];
+  };
+  const key = (value: DashboardState) => value.scope ? conversationKey(value.scope, context(value)) : null;
+  const remember = () => {
+    if (disposed || !state.scope) return;
+    conversations.write(state.scope, context(state), {messages: state.messages, question: state.question || pendingQuestion}, state.selected);
+  };
+  function transition(update: Partial<DashboardState>) {
+    const next = {...state, ...update};
+    const changedConversation = key(state) !== key(next);
+    const changedEvidence = dashboardEvidence(state).current?.event_id !== dashboardEvidence(next).current?.event_id;
+    if (changedConversation || changedEvidence) {
+      remember();
+      cancelChat();
+      const restored = changedConversation && next.scope ? conversations.read(next.scope, context(next)) : {};
+      // Publish destination evidence and its own history together, never a frame
+      // containing evidence from one incident and messages from another.
+      patch({...update, ...restored, busy: false, chatError: ''});
+    } else patch(update);
+    remember();
   };
   function acceptSnapshot(data: Snapshot, scope: Scope) {
-    const before = context();
     // Pin the visible evidence so inserting a newer item cannot silently change
     // the incident while an investigation is pending.
-    const next = {...state, data, scope};
+    const sameScope = state.scope?.run === scope.run && state.scope.tester === scope.tester;
+    const next = {...state, data, scope, selected: sameScope ? state.selected : conversations.selected(scope)};
     const selected = dashboardEvidence(next).current?.event_id ?? '';
-    patch({data, scope, selected});
-    if (context() !== before) resetChat();
+    transition({data, scope, selected});
   }
   async function connect(run: string, tester: string) {
     if (disposed || !run.trim()) return;
     const chosen = {run: run.trim(), tester: tester.trim()};
     const sameScope = state.scope?.run === chosen.run && state.scope.tester === chosen.tester;
-    stop();
+    remember(); stop();
     const g = generation, active = () => !disposed && generation === g;
     const ctrl = new AbortController(); cancel = ctrl;
-    patch({...(sameScope ? {} : initialDashboardState()), busy: false, chatError: '', question: '',
-      error: '', status: sameScope ? '正在重新連線 · 保留上次資料' : '正在連線'});
+    patch({...(sameScope ? {} : initialDashboardState()), busy: false, chatError: '',
+      error: '', status: sameScope ? 'Reconnecting · Showing last snapshot' : 'Connecting'});
     let refreshing = false, dirty = false, connected = false;
     async function refresh() {
       if (!active()) return false;
@@ -72,15 +98,15 @@ export function createDashboardLifecycle(transport: Transport, publish: (state: 
             const response = await transport.fetch(runUrl(chosen.run, chosen.tester), {signal: ctrl.signal, cache: 'no-store'});
             const payload = await response.json();
             if (!active()) return false;
-            if (!response.ok) throw Error(responseError(payload, `讀取失敗 (${response.status})`));
+            if (!response.ok) throw Error(responseError(payload, `Request failed (${response.status})`));
             const data = parseSnapshot(payload, chosen.run, chosen.tester);
             chosen.tester = data.run.tester_id;
             acceptSnapshot(data, {...chosen});
-            patch({error: '', status: connected ? '事件流已連線' : stream ? '正在重新連線 · 保留上次資料' : '已取得快照'});
+            patch({error: '', status: connected ? 'Event stream connected' : stream ? 'Reconnecting · Showing last snapshot' : 'Snapshot loaded'});
             succeeded = true;
           } catch (error) {
             if (!active()) return false;
-            patch({error: errorText(error), status: stream ? '快照更新失敗' : '連線失敗'});
+            patch({error: errorText(error), status: stream ? 'Snapshot refresh failed' : 'Connection failed'});
             succeeded = false;
           }
         } while (dirty && active());
@@ -96,20 +122,20 @@ export function createDashboardLifecycle(transport: Transport, publish: (state: 
         if (!active()) return;
         connected = true;
         // A ready event proves transport recovery, not snapshot recovery.
-        if (!state.error) patch({status: '事件流已連線'});
+        if (!state.error) patch({status: 'Event stream connected'});
         update();
       });
       es.addEventListener('edge_event', update);
       es.addEventListener('heartbeat', update);
       es.addEventListener('stream_error', () => {
         if (!active()) return;
-        connected = false; patch({status: '事件流中斷 · 等待重連'});
+        connected = false; patch({status: 'Event stream interrupted · Waiting to reconnect'});
       });
       es.onerror = () => {
         if (!active()) return;
-        connected = false; patch({status: '正在重新連線 · 保留上次資料'});
+        connected = false; patch({status: 'Reconnecting · Showing last snapshot'});
       };
-    } catch (error) {if (active()) patch({error: errorText(error), status: '連線失敗'});}
+    } catch (error) {if (active()) patch({error: errorText(error), status: 'Connection failed'});}
   }
   async function ask(question: string) {
     if (disposed || !state.scope || !question.trim() || state.busy) return;
@@ -118,7 +144,9 @@ export function createDashboardLifecycle(transport: Transport, publish: (state: 
     const ctrl = new AbortController(); chatCancel = ctrl;
     const text = question.trim(), incident = dashboardEvidence(state).current?.incident_id;
     const history = state.messages.slice(-10).map(m => ({role: m.role, content: m.text}));
+    pendingQuestion = text;
     patch({busy: true, chatError: '', question: ''});
+    remember();
     try {
       const response = await transport.fetch(runUrl(scope.run, scope.tester, '/chat'), {
         method: 'POST', headers: {'Content-Type': 'application/json'}, signal: ctrl.signal,
@@ -126,24 +154,29 @@ export function createDashboardLifecycle(transport: Transport, publish: (state: 
       });
       const payload = await response.json();
       if (!active()) return;
-      if (!response.ok) throw Error(responseError(payload, 'AI 調查失敗'));
+      if (!response.ok) throw Error(responseError(payload, 'AI investigation failed'));
       const body = answerSchema.parse(payload);
+      pendingQuestion = '';
       patch({messages: [...state.messages, {role: 'user', text}, {role: 'assistant', text: body.answer, refs: body.evidence_ids, id: body.investigation_id ?? undefined}]});
-    } catch (error) {if (active()) patch({chatError: errorText(error), question: text});}
-    finally {if (active()) patch({busy: false});}
+    } catch (error) {if (active()) patch({chatError: errorText(error), question: state.question || text});}
+    finally {if (active()) {pendingQuestion = ''; patch({busy: false}); remember();}}
   }
   return {
     connect, ask,
-    getState: () => state,
-    setQuestion: (question: string) => patch({question}),
-    setSearch: (search: string) => {if (disposed) return; resetChat(); patch({search, selected: ''});},
-    selectEvidence: (selected: string, citation = false) => {
-      if (disposed) return;
-      if (citation) {cancelChat(); patch({busy: false, chatError: '', question: ''});}
-      else resetChat();
-      patch({selected});
+    restoreSession: async () => {
+      // A manual connection or an earlier restore takes precedence. Never
+      // expose saved history until the backend validates the resolved scope.
+      const scope = conversations.lastScope();
+      if (!disposed && generation === 0 && scope) await connect(scope.run, scope.tester);
     },
-    disconnect: () => {if (disposed) return; stop(); patch({busy: false, status: '已中斷 · 保留上次資料'});},
-    dispose: () => {disposed = true; stop();},
+    getState: () => state,
+    setQuestion: (question: string) => {if (disposed) return; patch({question}); remember();},
+    setSearch: (search: string) => {if (!disposed) patch({search});},
+    selectEvidence: (selected: string, _citation = false) => {
+      if (disposed || !state.data?.evidence.some(e => e.event_id === selected)) return;
+      transition({selected});
+    },
+    disconnect: () => {if (disposed) return; remember(); stop(); patch({busy: false, status: 'Disconnected · Showing last snapshot'});},
+    dispose: () => {if (disposed) return; remember(); disposed = true; stop();},
   };
 }

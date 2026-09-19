@@ -4,22 +4,22 @@ import {readFileSync} from 'node:fs';
 import {displayNumber, investigationAvailability, waferEvaluation, replaySelection} from '../lib/rtdi/ui-presentation.ts';
 
 test('display precision retains missing, zero and very small/large values without changing evidence', () => {
-  assert.equal(displayNumber(null), '未提供'); assert.equal(displayNumber(undefined), '未提供');
-  assert.equal(displayNumber(NaN), '未提供'); assert.equal(displayNumber(0), '0');
+  assert.equal(displayNumber(null), 'Not provided'); assert.equal(displayNumber(undefined), 'Not provided');
+  assert.equal(displayNumber(NaN), 'Not provided'); assert.equal(displayNumber(0), '0');
   const evidence = {prediction: 29.197315625834765};
   assert.equal(displayNumber(evidence.prediction), '29.1973'); assert.equal(evidence.prediction, 29.197315625834765);
   assert.equal(displayNumber(0.00000003), '3.000e-8'); assert.equal(displayNumber(12345678), '1.235e+7');
 });
 test('AI is unavailable until both config and backend are ready, with retry guidance', () => {
   for(const config of [null,{openai_configured:false,backend_connected:true},{openai_configured:true,backend_connected:false}]) assert.equal(investigationAvailability(config,false).enabled,false);
-  assert.match(investigationAvailability(null,true).message,/重新/);
-  assert.match(investigationAvailability({openai_configured:false,backend_connected:true},false).message,/固定規則/);
+  assert.match(investigationAvailability(null,true).message,/Retry/);
+  assert.match(investigationAvailability({openai_configured:false,backend_connected:true},false).message,/rule-based/);
   assert.equal(investigationAvailability({openai_configured:true,backend_connected:true},false).enabled,true);
 });
 test('replay evaluation follows source metadata for any wafer, including a future promoted result', () => {
   const wafer={wafer:'25',expected:'spread_down',expected_first_device:null};
-  assert.match(waferEvaluation(wafer),/未偵測/);
-  assert.match(waferEvaluation({...wafer,wafer:'99'}),/未偵測/);
+  assert.match(waferEvaluation(wafer),/not detected/);
+  assert.match(waferEvaluation({...wafer,wafer:'99'}),/not detected/);
   assert.match(waferEvaluation({...wafer,expected_first_device:40}),/40/);
   assert.equal(waferEvaluation({...wafer,expected:'normal'}),null);
 });

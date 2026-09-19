@@ -3,8 +3,8 @@ import "./globals.css";
 import {AppTheme} from "@/components/theme-controls";
 
 export const metadata: Metadata = {
-  title: "RTDI Insight | grp6",
-  description: "半導體測試事件與 AI 調查工作區。",
+  title: "RTDI | Test Analysis",
+  description: "Semiconductor test evidence, wafer analysis, predictions and investigation records.",
   other: {
     "codex-preview": "development",
   },
@@ -20,7 +20,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="zh-Hant" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
       <body className="antialiased"><AppTheme>{children}</AppTheme></body>
     </html>
   );

@@ -6,7 +6,7 @@ import {uiEdgeBatchSchema} from "./ui-wire.ts";
 export function adaptIncoming(input:unknown,state:Workspace):Batch{
  if(input&&typeof input==='object'&&'schema_version' in input&&input.schema_version==='0.1-draft')return batchSchema.parse(input);
  const parsed=uiEdgeBatchSchema.safeParse(input);
- if(!parsed.success)throw Error("格式不符合前端 batch 或 Edge v1。Edge events 至少需要 event_id、type、source_mode、run_id、tester_id、timestamp；時間必須含時區。");
+ if(!parsed.success)throw Error("Invalid UI batch or Edge v1 format. Edge events require event_id, type, source_mode, run_id, tester_id and timestamp. Timestamps must include a timezone.");
  const packet=parsed.data;const records:Batch['records']=[];
  // Actuals may precede predictions in a normalized batch. Join after collecting predictions.
  for(const r of [...packet.events.filter(e=>e.type!=='prediction_actual'),...packet.events.filter(e=>e.type==='prediction_actual')]){

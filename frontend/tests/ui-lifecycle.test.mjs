@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {createDashboardLifecycle, dashboardEvidence} from '../lib/rtdi/ui-lifecycle.ts';
+import {CONVERSATION_SESSION_KEY} from '../lib/rtdi/ui-conversations.ts';
 
 const tick = () => new Promise(resolve => setImmediate(resolve));
 function deferred() {let resolve, reject; const promise = new Promise((yes, no) => {resolve = yes; reject = no;}); return {promise, resolve, reject};}
@@ -12,7 +13,7 @@ function fixture(run = 'r1', tester = 't1', label = 'first') {
     commands: [{command_id: `command-${label}`, run_id: run, tester_id: tester, incident_id: event.incident_id, kind: 'show_message', message: label, status: 'queued', expires_at: 'x', created_at: 'x', updated_at: 'x'}],
   };
 }
-function harness() {
+function harness(options) {
   const requests = [], streams = [], states = [];
   const lifecycle = createDashboardLifecycle({
     fetch(url, options) {
@@ -26,7 +27,7 @@ function harness() {
       const stream = {url, closed: false, onerror: null, addEventListener(type, listener) {handlers.set(type, listener);}, close() {this.closed = true;}, emit(type) {if (type === 'error') this.onerror?.(); else handlers.get(type)?.();}};
       streams.push(stream); return stream;
     },
-  }, state => states.push(state));
+  }, state => states.push(state), options);
   return {lifecycle, requests, streams, states, state: () => lifecycle.getState(), async load(run = 'r1', tester = 't1') {
     const pending = lifecycle.connect(run, tester); requests.at(-1).respond(fixture(run, tester)); await pending;
   }};
@@ -83,7 +84,7 @@ test('same-scope reconnect retains last good snapshot; disconnect blocks queued 
   h.streams[0].emit('heartbeat'); h.streams[0].emit('ready'); h.streams[0].emit('error');
   assert.equal(h.requests.length, count); assert.equal(pending.options.signal.aborted, true);
   pending.respond(fixture('r1', 't1', 'late')); await tick();
-  assert.equal(h.state().data, original); assert.equal(h.state().status, '已中斷 · 保留上次資料');
+  assert.equal(h.state().data, original); assert.equal(h.state().status, 'Disconnected · Showing last snapshot');
   const reconnect = h.lifecycle.connect(' r1 ', ' t1 '); assert.equal(h.state().data, original);
   h.requests.at(-1).respond({error: 'temporary'}, 503); await reconnect;
   assert.equal(h.state().data, original); assert.equal(h.state().error, 'temporary');
@@ -98,7 +99,7 @@ test('SSE bursts serialize and coalesce refreshes, including a dirty retry after
   h.requests[1].respond({error: 'temporary'}, 503); await tick();
   assert.equal(h.requests.length, 3); assert.equal(h.state().error, 'temporary');
   h.requests[2].respond(fixture('r1', 't1', 'latest')); await tick();
-  assert.equal(h.requests.length, 3); assert.equal(h.state().error, ''); assert.equal(h.state().status, '事件流已連線');
+  assert.equal(h.requests.length, 3); assert.equal(h.state().error, ''); assert.equal(h.state().status, 'Event stream connected');
   assert.equal(h.state().data.commands[0].message, 'latest');
 });
 
@@ -107,8 +108,8 @@ test('ready does not erase snapshot errors; successful refresh clears error and 
   es.emit('edge_event'); h.requests.at(-1).respond({error: 'read failed'}, 500); await tick();
   es.emit('error'); es.emit('ready'); assert.equal(h.state().error, 'read failed');
   es.emit('stream_error'); h.requests.at(-1).respond(fixture()); await tick();
-  assert.equal(h.state().error, ''); assert.match(h.state().status, /重新連線/);
-  es.emit('ready'); h.requests.at(-1).respond(fixture()); await tick(); assert.equal(h.state().status, '事件流已連線');
+  assert.equal(h.state().error, ''); assert.match(h.state().status, /Reconnecting/);
+  es.emit('ready'); h.requests.at(-1).respond(fixture()); await tick(); assert.equal(h.state().status, 'Event stream connected');
 });
 
 test('late chat success/error/finally cannot overwrite the new scope or release its busy state', async () => {
@@ -160,4 +161,208 @@ test('unmount aborts resources and ignores late responses, errors and closed-str
   h.streams[0].emit('ready'); h.streams[0].emit('error'); await h.lifecycle.connect('new', 'tester'); await h.lifecycle.ask('ignored');
   assert.equal(h.states.length, count); assert.equal(h.requests.length, requests);
   assert.equal(h.streams[0].closed, true); assert.equal(snapshot.options.signal.aborted, true); assert.equal(request.options.signal.aborted, true);
+});
+
+function memoryStorage() {
+  const values = new Map();
+  return {values, writes: 0, getItem(key) {return values.get(key) ?? null;}, setItem(key, value) {this.writes++; values.set(key, value);}};
+}
+function multipleEvidence(run = 'r1', tester = 't1') {
+  const data = fixture(run, tester);
+  data.evidence.push({...data.evidence[0], event_id: 'sibling', evidence_id: 'evidence-sibling'});
+  data.evidence.push(fixture(run, tester, 'second').evidence[0]);
+  return data;
+}
+async function loadEvidence(h, data = multipleEvidence()) {
+  const pending = h.lifecycle.connect(data.run.run_id, data.run.tester_id);
+  h.requests.at(-1).respond(data); await pending;
+}
+async function answer(h, question = 'why', text = 'saved answer') {
+  const pending = h.lifecycle.ask(question);
+  h.requests.at(-1).respond({answer: text, evidence_ids: ['evidence-first'], investigation_id: 'saved-investigation'});
+  await pending;
+}
+
+test('search and same-evidence selection preserve conversation, draft and pending request', async () => {
+  const h = harness(); await loadEvidence(h); await answer(h);
+  h.lifecycle.setQuestion('draft');
+  h.lifecycle.setSearch('no matching evidence');
+  assert.equal(dashboardEvidence(h.state()).filtered.length, 0);
+  assert.equal(dashboardEvidence(h.state()).current.event_id, 'first');
+  assert.equal(h.state().messages.length, 2); assert.equal(h.state().question, 'draft');
+  const pending = h.lifecycle.ask('next'), request = h.requests.at(-1);
+  h.lifecycle.setSearch('heartbeat'); h.lifecycle.selectEvidence('first');
+  assert.equal(h.state().busy, true); assert.equal(request.options.signal.aborted, false);
+  h.lifecycle.selectEvidence('unknown citation', true);
+  assert.equal(h.state().selected, 'first'); assert.equal(h.state().busy, true);
+  request.respond({answer: 'next answer'}); await pending;
+  assert.equal(h.state().messages.length, 4);
+});
+
+test('same-incident evidence keeps history and draft but cancels an investigation tied to the previous evidence', async () => {
+  const h = harness(); await loadEvidence(h); await answer(h);
+  h.lifecycle.setQuestion('retained draft'); h.lifecycle.selectEvidence('sibling');
+  assert.equal(h.state().question, 'retained draft'); assert.equal(h.state().messages.length, 2);
+  const pending = h.lifecycle.ask('interrupted question'), request = h.requests.at(-1);
+  h.lifecycle.selectEvidence('first', true);
+  assert.equal(request.options.signal.aborted, true); assert.equal(h.state().busy, false);
+  assert.equal(h.state().question, 'interrupted question');
+  request.respond({answer: 'late answer'}); await pending;
+  assert.equal(h.state().messages.length, 2); assert.equal(h.state().question, 'interrupted question');
+});
+
+test('incident and citation navigation restore separate histories and submit only destination history', async () => {
+  const h = harness(); await loadEvidence(h); await answer(h, 'first question', 'first answer');
+  h.lifecycle.setQuestion('first draft'); h.lifecycle.selectEvidence('second', true);
+  assert.deepEqual(h.state().messages, []); assert.equal(h.state().question, '');
+  const pending = h.lifecycle.ask('second question');
+  assert.deepEqual(JSON.parse(h.requests.at(-1).options.body).history, []);
+  assert.equal(JSON.parse(h.requests.at(-1).options.body).incident_id, 'incident-second');
+  h.requests.at(-1).respond({answer: 'second answer'}); await pending;
+  h.lifecycle.setQuestion('second draft'); h.lifecycle.selectEvidence('first', true);
+  assert.equal(h.state().question, 'first draft'); assert.equal(h.state().messages[1].text, 'first answer');
+  const followup = h.lifecycle.ask('first followup');
+  assert.deepEqual(JSON.parse(h.requests.at(-1).options.body).history, [{role: 'user', content: 'first question'}, {role: 'assistant', content: 'first answer'}]);
+  h.requests.at(-1).respond({answer: 'first followup answer'}); await followup;
+  h.lifecycle.selectEvidence('second');
+  assert.equal(h.state().messages.length, 2); assert.equal(h.state().messages[1].text, 'second answer');
+  assert.equal(h.state().question, 'second draft');
+});
+
+test('identical incident IDs stay isolated by resolved run and tester, including unqualified lookup', async () => {
+  const h = harness(); await h.load(); await answer(h, 'original', 'original answer');
+  h.lifecycle.setQuestion('original draft');
+  for (const [run, tester] of [['r2', 't1'], ['r1', 't2']]) {
+    await h.load(run, tester); assert.deepEqual(h.state().messages, []);
+    await answer(h, tester, run + tester);
+  }
+  const pending = h.lifecycle.connect('r1', '');
+  assert.deepEqual(h.state().messages, []); assert.equal(h.state().scope, null);
+  h.requests.at(-1).respond(fixture()); await pending;
+  assert.equal(h.state().messages[1].text, 'original answer'); assert.equal(h.state().question, 'original draft');
+  await h.load('r1', 't2'); assert.equal(h.state().messages[1].text, 'r1t2');
+});
+
+test('evidence without an incident gets event-specific history separate from run-summary chat', async () => {
+  const h = harness(), data = multipleEvidence();
+  for (const event of data.evidence) delete event.incident_id;
+  await loadEvidence(h, data); await answer(h, 'event first');
+  h.lifecycle.selectEvidence('sibling'); assert.deepEqual(h.state().messages, []);
+  const pending = h.lifecycle.ask('event sibling');
+  assert.equal(JSON.parse(h.requests.at(-1).options.body).incident_id, undefined);
+  assert.deepEqual(JSON.parse(h.requests.at(-1).options.body).history, []);
+  h.requests.at(-1).respond({answer: 'sibling answer'}); await pending;
+  h.lifecycle.selectEvidence('first'); assert.equal(h.state().messages[0].text, 'event first');
+  const empty = {...data, evidence: []};
+  h.streams[0].emit('heartbeat'); h.requests.at(-1).respond(empty); await tick();
+  assert.deepEqual(h.state().messages, []); await answer(h, 'run question', 'run answer');
+  h.streams[0].emit('heartbeat'); h.requests.at(-1).respond(data); await tick();
+  assert.equal(h.state().messages[0].text, 'event first');
+  h.streams[0].emit('heartbeat'); h.requests.at(-1).respond(empty); await tick();
+  assert.equal(h.state().messages[1].text, 'run answer');
+});
+
+test('route remount restores selected evidence, exact scope, messages, references and drafts after a fresh snapshot', async () => {
+  const storage = memoryStorage(), h = harness({conversationStorage: storage});
+  await loadEvidence(h); await answer(h); h.lifecycle.setQuestion('first draft');
+  h.lifecycle.selectEvidence('second'); await answer(h, 'second question', 'second answer');
+  h.lifecycle.setQuestion('second draft'); h.lifecycle.dispose();
+  const remount = harness({conversationStorage: storage});
+  assert.deepEqual(remount.state().messages, []);
+  const restore = remount.lifecycle.restoreSession();
+  assert.equal(remount.requests[0].url, '/api/v1/runs/r1?tester_id=t1');
+  assert.equal(remount.state().data, null); assert.deepEqual(remount.state().messages, []);
+  remount.requests[0].respond(multipleEvidence()); await restore;
+  assert.equal(remount.state().selected, 'second'); assert.equal(remount.state().question, 'second draft');
+  assert.equal(remount.state().messages[1].text, 'second answer'); assert.equal(remount.state().busy, false);
+  remount.lifecycle.selectEvidence('first');
+  assert.equal(remount.state().question, 'first draft');
+  assert.deepEqual(remount.state().messages[1], {role: 'assistant', text: 'saved answer', refs: ['evidence-first'], id: 'saved-investigation'});
+  const count = remount.requests.length; await remount.lifecycle.restoreSession(); assert.equal(remount.requests.length, count);
+});
+
+test('failed, ambiguous and mismatched restored snapshots never expose cached scope or history', async () => {
+  const storage = memoryStorage(), h = harness({conversationStorage: storage});
+  await h.load(); await answer(h); h.lifecycle.dispose();
+  for (const [payload, status] of [[{error: 'missing'}, 404], [{error: 'ambiguous'}, 409], [fixture('r1', 'wrong-tester'), 200]]) {
+    const next = harness({conversationStorage: storage}), restore = next.lifecycle.restoreSession();
+    next.requests[0].respond(payload, status); await restore;
+    assert.equal(next.state().scope, null); assert.equal(next.state().data, null);
+    assert.deepEqual(next.state().messages, []); assert.notEqual(next.state().error, '');
+    assert.equal(next.streams.length, 0);
+    await next.lifecycle.ask('unresolved'); assert.equal(next.requests.length, 1);
+    next.lifecycle.dispose();
+  }
+  const next = harness({conversationStorage: storage});
+  await next.load(); assert.equal(next.state().messages.length, 2, 'failed restores do not erase the saved conversation');
+});
+
+test('manual connection wins over a pending session restore and stale restored JSON', async () => {
+  const storage = memoryStorage(), h = harness({conversationStorage: storage});
+  await h.load(); await answer(h); h.lifecycle.dispose();
+  const next = harness({conversationStorage: storage}), restore = next.lifecycle.restoreSession();
+  const body = deferred(); next.requests[0].resolve({ok: true, json: () => body.promise}); await tick();
+  await next.load('r2', 't2'); body.resolve(fixture()); await restore;
+  assert.deepEqual(next.state().scope, {run: 'r2', tester: 't2'}); assert.deepEqual(next.state().messages, []);
+  assert.equal(next.streams.length, 1);
+  const count = next.requests.length; await next.lifecycle.restoreSession(); assert.equal(next.requests.length, count);
+});
+
+test('corrupt, unsupported and denied session storage fall back to working in-memory conversations', async () => {
+  for (const raw of ['{broken', JSON.stringify({version: 2}), JSON.stringify({version: 1, lastScope: {run: 'r1', tester: ''}, selections: [], conversations: []}), 'x'.repeat(2_000_001)]) {
+    const storage = memoryStorage(); storage.values.set(CONVERSATION_SESSION_KEY, raw);
+    const h = harness({conversationStorage: storage}); await h.lifecycle.restoreSession();
+    assert.equal(h.requests.length, 0); await loadEvidence(h); await answer(h);
+    h.lifecycle.selectEvidence('second'); h.lifecycle.selectEvidence('first'); assert.equal(h.state().messages.length, 2);
+  }
+  const h = harness({conversationStorage: {getItem() {throw Error('storage denied');}, setItem() {throw Error('quota exceeded');}}});
+  await h.lifecycle.restoreSession(); await loadEvidence(h); await answer(h);
+  h.lifecycle.setQuestion('still works'); h.lifecycle.selectEvidence('second'); h.lifecycle.selectEvidence('first');
+  assert.equal(h.state().messages.length, 2); assert.equal(h.state().question, 'still works'); assert.equal(h.state().chatError, '');
+});
+
+test('late chat bodies and errors cannot contaminate destination state or its persisted session', async () => {
+  for (const fail of [false, true]) {
+    const storage = memoryStorage(), h = harness({conversationStorage: storage});
+    await loadEvidence(h); await answer(h);
+    const old = h.lifecycle.ask('retry old'), request = h.requests.at(-1), body = deferred();
+    if (!fail) {request.resolve({ok: true, json: () => body.promise}); await tick();}
+    h.lifecycle.selectEvidence('second'); const next = h.lifecycle.ask('new question'), nextRequest = h.requests.at(-1);
+    const saved = storage.getItem(CONVERSATION_SESSION_KEY), writes = storage.writes;
+    if (fail) request.reject(Error('old error')); else body.resolve({answer: 'stale answer'});
+    await old;
+    assert.equal(storage.getItem(CONVERSATION_SESSION_KEY), saved); assert.equal(storage.writes, writes);
+    assert.equal(h.state().busy, true); assert.equal(h.state().chatError, ''); assert.deepEqual(h.state().messages, []);
+    nextRequest.respond({answer: 'new answer'}); await next;
+    h.lifecycle.selectEvidence('first'); assert.equal(h.state().messages.length, 2); assert.equal(h.state().question, 'retry old');
+  }
+});
+
+test('disposing during AI preserves a retryable draft without resurrecting pending work or persisting late success', async () => {
+  const storage = memoryStorage(), h = harness({conversationStorage: storage});
+  await h.load(); await answer(h);
+  const pending = h.lifecycle.ask('retry on return'), request = h.requests.at(-1);
+  h.lifecycle.dispose(); const saved = storage.getItem(CONVERSATION_SESSION_KEY), writes = storage.writes;
+  request.respond({answer: 'late answer'}); await pending;
+  h.lifecycle.setQuestion('ignored'); h.lifecycle.setSearch('ignored'); h.lifecycle.selectEvidence('first'); h.lifecycle.dispose();
+  assert.equal(storage.getItem(CONVERSATION_SESSION_KEY), saved); assert.equal(storage.writes, writes);
+  const remount = harness({conversationStorage: storage}), restore = remount.lifecycle.restoreSession();
+  remount.requests[0].respond(fixture()); await restore;
+  assert.equal(remount.state().messages.length, 2); assert.equal(remount.state().question, 'retry on return');
+  assert.equal(remount.state().busy, false); assert.equal(remount.state().chatError, ''); assert.equal(remount.requests.length, 1);
+});
+
+test('snapshot removal keeps same-incident history, while reassignment isolates a changed incident on the same event', async () => {
+  const h = harness(); await loadEvidence(h); await answer(h);
+  const pending = h.lifecycle.ask('cancel on removal'), request = h.requests.at(-1);
+  const removed = multipleEvidence(); removed.evidence.shift();
+  h.streams[0].emit('heartbeat'); h.requests.at(-1).respond(removed); await tick();
+  assert.equal(h.state().selected, 'sibling'); assert.equal(h.state().messages.length, 2);
+  assert.equal(h.state().question, 'cancel on removal'); assert.equal(request.options.signal.aborted, true);
+  request.respond({answer: 'removed evidence answer'}); await pending;
+  removed.evidence[0].incident_id = 'new-incident';
+  h.streams[0].emit('heartbeat'); h.requests.at(-1).respond(removed); await tick();
+  assert.deepEqual(h.state().messages, []); assert.equal(h.state().question, '');
+  h.streams[0].emit('heartbeat'); h.requests.at(-1).respond(multipleEvidence()); await tick();
+  assert.equal(h.state().selected, 'sibling'); assert.equal(h.state().messages.length, 2);
 });

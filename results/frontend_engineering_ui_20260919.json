@@ -1,0 +1,199 @@
+{
+  "scope": "Engineering frontend integration; local browser acceptance",
+  "base_revision": "3eb5c142b04ab45060273a86c3fbdee47ca08aa9",
+  "unit_tests": {
+    "passed": 150,
+    "command": "npm test"
+  },
+  "typecheck": {
+    "passed": true,
+    "command": "npx tsc --noEmit"
+  },
+  "workspace_browser": {
+    "base": "http://localhost:5173",
+    "checkedAt": "2026-09-19T12:00:01.166Z",
+    "modelCalls": 0,
+    "simulatedAnswers": 1,
+    "checks": [
+      "Persisted replay snapshot: 114 events",
+      "Load run and evidence selection",
+      "Suggested question fills draft without API request",
+      "Prediction/command tabs preserve investigation log; 24 prediction rows",
+      "Switching incidents restores isolated conversations",
+      "Search and citation retain completed conversation",
+      "Reload restores run and conversation after fresh snapshot",
+      "Replay navigation, W25 miss disclosure, validation and limitations",
+      "Route round-trip retains conversation",
+      "Keyboard tabs and disconnect/reconnect retain evidence and conversation",
+      "Missing run clears stale scope; valid retry restores its conversation",
+      "Sandbox route and return",
+      "Light/dark selection persists across reload",
+      "390px layout and contained table scrolling"
+    ],
+    "errors": [],
+    "passed": true
+  },
+  "secondary_browser": {
+    "base": "http://localhost:5173",
+    "checkedAt": "2026-09-19T12:10:06.554Z",
+    "modelCalls": 0,
+    "forwardedPosts": 0,
+    "simulatedAnswers": 1,
+    "checks": [
+      "Replay bundled dataset renders all source wafers",
+      "POST gate rejects an unmatched browser request before network delivery",
+      "Replay filter alert selects only matching source wafers",
+      "Replay filter quiet selects only matching source wafers",
+      "Replay filter all selects only matching source wafers",
+      "Next wafer advances and wraps inside the active filter",
+      "Replay clipboard success includes source and local evidence reference",
+      "Replay clipboard failure offers visible manual-copy fallback",
+      "Replay raw disclosure exposes the selected source alert exactly",
+      "Replay desktop has contained overflow and readable chart axes",
+      "Valid replay import replaces the dataset locally and resets filter/selection",
+      "Replay invalid-syntax import preserves the previous dataset",
+      "Replay invalid-schema import preserves the previous dataset",
+      "Replay oversize import preserves the previous dataset",
+      "Reload snapshot replaces an imported dataset with the bundled source",
+      "Browser reload restores the bundled source",
+      "Replay 390px analysis has no document overflow",
+      "Replay 390px validation has no document overflow",
+      "Replay 390px limitations has no document overflow",
+      "Sandbox duplicate before first batch shows a visible error",
+      "Sandbox receives anomaly fixture with scoped evidence and six predictions",
+      "Sandbox receives normal fixture with scoped evidence and six predictions",
+      "Sandbox receives missing fixture with scoped evidence and six predictions",
+      "Sandbox duplicate delivery preserves unique events",
+      "Sandbox valid JSON is parsed and received through the visible receiver",
+      "Sandbox invalid JSON syntax preserves the event workspace",
+      "Sandbox invalid JSON schema preserves the event workspace",
+      "Sandbox raw disclosure matches the received event ID",
+      "Sandbox clipboard success copies the selected source",
+      "Sandbox clipboard failure reports a manual-copy fallback",
+      "Sandbox question templates fill drafts without submitting",
+      "Sandbox demo requires explicit submit and renders a browser-mocked answer",
+      "Sandbox desktop has contained overflow and readable chart axes",
+      "Sandbox 390px analysis has no document overflow",
+      "Sandbox 390px predictions has no document overflow",
+      "Sandbox 390px json has no document overflow",
+      "Sandbox reset clears events, conversation, errors and the question draft",
+      "No unexpected POST attempts or uncaught browser errors"
+    ],
+    "failures": [],
+    "errors": [],
+    "findings": [],
+    "limits": [
+      "Local browser UI acceptance only; no live tester or model validation.",
+      "Assistant and clipboard success/failure are browser test doubles.",
+      "Import fixtures stay in browser memory and are not uploaded."
+    ],
+    "sourceHashesBefore": {
+      "scripts/verify-secondary-ui.mjs": "1e3cb5d3f96a12548e17efebfc1aa62befd346082a8bfc357c812f9d3c2c5611",
+      "app/replay/page.tsx": "855accdb68b8f68bd29cfd0bacd28d71e9111d5c190ff6d1b2033092988af9f1",
+      "app/sandbox/page.tsx": "c4b4b1383a5adbc3010378e58d40e72cfde850096c1824a2ecef8e3c951b67f5",
+      "app/replay/replay.css": "f85f06b8f284815d664b07b8446fab2b724ec28cae17e3faa13dd65b9c0b797a",
+      "app/globals.css": "d27ef2d4bc4012840cd913836888b26cc8bd2ad600ed68a0a219fe89b13860fb",
+      "lib/rtdi/replay.ts": "da18dcfff6337c9f7b7afcd6ce2411b07801263adb18814fb7ebdfddc383e16c",
+      "lib/rtdi/fixtures.ts": "a0a8900242d3db27e3a24130213f0c633b15ff1cf144afae25399395eddfdb5a",
+      "lib/rtdi/edge-adapter.ts": "dc8110999a62ee7363184f3bb12f0b9fa4a273ffdda960d57733873e39ac92c8"
+    },
+    "bundledSummarySha256": "f086d2c6887aef9fd34e7804c7e56de36f826d71b49e3927e7261913487d856c",
+    "bundledWaferCount": 25,
+    "chartMetrics": {
+      "Replay desktop": [
+        {
+          "width": 946,
+          "container": 946,
+          "overflow": "auto",
+          "axes": [
+            17.464182692307695,
+            17.464182692307695,
+            17.464182692307695,
+            17.464182692307695,
+            17.464182692307695,
+            17.464182692307695,
+            17.464182692307695,
+            17.464182692307695,
+            17.464182692307695
+          ]
+        }
+      ],
+      "Replay mobile": [
+        {
+          "width": 650,
+          "container": 316,
+          "overflow": "auto",
+          "axes": [
+            12,
+            12,
+            12,
+            12,
+            12,
+            12,
+            12,
+            12,
+            12
+          ]
+        }
+      ],
+      "Sandbox desktop": [
+        {
+          "width": 778.59375,
+          "container": 779,
+          "overflow": "auto",
+          "axes": [
+            14.373670212765958,
+            14.373670212765958,
+            14.373670212765958,
+            14.373670212765958,
+            14.373670212765958,
+            14.373670212765958,
+            14.373670212765958,
+            14.373670212765958
+          ]
+        }
+      ],
+      "Sandbox mobile": [
+        {
+          "width": 650,
+          "container": 316,
+          "overflow": "auto",
+          "axes": [
+            12,
+            12,
+            12,
+            12,
+            12,
+            12,
+            12,
+            12
+          ]
+        }
+      ]
+    },
+    "sourceHashesAfter": {
+      "scripts/verify-secondary-ui.mjs": "1e3cb5d3f96a12548e17efebfc1aa62befd346082a8bfc357c812f9d3c2c5611",
+      "app/replay/page.tsx": "855accdb68b8f68bd29cfd0bacd28d71e9111d5c190ff6d1b2033092988af9f1",
+      "app/sandbox/page.tsx": "c4b4b1383a5adbc3010378e58d40e72cfde850096c1824a2ecef8e3c951b67f5",
+      "app/replay/replay.css": "f85f06b8f284815d664b07b8446fab2b724ec28cae17e3faa13dd65b9c0b797a",
+      "app/globals.css": "d27ef2d4bc4012840cd913836888b26cc8bd2ad600ed68a0a219fe89b13860fb",
+      "lib/rtdi/replay.ts": "da18dcfff6337c9f7b7afcd6ce2411b07801263adb18814fb7ebdfddc383e16c",
+      "lib/rtdi/fixtures.ts": "a0a8900242d3db27e3a24130213f0c633b15ff1cf144afae25399395eddfdb5a",
+      "lib/rtdi/edge-adapter.ts": "dc8110999a62ee7363184f3bb12f0b9fa4a273ffdda960d57733873e39ac92c8"
+    },
+    "sourceChangedDuringAudit": [],
+    "passed": true,
+    "checkCount": 38
+  },
+  "visual_review": [
+    "Dashboard light/dark and 390px",
+    "Replay mobile analysis",
+    "Sandbox desktop"
+  ],
+  "limits": [
+    "No paid model calls; browser assistant responses mocked.",
+    "Accepted replay remains 14 alerts, W25 missed; no Python runtime deployment.",
+    "Session history persists within the browser tab, not across devices.",
+    "Production build and public verification pending at this source commit."
+  ]
+}
