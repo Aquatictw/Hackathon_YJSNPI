@@ -1,0 +1,92 @@
+{
+  "thresholds": {
+    "Main": 0.7215976837461687,
+    "Main.subflow1": 0.6931471805599453,
+    "Main.subflow2": 0.6931471805599453,
+    "Main.subflow3": 0.6931471805599453,
+    "Main.subflow4": 0.6931471805599453,
+    "Main.subflow5": 0.6931471805599453,
+    "Main.subflow6": 0.6931471805599453
+  },
+  "additions": [
+    {
+      "wafer": 1,
+      "completed_devices": 56,
+      "family": "Main.subflow1",
+      "statistic": 1.2544766902306181,
+      "threshold": 0.6931471805599453,
+      "normalized": 1.8098272999065133,
+      "hits": 65,
+      "family_tests": 500,
+      "passed": true,
+      "streak": 2
+    },
+    {
+      "wafer": 3,
+      "completed_devices": 40,
+      "family": "Main.subflow1",
+      "statistic": 2.5832549289135596,
+      "threshold": 0.6931471805599453,
+      "normalized": 3.726849075295564,
+      "hits": 40,
+      "family_tests": 500,
+      "passed": true,
+      "streak": 2
+    },
+    {
+      "wafer": 14,
+      "completed_devices": 64,
+      "family": "Main.subflow2",
+      "statistic": 1.8493514077522633,
+      "threshold": 0.6931471805599453,
+      "normalized": 2.6680501048252134,
+      "hits": 110,
+      "family_tests": 500,
+      "passed": true,
+      "streak": 2
+    },
+    {
+      "wafer": 18,
+      "completed_devices": 64,
+      "family": "Main.subflow3",
+      "statistic": 1.835353698022106,
+      "threshold": 0.6931471805599453,
+      "normalized": 2.647855678413712,
+      "hits": 110,
+      "family_tests": 500,
+      "passed": true,
+      "streak": 2
+    },
+    {
+      "wafer": 23,
+      "completed_devices": 64,
+      "family": "Main.subflow6",
+      "statistic": 1.1781600311215787,
+      "threshold": 0.6931471805599453,
+      "normalized": 1.6997256342726885,
+      "hits": 89,
+      "family_tests": 500,
+      "passed": true,
+      "streak": 2
+    },
+    {
+      "wafer": 25,
+      "completed_devices": 80,
+      "family": "Main.subflow1",
+      "statistic": 1.6177418909209484,
+      "threshold": 0.6931471805599453,
+      "normalized": 2.3339082034699867,
+      "hits": 32,
+      "family_tests": 500,
+      "passed": true,
+      "streak": 2
+    }
+  ],
+  "acceptance": {
+    "w25_spread_down": true,
+    "other_expected_categories_no_later": true,
+    "w2_low_yield_preserved": true,
+    "all_baseline_alerts_preserved": true,
+    "all_normal_labels_no_extra_alerts": true
+  }
+}
