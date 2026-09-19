@@ -246,6 +246,13 @@ Next: finish inspecting Predict.java RunPredict; open code-server; correct CSV p
 - Live six-stage prediction coverage and tester prediction/alert receipt are still unverified. Next: fix PartFlag handling with regression coverage, make evidence retrievable, redeploy, repeat controlled engineering run and audit tester responses.
 - Recreated concise TEAM_PROGRESS.md for sharing; records verified offline/VM results separately from incomplete live acceptance.
 
+### Checkpoint September 19 — live callback fix and acceptance tracking
+- User authorized continued A/B implementation through SSH and VNC, and requested evidence-backed acceptance checkboxes and git pushes after substantial verified changes.
+- Local monitor preserves PartFlag as raw string, avoiding the SDK hex-string conversion failure. Evidence is also mirrored to stdout with GRP6_EVIDENCE prefix. Added regression proving two device completions, correct bin yield, feature cleanup and raw flag preservation. All14 tests pass; results/fix_tests.log.
+- Current browser1 SSH12 and VNC11. Fresh SSH hostname verified group-6. typeText failed silently; individual pressKey calls work, using Space for spaces. Long commands can leave stale terminal rendering; inspect file output before assuming failure.
+- Copied original remote build to grp6_build_livefix, patched flag and evidence logging there. Remote build/tests started for unifiedserver.local/grp6/py-app:livefix-20260919. No redeployment or live pass yet. Logs grp6_livefix_build.log and grp6_livefix_tests.log.
+- Updated architecture section12 with separately checked intermediate milestones and unchecked full live acceptance; baseline/model wafer validation supported by artifacts/validation.json.
+
 ### Repository checkpoint September 19
 - GitHub origin: Aquatictw/Hackathon_YJSNPI, main branch, HTTPS transport. Initial README pushed successfully; user requested tracking and pushing all project files.
 - Added .gitignore for Python caches, local environments, Eclipse workspace metadata, and local credential files. Source, models, datasets, reports, documentation, archives, and analysis artifacts included.

@@ -68,6 +68,22 @@ class ProtocolTests(unittest.TestCase):
         response=self.core.consumeTPRequest(self.tc,'{"key":"prod_action"}')
         self.assertIn('Yield',response)
         self.assertIn('production_action_response',Path(self.tmp.name,'evidence.jsonl').read_text())
+    def test_hex_part_flags_complete_devices_and_clear_features(self):
+        from contextlib import redirect_stdout
+        from io import StringIO
+        output=StringIO()
+        with redirect_stdout(output):
+            self.core.consumeData(self.tc,Event('PRODUCTION_TESTEND',get_ResultCount=2,
+                query_HeadSite=[65537,65538],query_PartFlag=['0x0','0x8'],
+                query_SBinResult=[1,2],query_PartId=['p1','p2']))
+        self.assertEqual(self.core.counts['callback_errors'],0)
+        self.assertEqual(self.core.detectors[self.tc.testerId].completed,2)
+        self.assertEqual(self.core.detectors[self.tc.testerId].good,1)
+        self.assertEqual(self.core.state.snapshot(self.tc.testerId),{})
+        records=[json.loads(line) for line in Path(self.tmp.name,'evidence.jsonl').read_text().splitlines()]
+        ends=[r for r in records if r['kind']=='device_end']
+        self.assertEqual([r['part_flag'] for r in ends],['0x0','0x8'])
+        self.assertIn('GRP6_EVIDENCE ',output.getvalue())
     def test_bad_stage_and_invalid_payload_are_logged(self):
         for request in ['bad','{"key":"predict","data":7}','{"key":"predict","data":true}']:
             self.assertEqual(self.core.consumeTPRequest(self.tc,request),'')

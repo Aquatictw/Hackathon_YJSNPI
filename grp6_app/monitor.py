@@ -47,7 +47,9 @@ class MonitorCore:
         self.stream.close()
 
     def log(self, kind, **fields):
-        self.stream.write(json.dumps(dict(time=time.time(), kind=kind, **fields), allow_nan=False)+'\n')
+        record = json.dumps(dict(time=time.time(), kind=kind, **fields), allow_nan=False)
+        self.stream.write(record+'\n')
+        print('GRP6_EVIDENCE '+record, flush=True)
 
     def send_message(self, tester, message):
         try:
@@ -125,7 +127,7 @@ class MonitorCore:
                     for i in range(data.get_ResultCount()):
                         site = str(self.to_site(data.query_HeadSite(i)))
                         ended.append(site)
-                        flag = int(data.query_PartFlag(i))
+                        flag = str(data.query_PartFlag(i))
                         # Verified supplied common/DefineBins.java: bin 1 passes,
                         # bins 2..32 fail. Preserve raw flag for audit.
                         sbin = int(data.query_SBinResult(i))

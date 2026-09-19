@@ -474,11 +474,30 @@ sha256sum /tmp/debugger_project_grp6.tar.gz
 
 ## 12. 驗收清單
 
+更新：2026-09-19。以下新增進度依現有 `grp6_app`、驗證產物與 `CONTEST.md` 的 grp6 實測紀錄核對；原設計與現有實作的整合尚待完成。打勾只代表該項具體證據已具備，不代表整個場景通過或保證得分。
+
+### A／B 已驗證的中間交付
+
+- [x] 25 份 CSV／2,000 devices 與完整巢狀 TP flow 已取得並用於訓練；來源 `source_review`。
+- [x] 六個 target、pin 與請求階段對應已建立；六階段 feature manifest 依 TP 執行順序產生（`grp6_app/artifacts/manifest.json`）。物理單位尚待 live 核對。
+- [x] 六個 Ridge 模型及 mean baseline 完成五折 wafer 分組驗證，feature selection 在各 training fold 內完成（`grp6_app/artifacts/validation.json`）。
+- [x] 偵測器與 HTML 證據報告已有 25 wafer replay；命中 6/7 指定異常 wafer，W25 spread decrease 未命中。正常檢查資料曾用於開發，不視為獨立驗證。
+- [x] 原版 image 在 grp6 建置／推送成功，8 個 runtime tests 在 image 與 code-server 通過；版本與 digest 已記錄於 `CONTEST.md`。
+- [x] Nexus 顯示 app running，ONEAPI event／command 連線與 tester 的 test-program acknowledgment 已觀察到。
+- [x] 本機修正 `PartFlag=0x0` callback 錯誤，加入原始 flag 保存與 stdout evidence；14 個本機測試通過（`results/fix_tests.log`）。
+- [ ] 修正版 image 部署後，實際 TestEnd 完成且無 callback error。
+- [ ] Live 六階段所有 active site 均有完整合法特徵，並有 tester 接受預測的紀錄。
+- [ ] 真實偵測異常經 `set_message`、`prod_action` 到 tester 顯示，具備可關聯的完整證據。
+- [ ] W25 漏報完成原因分析與可重現評估；不得依 wafer 編號硬編判斷。
+- [ ] 完整 production rehearsal、image 身分、事件紀錄與 replay 備案保存。
+
+### 完整場景驗收（未完成項保留未勾選）
+
 - [ ] 六個 target 名稱、pin、unit 與請求編號已核對。
 - [ ] 每階段只看請求之前已取得的特徵；修改未來測項後，當前階段預測不變。
 - [ ] 多 device/site/head、重測、跨 wafer 不會混用特徵或聚合回覆。
 - [ ] TP 接受六種回覆；未知編號／缺值／錯誤的回覆符合實際契約。
-- [ ] baseline 與正式模型都有按 wafer 分組的驗證結果。
+- [x] baseline 與正式模型都有按 wafer 分組的驗證結果（現有 grp6_app，`artifacts/validation.json`；不代表 live 精度驗收）。
 - [ ] site imbalance、low yield、mean up/down、stdev up/down 均有評估，正常 wafer 誤報有統計。
 - [ ] 正式 app 已部署到 AUS／Edge，處理真實 Nexus 事件。
 - [ ] 異常使用 `tc.testerId` 設定訊息，action 被正確提供，機台顯示有證據。
