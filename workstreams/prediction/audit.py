@@ -21,7 +21,12 @@ def audit(results, report):
     provenance, metrics, folds = load('provenance.json'), load('metrics.json'), load('fold_models.json')
     for path, expected in provenance['input_sha256'].items():
         if digest(path) != expected:
-            raise AssertionError('Input hash mismatch: ' + path)
+            # Source-only checkout line endings may differ; keep data/model hashes exact.
+            source = Path(path).read_bytes().replace(b'\r\n', b'\n')
+            variants = [source, source.replace(b'\n', b'\r\n')]
+            if Path(path).suffix not in {'.py', '.flow'} or expected not in [hashlib.sha256(value).hexdigest() for value in variants]:
+                raise AssertionError('Input hash mismatch: ' + path)
+            print('PASS: recorded source matches after checkout line-ending normalization: ' + path)
     for name, expected in provenance['output_sha256'].items():
         if digest(results / name) != expected:
             raise AssertionError('Output hash mismatch: ' + name)

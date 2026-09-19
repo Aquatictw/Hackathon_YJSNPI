@@ -60,6 +60,7 @@ export type CommandView = {
   expires_at: string;
   created_at: string;
   updated_at: string;
+  tester_receipt_id: string | null;
 };
 
 export type RunEventUpdate = { cursor: number; event: EdgeRecord };
@@ -76,6 +77,7 @@ const commandView = (row: Row): CommandView => ({
   command_id: String(row.command_id), run_id: String(row.run_id), tester_id: String(row.tester_id),
   incident_id: String(row.incident_id), kind: String(row.kind), message: String(row.message), status: String(row.status),
   expires_at: String(row.expires_at), created_at: String(row.created_at), updated_at: String(row.updated_at),
+  tester_receipt_id: row.tester_receipt_id == null ? null : String(row.tester_receipt_id),
 });
 
 export async function ingestEdgeBatch(batch: EdgeBatch, options: { identityPayload?: unknown; rawEvents?: RawExporterEvent[] } = {}): Promise<IngestResult> {
@@ -212,7 +214,11 @@ export async function getRunSnapshot(runId: string, testerId?: string | null): P
   const [eventResult, incidentResult, commandResult] = await db.batch([
     db.prepare("SELECT payload FROM events WHERE run_id = ? AND tester_id = ? ORDER BY occurred_at, sequence, event_id").bind(runId, selectedTester),
     db.prepare("SELECT incident_id, title, status, severity, first_seen, last_seen FROM incidents WHERE run_id = ? AND tester_id = ? ORDER BY last_seen DESC").bind(runId, selectedTester),
-    db.prepare("SELECT command_id, run_id, tester_id, incident_id, kind, message, status, expires_at, created_at, updated_at FROM commands WHERE run_id = ? AND tester_id = ? ORDER BY created_at DESC").bind(runId, selectedTester),
+    db.prepare(`SELECT c.command_id, c.run_id, c.tester_id, c.incident_id, c.kind, c.message, c.status, c.expires_at, c.created_at, c.updated_at,
+      (SELECT r.tester_receipt_id FROM command_results AS r
+       WHERE r.command_id = c.command_id AND r.run_id = c.run_id AND r.tester_id = c.tester_id AND r.status = c.status
+       ORDER BY r.rowid DESC LIMIT 1) AS tester_receipt_id
+      FROM commands AS c WHERE c.run_id = ? AND c.tester_id = ? ORDER BY c.created_at DESC`).bind(runId, selectedTester),
   ]);
   const eventRows = rows(eventResult as D1Result<Row>);
   const incidentRows = rows(incidentResult as D1Result<Row>);

@@ -138,6 +138,28 @@ test('SSE row cursors resume projected events and remain scoped', async () => {
   assert.equal(await repo.getRunEventUpdates('run', 'wrong', 0), null);
 });
 
+test('snapshot and UI never join replay or simulation actuals to live predictions', async () => {
+  const { predictionRows } = await import('../lib/rtdi/ui-predictions.ts');
+  for (const mode of ['replay', 'simulation']) {
+    for (const actualFirst of [false, true]) {
+      reset();
+      const other = actual({ event_id: 'other-mode', mode });
+      for (const event of actualFirst ? [other, prediction()] : [prediction(), other]) await ingest([event]);
+      let snapshot = await repo.getRunSnapshot('run', 'tester');
+      assert.equal(snapshot.events.find(event => event.type === 'prediction').actual, undefined);
+      assert.equal(predictionRows(snapshot.events)[0].actual, undefined);
+      await ingest([actual()]);
+      snapshot = await repo.getRunSnapshot('run', 'tester');
+      assert.equal(snapshot.events.find(event => event.type === 'prediction').actual, 1.3);
+      assert.equal(predictionRows(snapshot.events)[0].actual, 1.3);
+      await ingest([actual({ event_id: 'second-live-actual' })]);
+      snapshot = await repo.getRunSnapshot('run', 'tester');
+      assert.equal(snapshot.events.find(event => event.type === 'prediction').actual, undefined);
+      assert.equal(predictionRows(snapshot.events)[0].actual, undefined);
+    }
+  }
+});
+
 test('HTTP ACK is withheld when atomic storage fails; retry stores projections once', async () => {
   reset(); env.DB.failCommit = true;
   const incoming = bundle([prediction()], 'atomic');
@@ -181,6 +203,7 @@ test('persisted commands enforce scope, expiry, idempotency, receipt presence an
     run_id: 'run', tester_id: 'tester', timestamp: new Date().toISOString(), incident_id: 'incident', evidence_id: 'evidence' }] }));
   const command = createCommandSchema.parse({ request_id: 'cmd', incident_id: 'incident', kind: 'show_message', message: 'inspect', user_confirmed: true });
   await repo.createRunCommand('run', 'tester', command);
+  assert.equal((await repo.getRunSnapshot('run', 'tester')).commands[0].tester_receipt_id, null);
   assert.equal((await repo.createRunCommand('run', 'tester', command)).status, 'duplicate');
   const ack = (overrides = {}) => commandResultSchema.parse({ ack_id: crypto.randomUUID(), run_id: 'run', tester_id: 'tester', status: 'received', occurred_at: new Date().toISOString(), ...overrides });
   await assert.rejects(repo.recordCommandResult('cmd', ack({ tester_id: 'wrong' })), /範圍不符/);
@@ -190,6 +213,17 @@ test('persisted commands enforce scope, expiry, idempotency, receipt presence an
   await repo.recordCommandResult('cmd', ack({ status: 'queued_to_tester' }));
   assert.equal((await repo.getRunSnapshot('run', 'tester')).commands[0].status, 'queued_to_tester');
   await repo.recordCommandResult('cmd', ack({ status: 'tester_confirmed', tester_receipt_id: 'synthetic-test-receipt' }));
+  let confirmed = parseSnapshot(await repo.getRunSnapshot('run', 'tester'), 'run', 'tester').commands[0];
+  assert.equal(confirmed.tester_receipt_id, 'synthetic-test-receipt');
+  await repo.recordCommandResult('cmd', ack({ status: 'tester_confirmed', tester_receipt_id: 'newer-persisted-receipt', occurred_at: '2020-01-01T00:00:00.000Z' }));
+  confirmed = parseSnapshot(await repo.getRunSnapshot('run', 'tester'), 'run', 'tester').commands[0];
+  assert.equal(confirmed.tester_receipt_id, 'newer-persisted-receipt');
+  // Corrupt/unrelated rows must not supply a receipt to this scoped command.
+  const insert = env.DB.sql.prepare(`INSERT INTO command_results (ack_id, command_id, run_id, tester_id, status, tester_receipt_id, detail, occurred_at, payload_hash) VALUES (?, 'cmd', ?, ?, ?, ?, '', ?, ?)`);
+  for (const [id, run, tester, status] of [['wrong-run', 'other', 'tester', 'tester_confirmed'], ['wrong-tester', 'run', 'other', 'tester_confirmed'], ['wrong-status', 'run', 'tester', 'received']]) {
+    insert.run(id, run, tester, status, 'unrelated', new Date().toISOString(), id);
+  }
+  assert.equal((await repo.getRunSnapshot('run', 'tester')).commands[0].tester_receipt_id, 'newer-persisted-receipt');
   await assert.rejects(repo.recordCommandResult('cmd', ack()), /狀態不可/);
   await repo.createRunCommand('run', 'tester', { ...command, request_id: 'expired' });
   env.DB.sql.prepare("UPDATE commands SET expires_at = '2000-01-01T00:00:00.000Z' WHERE command_id = 'expired'").run();

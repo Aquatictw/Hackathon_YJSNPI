@@ -80,9 +80,10 @@ export function joinPredictionActuals(events: EdgeRecord[]): EdgeRecord[] {
   const actuals = events.filter(event => event.type === "prediction_actual");
   const matches = (prediction: EdgeRecord, observed: EdgeRecord) =>
     prediction.run_id === observed.run_id && prediction.tester_id === observed.tester_id && prediction.request_id === observed.request_id
+    && prediction.source_mode === observed.source_mode
     && (["device_id", "site_id", "stage", "lot_id", "wafer_id", "attempt", "original_request_id"] as const)
       .every(key => observed[key] === undefined || prediction[key] === observed[key]);
-  const key = (event: EdgeRecord) => JSON.stringify([event.run_id, event.tester_id, event.request_id]);
+  const key = (event: EdgeRecord) => JSON.stringify([event.run_id, event.tester_id, event.source_mode, event.request_id]);
   const byRequest = new Map<string, EdgeRecord[]>();
   for (const prediction of predictions) {
     const group = byRequest.get(key(prediction)) ?? [];

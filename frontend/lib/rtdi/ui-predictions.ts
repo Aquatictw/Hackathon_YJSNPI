@@ -19,10 +19,12 @@ export function predictionRows(events:EdgeRecord[]){
   const unambiguous=actuals.filter(a=>records.filter(p=>p.type==='prediction'&&matchesPrediction(a,p)).length===1);
   const values=new Set(unambiguous.map(a=>a.actual));
   const conflict=values.size>1||(prediction.actual!==undefined&&values.size===1&&!values.has(prediction.actual));
-  return {...prediction,actual:conflict?undefined:prediction.actual??unambiguous[0]?.actual,actual_status:conflict?'實測衝突':actuals.length!==unambiguous.length?'實測範圍不唯一':undefined};
+  const ambiguous=actuals.length>1||actuals.length!==unambiguous.length;
+  const joined=conflict||ambiguous?undefined:prediction.actual??unambiguous[0]?.actual;
+  return {...prediction,actual:joined,absolute_error:joined===undefined?undefined:prediction.absolute_error,actual_status:conflict?'實測衝突':ambiguous?'實測範圍不唯一':undefined};
  });
 }
 export function matchesPrediction(actual:EdgeRecord,prediction:EdgeRecord){
  return actual.request_id===prediction.request_id&&actual.run_id===prediction.run_id&&actual.tester_id===prediction.tester_id&&actual.source_mode===prediction.source_mode&&
-  (['lot_id','wafer_id','device_id','site_id','stage','attempt'] as const).every(key=>actual[key]===undefined||actual[key]===prediction[key]);
+  (['lot_id','wafer_id','device_id','site_id','stage','attempt','original_request_id'] as const).every(key=>actual[key]===undefined||actual[key]===prediction[key]);
 }

@@ -84,3 +84,13 @@ test('source provenance survives conversion and reused actual event IDs cannot c
  assert.throws(()=>receive([actual(2,{event_id:'a1'})],state,'changed-target'));
  assert.throws(()=>receive([prediction(1,{sequence:99})],state,'changed-provenance'));
 });
+
+test('snapshot joins require original request provenance and one distinct actual event',()=>{
+ const p=prediction(1,{original_request_id:'original'});
+ assert.equal(predictionRows([p,actual(1,{original_request_id:'other'})])[0].actual,undefined);
+ const a=actual(1,{original_request_id:'original'});
+ assert.equal(predictionRows([p,a])[0].actual,1);
+ const row=predictionRows([{...p,actual:1,absolute_error:1},a,{...a,event_id:'second-equal-actual'}])[0];
+ assert.equal(row.actual,undefined);assert.equal(row.absolute_error,undefined);assert.equal(row.actual_status,'實測範圍不唯一');
+ assert.equal(predictionRows([p,a,a])[0].actual,1);
+});

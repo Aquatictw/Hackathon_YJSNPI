@@ -27,7 +27,7 @@
   ],
   "timestamp_limit": "Both logged clock values retained as observed; timezone alignment not independently verified.",
   "remote_archive": {
-    "path": "/home/user/Case_Event/grp6_receiver_evidence_20260919_pZGge0.tgz",
+    "path": "/home/user/Case_Event/grp6_receiver_evidence_20260919_pZGgeO.tgz",
     "bytes": 14919,
     "sha256": "8ba3f86730e4058de4eb3becc40efc1a4832011476245667ae2ff4dfe5b85eaa"
   },

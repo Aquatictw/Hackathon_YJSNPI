@@ -1,0 +1,42 @@
+{
+  "date": "2026-09-19",
+  "method": "Browser SSH/VNC observations transcribed locally; original files remain on group-6. User uploaded the release.",
+  "host": "group-6",
+  "last_host_check_utc": "08:58:37",
+  "release": {
+    "archive": "grp6_core_alert_json_fix_20260919.zip",
+    "bytes": 337747,
+    "sha256": "6522964d0e1deffa16ca0d50c5cd1909b7172b9bd565efc6c1a92c034a9264fa",
+    "verified_utc": "08:44:21",
+    "extraction": "/home/user/Case_Event/grp6_alert_release_20260919_UcetMt",
+    "contents_limit": "Runtime normalization fix; excludes later strict audit enhancement and teammate integration."
+  },
+  "build": {
+    "exit_code": 0,
+    "packaged_tests_passed": 31,
+    "sdk_monitor_constructed": true,
+    "image": "unifiedserver.local/grp6/py-app:20260919T084518Z",
+    "host_image_id": "sha256:777348f26a386f574f25a034724c3c67ed85a2631c8af8a65b8272f6b15ef125",
+    "registry_manifest_digest": "sha256:df5346c6fc4b74a8c29bbd7d4c9ff245eb9097a2af32e613252a6f3ced345f6b",
+    "model_sha256": "752e7c6c52b0c6e50a2c7ab37b7705ad21ec43ec18df968866832d07ba09afe9"
+  },
+  "activation": {
+    "descriptors": ["/home/user/Case_Event/SmarTest/app_descriptor.json", "/opt/acs/nexus/conf/app_descriptor.json"],
+    "pinned_image": "grp6/py-app:20260919T084518Z",
+    "stop_pin_exit": 0,
+    "start_pin_exit": 0,
+    "fresh_monitor_start": "2026-09-19T08:58:24.268970+00:00",
+    "fresh_sequence": 1,
+    "source_mode": "live",
+    "nexus_restarted": false,
+    "final_nexus_systemctl_probe": "unknown; this probe is not a service-health confirmation"
+  },
+  "preserved_in_release_directory": ["deployment_before.json", "descriptor_before.json", "nexus_descriptor_before.json", "tester_config_before.tgz", "edge_before.log", "build.log", "stop.log", "start.log", "stop_pin.log", "start_pin.log", "edge_pinned.log"],
+  "acceptance": {
+    "actual_edge_image_digest": "UNVERIFIED; host/registry digest is not running-container proof",
+    "new_lot_run": false,
+    "normalized_anomaly_receiver_and_display": "UNVERIFIED",
+    "final_boundary_delivery": "UNVERIFIED",
+    "next": "Verify Nexus Container Status image tag, collect five-second Edge snapshots before one bound 80-device recipe, correlate normalized anomaly IDs with TCCT and Message Center. Git integration took priority before this acceptance run."
+  }
+}

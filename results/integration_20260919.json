@@ -1,0 +1,33 @@
+{
+  "date": "2026-09-19",
+  "scope": "Local Git integration, not cloud deployment or live tester acceptance",
+  "integrated_sources": {
+    "A_base": "12ebfad",
+    "remote_main_with_D": "508e44c",
+    "B": "86445d7",
+    "C": "5f403bd",
+    "D_original": "3e5b829",
+    "D_equivalent_main_commits": ["0ccd860", "d798166"],
+    "E": "be0f088"
+  },
+  "merge_commits": {"B": "2d03052", "C": "7208193", "E": "9e20b9a"},
+  "integration_changes": [
+    "Backend actual joins require equal source_mode; UI joins preserve original request scope and reject multiple distinct actual events even when values agree.",
+    "Snapshot command receipts come from the latest persisted ACK matching command, run, tester and current status.",
+    "Evidence auditors tolerate source-only checkout line endings; C ownership audit accepts an immutable contribution ref. Recorded data/models/outputs remain unchanged.",
+    "SYSTEM records merged contracts, B/C non-promotion decisions and observed pinned app startup with live acceptance limits."
+  ],
+  "checks": [
+    {"cwd": "frontend", "command": "npm test", "passed": 52, "failed": 0},
+    {"cwd": "frontend", "command": "npx tsc --noEmit", "exit_code": 0},
+    {"cwd": "frontend", "command": "npm run build", "exit_code": 0, "limit": "Existing vinext static route-classification warning remains."},
+    {"command": "python -B -m unittest discover -s grp6_app/tests -v", "passed": 46, "failed": 0},
+    {"command": "python -B -m unittest discover -s workstreams/prediction -p test_prediction.py -v", "passed": 13, "failed": 0},
+    {"command": "python -B -m unittest discover -s workstreams/detection -p test_candidate.py -v", "passed": 11, "failed": 0},
+    {"command": "python -B -m workstreams.detection.verify --contribution-ref 5f403bd", "exit_code": 0, "wafers": 25, "devices": 2000},
+    {"command": "workstreams.prediction.audit.audit(results, report), with pathlib.Path.write_text mocked to preserve the existing report", "exit_code": 0, "prediction_rows": 48000, "metric_groups_recomputed": 9360}
+  ],
+  "evidence_limit": "Test commands/output observed during integration. Full model training and live transport were not rerun; subagents independently reviewed each contribution.",
+  "runtime_promotion": {"B": false, "C": false},
+  "remaining_machine_work": "Verify actual Edge image tag/digest and run the bounded recipe with complete snapshots and correlated anomaly receiver/display evidence."
+}
