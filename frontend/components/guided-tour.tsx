@@ -1,7 +1,7 @@
 'use client';
 
 import {useCallback, useEffect, useRef, useState, type MouseEvent} from 'react';
-import {useLocale} from '@/components/locale-provider';
+import {LanguageSelector, useLocale} from '@/components/locale-provider';
 import {createPortal} from 'react-dom';
 import {ArrowLeft, ArrowRight, BookOpen, X} from 'lucide-react';
 import {tourRoute, tourSteps, type TourRoute} from '@/lib/rtdi/tour-steps';
@@ -47,6 +47,16 @@ function clearStep() { try { sessionStorage.removeItem(storageKey); } catch { /*
 function visibleElement(selector:string):HTMLElement|null {
   return [...document.querySelectorAll<HTMLElement>(selector)].find(el => el.getClientRects().length > 0 && !el.closest('[hidden]')) ?? null;
 }
+function highlightBounds(target:HTMLElement) {
+  const bounds = target.getBoundingClientRect();
+  if (!target.matches('.alert-selector')) return bounds;
+  const buttons = [...target.querySelectorAll('button')].filter(el=>el.getClientRects().length).map(el=>el.getBoundingClientRect());
+  if (!buttons.length) return bounds;
+  // The selector's top-only padding is layout spacing, not part of its control row.
+  // Keep the full available row width and every wrapped button, with equal outer spacing.
+  const style = getComputedStyle(target);
+  return {left:bounds.left+parseFloat(style.paddingLeft),right:bounds.right-parseFloat(style.paddingRight),top:Math.min(...buttons.map(r=>r.top)),bottom:Math.max(...buttons.map(r=>r.bottom))};
+}
 function activateTab(tab:HTMLElement) {
   if (tab.getAttribute('role') !== 'tab' || tab.getAttribute('aria-selected') === 'true') return;
   // Radix selects on mousedown; workspace tabs use a normal click handler.
@@ -56,7 +66,6 @@ function activateTab(tab:HTMLElement) {
 
 function routeBlocker(route:TourRoute|null, initialInputs:string, dirtyInputs:boolean):string|null {
   if (document.querySelector('.dc-thinking,.thinking')) return 'An investigation is still running. Close the guide and wait for it before changing pages.';
-  if (route === '/' && (document.querySelector('.replay-source[data-tour-local-import="true"]') || document.querySelector('.replay-source')?.textContent?.includes('Local import'))) return 'This page contains a local replay import. Leaving would replace it with the bundled snapshot. Close the guide to keep reviewing it; other chapters remain available from Guide later.';
   if (route === '/sandbox' && (document.querySelector('.inbox-item,.chat-message') || [...document.querySelectorAll<HTMLTextAreaElement>('main textarea')].some(el=>el.value.trim()))) return 'This sandbox contains local events, answers or a draft. Page navigation would discard them. Close the guide to keep working here; open another chapter after you have preserved your work.';
   if (route === '/workspace') {
     const inputs = JSON.stringify([...document.querySelectorAll<HTMLInputElement>('.dc-connect input')].map(el=>el.value));
@@ -177,7 +186,7 @@ export function GuidedTour() { const {t}=useLocale();
       const cw = card.offsetWidth, ch = card.offsetHeight, gap = 16;
       let left = ox + Math.max(gap,(vw-cw)/2), top = oy + Math.max(gap,(vh-ch)/2), hole:Box|null = null, attached = false;
       if (target) {
-        const r = target.getBoundingClientRect();
+        const r = highlightBounds(target);
         const l = Math.max(ox,r.left-6), t = Math.max(oy,r.top-6);
         const right = Math.min(ox+vw,r.right+6), bottom = Math.min(oy+vh,r.bottom+6);
         if (right>l && bottom>t) hole = {left:l,top:t,width:right-l,height:bottom-t};
@@ -204,6 +213,8 @@ export function GuidedTour() { const {t}=useLocale();
     if (main) mutations.observe(main,{childList:true,subtree:true,attributes:true,attributeFilter:['hidden','data-state','aria-selected']});
     const sizes = new ResizeObserver(schedule);
     if (cardRef.current) sizes.observe(cardRef.current);
+    const target = step ? visibleElement(step.target) : null;
+    if (target) sizes.observe(target);
     if (main) sizes.observe(main);
     window.addEventListener('resize',schedule); window.addEventListener('scroll',schedule,true);
     window.visualViewport?.addEventListener('resize',schedule); window.visualViewport?.addEventListener('scroll',schedule);
@@ -247,6 +258,7 @@ export function GuidedTour() { const {t}=useLocale();
       </>}
       <section className="rtdi-tour-card" ref={cardRef} role="dialog" aria-modal="true" aria-labelledby="rtdi-tour-title" aria-describedby="rtdi-tour-description" data-step={step?.id ?? 'chapters'} data-attached={placement.attached} style={{left:placement.left,top:placement.top}}>
         <div className="rtdi-tour-top"><span>{t(step ? step.chapter : 'RTDI product guide')}</span><button type="button" onClick={close} aria-label={t("Close guide")}><X size={20} aria-hidden="true"/></button></div>
+        <div className="rtdi-tour-language"><span>{t('Website language')}</span><LanguageSelector/></div>
         <div className="rtdi-tour-content">
           <h2 id="rtdi-tour-title" tabIndex={-1} ref={titleRef}>{t(step?.title ?? 'Explore the interface')}</h2>
           <p id="rtdi-tour-description">{t(step?.body ?? 'Choose a chapter, or start with Replay analysis and continue through all three pages. The guide never submits model requests or changes your data.')}</p>

@@ -19,7 +19,7 @@ const file=(value=raw,name='import.json')=>({name,size:100,text:async()=>JSON.st
 // Execute the page's real handlers with deterministic hook storage and mocked I/O.
 // This covers state transitions, not DOM, hydration, layout or framework routing.
 function harness({fetch=async()=>response(),writeText=async()=>{}}={}){
- const slots=[],effects=[];let cursor=0,tree,cleanups=[];
+ const slots=[],effects=[];let cursor=0,tree,cleanups=[],savedSource=null;
  const hooks={
   useState(initial){const i=cursor++;if(!(i in slots))slots[i]=typeof initial==='function'?initial():initial;return [slots[i],value=>{slots[i]=typeof value==='function'?value(slots[i]):value;}];},
   useRef(initial){const i=cursor++;return slots[i]??=( {current:initial} );},
@@ -31,6 +31,7 @@ function harness({fetch=async()=>response(),writeText=async()=>{}}={}){
   if(name==='react/jsx-runtime')return {jsx,jsxs:jsx,Fragment:'Fragment'};
   if(name==='@/lib/rtdi/replay')return replay;
   if(name==='@/lib/rtdi/ui-presentation')return presentation;
+  if(name==='@/lib/rtdi/source-session')return {readSourceSession:()=>savedSource,writeSourceSession:value=>{savedSource=value;},updateReplaySelection:value=>{if(savedSource?.replay)savedSource.replay.selection=value;}};
   if(name==='@/components/locale-provider')return {useLocale:()=>({locale:'en',t:(text,...values)=>translate('en',text,...values),setLocale:()=>{}})};
   if(name.endsWith('.css'))return {};
   if(name==='lucide-react'||name.startsWith('@/components/'))return symbols;
@@ -65,7 +66,9 @@ test('English review keeps the accepted replay counts, W25 miss and source limit
  assert.match(app.text(),/expected category not detected/);
  assert.match(app.text(),/No alerts recorded for this wafer/);
  for(const note of raw.limitations)assert.ok(app.text().includes(note));
- assert.match(app.text(),/final-device alert does not prove delivery/);
+ assert.match(app.text(),/Dataset limitations/);
+ assert.ok(app.text().includes(raw.live_integration));
+ assert.doesNotMatch(app.text(),/Live acceptance is unverified|Investigation scope|SOURCE NOTES/);
  const links=app.nodes().filter(n=>n.type==='a');
  assert.ok(links.some(n=>n.props.href==='/workspace'));
  assert.ok(links.every(n=>n.props.href==='/workspace'&&!n.props.onClick));
@@ -102,15 +105,15 @@ test('invalid, oversized, duplicate, live and out-of-range imports retain loaded
 
 test('HTTP error is actionable and reload recovers with existing data intact',async()=>{
  let calls=0;const app=harness({fetch:async()=>++calls===2?{ok:false,status:503}:response()});await app.mount();
- app.button('Reload snapshot').props.onClick();await settle();
+ app.button('Use bundled example').props.onClick();await settle();
  assert.match(app.text(),/HTTP 503/);assert.match(app.text(),/Recorded alerts/);
- app.button('Reload snapshot').props.onClick();await settle();assert.doesNotMatch(app.text(),/HTTP 503/);
+ app.button('Use bundled example').props.onClick();await settle();assert.doesNotMatch(app.text(),/HTTP 503/);
 });
 
 test('initial load failure leaves reload and local import available',async()=>{
  const app=harness({fetch:async()=>{throw Error('offline');}});await app.mount();
  assert.match(app.text(),/No summary loaded/);assert.notEqual(app.button('Import summary').props.disabled,true);
- assert.equal(app.button('Reload snapshot').props.disabled,false);
+ assert.equal(app.button('Use bundled example').props.disabled,false);
  await app.importFile(file());assert.match(app.text(),/Local import/);
 });
 

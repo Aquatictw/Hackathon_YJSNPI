@@ -8,7 +8,10 @@
 .rtdi-tour button:hover,.rtdi-tour a:hover{background:var(--muted);border-color:var(--input)}
 .rtdi-tour button:disabled{cursor:default;opacity:.55}
 .rtdi-tour-top button{border:0;padding:8px;width:44px}
-.rtdi-tour :is(a,button):focus-visible{outline:3px solid var(--ring);outline-offset:2px}
+.rtdi-tour :is(a,button,select):focus-visible{outline:3px solid var(--ring);outline-offset:2px}
+.rtdi-tour-language{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:4px 12px;padding:0 20px 12px;flex-shrink:0;font-size:14px;color:var(--muted-foreground)}
+.rtdi-tour-language .language-selector{min-width:0;max-width:100%}
+.rtdi-tour-language select{min-height:44px;font-size:16px;max-width:100%}
 .rtdi-tour-content{padding:4px 20px 16px;overflow-y:auto;overscroll-behavior:contain;min-height:0;scrollbar-width:thin}
 .rtdi-tour-content h2{font-size:21px;line-height:1.35;font-weight:650;letter-spacing:-.3px;margin:0 0 12px;outline:none}
 .rtdi-tour-content p{font-size:16px;line-height:1.65;margin:0 0 12px;overflow-wrap:anywhere}

@@ -185,8 +185,8 @@ try {
       assert.deepEqual(await replayFingerprint(), before);
     });
   }
-  await check('Reload snapshot replaces an imported dataset with the bundled source', async () => {
-    await page.getByRole('button', {name: 'Reload snapshot', exact: true}).click();
+  await check('Use bundled example explicitly replaces an imported dataset with the bundled source', async () => {
+    await page.getByRole('button', {name: 'Use bundled example', exact: true}).click();
     await page.locator('.replay-source').filter({hasText: 'Bundled snapshot'}).waitFor(); await replayReady();
     assert.deepEqual(await waferLabels(), summary.wafers.map(labelFor)); assert.equal(await page.locator('.inline-error').count(), 0);
   });

@@ -12,6 +12,7 @@ import './replay.css';
 import {AppHeader} from '@/components/app-header';
 import WaferScene from '@/components/wafer-scene';
 import {waferEvaluation,replaySelection} from '@/lib/rtdi/ui-presentation';
+import {readSourceSession,writeSourceSession,updateReplaySelection} from '@/lib/rtdi/source-session';
 const colors=['var(--chart-1)','var(--chart-2)','var(--chart-3)','var(--chart-4)','var(--chart-5)'];
 function EvidencePlot({alert}:{alert:ReplayAlert}){
  const {t, locale} = useLocale();
@@ -42,22 +43,48 @@ export default function ReplayPage(){
   const parsed=parseReplay(input);setData(parsed);setSource(name);selectWafer(parsed.wafers[0].wafer);setFilter('all');setTab('analysis');setError('');
  }
  function beginRequest(){request.current?.abort();request.current=null;const n=++requestSeq.current;setLoading(true);setError('');resetCopy();return n;}
- async function loadProject(){
+ async function loadProject(replaceImport=false){
   const n=beginRequest();const controller=new AbortController();request.current=controller;
   try{
    const r=await fetch('/replay/summary.json',{signal:controller.signal,cache:'no-store'});
    if(!r.ok)throw Error(`Snapshot request failed (HTTP ${r.status}).`);
-   const value=await r.json();if(n===requestSeq.current)accept(value,'Bundled snapshot · /replay/summary.json');
+   const value=parseReplay(await r.json());if(n===requestSeq.current){
+    if(replaceImport&&readSourceSession()?.replay){
+     try{writeSourceSession({version:1,mode:'backend'});}
+     catch{setError('Browser storage is unavailable or full. The source could not be changed; your previous dataset is retained.');return;}
+    }
+    accept(value,'Bundled snapshot · /replay/summary.json');
+   }
   }catch(err){
    if(n===requestSeq.current)setError(`${err instanceof Error&&err.message.startsWith('Snapshot request failed')?err.message:'Could not load a valid replay snapshot.'} Retry or import a replay summary. Any previous dataset is retained.`);
   }finally{if(n===requestSeq.current){request.current=null;setLoading(false);}}
  }
- useEffect(()=>{void loadProject();return()=>{requestSeq.current++;copySeq.current++;request.current?.abort();};},[]);
+ useEffect(()=>{
+  const saved=readSourceSession();
+  if(saved?.replay){
+   const {data,filename,selection}=saved.replay;
+   setData(data);setSource(`Local import · ${filename}`);
+   const selectedId=replaySelection(data.wafers,selection.waferId,selection.filter);
+   const selected=data.wafers.find(w=>w.wafer===selectedId);
+   setWaferId(selectedId);setAlertIndex(Math.min(selection.alertIndex,Math.max(0,(selected?.alerts.length??0)-1)));
+   setFilter(selection.filter);setTab(selection.tab);setDetailOpen(selection.detailOpen);setLoading(false);
+  }else void loadProject();
+  return()=>{requestSeq.current++;copySeq.current++;request.current?.abort();};
+ },[]);
+ useEffect(()=>{
+  if(!data||!source.startsWith('Local import · '))return;
+  try{updateReplaySelection({waferId,alertIndex,filter,tab,detailOpen});}
+  catch{setError('Browser storage is unavailable or full. Your latest selection could not be saved.');}
+ },[data,source,waferId,alertIndex,filter,tab,detailOpen]);
  async function importFile(file:File){
   const n=beginRequest();
   try{
    if(file.size>5*1024*1024)throw Error('File exceeds 5 MiB. Import a summary, not raw measurements.');
-   const value=JSON.parse(await file.text());if(n===requestSeq.current)accept(value,`Local import · ${file.name}`);
+   const value=parseReplay(JSON.parse(await file.text()));if(n===requestSeq.current){
+    try{writeSourceSession({version:1,mode:'summary',replay:{data:value,filename:file.name,selection:{waferId:value.wafers[0].wafer,alertIndex:0,filter:'all',tab:'analysis',detailOpen:true}}});}
+    catch{setError('Browser storage is unavailable or full. The import was not applied; your previous dataset is retained.');return;}
+    accept(value,`Local import · ${file.name}`);
+   }
   }catch(err){
    if(n===requestSeq.current)setError(`${err instanceof Error&&err.message.startsWith('File exceeds')?err.message:'Invalid summary. Supply valid replay JSON with unique wafer IDs, wafers, validation and limitations.'} Any previous dataset is retained.`);
   }finally{if(n===requestSeq.current)setLoading(false);}
@@ -77,7 +104,7 @@ export default function ReplayPage(){
  <main id="main-content" className="workspace replay-workspace" aria-busy={loading}><div className="heading"><div><div className="eyebrow">{t("EVIDENCE REVIEW / REPLAY")}</div><h1>{t("Replay analysis")}</h1><p className="sub">{t("Inspect recorded alerts, site measurements and model validation.")}</p></div><div className="replay-actions"><Button variant="outline" onClick={()=>fileRef.current?.click()}><Upload size={16}/> {t("Import summary")}</Button><Button onClick={nextWafer} disabled={loading||displayed.length<2}><BookOpen size={16}/>{t("Next wafer")}<ChevronRight size={15}/></Button><Input ref={fileRef} type="file" accept=".json,application/json" className="hidden" aria-label={t("Import replay summary JSON")} onChange={e=>{const f=e.target.files?.[0];if(f)void importFile(f);e.target.value='';}}/></div></div>
  <WaferScene waferId={wafer?.wafer} yieldRatio={wafer?.yield} devices={wafer?.devices}/>
  <div className="simulation-banner replay-banner"><FlaskConical size={16}/><span><strong>{t("REPLAY")}</strong> {t("· Historical replay. Live operation and tester receipt are unverified.")}</span><span className="banner-end">{t("OFFLINE EVIDENCE")}</span></div>
- <div data-tour-local-import={source.startsWith('Local import')?'true':'false'} className="replay-source"><span><FileJson2 size={14}/>{source?(source.startsWith('Local import · ')?t('Local import · {0}',source.slice(15)):t(source)):t(loading?'Loading bundled snapshot…':'No summary loaded')}</span><Button variant="ghost" size="sm" onClick={()=>void loadProject()} disabled={loading}>{t("Reload snapshot")}</Button></div>
+ <div data-tour-local-import={source.startsWith('Local import')?'true':'false'} className="replay-source"><span><FileJson2 size={14}/>{source?(source.startsWith('Local import · ')?t('Local import · {0}',source.slice(15)):t(source)):t(loading?'Loading bundled snapshot…':'No summary loaded')}</span><Button variant="ghost" size="sm" onClick={()=>void loadProject(true)} disabled={loading}>{t("Use bundled example")}</Button></div>
  {error && <Alert variant="destructive" className="inline-error"><TriangleAlert/><AlertDescription>{t(error)}</AlertDescription></Alert>}
  {loading && <div role="status" className="loading-replay"><LoaderCircle className="spin" size={18}/> {t("Validating replay summary…")}</div>}
  {data&&total && <><div className="replay-overview"><div className="stats" aria-label={t("Replay summary")}><div><span>{t("Dataset")}</span><strong>{data.wafers.length}<small>{t("wafers")}</small></strong><p>{total.devices.toLocaleString()} {t("completed devices")}</p></div><div><span>{t("Recorded alerts")}</span><strong>{total.alerts}<small>{t("records")}</small></strong><p>{t("Across")}{total.alertedWafers} {t("wafers")}</p></div><div><span>{t("Source mode")}</span><strong>{t("REPLAY")}</strong><p>{t("Schema-validated historical summary")}</p></div><div><span>{t("Tester receipt")}</span><strong>{t("Not provided")}</strong><p>{t("No receipt in this summary")}</p></div></div></div>
@@ -87,8 +114,8 @@ export default function ReplayPage(){
  {waferEvaluation(wafer)&&<div className="wafer-warning" role="note"><Info size={17}/><span>{wafer.expected_first_device===null?t(waferEvaluation(wafer)):t('Source evaluation: expected category detected at device {0}.',wafer.expected_first_device)}</span></div>}{!wafer.alerts.length?<div className="empty replay-empty"><CircleIcon/><h3>{t("No alerts recorded for this wafer")}</h3><p>{t("No alerts does not establish normal operation. Review the source evaluation and limitations.")}</p></div>:<><div className="alert-selector" role="group" aria-label={t("Select alert evidence")}>{wafer.alerts.map((a,i)=><Button key={i} variant={i===alertIndex?'secondary':'ghost'} size="sm" aria-pressed={i===alertIndex} disabled={loading} onClick={()=>{setAlertIndex(i);resetCopy();}}>{t(alertNames[a.kind])}<span>#{i+1}</span></Button>)}</div>{alert&&<div className="selected-evidence"><div className="selected-title"><h3>{t(alertNames[alert.kind])} <span>{t("Site")}{alert.site==='all' ? t("All") : alert.site}</span></h3><span>{t("Detected after")}{alert.completed_devices} {t("devices")}</span></div><p className="original-message">{alert.message}</p><div className="alert-values"><div><span>{t("Observed")}</span><strong>{formatObservation(alert,alert.observed)}</strong></div><div><span>{t("Reference")}</span><strong>{formatObservation(alert,alert.reference)}</strong></div><div><span>{t("Detector score")}</span><strong>{alert.score.toFixed(3)}</strong><small>{t("Not a probability")}</small></div></div><EvidencePlot alert={alert}/><div className="evidence-foot"><span>{t("Test ·")}{alert.test}</span><span>{t("Local reference · wafer_id=")}{wafer.wafer}{t(", alerts[")}{alertIndex}{t("] (not a backend event ID)")}</span></div><div className="investigation"><div><BookOpen size={16}/><strong>{t("Investigation guidance")}</strong><span>{t("Source detector text · not LLM-generated")}</span></div><p>{alert.suggestion}</p><Button variant="outline" size="sm" disabled={loading||copyPending} onClick={copyEvidence}>{copied?<Check size={14}/>:<Copy size={14}/>} {copyPending ? t("Copying…") : copied ? t("Copied") : t("Copy handoff")}</Button><span className="copy-status" role="status">{copied ? t("Handoff copied to clipboard.") : ''}</span>{copyError&&<p className="copy-error" role="alert">{t(copyError)}</p>}</div><details className="raw-details"><summary>{t("View source alert fields")}</summary><pre>{JSON.stringify(alert,null,2)}</pre></details></div>}</>}
  </section>}{!wafer&&<section className="panel empty replay-empty" role="status"><CircleIcon/><h2>{t("No wafer selected")}</h2><p>{t("Change the wafer filter to select evidence.")}</p></section>}</div></TabsContent>
  <TabsContent value="validation"><section className="panel model-panel"><div className="panel-header"><h2>{t("Six-stage model validation")}</h2><span className="mini-label">{data.validation.mode ?? t("Validation method not provided")}</span></div><div className="model-intro"><h3>{t("Validation error by stage")}</h3><p>{t("Metrics come from validation.metrics. In-sample replay error is excluded. Physical temperature units are unverified; values use CSV units.")}</p></div><div className="table-scroll" tabIndex={0} role="region" aria-label={t("Model validation table; scroll horizontally")}><table><thead><tr><th>{t("Stage")}</th><th>{t("Samples")}</th><th>{t("Model MAE")}</th><th>{t("Baseline MAE")}</th><th>RMSE</th><th>{t("Worst error")}</th></tr></thead><tbody>{[1,2,3,4,5,6].map(stage=>{const m=data.validation.metrics[String(stage)];return <tr key={stage}><td><span className="stage-number">0{stage}</span></td><td>{m?.n.toLocaleString() ?? t("Not provided")}</td><td className="model-mae">{m?.mae.toFixed(5) ?? '—'}</td><td>{m?.baseline_mae.toFixed(5) ?? '—'}</td><td>{m?.rmse.toFixed(5) ?? '—'}</td><td>{m?.worst_error.toFixed(5) ?? '—'}</td></tr>})}</tbody></table></div><div className="validation-note"><Info size={17}/><p>{t("Dataset metrics do not establish live prediction accuracy, latency or tester receipt. Full feature coverage does not imply perfect accuracy.")}</p></div></section></TabsContent>
- <TabsContent value="limitations"><section className="panel limitations-panel"><div className="panel-header"><h2>{t("Evidence limitations")}</h2><span className="mini-label">{t("SOURCE NOTES")}</span></div><div className="limitations-content"><div className="limit-callout"><TriangleAlert size={20}/><div><strong>{t("Live acceptance is unverified")}</strong><p>{t("This summary supplies no live provenance, complete event timestamps or tester receipts. A final-device alert does not prove delivery before wafer completion.")}</p></div></div><h3>{t("Source limitations")}</h3><p>{t("Source messages, suggestions and limitations are displayed verbatim.")}</p>{!data.limitations.length&&<p>{t("No limitations supplied by this source. This does not establish acceptance.")}</p>}<ul>{data.limitations.map((s,i)=><li key={i}>{s}</li>)}</ul><p className="source-status">{t("Source live_integration:")}<code>{data.live_integration}</code>{t(". This records the source file state, not the current remote status.")}</p><h3>{t("Investigation scope")}</h3><p>{t("The investigation console provides batch evidence, predictions and receipt status. Imports on this page are parsed in browser memory without upload or AI requests.")}</p></div></section></TabsContent></Tabs>
- <footer><span><FlaskConical size={13}/> {source.startsWith('Local import · ')?t('Local import · {0}',source.slice(15)):t(source)} {t("· Refresh restores the bundled snapshot")}</span><a href="/workspace">{t("Run workspace")}<ArrowUpRight size={13}/></a></footer></>}
+ <TabsContent value="limitations"><section className="panel limitations-panel"><h2>{t("Dataset limitations")}</h2><div className="limitations-content"><h3>{t("Limitations")}</h3>{data.limitations.length?<ul>{data.limitations.map((s,i)=><li key={i}>{s}</li>)}</ul>:<p>{t("None supplied.")}</p>}<h3>{t("Live integration — source report")}</h3><p className="replay-integration-value">{data.live_integration}</p></div></section></TabsContent></Tabs>
+ <footer><span><FlaskConical size={13} aria-hidden="true"/><span>{source.startsWith('Local import · ')?t('Local import · {0}',source.slice(15)):t(source)} {source.startsWith('Local import · ')?t("· Saved in this browser tab"):''}</span></span><a href="/workspace">{t("Run workspace")}<ArrowUpRight size={13}/></a></footer></>}
  </main></div>;
 }
 function CircleIcon(){return <div className="empty-icon"><Info size={27}/></div>;}

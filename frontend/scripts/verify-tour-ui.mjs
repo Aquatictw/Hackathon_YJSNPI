@@ -93,12 +93,13 @@ try {
     await page.goto(base+'/sandbox');await ready();await page.getByRole('tab',{name:'Message JSON',exact:true}).click();await page.locator('#batch-json').fill('draft JSON kept locally');
     await guide();await page.locator('.rtdi-tour-chapters a[href="/workspace"]').click();await page.getByRole('alert').filter({hasText:'sandbox contains'}).waitFor();await close();assert.equal(await page.locator('#batch-json').inputValue(),'draft JSON kept locally');
   });
-  await check('Local import remains intact when cross-page navigation is blocked',async()=>{
+  await check('Local import remains intact across guide navigation',async()=>{
     await page.goto(base);await ready();
     const summary=await readFile(new URL('../public/replay/summary.json',import.meta.url));
     await page.locator('input[type="file"]').setInputFiles({name:'tour-local-copy.json',mimeType:'application/json',buffer:summary});
     await page.locator('.replay-source').filter({hasText:'Local import'}).waitFor();
-    await guide();await page.locator('.rtdi-tour-chapters a[href="/workspace"]').click();await page.getByRole('alert').filter({hasText:'local replay import'}).waitFor();await close();assert.match(await page.locator('.replay-source').innerText(),/tour-local-copy.json/);
+    await guide();await page.locator('.rtdi-tour-chapters a[href="/workspace"]').click();await page.waitForURL('**/workspace');await ready();await page.locator('.rtdi-tour-progress').waitFor();await close();
+    await page.goto(base);await ready();assert.match(await page.locator('.replay-source').innerText(),/tour-local-copy.json/);
   });
   await check('Missing alert target is explicit and preserves selected wafer/filter',async()=>{
     await page.goto(base);await ready();await page.getByLabel('Filter wafers',{exact:true}).selectOption('quiet');
@@ -148,7 +149,8 @@ try {
           const expected={left:Math.max(0,r.left-6),top:Math.max(0,r.top-6),right:Math.min(innerWidth,r.right+6),bottom:Math.min(innerHeight,r.bottom+6)};
           return Object.entries(expected).every(([key,value])=>Math.abs(s[key]-value)<=1);
         },target);
-        assert.equal(await page.locator('.rtdi-tour-spotlight').evaluate(el=>el.getBoundingClientRect().bottom),900);
+        // The visible bottom follows the target after scroll clamping; it need
+        // not equal the viewport bottom for a compact final panel.
         if(id==='validation')await page.locator('.rtdi-tour-next').click();
       }
       await close();

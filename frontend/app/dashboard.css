@@ -104,7 +104,6 @@
 .dc-ai-heading>svg{color:var(--muted-foreground);flex-shrink:0}
 .dc-ai-heading h2{font-size:14px;font-weight:600;line-height:1.4}
 .dc-ai-heading small{font-size:14px;color:var(--muted-foreground)}
-.dc-readonly{margin-left:auto;font:14px var(--dc-mono);color:var(--muted-foreground);border:1px solid var(--border);border-radius:2px;padding:4px;white-space:nowrap}
 .dc-ai-context{display:flex;flex-direction:column;gap:5px;padding:12px 17px;background:var(--background);border-bottom:1px solid var(--border)}
 .dc-ai-context>span{font:14px var(--dc-mono);color:var(--muted-foreground);text-transform:uppercase}
 .dc-ai-context strong{font-size:14px;font-weight:500;overflow-wrap:anywhere}
@@ -207,7 +206,8 @@
 .dc-composer>div,.dc-section-heading,.dc-draft-label{flex-wrap:wrap}
 .dc-primary,.dc-secondary,.dc-icon,.dc-composer button{min-height:44px;border-radius:5px}
 .dc-composer{border-radius:6px;transition:border-color .16s ease,box-shadow .16s ease}
-.dc-composer:focus-within{border-color:var(--ring);box-shadow:0 0 0 3px color-mix(in srgb,var(--ring) 12%,transparent)}
+.dc-composer:focus-within{border-color:var(--ring);outline:2px solid var(--ring);outline-offset:2px;box-shadow:none}
+.dc-app .dc-composer textarea:focus{outline:none;box-shadow:none}
 .dc-answer code,.dc-raw pre,.dc-plot text,.dc-footer,.dc-citations button{font-size:14px}
 .dc-plot{overflow-x:auto;overscroll-behavior-x:contain}
 .dc-chart-title{flex-wrap:wrap}

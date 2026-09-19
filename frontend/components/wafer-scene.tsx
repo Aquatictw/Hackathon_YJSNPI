@@ -6,7 +6,13 @@ import "./wafer-scene.css";
 import { waferTiles, waferFailureTiles, WAFER_TILE_COUNT } from "@/lib/rtdi/wafer-illustration";
 
 // Yield controls the red share; positions are illustrative, not a spatial defect map.
-const WAFER = "M194 383.9 A184 184 0 1 1 206 383.9 L200 376 Z";
+// One flat-bottom outline for both 3D layers, clipping and the inset rim.
+function waferOutline(radius: number, bottom: number) {
+  const halfFlat = Math.sqrt(radius ** 2 - (bottom - 200) ** 2);
+  return `M${200 - halfFlat} ${bottom} A${radius} ${radius} 0 1 1 ${200 + halfFlat} ${bottom} Z`;
+}
+const WAFER = waferOutline(184, 370);
+const WAFER_RIM = waferOutline(179, 365);
 
 export default function WaferScene({ waferId, yieldRatio, devices }: { waferId?: string; yieldRatio?: number; devices?: number }) {
  const {t, locale} = useLocale();
@@ -136,7 +142,7 @@ export default function WaferScene({ waferId, yieldRatio, devices }: { waferId?:
                 <g className="wafer-scene__fail-tiles" fill="#f83c4c" stroke="#ffb0ad" strokeWidth=".65">{failed.map(tile =>
                   <rect key={tile.index} x={tile.x - 6.5} y={tile.y - 6.5} width="13" height="13" rx=".65" />)}</g>
                 <path d={WAFER} fill={ref("film")} />
-                <circle cx="200" cy="200" r="179" fill="none" stroke="#dbe9e8" strokeOpacity=".5" strokeWidth=".65" />
+                <path d={WAFER_RIM} fill="none" stroke="#dbe9e8" strokeOpacity=".5" strokeWidth=".65" />
               </g>
               <path d={WAFER} fill="none" stroke={ref("bevel")} strokeWidth="2" />
             </svg>

@@ -12,6 +12,8 @@ import '../dashboard.css';
 import { AppHeader } from '@/components/app-header';
 import { TemperatureRecords } from '@/components/temperature-records';
 import { investigationAvailability } from '@/lib/rtdi/ui-presentation';
+import { ImportedSummaryWorkspace } from '@/components/imported-summary-workspace';
+import { readSourceSession, selectBackendSource, type SourceSession } from '@/lib/rtdi/source-session';
 const names: Record<string, string> = { site_imbalance: 'Site imbalance', low_yield: 'Low yield', mean_drift_up: 'Mean drift · up', mean_drift_down: 'Mean drift · down', spread_up: 'Spread increase', spread_down: 'Spread decrease' };
 const predictionLabels: Record<NonNullable<EdgeRecord['response_status']>, string> = { not_requested: 'Not requested', insufficient_data: 'Insufficient data', response_queued: 'Response queued · tester unconfirmed', tester_confirmed: 'Source reports tester confirmation', unknown: 'Unknown' };
 const commandLabels: Record<CommandStatus, string> = {
@@ -48,11 +50,33 @@ function Plot({ e }: {
 function Answer({ text }: {
     text: string;
 }) { return <div className="dc-answer">{text.split('\n').map((line, i) => { const clean = line.replace(/^#{1,6}\s*/, ''); return line.startsWith('#') ? <h4 key={i}>{clean}</h4> : <p key={i}>{clean.split(/(\*\*.*?\*\*|`[^`]+`)/g).map((part, j) => part.startsWith('**') ? <strong key={j}>{part.slice(2, -2)}</strong> : part.startsWith('`') ? <code key={j}>{part.slice(1, -1)}</code> : part)}</p>; })}</div>; }
+type BackendScope = { run: string; tester: string };
+type WorkspaceSource = { mode: 'loading' } | { mode: 'summary'; replay: NonNullable<SourceSession['replay']> } | { mode: 'backend'; initialScope?: BackendScope };
+
 export default function Dashboard() {
+    const { t } = useLocale();
+    const [source, setSource] = useState<WorkspaceSource>({ mode: 'loading' });
+    useEffect(() => {
+        // Resolve the shared source before mounting anything that restores backend scope.
+        const session = readSourceSession();
+        setSource(session?.mode === 'summary' && session.replay
+            ? { mode: 'summary', replay: session.replay }
+            : { mode: 'backend' });
+    }, []);
+    if (source.mode === 'loading') return <div className="dc-app"><div className="dc-main"><main id="main-content" aria-busy="true"><p role="status">{t('Restoring selected source…')}</p></main></div></div>;
+    if (source.mode === 'summary') return <ImportedSummaryWorkspace replay={source.replay} onLoadBackend={(run, tester) => {
+        // A failed write keeps the summary visible and lets the form report the error.
+        selectBackendSource();
+        setSource({ mode: 'backend', initialScope: { run, tester } });
+    }}/>;
+    return <BackendWorkspace initialScope={source.initialScope}/>;
+}
+
+function BackendWorkspace({ initialScope }: { initialScope?: BackendScope }) {
  const {t, locale} = useLocale();
 
     const [chatTopic, setChatTopic] = useState<"analysis" | "knowledge">("analysis");
-    const {locale:language,setLocale:changeLanguage}=useLocale();    const [run, setRun] = useState('grp6-replay-demo'), [tester, setTester] = useState('grp6-replay');
+    const {locale:language,setLocale:changeLanguage}=useLocale();    const [run, setRun] = useState(initialScope?.run ?? 'grp6-replay-demo'), [tester, setTester] = useState(initialScope?.tester ?? 'grp6-replay');
     const [state, setState] = useState(initialDashboardState), [tab, setTab] = useState('evidence');
     const { scope, data, status, error, search, question, busy, chatError, messages } = state;
     const [config, setConfig] = useState<{
@@ -65,7 +89,8 @@ export default function Dashboard() {
     useEffect(() => {
         const controller = createDashboardLifecycle({ fetch: (...args) => fetch(...args), eventSource: url => new EventSource(url) }, setState, { conversationStorage: { getItem: key => window.sessionStorage.getItem(key), setItem: (key, value) => window.sessionStorage.setItem(key, value) } });
         lifecycle.current = controller;
-        void controller.restoreSession();
+        if (initialScope) void controller.connect(initialScope.run, initialScope.tester);
+        else void controller.restoreSession();
         return () => { controller.dispose(); lifecycle.current = null; };
     }, []);
     useEffect(() => {
@@ -83,7 +108,18 @@ export default function Dashboard() {
         setRun(scope.run);
         setTester(scope.tester);
     } }, [scope?.run, scope?.tester]);
-    const connect = () => lifecycle.current?.connect(run, tester);
+    const connect = () => {
+        const selectedSource = readSourceSession();
+        try { selectBackendSource(); }
+        catch {
+            // Existing backend-only sessions still work when browser storage is denied.
+            if (selectedSource?.mode === 'summary') {
+                setState(value => ({ ...value, error: 'Could not save the source choice. Allow browser session storage and retry.' }));
+                return;
+            }
+        }
+        return lifecycle.current?.connect(run, tester);
+    };
     const disconnect = () => lifecycle.current?.disconnect();
     const ask = (q: string) => { if (ai.enabled)
         return lifecycle.current?.ask(q, language); };
@@ -93,6 +129,7 @@ export default function Dashboard() {
     return <div className="dc-app"><AppHeader active="workspace"/>
  <div className="dc-main"><main id="main-content">
  <div className="dc-heading"><div><div className="dc-eyebrow">{t("OPERATIONS / RUN WORKSPACE")}</div><h1>{t("Run overview")}</h1><p>{t("Inspect source records, compare site behavior, and document findings.")}</p></div><span className="dc-stream-status" role="status" aria-live="polite"><span className={'dc-dot ' + (status === 'Event stream connected' ? 'connected' : '')}/>{t(status)}</span></div>
+ {data && <p className="dc-message">{t('Backend run · {0}', data.run.run_id)}</p>}
  <form className="dc-connect" aria-busy={status === 'Connecting'} onSubmit={e => { e.preventDefault(); void connect(); }}><div className="dc-connect-title"><Database size={18}/><div><strong>{t("Run selection")}</strong><small>{t("Run and tester scope")}</small></div></div><label>{t("Run ID")}<input value={run} onChange={e => setRun(e.target.value)} required maxLength={120}/></label><label>{t("Tester ID")}<input value={tester} onChange={e => setTester(e.target.value)} placeholder={t("Optional tester filter")} maxLength={120}/></label><button className="dc-primary" type="submit"><Radio size={16}/>{t("Load run")}</button>{scope && <button className="dc-icon" type="button" aria-label={t("Disconnect event stream")} onClick={disconnect}><Unplug size={18}/></button>}</form>
  {error && <div className="dc-error" role="alert"><TriangleAlert size={18}/>{t(error)}<span>{t("Check the run ID and backend configuration, then retry.")}</span></div>}
  <dl className="dc-stats" aria-label={t("Run summary")}>
@@ -110,7 +147,7 @@ export default function Dashboard() {
  {tab === 'evidence' && <><div className="dc-search"><Search size={16}/><input aria-label={t("Search evidence")} placeholder={t("Filter wafer, test, or category…")} value={search} disabled={busy} onChange={e => { lifecycle.current?.setSearch(e.target.value); }}/><span>{filtered.length} {t("records")}</span></div><div className="dc-evidence-layout"><div className="dc-event-list">{filtered.map((e, i) => <button key={e.event_id} className={current?.event_id === e.event_id ? 'selected' : ''} aria-pressed={current?.event_id === e.event_id} onClick={() => { lifecycle.current?.selectEvidence(e.event_id); }} disabled={busy}><span className="dc-event-number">{String(i + 1).padStart(2, '0')}</span><div><strong>{t(names[e.kind ?? ''] ?? e.kind) ?? t("Evidence")}</strong><small>W{e.wafer_id ?? '—'} · {e.site_id ? t("Site {0}", e.site_id) : t("All sites")}</small></div><ChevronRight size={14}/></button>)}{!filtered.length && <p className="dc-list-empty">{data ? t("No matching records") : t("Load a run to view records")}</p>}</div><div className="dc-detail">{current ? <><div className="dc-detail-top"><span className="dc-warning">{current.severity ?? t("evidence")}</span><span>{t("WAFER")}{current.wafer_id ?? '—'}</span></div><h3>{t(names[current.kind ?? ''] ?? current.kind) ?? t("Evidence")}</h3><p className="dc-message">{current.message ?? t("No source description provided")}</p><div className="dc-values"><div><small>{t("Observed")}</small><strong>{observation(current, current.current_value)}</strong></div><div><small>{t("Baseline")}</small><strong>{observation(current, current.baseline)}</strong></div><div><small>{t("Score · not probability")}</small><strong>{number(current.score)}</strong></div></div><p className="dc-message">{t("Source threshold:")}{number(current.threshold)} {t("· threshold scale unconfirmed")}</p><div className="dc-chart-title"><h4>{t("Measurement series")}</h4><span>{t("Source observations")}</span></div><Plot e={current}/><div className="dc-suggestion"><ClipboardList size={17}/><div><strong>{t("Suggested checks")}<small>{t("Source recommendation")}</small></strong><p>{current.suggestion ?? t("No source recommendation provided")}</p></div></div><p className="dc-message">{t("Response:")}{t(predictionLabels[current.response_status ?? 'unknown'])} {t("· Receipt:")}{current.tester_receipt_id ?? t("Not provided")}</p><details className="dc-raw"><summary>{t("Record identity & raw JSON")}</summary><pre>{JSON.stringify(current, null, 2)}</pre></details></> : <div className="dc-empty"><div className="dc-empty-symbol"><Layers3 size={36}/></div><h3>{data ? t("No evidence in this scope") : t("No run loaded")}</h3><p>{data ? t("No reported alert does not establish normal operation.") : t("Load a run using the controls above. Replay analysis is available separately.")}</p><a href="/">{t("Open replay analysis")}<ArrowRight size={16}/></a></div>}</div></div></>}
  {tab === 'predictions' && <TemperatureRecords predictions={predictions}/>}
  {tab === 'commands' && <div className="dc-command-list"><p>{t("Read-only backend status. Investigation responses do not change commands.")}</p>{data?.commands.map(c => <article key={c.command_id}><span>{t(commandLabels[c.status]) ?? c.status}</span><h3>{c.message}</h3><small>{c.command_id}</small><p>{c.tester_receipt_id ? t("Receipt reference: {0}", c.tester_receipt_id) : t("No receipt reference in this snapshot. Tester receipt cannot be independently verified here.")}</p></article>)}{!data?.commands.length && <div className="dc-empty"><Unplug /><h3>{t("No commands recorded")}</h3><p>{t("This workspace does not send tester commands automatically.")}</p></div>}</div>}
- </div></section><aside className="dc-ai" aria-labelledby="investigation-heading"><div className="dc-ai-heading"><NotebookPen size={18}/><div><h2 id="investigation-heading">{t("Semiconductor assistant")}</h2><small>{t("Local references · Evidence-linked analysis")}</small></div><span className="dc-readonly">{t("Read only")}</span></div>
+ </div></section><aside className="dc-ai" aria-labelledby="investigation-heading"><div className="dc-ai-heading"><NotebookPen size={18}/><div><h2 id="investigation-heading">{t("Semiconductor assistant")}</h2><small>{t("Local references · Evidence-linked analysis")}</small></div></div>
  <div className="dc-assistant-controls"><div className="dc-assistant-modes" role="group" aria-label={t("Assistant topic")}>
  <button type="button" aria-pressed={chatTopic === 'analysis'} onClick={() => setChatTopic('analysis')}>{t("Selected analysis")}</button>
  <button type="button" aria-pressed={chatTopic === 'knowledge'} onClick={() => setChatTopic('knowledge')}>{t("Semiconductor Q&A")}</button></div>

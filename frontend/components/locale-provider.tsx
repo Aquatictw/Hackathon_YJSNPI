@@ -1,20 +1,32 @@
 'use client';
-import { createContext, useContext, useEffect, useMemo, useState } from 'react';
+import { createContext, useContext, useEffect, useLayoutEffect, useMemo, useState } from 'react';
 import { isLocale, localeStorageKey, translate, type Locale } from '@/lib/rtdi/locale';
 type LocaleContextValue = { locale: Locale; setLocale: (locale: Locale) => void; t: (text: string | number | null | undefined, ...values: unknown[]) => string };
 const LocaleContext = createContext<LocaleContextValue>({ locale: 'en', setLocale: () => {}, t: (text, ...values) => translate('en', text, ...values) });
-export function LocaleProvider({ children }: { children: React.ReactNode }) {
-  const [locale, updateLocale] = useState<Locale>('en');
-  useEffect(() => {
+function persistCookie(locale: Locale) {
+  try { document.cookie = `${localeStorageKey}=${locale}; Path=/; Max-Age=31536000; SameSite=Lax${location.protocol === 'https:' ? '; Secure' : ''}`; } catch { /* Browser storage may be denied. */ }
+}
+export function LocaleProvider({ children, initialLocale = 'en' }: { children: React.ReactNode; initialLocale?: Locale }) {
+  // Match the server during hydration; reconcile legacy browser-only preferences before paint.
+  const [locale, updateLocale] = useState<Locale>(initialLocale);
+  useLayoutEffect(() => {
     try { const saved = localStorage.getItem(localeStorageKey) ?? localStorage.getItem('rtdi.response-language'); if (isLocale(saved)) updateLocale(saved); } catch { /* Storage denial still permits in-memory switching. */ }
+  }, []);
+  useEffect(() => {
     const sync = (event: StorageEvent) => { if (event.key === localeStorageKey && isLocale(event.newValue)) updateLocale(event.newValue); };
     window.addEventListener('storage', sync);
     return () => window.removeEventListener('storage', sync);
   }, []);
-  useEffect(() => { document.documentElement.lang = locale; document.title = locale === 'zh-TW' ? 'RTDI | 測試分析' : 'RTDI | Test Analysis'; }, [locale]);
+  useLayoutEffect(() => {
+    document.documentElement.lang = locale;
+    document.title = locale === 'zh-TW' ? 'RTDI | 測試分析' : 'RTDI | Test Analysis';
+    persistCookie(locale);
+    document.documentElement.removeAttribute('data-locale-pending');
+  }, [locale]);
   const value = useMemo<LocaleContextValue>(() => ({ locale, setLocale: next => {
     if (!isLocale(next)) return;
     updateLocale(next);
+    persistCookie(next);
     try { localStorage.setItem(localeStorageKey, next); localStorage.setItem('rtdi.response-language', next); } catch { /* Keep current page usable. */ }
   }, t: (text, ...values) => translate(locale, text, ...values) }), [locale]);
   return <LocaleContext.Provider value={value}>{children}</LocaleContext.Provider>;
