@@ -1,0 +1,35 @@
+[Unit]
+Description=grp6 development preview (local Cloudflare runtime)
+After=network.target
+
+[Service]
+Type=simple
+User=grp6-preview
+Group=grp6-preview
+WorkingDirectory=/opt/grp6-preview/current/frontend
+Environment=PATH=/opt/grp6-preview/node/bin:/usr/bin:/bin
+Environment=HOME=/opt/grp6-preview/shared/home
+Environment=CI=true
+Environment=CLOUDFLARE_CF_FETCH_ENABLED=false
+Environment=WRANGLER_SEND_METRICS=false
+Environment=WRANGLER_WRITE_LOGS=false
+Environment=SITES_RUNTIME_ROOT=/opt/grp6-preview/shared/runtime
+Environment=MINIFLARE_WORKERD_PATH=/opt/grp6-preview/bin/workerd-compat
+Environment=GRP6_WORKERD_BINARY=/opt/grp6-preview/current/frontend/node_modules/@cloudflare/workerd-linux-64/bin/workerd
+ExecStart=/opt/grp6-preview/node/bin/node --import ./scripts/sites-env.mjs ./node_modules/wrangler/bin/wrangler.js dev --config dist/server/wrangler.json --local --persist-to /opt/grp6-preview/shared/state --ip 127.0.0.1 --port 5173 --inspector-port 0
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=30
+KillMode=control-group
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectHome=true
+ProtectSystem=strict
+ReadWritePaths=/opt/grp6-preview
+UMask=0027
+MemoryMax=2G
+CPUQuota=150%
+Nice=10
+
+[Install]
+WantedBy=multi-user.target

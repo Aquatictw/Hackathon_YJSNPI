@@ -1,0 +1,156 @@
+{
+  "round": "R2-20260919",
+  "reviewed_code_sha": "ba89a991b6ca612917ef87ba0f54c5c3723d7867",
+  "status": "PASS",
+  "B_readiness_reproduced": true,
+  "B_checks": {
+    "engineering_hash_matches_saved_audit": true,
+    "production_hash_matches_strict_audit": true,
+    "production_hash_matches_receipts": true,
+    "tester_hash_matches_receipts": true,
+    "engineering_counts_match": true,
+    "production_counts_match": true,
+    "strict_failure_reproduced": true,
+    "receipt_matches_reproduced": true,
+    "receipt_counts_reproduced": true,
+    "runtime_hash_matches_recorded_models": true,
+    "engineering_receipts_complete": true,
+    "recorded_actuals_uniquely_joined": true,
+    "no_conflicting_recorded_identities": true
+  },
+  "C_input_hashes": {
+    "source_review/training/Data/A12345_W01_RawResult.csv": {
+      "sha256": "de7eab2ec4a6cdd1883a3285699df3ece94e4baad3b2d05bd0d8504b01a6252a",
+      "match": "exact"
+    },
+    "source_review/training/Data/A12345_W02_RawResult.csv": {
+      "sha256": "d13f249574db322a2e9287e92a13816630eb4437276118cb4ace2a18339b8bd9",
+      "match": "exact"
+    },
+    "source_review/training/Data/A12345_W03_RawResult.csv": {
+      "sha256": "8e9a661aa5d62bb8bc68bdc8589bf96c7bb7a57fd532f8ce07ccf105f22d9062",
+      "match": "exact"
+    },
+    "source_review/training/Data/A12345_W04_RawResult.csv": {
+      "sha256": "62b17e83d1b85765d1237f1c9f421aac034e2dfab91891cf17f78ea955c4ce7e",
+      "match": "exact"
+    },
+    "source_review/training/Data/A12345_W05_RawResult.csv": {
+      "sha256": "9cc868a82bbefc6f1b600229e64718e327af3ba71e31837c95349375b9dbe93b",
+      "match": "exact"
+    },
+    "source_review/training/Data/A12345_W06_RawResult.csv": {
+      "sha256": "1dbc9d2b1998215b2c40b303711380514a8d34757f635fbfe5739a6f26d398c6",
+      "match": "exact"
+    },
+    "source_review/training/Data/A12345_W07_RawResult.csv": {
+      "sha256": "76f239541bdf9bda382bf87c9f95cf260725009b98c986e493e3b418d6cf1002",
+      "match": "exact"
+    },
+    "source_review/training/Data/A12345_W08_RawResult.csv": {
+      "sha256": "5c8a6993baf023dc7505ddb93c26110248ed2d7abae3baaf10235de55ce8bf0c",
+      "match": "exact"
+    },
+    "source_review/training/Data/A12345_W09_RawResult.csv": {
+      "sha256": "8b9f3343a72e073133a19351dcdda30f22af4d4451eb4d103f7a24f3db9fa72e",
+      "match": "exact"
+    },
+    "source_review/training/Data/A12345_W10_RawResult.csv": {
+      "sha256": "cc875c1efd9db84bea53102f51b473a3d5cc5acf95452d02c0bc4dda768e976a",
+      "match": "exact"
+    },
+    "source_review/training/Data/A12345_W11_RawResult.csv": {
+      "sha256": "457f03693f57cd66414a5bca33a1e463bd1b8a4e10515e82b4d364e88f7903ec",
+      "match": "exact"
+    },
+    "source_review/training/Data/A12345_W12_RawResult.csv": {
+      "sha256": "f59df33fc197d1df8b375560349a854eebc38c6f8a18ad07bf44d62da360c3c0",
+      "match": "exact"
+    },
+    "source_review/training/Data/A12345_W13_RawResult.csv": {
+      "sha256": "3b6f7c97fa4787bec43f18cdbdfad1886fc7cb77ad496bf2283b3eca8aa66c30",
+      "match": "exact"
+    },
+    "source_review/training/Data/A12345_W14_RawResult.csv": {
+      "sha256": "078357bd644b17aa8a69413ccd8495bc103fd9fb3793f4386d98d6fd376f2f8f",
+      "match": "exact"
+    },
+    "source_review/training/Data/A12345_W15_RawResult.csv": {
+      "sha256": "ed6490ce66956f3e09628d12e2173ea890b90441647a434138047e41152ae18d",
+      "match": "exact"
+    },
+    "source_review/training/Data/A12345_W16_RawResult.csv": {
+      "sha256": "d282c7ac242980ec70589d40f1fc56d0f426af09f27b115603081703511ed24c",
+      "match": "exact"
+    },
+    "source_review/training/Data/A12345_W17_RawResult.csv": {
+      "sha256": "2b42b26762785bce2e4bc2f18de01220c7d6fe496ca4f55ba6bd016a829b582b",
+      "match": "exact"
+    },
+    "source_review/training/Data/A12345_W18_RawResult.csv": {
+      "sha256": "27733bfaa379c7a68ad78785488304fa941a599efe1be7efea68b624f33b33bb",
+      "match": "exact"
+    },
+    "source_review/training/Data/A12345_W19_RawResult.csv": {
+      "sha256": "e1fed9d9376bb23689bb2cadb015cb536ad329652d3521db6f3b85b3d9fbe674",
+      "match": "exact"
+    },
+    "source_review/training/Data/A12345_W20_RawResult.csv": {
+      "sha256": "64c4d63ac176977b445bf915dc535930f9389565f3c99ec82e754204e46049e7",
+      "match": "exact"
+    },
+    "source_review/training/Data/A12345_W21_RawResult.csv": {
+      "sha256": "4a8745c287d1008e84348ac65d7cce3b3f509769f2467cb9cc768c07e3e889de",
+      "match": "exact"
+    },
+    "source_review/training/Data/A12345_W22_RawResult.csv": {
+      "sha256": "79ef9405f973f01445a15d1ab3e47a15f5b14cf289cdfece9ace6cd783ce40af",
+      "match": "exact"
+    },
+    "source_review/training/Data/A12345_W23_RawResult.csv": {
+      "sha256": "2c868e9d5c54bb151236378c599b2a7d90fc683d1859184ed514c8f2da02ed3a",
+      "match": "exact"
+    },
+    "source_review/training/Data/A12345_W24_RawResult.csv": {
+      "sha256": "c22f9593b90d12fb62edae4b2dabcc557eb51085e322df735aca277b0a22678f",
+      "match": "exact"
+    },
+    "source_review/training/Data/A12345_W25_RawResult.csv": {
+      "sha256": "dd6a0be74f035dba30e6dd541fe79343251442250703a3ed576e84e4a536be78",
+      "match": "exact"
+    },
+    "grp6_app/artifacts/runtime.json": {
+      "sha256": "752e7c6c52b0c6e50a2c7ab37b7705ad21ec43ec18df968866832d07ba09afe9",
+      "match": "exact"
+    },
+    "grp6_app/runtime.py": {
+      "sha256": "35f2551d2c7d1a79e75fa60ee373bbf6c63f6fd497bd47438e17659d8d19f717",
+      "match": "exact"
+    },
+    "grp6_app/rehearse.py": {
+      "sha256": "983ce0efd463ebba8f159b99aacea96ae6799af6b0126cfd3bb5a558900f3192",
+      "match": "exact"
+    },
+    "workstreams/detection/evidence/baseline/summary.json": {
+      "sha256": "0a5fdbb6fcd6aeddd4c64b12505e1cef06a4258022ec67d88dfc0f602139949d",
+      "match": "exact"
+    },
+    "workstreams/detection/profile_detector.py": {
+      "sha256": "f17b5815109d1b84950119259a83e0c69d45f7edb15bb80139d14c3ae51d43dc",
+      "match": "source_line_endings_only"
+    },
+    "workstreams/detection/test_profile.py": {
+      "sha256": "50a95fe447f54446769dd39977cf323b845008c35c81a2153dff8d7a0fff7da1",
+      "match": "source_line_endings_only"
+    }
+  },
+  "C_timing_aggregates_recomputed": true,
+  "C_saved_alerts_match_history": true,
+  "C_measured_pairs_with_equal_saved_state": 100,
+  "C_disposition": "DEFER runtime promotion; retain baseline and W25 miss.",
+  "limits": [
+    "Saved C timing/state evidence audited; long desktop timing experiment not repeated.",
+    "Unit tests exercise candidate equivalence; machine performance/receipts remain open.",
+    "B exact base blobs re-audited; checkout-only hash diagnostics excluded from comparison."
+  ]
+}

@@ -1,0 +1,86 @@
+{
+  "round": "R2-20260919",
+  "reviewed_at": "2026-09-19T10:06:47.210621+00:00",
+  "accepted_code_sha": "ba89a991b6ca612917ef87ba0f54c5c3723d7867",
+  "base_sha": "a0d43172bbbdbde75fa1185d8037d4a35b787d4c",
+  "handoffs": {
+    "A": "4f549073fe46244d6862a879b0c3a2f5d97056ba",
+    "B": "67d5462bd451297e2ea716e7cc22ac1e8cb38cc4",
+    "C": "0052c5272e5e4cc1215741427445bd42be5af8c8",
+    "D": "25d013baf5f527dea916e2f2dd32d1c8a28ea6b3",
+    "E": "aeb4209fe23c0a1425c5869f5209dae14c325274"
+  },
+  "all_matching_COMPLETE": true,
+  "authored_allowlists_reviewed": true,
+  "checks": [
+    {
+      "scope": "core",
+      "command": "python -B -m unittest discover -s grp6_app/tests -v",
+      "exit_code": 0,
+      "tests": 66,
+      "local_log": "C:\\Users\\USER\\AppData\\Local\\Temp\\grp6-a-core-tests.log",
+      "log_sha256": "9630212cd256b27f290e8528a7e89438b0e6e769ffbb8fdcfe172550aa14ae73"
+    },
+    {
+      "scope": "prediction",
+      "command": "python -B -m unittest discover -s workstreams/prediction -p test_*.py -v",
+      "exit_code": 0,
+      "tests": 36,
+      "local_log": "C:\\Users\\USER\\AppData\\Local\\Temp\\grp6-r2-b-tests.log",
+      "log_sha256": "510e22597d2a9a93785843b953400ce1bcb7be3f38a7c170c1cae4cb07567fa9"
+    },
+    {
+      "scope": "detection",
+      "command": "python -B -m unittest discover -s workstreams/detection -p test_*.py -v",
+      "exit_code": 0,
+      "tests": 20,
+      "local_log": "C:\\Users\\USER\\AppData\\Local\\Temp\\grp6-r2-c-tests.log",
+      "log_sha256": "85349c2ad4a77f861ba9e7cd76f4dd79a0caf288e8cb7fcfaee315d78e1ce0be"
+    },
+    {
+      "scope": "frontend",
+      "command": "npm test",
+      "exit_code": 0,
+      "tests": 81,
+      "local_log": "C:\\Users\\USER\\AppData\\Local\\Temp\\grp6-r2-frontend-tests.log",
+      "log_sha256": "51513e4e5f9b0f2a0b53b6764b01279fe73369dc188e715b368611ce333fca91"
+    },
+    {
+      "scope": "typescript",
+      "command": "npx tsc --noEmit",
+      "exit_code": 0,
+      "tests": null,
+      "local_log": "C:\\Users\\USER\\AppData\\Local\\Temp\\grp6-r2-tsc.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "scope": "build",
+      "command": "npm run build",
+      "exit_code": 0,
+      "tests": null,
+      "local_log": "C:\\Users\\USER\\AppData\\Local\\Temp\\grp6-r2-build.log",
+      "log_sha256": "f8af3529ac4c4c22f4846079b0550ee525d51363510598c9ef9fcf779ca36a47"
+    }
+  ],
+  "test_total": 203,
+  "audits": {
+    "B_prior": "Recomputed 48000 rows / 9360 groups; equals saved round2/prior-audit.json",
+    "B_readiness_C_profile": "results/r2_evidence_review_20260919.json",
+    "C_historical": "python -B -m workstreams.detection.verify --contribution-ref 5f403bd: exit 0",
+    "D_E_independent_review": "Read-only static review of R2 SQL lifecycle/UI scope diff; no actionable findings"
+  },
+  "dispositions": {
+    "A": "Accept local ACK/quarantine/retry/restart hardening; not deployed to Edge",
+    "B": "Accept offline audit and eight open machine cases; keep models",
+    "C": "Accept DEFER recommendation; no runtime promotion",
+    "D": "Accept atomic command guards under local SQLite tests",
+    "E": "Accept async scope/reconnect helper and page integration"
+  },
+  "limits": [
+    "Core check reused after merge because incoming changes do not touch core or dependencies.",
+    "Saved C timing experiment audited, not rerun; all-wafer retained data is development evidence.",
+    "Frontend build retains route static-classification notice.",
+    "Hosted D1 concurrency, real browser interactions, actual-container transport, image identity and anomaly execution receipts remain unverified.",
+    "VPS preview has separate deployment evidence and is replay-only."
+  ]
+}

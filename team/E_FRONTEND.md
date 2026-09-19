@@ -1,6 +1,6 @@
-# E — dashboard reconnect and asynchronous scope isolation
+# E: polished complete dashboard and replay experience
 
-Round: **R2-20260919**. Base: the exact published handoff SHA supplied by A at dispatch. Read AGENTS.md, SYSTEM.md and prompts/TEAMMATE.md first. The legacy first round is already accepted; do not repeat it.
+Round: **R3-20260919**. Base: the exact published handoff SHA supplied by A at dispatch. Read AGENTS.md, SYSTEM.md and prompts/TEAMMATE.md first. R2 is accepted at ba89a991b6ca612917ef87ba0f54c5c3723d7867; do not repeat completed R2 work. Start only when the user supplies the published R3 handoff SHA from A.
 
 ## Write allowlist
 
@@ -18,11 +18,11 @@ Use local branch `teammate-e-frontend` in your own checkout/worktree from A's ex
 
 ## Execute
 
-Exercise the homepage lifecycle using controllable fetch/EventSource behavior: run/tester switches during pending snapshot/AI responses, disconnect/reconnect, burst SSE refreshes, failed/ambiguous lookup and unmount. Fix concrete stale-scope/ordering defects; retain last good data only for the same selected scope. If useful extract a UI lifecycle helper consumed by the real page, with observable behavior tests using deferred requests and late responses that ignore abort. Old snapshots/errors/citations/command states must not leak into a new scope. Preserve API shapes, seven command labels, units/provenance, persisted AI, source/freshness, read-only command UI, /replay and /sandbox. No backend/dependency changes. Report responsive/keyboard checks actually performed when markup changes.
+Polish dashboard and /replay at desktop and mobile widths: clear load/reconnect/error/empty states, responsive evidence layout, keyboard/focus, readable units/source/freshness and consistent selected wafer/site/incident. Verify prediction, anomaly, evidence, persisted AI and command-status views; unavailable backend/AI needs truthful actionable states. Keep commands read-only; preserve R2 lifecycle isolation, /sandbox and API shapes. Make W25 display data-driven, never hardcode success before promoted evidence exists. Use local seeded data; inspect https://hackathon.aquatictw.com/ as read-only reference. Add focused behavior regressions, actual browser viewport/keyboard checks and a feature matrix in notes. VPS/dependencies/public snapshots remain A-owned.
 
 ## Frozen inputs and dependencies
 
-Use core/artifacts, source data, historical machine receipts and API/UI contracts at the assigned base as read-only inputs. Preserve route/response shapes, seven command states and shared public signatures. Other roles work concurrently in separate checkouts: do not revert their changes. B/C produce offline evidence only. D/E need no new fields from one another. A owns exporter reliability, integration/shared contracts and VM work. Report required outside-scope edits by path/reason and continue independent work.
+Use core/artifacts, source data, historical machine receipts and API/UI contracts at the assigned base as read-only inputs. Preserve route/response shapes, seven command states and shared public signatures. Other roles work concurrently in separate checkouts: do not revert their changes. B/C produce offline evidence only. D/E need no new fields from one another. A owns exporter integration, preview deployment/shared contracts and VM work. No dependency on uncommitted R3 work from another role is required. Report required outside-scope edits by path/reason and continue independent work.
 
 Inventory every file in your workstream and its references. Retain prior reproducibility evidence, including unsuccessful results. No cleanup deletion is authorized this round. New B/C CLIs must document default inputs and reject output outside their workstream.
 
@@ -31,12 +31,13 @@ Inventory every file in your workstream and its references. Retain prior reprodu
 - cd frontend; npm test
 - cd frontend; npx tsc --noEmit
 - cd frontend; npm run build
-- git diff --check; audit every authored commit, staged and untracked path against the allowlist.
+- Perform the browser/keyboard scenarios above and record observed results.
+- git diff --check; audit authored commits, staged and untracked paths against the allowlist.
 
 Run checks once on final implementation; after synchronization repeat only affected checks. A runs combined acceptance after all deliveries. A documented negative research result is acceptable; an implementation/check failure is BLOCKED until resolved or explicitly revised by A. Preserve live/auth/transport/units/deadline acceptance limits.
 
 ## Delivery and completion
 
-Maintain Progress, Decisions, Blockers and Handoff in your NOTES.md. Record R2-20260919, IN_PROGRESS/BLOCKED/COMPLETE, exact base SHA, branch, implementation SHAs, paths, commands/results and evidence limits. Prior handoff is preserved at fd7fe29:workstreams/frontend/NOTES.md.
+At R3 startup replace current R2 notes with Progress, Decisions, Blockers and Handoff for R3; accepted R2 notes are preserved in history. Until startup the notes remain R2 COMPLETE and are not an R3 delivery. Record R3-20260919, IN_PROGRESS/BLOCKED/COMPLETE, exact base SHA, branch, implementation SHAs, paths, commands/results and evidence limits. Accepted R2 handoff is preserved at ba89a991b6ca612917ef87ba0f54c5c3723d7867:workstreams/frontend/NOTES.md.
 
-Publish scoped commits via normal fast-forward push to remote main following prompts/TEAMMATE.md. Include a [R2-20260919][E] COMPLETE marker only after acceptance checks pass. Return the exact delivery SHA in your response, never as a self-reference in its own commit. Stop editing after confirmed publication until A reviews or reassigns. Publication is not integration/deployment acceptance.
+Publish scoped commits via normal fast-forward push to remote main following prompts/TEAMMATE.md. Include a [R3-20260919][E] COMPLETE marker only after acceptance checks pass. Return the exact delivery SHA in your response, never as a self-reference in its own commit. Stop editing after confirmed publication until A reviews or reassigns. Publication is not integration/deployment acceptance.
