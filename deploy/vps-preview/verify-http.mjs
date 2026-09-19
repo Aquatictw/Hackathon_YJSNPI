@@ -1,6 +1,7 @@
 // Run on the VPS using its isolated Node runtime after activation/recovery.
 import assert from 'node:assert/strict';
 const origin = process.argv[2] || 'http://127.0.0.1:5173';
+const expectedAi = process.argv.includes('--expect-ai');
 async function read(path) {
   const response = await fetch(new URL(path, origin), {signal: AbortSignal.timeout(20000)});
   assert.equal(response.status, 200, path);
@@ -23,7 +24,7 @@ for (const path of assets) {
 await read('/replay/summary.json');
 const config = await (await read('/api/config')).json();
 assert.equal(config.backend_connected, true);
-assert.equal(config.openai_configured, false);
+assert.equal(config.openai_configured, expectedAi);
 assert.equal(config.commands_configured, false);
 const snapshot = await (await read('/api/v1/runs/grp6-replay-demo?tester_id=grp6-replay')).json();
 assert.equal(snapshot.run.mode, 'replay');
@@ -43,4 +44,4 @@ const reader = stream.body.getReader();
 const {value} = await reader.read();
 assert.match(new TextDecoder().decode(value), /event: ready/);
 await reader.cancel();
-console.log(JSON.stringify({origin, homepage:200, replay:200, assets:assets.size, events:snapshot.events.length, predictions:predictions.length, joined_actuals:predictions.filter(e=>Number.isFinite(e.actual)).length, measurement_count:measurements.total, mode:snapshot.run.mode, sse:'ready', ai:false, commands:false}));
+console.log(JSON.stringify({origin, homepage:200, replay:200, assets:assets.size, events:snapshot.events.length, predictions:predictions.length, joined_actuals:predictions.filter(e=>Number.isFinite(e.actual)).length, measurement_count:measurements.total, mode:snapshot.run.mode, sse:'ready', ai:config.openai_configured, commands:false}));
