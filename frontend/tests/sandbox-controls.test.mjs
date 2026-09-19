@@ -7,6 +7,7 @@ import {z} from 'zod';
 import * as contracts from '../lib/rtdi/contracts.ts';
 import * as adapter from '../lib/rtdi/edge-adapter.ts';
 import * as fixtures from '../lib/rtdi/fixtures.ts';
+import {translate} from '../lib/rtdi/locale.ts';
 
 const page=readFileSync(new URL('../app/sandbox/page.tsx',import.meta.url),'utf8');
 const compiled=ts.transpileModule(page,{compilerOptions:{jsx:ts.JsxEmit.ReactJSX,module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022}}).outputText;
@@ -31,7 +32,7 @@ function harness({assistant=async()=>({ok:true,json:async()=>answer}),writeText=
  const context={exports:{},Error,AbortController,navigator:{clipboard:{writeText}},document:{},
   window:{addEventListener:(name,fn)=>listeners.set(name,fn),removeEventListener:name=>listeners.delete(name)},
   fetch:async(url,options)=>{if(url==='/api/config')return {ok:true,json:async()=>({openai_configured:true,model:'test-only'})};assert.equal(url,'/api/assistant');requests.push(options);return assistant(options);},
-  require(name){if(name==='react')return hooks;if(name==='react/jsx-runtime')return {jsx,jsxs:jsx,Fragment:'Fragment'};if(name==='zod')return {z};if(name==='@/lib/rtdi/contracts')return contracts;if(name==='@/lib/rtdi/edge-adapter')return adapter;if(name==='@/lib/rtdi/fixtures')return fixtures;if(name==='lucide-react'||name.startsWith('@/components/'))return symbols;throw Error('Unexpected dependency '+name);},
+  require(name){if(name==='react')return hooks;if(name==='react/jsx-runtime')return {jsx,jsxs:jsx,Fragment:'Fragment'};if(name==='@/components/locale-provider')return {useLocale:()=>({locale:'en',t:(text,...values)=>translate('en',text,...values),setLocale:()=>{}})};if(name==='zod')return {z};if(name==='@/lib/rtdi/contracts')return contracts;if(name==='@/lib/rtdi/edge-adapter')return adapter;if(name==='@/lib/rtdi/fixtures')return fixtures;if(name==='lucide-react'||name.startsWith('@/components/'))return symbols;throw Error('Unexpected dependency '+name);},
  };
  vm.runInNewContext(compiled,context,{filename:'sandbox-page.js'});
  function render(){assert.equal(unmounted,false);let turns=0;do{assert.ok(++turns<20,'Hook render did not settle');dirty=false;cursor=0;tree=context.exports.default();queued.splice(0).forEach(run=>run());}while(dirty);return tree;}

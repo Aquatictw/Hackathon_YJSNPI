@@ -83,6 +83,7 @@ try {
   const {chromium} = createRequire(import.meta.url)(process.env.PLAYWRIGHT_MODULE || 'playwright');
   browser = await chromium.launch({headless: true, ...(process.env.PLAYWRIGHT_EXECUTABLE ? {executablePath: process.env.PLAYWRIGHT_EXECUTABLE} : {})});
   const context = await browser.newContext({viewport: {width: 1440, height: 1000}, serviceWorkers: 'block'});
+  await context.addInitScript(()=>localStorage.setItem('rtdi-guided-tour-visit-v1',JSON.stringify({version:1,status:'dismissed'})));
   // A single context-wide gate covers navigation, frames, popups and fetch. No
   // POST falls through to the network, including malformed/non-demo assistant calls.
   await context.route('**/*', async route => {

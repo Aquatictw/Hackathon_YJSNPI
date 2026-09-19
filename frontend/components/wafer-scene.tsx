@@ -1,13 +1,19 @@
 "use client";
+import {useLocale} from "@/components/locale-provider";
 
 import { useEffect, useId, useRef, useState } from "react";
 import "./wafer-scene.css";
+import { waferTiles, waferFailureTiles, WAFER_TILE_COUNT } from "@/lib/rtdi/wafer-illustration";
 
-// Deliberately regular illustration: no spatial measurements or bin results.
+// Yield controls the red share; positions are illustrative, not a spatial defect map.
 const WAFER = "M194 383.9 A184 184 0 1 1 206 383.9 L200 376 Z";
 
-/** Standalone overview panel. CSS is included; no data or props are required. */
-export default function WaferScene() {
+export default function WaferScene({ waferId, yieldRatio, devices }: { waferId?: string; yieldRatio?: number; devices?: number }) {
+ const {t, locale} = useLocale();
+
+  const failedTiles = waferFailureTiles(yieldRatio);
+  const failed = waferTiles.filter(tile => failedTiles !== null && tile.rank < failedTiles);
+  const knownYield = failedTiles !== null;
   const id = useId().replace(/:/g, "");
   const root = useRef<HTMLElement>(null);
   const stage = useRef<HTMLDivElement>(null);
@@ -33,7 +39,8 @@ export default function WaferScene() {
     // Unsupported observers leave a usable static illustration.
     const observer = typeof IntersectionObserver === "undefined" ? null :
       new IntersectionObserver(([entry]) => setVisible(entry.isIntersecting), { threshold: 0 });
-    observer?.observe(element);
+    observer?.observe(stage.current ?? element);
+    if (!observer) setVisible(true);
     return () => {
       preference.removeEventListener("change", syncPreference);
       document.removeEventListener("visibilitychange", syncTab);
@@ -49,31 +56,28 @@ export default function WaferScene() {
     let pointerY = 0;
     const update = () => {
       frame = 0;
-      const bounds = element.getBoundingClientRect();
-      const scrollTilt = Math.max(-1, Math.min(1,
-        (bounds.top + bounds.height / 2 - window.innerHeight / 2) / window.innerHeight));
-      element.style.setProperty("--wafer-pitch", `${64 + pointerY * 3 + scrollTilt * 4}deg`);
-      element.style.setProperty("--wafer-yaw", `${-14 + pointerX * 8}deg`);
+      element.style.setProperty("--wafer-pitch", `${34 - pointerY * 15}deg`);
+      element.style.setProperty("--wafer-yaw", `${-18 + pointerX * 22}deg`);
+      element.style.setProperty("--wafer-scroll", `${window.scrollY * .095}deg`);
     };
     // Event-driven, at most one pending frame. There is no JS animation loop.
     const schedule = () => { if (!frame) frame = requestAnimationFrame(update); };
     const move = (event: PointerEvent) => {
       if (event.pointerType !== "mouse") return;
-      const bounds = element.getBoundingClientRect();
-      pointerX = Math.max(-1, Math.min(1, (event.clientX - bounds.left) / bounds.width * 2 - 1));
-      pointerY = Math.max(-1, Math.min(1, (event.clientY - bounds.top) / bounds.height * 2 - 1));
+      pointerX = Math.max(-1, Math.min(1, event.clientX / window.innerWidth * 2 - 1));
+      pointerY = Math.max(-1, Math.min(1, event.clientY / window.innerHeight * 2 - 1));
       schedule();
     };
     const reset = () => { pointerX = 0; pointerY = 0; schedule(); };
-    element.addEventListener("pointermove", move, { passive: true });
-    element.addEventListener("pointerleave", reset);
+    window.addEventListener("pointermove", move, { passive: true });
+    document.documentElement.addEventListener("pointerleave", reset);
     window.addEventListener("scroll", schedule, { passive: true, capture: true });
     window.addEventListener("resize", schedule, { passive: true });
     schedule();
     return () => {
       cancelAnimationFrame(frame);
-      element.removeEventListener("pointermove", move);
-      element.removeEventListener("pointerleave", reset);
+      window.removeEventListener("pointermove", move);
+      document.documentElement.removeEventListener("pointerleave", reset);
       window.removeEventListener("scroll", schedule, true);
       window.removeEventListener("resize", schedule);
     };
@@ -81,14 +85,8 @@ export default function WaferScene() {
 
   return (
     <figure className="wafer-scene" ref={root} data-running={running} data-top-view={topView}
+      data-wafer={waferId ?? "none"} data-failed-tiles={failedTiles ?? "unknown"} data-tile-count={WAFER_TILE_COUNT}
       aria-labelledby={`${id}-title`} aria-describedby={`${id}-caption`}>
-      <div className="wafer-scene__header">
-        <div>
-          <h2 id={`${id}-title`}>Silicon wafer</h2>
-        </div>
-        <span className="wafer-scene__tag">3D study</span>
-      </div>
-
       <div className="wafer-scene__stage" ref={stage} aria-hidden="true">
         <div className="wafer-scene__shadow" />
         <div className="wafer-scene__mount">
@@ -118,11 +116,9 @@ export default function WaferScene() {
                   <stop offset=".67" stopColor="#e3c792" stopOpacity=".14" />
                   <stop offset="1" stopColor="#86c8cd" stopOpacity=".3" />
                 </linearGradient>
-                <pattern id={`${id}-dies`} width="24" height="28" patternUnits="userSpaceOnUse" x="8" y="4">
-                  <rect x="1.5" y="1.5" width="21" height="25" rx=".6" fill="#172a40" fillOpacity=".11" stroke="#14283d" strokeOpacity=".72" strokeWidth=".7" />
-                  <path d="M3 25V3H21 M5 7H18 M5 9H18 M5 11H13 M16 14H20V23H16Z M5 16H12V23H5Z" fill="none" stroke="#d6e5e9" strokeOpacity=".45" strokeWidth=".55" />
-                  <path d="M0 0H24V28" fill="none" stroke="#e7e8de" strokeOpacity=".72" strokeWidth=".65" />
-                </pattern>
+                <filter id={`${id}-glow`} x="-15%" y="-15%" width="130%" height="130%">
+                  <feGaussianBlur stdDeviation="2.6" />
+                </filter>
                 <linearGradient id={`${id}-bevel`} x1="0" y1="0" x2=".8" y2="1">
                   <stop stopColor="#fcfaf0" /><stop offset=".4" stopColor="#b0c2cd" />
                   <stop offset=".7" stopColor="#415568" /><stop offset="1" stopColor="#d6e8e8" />
@@ -130,7 +126,15 @@ export default function WaferScene() {
               </defs>
               <g clipPath={ref("clip")}>
                 <path d={WAFER} fill={ref("silicon")} />
-                <circle cx="200" cy="200" r="177" fill={ref("dies")} />
+                <g className="wafer-scene__dies">{waferTiles.map(tile => <g key={tile.index}>
+                  <rect data-die="true" data-failed={failedTiles !== null && tile.rank < failedTiles} x={tile.x - 6.5} y={tile.y - 6.5} width="13" height="13" rx=".65"
+                    fill="#173147" fillOpacity=".32" stroke="#d4e5ec" strokeOpacity=".5" strokeWidth=".45" />
+                  <path d={`M${tile.x - 4} ${tile.y + 4}v-8h8 M${tile.x - 2} ${tile.y - 1}h5 M${tile.x - 2} ${tile.y + 1}h3`} fill="none" stroke="#d9edf4" strokeOpacity=".32" strokeWidth=".45" />
+                </g>)}</g>
+                <g className="wafer-scene__fail-glow" filter={ref("glow")} fill="#ff3a47">{failed.map(tile =>
+                  <rect key={tile.index} x={tile.x - 7} y={tile.y - 7} width="14" height="14" rx="1" />)}</g>
+                <g className="wafer-scene__fail-tiles" fill="#f83c4c" stroke="#ffb0ad" strokeWidth=".65">{failed.map(tile =>
+                  <rect key={tile.index} x={tile.x - 6.5} y={tile.y - 6.5} width="13" height="13" rx=".65" />)}</g>
                 <path d={WAFER} fill={ref("film")} />
                 <circle cx="200" cy="200" r="179" fill="none" stroke="#dbe9e8" strokeOpacity=".5" strokeWidth=".65" />
               </g>
@@ -141,20 +145,24 @@ export default function WaferScene() {
       </div>
 
       <figcaption className="wafer-scene__footer">
-        <p id={`${id}-caption`}>Illustration · no wafer-map data</p>
+        <div className="wafer-scene__readout" aria-live="polite" aria-atomic="true">
+          <h2 id={`${id}-title`}>{waferId ? t("W{0} / Yield", waferId.padStart(2, "0")) : t("Wafer yield")}</h2>
+          <p className="wafer-scene__yield">{knownYield ? (yieldRatio! * 100).toFixed(2) : "—"}<span>{knownYield ? "%" : t("No selection")}</span></p>
+          <p className="wafer-scene__legend"><i aria-hidden="true" />{knownYield ? t("{0}% fail share", ((1 - yieldRatio!) * 100).toFixed(2)) : t("Yield unavailable")}{devices !== undefined && <span> / {devices.toLocaleString()} {t("devices")}</span>}</p>
+        </div>
+        <p id={`${id}-caption`}>{t("Yield illustration · red tiles show fail share.")}<br />{t("Positions are illustrative; rounded to 0.25%.")}</p>
         <div className="wafer-scene__controls">
           <button type="button" aria-pressed={topView} onClick={() => setTopView(value => !value)}>
             <svg width="15" height="15" viewBox="0 0 20 20" fill="none" aria-hidden="true">
               <path d="m10 3 7 4-7 4-7-4 7-4Zm-7 8 7 4 7-4M3 15l7 4 7-4" stroke="currentColor" strokeWidth="1.3" strokeLinejoin="round" />
             </svg>
-            Top view
-          </button>
+            {t("Top view")}</button>
           <button type="button" onClick={() => setPaused(value => !value)} disabled={reducedMotion}
-            aria-label={reducedMotion ? "Animation disabled by reduced-motion preference" : paused ? "Resume wafer motion" : "Pause wafer motion"}>
+            aria-label={reducedMotion ? t("Animation disabled by reduced-motion preference") : paused ? t("Resume wafer motion") : t("Pause wafer motion")}>
             <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
               {paused || reducedMotion ? <path d="m5 3 8 5-8 5V3Z" /> : <path d="M4 3h3v10H4zm5 0h3v10H9z" />}
             </svg>
-            {reducedMotion ? "Reduced motion" : paused ? "Resume" : "Pause"}
+            {reducedMotion ? t("Reduced motion") : paused ? t("Resume") : t("Pause")}
           </button>
         </div>
       </figcaption>

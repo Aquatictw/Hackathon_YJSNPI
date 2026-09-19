@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import {AppTheme} from "@/components/theme-controls";
+import {LocaleProvider} from '@/components/locale-provider';
 
 export const metadata: Metadata = {
   title: "RTDI | Test Analysis",
@@ -21,7 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className="antialiased"><AppTheme>{children}</AppTheme></body>
+      <body className="antialiased"><AppTheme><LocaleProvider>{children}</LocaleProvider></AppTheme></body>
     </html>
   );
 }

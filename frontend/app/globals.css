@@ -69,3 +69,7 @@ body{line-height:1.6}
 .shell .workspace input:not([type=file]){font-size:16px}
 .shell .workspace .receive-controls{min-width:0}
 .shell .workspace .status-row{flex-wrap:wrap}
+.shell .workspace .ai-toolbar select{height:40px;padding:0 36px 0 12px;line-height:normal;text-align:center;text-align-last:center}
+
+/* A single sparse instrument-grid background is shared by all three routes. */
+body{background-image:radial-gradient(circle,color-mix(in srgb,var(--muted-foreground) 25%,transparent) .8px,transparent 1px);background-size:36px 36px;background-attachment:fixed}

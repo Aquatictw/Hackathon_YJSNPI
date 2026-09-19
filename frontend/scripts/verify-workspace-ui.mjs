@@ -12,6 +12,7 @@ const browser=await chromium.launch({headless:true,...(process.env.PLAYWRIGHT_EX
 const report={base,checkedAt:new Date().toISOString(),modelCalls:0,simulatedAnswers:0,checks:[],errors:[]};
 const check=name=>report.checks.push(name);
 async function header(page, active) {
+ await page.locator('.app-guide:not(:disabled)').waitFor();
  const nav=page.getByRole('navigation',{name:'Main navigation'});
  assert.deepEqual(await nav.locator('a').evaluateAll(nodes=>nodes.map(node=>({href:node.getAttribute('href'),text:node.textContent.trim()}))),[
   {href:'/',text:'Replay analysis'},{href:'/workspace',text:'Run workspace'},{href:'/sandbox',text:'Sandbox'}]);
@@ -19,6 +20,7 @@ async function header(page, active) {
 }
 try {
  const context=await browser.newContext({viewport:{width:1440,height:1000}});
+ await context.addInitScript(()=>localStorage.setItem('rtdi-guided-tour-visit-v1',JSON.stringify({version:1,status:'dismissed'})));
  const page=await context.newPage();
  page.on('pageerror',error=>report.errors.push(error.message));
  await context.route('**/api/config',route=>route.fulfill({json:{openai_configured:true,backend_connected:true,model:'browser-test-double'}}));
@@ -47,10 +49,10 @@ try {
  assert.equal(await page.locator('.dc-event-list button').count(),snapshot.evidence.length);
  check('Load run and evidence selection');
  await page.locator('.dc-event-list button').first().click();
- await page.locator('.dc-ai-welcome button').first().click();
- assert.ok((await page.locator('.dc-composer textarea').inputValue()).length>0);
+ await page.locator('.dc-ai-welcome button:visible').first().click();
+ assert.ok((await page.locator('#investigation-question').inputValue()).length>0);
  assert.equal(report.simulatedAnswers,0);check('Suggested question fills draft without API request');
- await page.locator('.dc-composer button').click();
+ await page.locator('.dc-composer button:visible').click();
  await page.getByText('Browser test response: evidence reviewed (simulated).',{exact:true}).waitFor();
  await page.locator('#tab-predictions').click();
  assert.equal(await page.locator('#batch-panel tbody tr').count(),24);
@@ -112,13 +114,17 @@ try {
  await page.locator('a.app-brand').click();await page.waitForURL(base+'/');check('Sandbox shared navigation and brand returns to replay homepage');
  await context.close();
  // Fresh browser context: screenshots contain real replay, no simulated answer.
- const visual=await browser.newContext({viewport:{width:1440,height:1000}});const screen=await visual.newPage();
+ const visual=await browser.newContext({viewport:{width:1440,height:1000}});
+ await visual.addInitScript(()=>localStorage.setItem('rtdi-guided-tour-visit-v1',JSON.stringify({version:1,status:'dismissed'})));
+ const screen=await visual.newPage();
  await visual.route('**/*',route=>route.request().method()==='POST'?route.abort('blockedbyclient'):route.fallback());
  screen.on('pageerror',error=>report.errors.push(error.message));
- await screen.goto(base+'/workspace',{waitUntil:'networkidle'});await screen.locator('form.dc-connect button[type=submit]').click();
+ await screen.goto(base+'/workspace',{waitUntil:'networkidle'});await header(screen,'/workspace');await screen.locator('form.dc-connect button[type=submit]').click();
  await screen.locator('.dc-event-list button').first().waitFor();
  for(const theme of ['light','dark']) {
   await screen.getByLabel('Color theme').selectOption(theme);
+  await screen.waitForFunction(expected=>document.documentElement.classList.contains(expected),theme);
+  await screen.waitForTimeout(250);
   await screen.screenshot({path:resolve(output,'dashboard-'+theme+'.png'),fullPage:true});
   assert.equal(await screen.locator('html').evaluate(el=>el.classList.contains('dark')),theme==='dark');
  }

@@ -1,4 +1,5 @@
 "use client";
+import {useLocale} from "@/components/locale-provider";
 import { useEffect, useRef, useState } from "react";
 import { z } from "zod";
 import { ArrowRight, RefreshCw, Send } from "lucide-react";
@@ -6,10 +7,12 @@ import { knowledgeSources } from "@/lib/rtdi/local-knowledge";
 
 export type ResponseLanguage = "en" | "zh-TW";
 export function ReferenceSources({ ids }: { ids?: string[] }) {
+ const {t, locale} = useLocale();
+
   const sources = knowledgeSources.filter(source => ids?.includes(source.id));
   if (!sources.length) return null;
   return <div className="dc-local-sources">{sources.map(source => <details key={source.id}>
-    <summary>Local reference · {source.title} [{source.id}]</summary>
+    <summary>{t("Local reference ·")}{source.title} [{source.id}]</summary>
     <p>{source.text}</p><small>{source.provenance}</small>
   </details>)}</div>;
 }
@@ -19,6 +22,8 @@ type Message = { role: "user" | "assistant"; content: string; sourceIds?: string
 
 /** Separate general conversation: never sends the dashboard's selected run or history. */
 export function SemiconductorChat({ enabled, language }: { enabled: boolean; language: ResponseLanguage }) {
+ const {t, locale} = useLocale();
+
   const [question, setQuestion] = useState("");
   const [messages, setMessages] = useState<Message[]>([]);
   const [busy, setBusy] = useState(false);
@@ -51,26 +56,26 @@ export function SemiconductorChat({ enabled, language }: { enabled: boolean; lan
   }
 
   return <>
-    <div className="dc-ai-context"><span>Context</span><strong>Semiconductor concepts · Local references</strong></div>
+    <div className="dc-ai-context"><span>{t("Context")}</span><strong>{t("Semiconductor concepts · Local references")}</strong></div>
     <div className="dc-chat" aria-live="polite">
-      {!messages.length && <div className="dc-ai-welcome"><span className="dc-notebook-label">SEMICONDUCTOR Q&A</span>
-        <h3>Understand the test and the analysis</h3><p>Ask about wafer testing, yield, site differences, statistics or our analysis methods. For results from a specific wafer, use Selected analysis.</p>
-        <div className="dc-draft-label">Try a question <span>Draft only</span></div>
+      {!messages.length && <div className="dc-ai-welcome"><span className="dc-notebook-label">{t("SEMICONDUCTOR Q&A")}</span>
+        <h3>{t("Understand the test and the analysis")}</h3><p>{t("Ask about wafer testing, yield, site differences, statistics or our analysis methods. For results from a specific wafer, use Selected analysis.")}</p>
+        <div className="dc-draft-label">{t("Try a question")}<span>{t("Draft only")}</span></div>
         {["What is the difference between a wafer, die and test site?", "How do mean drift and increased spread differ?", "How do our stage predictions avoid data leakage?"].map(text =>
-          <button key={text} disabled={!enabled || busy} onClick={() => { setQuestion(text); document.getElementById("knowledge-question")?.focus(); }}>{text}<ArrowRight size={14}/></button>)}
+          <button key={text} disabled={!enabled || busy} onClick={() => { setQuestion(t(text)); document.getElementById("knowledge-question")?.focus(); }}>{t(text)}<ArrowRight size={14}/></button>)}
       </div>}
       {messages.map((message, index) => <div className={`dc-chat-message ${message.role}`} key={index}>
-        <small>{message.role === "user" ? "QUESTION" : "EXPLANATION"}</small>
+        <small>{message.role === "user" ? t("QUESTION") : t("EXPLANATION")}</small>
         <div className="dc-answer" style={{ whiteSpace: "pre-wrap" }}>{message.content}</div>
         <ReferenceSources ids={message.sourceIds}/>
       </div>)}
-      {busy && <div className="dc-thinking"><RefreshCw size={15}/>Preparing an explanation from local references…</div>}
+      {busy && <div className="dc-thinking"><RefreshCw size={15}/>{t("Preparing an explanation from local references…")}</div>}
     </div>
-    {error && <div className="dc-error" role="alert">{error}</div>}
+    {error && <div className="dc-error" role="alert">{t(error)}</div>}
     <form className="dc-composer" onSubmit={event => { event.preventDefault(); void ask(); }}>
-      <textarea id="knowledge-question" aria-label="Semiconductor question" placeholder="Ask about semiconductor testing or analysis methods…" value={question} onChange={event => setQuestion(event.target.value)} maxLength={2000} disabled={!enabled || busy}/>
-      <div><span>No web search · Model API required</span><button className="dc-primary" disabled={!enabled || busy || !question.trim()}><Send size={15}/>Submit</button></div>
+      <textarea id="knowledge-question" aria-label={t("Semiconductor question")} placeholder={t("Ask about semiconductor testing or analysis methods…")} value={question} onChange={event => setQuestion(event.target.value)} maxLength={2000} disabled={!enabled || busy}/>
+      <div><span>{t("No web search · Model API required")}</span><button className="dc-primary" disabled={!enabled || busy || !question.trim()}><Send size={15}/>{t("Submit")}</button></div>
     </form>
-    <p className="dc-ai-foot">Educational guidance from bundled reference notes. This conversation does not access the selected run. History stays in this page session.</p>
+    <p className="dc-ai-foot">{t("Educational guidance from bundled reference notes. This conversation does not access the selected run. History stays in this page session.")}</p>
   </>;
 }

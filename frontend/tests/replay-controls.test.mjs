@@ -5,6 +5,7 @@ import vm from 'node:vm';
 import ts from 'typescript';
 import * as replay from '../lib/rtdi/replay.ts';
 import * as presentation from '../lib/rtdi/ui-presentation.ts';
+import {translate} from '../lib/rtdi/locale.ts';
 
 const raw=JSON.parse(readFileSync(new URL('../public/replay/summary.json',import.meta.url),'utf8'));
 const page=readFileSync(new URL('../app/replay/page.tsx',import.meta.url),'utf8');
@@ -30,6 +31,7 @@ function harness({fetch=async()=>response(),writeText=async()=>{}}={}){
   if(name==='react/jsx-runtime')return {jsx,jsxs:jsx,Fragment:'Fragment'};
   if(name==='@/lib/rtdi/replay')return replay;
   if(name==='@/lib/rtdi/ui-presentation')return presentation;
+  if(name==='@/components/locale-provider')return {useLocale:()=>({locale:'en',t:(text,...values)=>translate('en',text,...values),setLocale:()=>{}})};
   if(name.endsWith('.css'))return {};
   if(name==='lucide-react'||name.startsWith('@/components/'))return symbols;
   throw Error(`Unexpected page dependency: ${name}`);

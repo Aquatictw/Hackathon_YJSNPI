@@ -47,7 +47,7 @@ export async function handleChat(request: Request, forcedRunId?: string): Promis
   if (body.context !== undefined && !view) return json({ error: "The event context is invalid." }, 400);
   if (body.mode === "demo") {
     if (!view) return json({ error: "Rule-based demonstration requires the current event context." }, 400);
-    return json({ mode: "demo", answer: demoAnswer(view, body.question), model: null, evidence_ids: view.evidence.map(item => item.evidence_id), investigation_id: null });
+    return json({ mode: "demo", answer: demoAnswer(view, body.question, body.language), model: null, evidence_ids: view.evidence.map(item => item.evidence_id), investigation_id: null });
   }
 
   const { key, model } = config;

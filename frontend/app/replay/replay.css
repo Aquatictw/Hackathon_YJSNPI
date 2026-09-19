@@ -59,11 +59,12 @@
 @media(min-width:851px) and (max-width:1200px){.replay-workspace .wafer-tiles{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:500px){.replay-workspace .wafer-summary{grid-template-columns:repeat(2,minmax(0,1fr))}.replay-workspace .wafer-summary>div:nth-child(2){grid-column:1/-1;grid-row:2}.replay-workspace .wafer-tile{padding:10px 8px}.replay-workspace .replay-tabs>[data-slot=tabs-list]{gap:24px}}
 
-.replay-overview{display:grid;grid-template-columns:minmax(0,1fr) 288px;align-items:stretch;gap:18px;margin-bottom:22px}
-.replay-overview>div{min-width:0}
-.shell .replay-workspace .replay-overview .stats{margin:0;align-items:center}
-.shell .replay-workspace .replay-overview .stats>div{padding-inline:18px}
-.replay-wafer-slot{display:flex;align-items:center}
-.replay-wafer-slot>.wafer-scene{border-radius:8px}
-@media(min-width:761px) and (max-width:1250px){.shell .replay-workspace .replay-overview .stats{grid-template-columns:repeat(2,minmax(0,1fr));padding:0}.shell .replay-workspace .replay-overview .stats>div{align-self:stretch;padding:12px 16px}.shell .replay-workspace .replay-overview .stats>div:nth-child(2){border-right:0}.shell .replay-workspace .replay-overview .stats>div:nth-child(-n+2){border-bottom:1px solid var(--border)}.shell .replay-workspace .replay-overview .stats strong{font-size:26px}}
-@media(max-width:760px){.replay-overview{grid-template-columns:1fr;gap:16px}.replay-wafer-slot{max-width:100%}}
+/* The wafer belongs to the page background; summary cards retain full width. */
+.replay-shell{position:relative;isolation:isolate;min-height:100vh}
+.replay-overview{margin-bottom:24px}
+.replay-workspace .replay-detail{background:color-mix(in srgb,var(--card) 90%,transparent)}
+.shell .replay-workspace .replay-overview .stats{margin:0}
+.replay-workspace>.heading{position:relative;z-index:1}
+.replay-workspace>.heading>div:first-child{padding:6px 14px 6px 0;background:linear-gradient(90deg,var(--background) 80%,transparent)}
+.replay-workspace>.replay-source{background:color-mix(in srgb,var(--background) 94%,transparent);padding:8px 10px;border-radius:6px}
+.replay-workspace .replay-tabs>[data-slot=tabs-list]{background:color-mix(in srgb,var(--background) 94%,transparent);padding-inline:12px}

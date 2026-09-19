@@ -1,5 +1,5 @@
 /* RTDI test console: neutral surfaces, compact records, and a fixed reading order. */
-.dc-app{min-height:100vh;background:var(--background);color:var(--foreground);font:16px/1.6 var(--font-sans);--dc-mono:ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",monospace}
+.dc-app{min-height:100vh;background:transparent;color:var(--foreground);font:16px/1.6 var(--font-sans);--dc-mono:ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",monospace}
 .dc-app *{box-sizing:border-box}
 .dc-app :is(h1,h2,h3,h4,p,dl,dd){margin:0}
 .dc-app button,.dc-app input,.dc-app textarea{font:inherit}
