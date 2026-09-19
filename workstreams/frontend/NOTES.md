@@ -36,6 +36,8 @@ Commands from frontend unless marked root:
 
 - Publication sync: final `git fetch origin` succeeded; merged `fca8912da03db0f00db94ff990e59f4d32bade4a` with `git merge --no-edit origin/main` without conflicts, merge `8e7c66911f9a40f3b82f3656fe679d67b3feb49a`. Incoming A/B/C research/docs and shell LF attribute preserve rejected-candidate evidence; no frontend code/dependency changes. `git diff --exit-code 1719ad4 HEAD -- frontend` exited 0, so passing checks/browser observations were reused under minimal synchronization. All E authored commits and staged/untracked paths audited separately from imported owner files. Local preview process stopped after checks.
 
+- First normal push was rejected (`fetch first`) because A published `2afe662` during delivery. Followed the authorized race protocol: fetched the delta and merged without conflicts. Only SYSTEM and VPS deployment documentation/verification changed; frontend remains byte-identical to tested implementation (`git diff --exit-code 1719ad4 HEAD -- frontend`, exit 0). No frontend rerun needed. Final notes-only commit records this retry; no force push.
+
 ## Blockers
 - None for local implementation. No outside-scope edit requested. Real paid AI, auth, live Edge transport, units/deadlines and correlated machine receipts remain unverified acceptance owned by A; no VPS/VM/deployment changes made.
 
