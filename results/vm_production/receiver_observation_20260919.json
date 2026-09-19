@@ -1,0 +1,44 @@
+{
+  "checked_on": "2026-09-19",
+  "archive_created_at_utc": "08:36:36",
+  "method": "Browser SSH/VNC; console observations transcribed locally. Original logs remain on grp6; no file transfer performed.",
+  "host": "group-6",
+  "anomaly_ids": ["bbe24a7975e6", "7d9bfbbb7dd9", "60d64c90b080"],
+  "receiver_logs": [
+    {
+      "path": "/tmp/acs_tcct/tcct_example_lib_20260919_150406.log",
+      "sha256": "b335845f3faf6e80c096dad6210e0d42db95ca45d78a8f302879ceb66129adc6",
+      "lines": "80-85",
+      "logged_time": "2026-09-19 15:06:01",
+      "observation": "Response and Function On_POSTBIN contain all three anomaly IDs. Next poll at 15:06:10 has empty actions. prod_action timeout is explicitly 2 seconds."
+    },
+    {
+      "path": "/tmp/acs_tcct/tcct_lib_call_20260919_070405.log",
+      "sha256": "8da82342492f53330b2ac7a209be2eb6074d7a27b89f77a45ba530a01434edd0",
+      "lines": "134-136",
+      "logged_time": "2026-09-19 07:06:01.038",
+      "observation": "On_POSTBIN Output contains all three IDs, followed by End Call."
+    },
+    {
+      "path": "/tmp/acs_tcct/ProdMessage_20260919.log",
+      "sha256": "435a4f2e54c42deac61d348907a5e4e0376854afe5537c1982a5bf24bd13fb58",
+      "observation": "None of the three anomaly IDs occurs. Lines 488-489 at 15:06:01 show receive/Insert text for prediction 1 only."
+    }
+  ],
+  "timestamp_limit": "Both logged clock values retained as observed; timezone alignment not independently verified.",
+  "remote_archive": {
+    "path": "/home/user/Case_Event/grp6_receiver_evidence_20260919_pZGge0.tgz",
+    "bytes": 14919,
+    "sha256": "8ba3f86730e4058de4eb3becc40efc1a4832011476245667ae2ff4dfe5b85eaa"
+  },
+  "acceptance": {
+    "tcct_receiver_arrival": "OBSERVED for all three IDs",
+    "parser_rejection": "UNVERIFIED",
+    "message_execution_and_display": "UNVERIFIED",
+    "tester_confirmed": false,
+    "final_boundary_delivery": "UNVERIFIED"
+  },
+  "release_upload_check": "At 08:36:36 UTC no *alert_json_fix* file found under /home/user at maxdepth 2.",
+  "deployment_changed": false,
+  "nexus_restarted": false
+}

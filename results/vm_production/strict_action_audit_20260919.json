@@ -1,0 +1,86 @@
+{
+  "evidence_file": "C:\\Users\\USER\\Documents\\hackathon2026\\results\\vm_production\\grp6_core_prod3_evidence.jsonl",
+  "sha256": "dcd2fda6e8b09dd9fb51f9c713098c756abd1d24caece813a709af6bcd8fa4af",
+  "event_counts": {
+    "monitor_start": 1,
+    "tp_info": 1,
+    "lot_start": 1,
+    "test_start": 20,
+    "metadata_scope": 1,
+    "measurement": 12,
+    "prediction_request": 120,
+    "prediction_actual": 480,
+    "device_end": 80,
+    "run_summary": 20,
+    "production_action_response": 20,
+    "alert": 3,
+    "action_message": 3,
+    "progress": 2,
+    "boundary_end": 1
+  },
+  "model_hashes": [
+    "752e7c6c52b0c6e50a2c7ab37b7705ad21ec43ec18df968866832d07ba09afe9"
+  ],
+  "stages": {
+    "1": {
+      "requests": 20,
+      "complete_responses": 20,
+      "max_latency_ms": 8.349962001375388
+    },
+    "2": {
+      "requests": 20,
+      "complete_responses": 20,
+      "max_latency_ms": 1.330537001194898
+    },
+    "3": {
+      "requests": 20,
+      "complete_responses": 20,
+      "max_latency_ms": 2.5226040015695617
+    },
+    "4": {
+      "requests": 20,
+      "complete_responses": 20,
+      "max_latency_ms": 1.320128001680132
+    },
+    "5": {
+      "requests": 20,
+      "complete_responses": 20,
+      "max_latency_ms": 1.0816840003826655
+    },
+    "6": {
+      "requests": 20,
+      "complete_responses": 20,
+      "max_latency_ms": 1.0391739997430705
+    }
+  },
+  "malformed_lines": 0,
+  "errors": 0,
+  "production_action_json": {
+    "checked": 20,
+    "invalid": 1,
+    "errors": [
+      {
+        "line": 319,
+        "sequence": 319,
+        "event_id": "d6e6c94ce57641be8ac49ac73bc1a645",
+        "error": "Invalid control character at: line 1 column 256 (char 255)",
+        "response_line": 1,
+        "response_column": 256,
+        "response_position": 255
+      }
+    ]
+  },
+  "incomplete_predictions": 0,
+  "replay_present": false,
+  "recorded_callback_gate": false,
+  "capture_integrity": {
+    "single_process_sequence_complete": true,
+    "missing_sequence_ranges": [],
+    "expected_devices": 80,
+    "expected_touchdowns": 20,
+    "expected_counts_match": true
+  },
+  "complete_production_capture": false,
+  "tester_receipt": "UNVERIFIED: inspect matching tester prediction and alert logs",
+  "live_acceptance": "INCOMPLETE until VM provenance and tester receipt are verified"
+}

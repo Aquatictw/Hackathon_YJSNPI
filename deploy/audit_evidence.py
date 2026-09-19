@@ -6,10 +6,15 @@ import json
 from pathlib import Path
 
 
+def reject_json_constant(value):
+    raise ValueError("Invalid JSON constant: " + value)
+
+
 def audit(path, expected_devices=None, expected_touchdowns=None):
     raw = Path(path).read_bytes()
     events, malformed = [], 0
-    for line in raw.decode("utf-8").splitlines():
+    production_json = {"checked": 0, "invalid": 0, "errors": []}
+    for line_number, line in enumerate(raw.decode("utf-8").splitlines(), 1):
         try:
             event = json.loads(line)
             if not isinstance(event, dict):
@@ -17,6 +22,24 @@ def audit(path, expected_devices=None, expected_touchdowns=None):
             events.append(event)
         except (ValueError, TypeError):
             malformed += 1
+            continue
+        if event.get("kind") == "production_action_response":
+            production_json["checked"] += 1
+            try:
+                response = event.get("response")
+                if not isinstance(response, str):
+                    raise TypeError("response must be a JSON string; got " + type(response).__name__)
+                # Validate the returned string, not raw_response or queue status.
+                # Syntactic validity alone cannot establish tester receipt.
+                json.loads(response, strict=True, parse_constant=reject_json_constant)
+            except (ValueError, TypeError, RecursionError) as exc:
+                detail = {"line": line_number, "sequence": event.get("sequence"),
+                          "event_id": event.get("event_id"), "error": str(exc)}
+                if isinstance(exc, json.JSONDecodeError):
+                    detail.update(response_line=exc.lineno, response_column=exc.colno,
+                                  response_position=exc.pos)
+                production_json["errors"].append(detail)
+                production_json["invalid"] += 1
     kinds = Counter(e.get("kind", "unknown") for e in events)
     stages = {str(s): {"requests": 0, "complete_responses": 0, "max_latency_ms": 0.0}
               for s in range(1, 7)}
@@ -59,6 +82,7 @@ def audit(path, expected_devices=None, expected_touchdowns=None):
         and kinds["prediction_actual"] == expected_devices * 6
         and all(s["complete_responses"] == expected_touchdowns for s in stages.values()))
     callback_gate = (not replay and malformed == 0 and errors == 0 and incomplete == 0
+                     and production_json["invalid"] == 0
                      and kinds["monitor_start"] > 0 and kinds["measurement"] > 0
                      and kinds["test_start"] > 0 and kinds["device_end"] > 0
                      and all(s["complete_responses"] > 0 for s in stages.values()))
@@ -66,6 +90,7 @@ def audit(path, expected_devices=None, expected_touchdowns=None):
             "sha256": hashlib.sha256(raw).hexdigest(), "event_counts": dict(kinds),
             "model_hashes": sorted({e["model_sha256"] for e in events if "model_sha256" in e}),
             "stages": stages, "malformed_lines": malformed, "errors": errors,
+            "production_action_json": production_json,
             "incomplete_predictions": incomplete, "replay_present": replay,
             "recorded_callback_gate": bool(callback_gate and sequence_complete),
             "capture_integrity": {"single_process_sequence_complete": bool(sequence_complete),
