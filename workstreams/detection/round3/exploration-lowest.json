@@ -1,0 +1,302 @@
+[
+  {
+    "test": "540_Main.Suite13",
+    "ratio": 0.0,
+    "normal_min_ratio": NaN
+  },
+  {
+    "test": "4440_Main.subflow1.Flow1_Suite194#CP",
+    "ratio": 0.05944032626071365,
+    "normal_min_ratio": 0.044565997678048586
+  },
+  {
+    "test": "4420_Main.subflow1.Flow1_Suite193#CP",
+    "ratio": 0.10628256741228354,
+    "normal_min_ratio": 0.07252141222051967
+  },
+  {
+    "test": "4280_Main.subflow1.Flow1_Suite186#CP",
+    "ratio": 0.13494974415543295,
+    "normal_min_ratio": 0.08018061421952193
+  },
+  {
+    "test": "22980_Main.subflow3.Flow3_Suite121#CP",
+    "ratio": 0.6299313620518974,
+    "normal_min_ratio": 0.6955452804524196
+  },
+  {
+    "test": "11020_Main.subflow2.Flow2_Suite23#CP",
+    "ratio": 0.6547392948640783,
+    "normal_min_ratio": 0.7499258810583463
+  },
+  {
+    "test": "22260_Main.subflow3.Flow3_Suite85#CP",
+    "ratio": 0.6629744960952354,
+    "normal_min_ratio": 0.7415410325353652
+  },
+  {
+    "test": "8660_Main.subflow1.Flow1_Suite405#CP",
+    "ratio": 0.6927026567025878,
+    "normal_min_ratio": 0.7504651619688193
+  },
+  {
+    "test": "33640_Main.subflow4.Flow4_Suite154#CP",
+    "ratio": 0.6935697411462404,
+    "normal_min_ratio": 0.6952798601513732
+  },
+  {
+    "test": "56540_Main.subflow6.Flow6_Suite299#CP",
+    "ratio": 0.7000550088284908,
+    "normal_min_ratio": 0.7296470421419543
+  },
+  {
+    "test": "46960_Main.subflow5.Flow5_Suite320#CP",
+    "ratio": 0.700278200227086,
+    "normal_min_ratio": 0.5789148052991592
+  },
+  {
+    "test": "34980_Main.subflow4.Flow4_Suite221#CP",
+    "ratio": 0.7032910517984102,
+    "normal_min_ratio": 0.771262079496813
+  },
+  {
+    "test": "45880_Main.subflow5.Flow5_Suite266#CP",
+    "ratio": 0.7085664891928286,
+    "normal_min_ratio": 0.6278615332210041
+  },
+  {
+    "test": "54700_Main.subflow6.Flow6_Suite207#CP",
+    "ratio": 0.7089338918421605,
+    "normal_min_ratio": 0.6703254382668371
+  },
+  {
+    "test": "13460_Main.subflow2.Flow2_Suite145#CP",
+    "ratio": 0.7119259906076963,
+    "normal_min_ratio": 0.8256863577223691
+  },
+  {
+    "test": "38900_Main.subflow4.Flow4_Suite417#CP",
+    "ratio": 0.713969763578979,
+    "normal_min_ratio": 0.55894981612163
+  },
+  {
+    "test": "20700_Main.subflow3.Flow3_Suite7#CP",
+    "ratio": 0.7201817808502323,
+    "normal_min_ratio": 0.8667675076148732
+  },
+  {
+    "test": "44160_Main.subflow5.Flow5_Suite180#CP",
+    "ratio": 0.7319381126220764,
+    "normal_min_ratio": 0.7303296246119139
+  },
+  {
+    "test": "56120_Main.subflow6.Flow6_Suite278#CP",
+    "ratio": 0.7370306978226993,
+    "normal_min_ratio": 0.6883239471834246
+  },
+  {
+    "test": "19180_Main.subflow2.Flow2_Suite431#CP",
+    "ratio": 0.7483828175978802,
+    "normal_min_ratio": 0.7345986996321661
+  },
+  {
+    "test": "31560_Main.subflow4.Flow4_Suite50#CP",
+    "ratio": 0.751559303433613,
+    "normal_min_ratio": 0.8327459400860583
+  },
+  {
+    "test": "30880_Main.subflow4.Flow4_Suite16#CP",
+    "ratio": 0.7542833551072881,
+    "normal_min_ratio": 0.5698687475740238
+  },
+  {
+    "test": "55280_Main.subflow6.Flow6_Suite236#CP",
+    "ratio": 0.7551046792562719,
+    "normal_min_ratio": 0.7144115438281651
+  },
+  {
+    "test": "20800_Main.subflow3.Flow3_Suite12#CP",
+    "ratio": 0.7579289342614464,
+    "normal_min_ratio": 0.6858014716859413
+  },
+  {
+    "test": "24960_Main.subflow3.Flow3_Suite220#CP",
+    "ratio": 0.7606266681435998,
+    "normal_min_ratio": 0.7045155592303072
+  },
+  {
+    "test": "50680_Main.subflow6.Flow6_Suite6#CP",
+    "ratio": 0.7608334898863157,
+    "normal_min_ratio": 0.7158553933920804
+  },
+  {
+    "test": "30320_Main.subflow3.Flow3_Suite488#CP",
+    "ratio": 0.7720400225647536,
+    "normal_min_ratio": 0.7474039403429628
+  },
+  {
+    "test": "28740_Main.subflow3.Flow3_Suite409#CP",
+    "ratio": 0.7747144600620998,
+    "normal_min_ratio": 0.7907375960212137
+  },
+  {
+    "test": "53880_Main.subflow6.Flow6_Suite166#CP",
+    "ratio": 0.775816581982395,
+    "normal_min_ratio": 0.6351160874323538
+  },
+  {
+    "test": "48920_Main.subflow5.Flow5_Suite418#CP",
+    "ratio": 0.776975265722092,
+    "normal_min_ratio": 0.7752299789505082
+  },
+  {
+    "test": "45940_Main.subflow5.Flow5_Suite269#CP",
+    "ratio": 0.7780057190623765,
+    "normal_min_ratio": 0.811578575019309
+  },
+  {
+    "test": "13420_Main.subflow2.Flow2_Suite143#CP",
+    "ratio": 0.7830953888798656,
+    "normal_min_ratio": 0.8817901259193638
+  },
+  {
+    "test": "4600_Main.subflow1.Flow1_Suite202#CP",
+    "ratio": 0.7844485025481656,
+    "normal_min_ratio": 0.6455957435000969
+  },
+  {
+    "test": "10160_Main.subflow1.Flow1_Suite480#CP",
+    "ratio": 0.7845006663283893,
+    "normal_min_ratio": 0.7135422508044759
+  },
+  {
+    "test": "22820_Main.subflow3.Flow3_Suite113#CP",
+    "ratio": 0.7910540555980348,
+    "normal_min_ratio": 0.6630396174734909
+  },
+  {
+    "test": "23560_Main.subflow3.Flow3_Suite150#CP",
+    "ratio": 0.7913716709207211,
+    "normal_min_ratio": 0.9131447484586063
+  },
+  {
+    "test": "55700_Main.subflow6.Flow6_Suite257#CP",
+    "ratio": 0.7939786749327539,
+    "normal_min_ratio": 0.7615894436529733
+  },
+  {
+    "test": "36320_Main.subflow4.Flow4_Suite288#CP",
+    "ratio": 0.7940575109670003,
+    "normal_min_ratio": 0.7073583205514825
+  },
+  {
+    "test": "13300_Main.subflow2.Flow2_Suite137#CP",
+    "ratio": 0.7946704500437147,
+    "normal_min_ratio": 0.8422271334378123
+  },
+  {
+    "test": "16160_Main.subflow2.Flow2_Suite280#CP",
+    "ratio": 0.7965318481632385,
+    "normal_min_ratio": 0.780327719786124
+  },
+  {
+    "test": "39780_Main.subflow4.Flow4_Suite461#CP",
+    "ratio": 0.7975937969223739,
+    "normal_min_ratio": 0.7234666245808751
+  },
+  {
+    "test": "42560_Main.subflow5.Flow5_Suite100#CP",
+    "ratio": 0.802365712220088,
+    "normal_min_ratio": 0.8811476227311196
+  },
+  {
+    "test": "18840_Main.subflow2.Flow2_Suite414#CP",
+    "ratio": 0.8031482964834757,
+    "normal_min_ratio": 0.6857465898327043
+  },
+  {
+    "test": "55400_Main.subflow6.Flow6_Suite242#CP",
+    "ratio": 0.8063272903765513,
+    "normal_min_ratio": 0.7780609029806503
+  },
+  {
+    "test": "45020_Main.subflow5.Flow5_Suite223#CP",
+    "ratio": 0.8067704618998783,
+    "normal_min_ratio": 0.6444998495581495
+  },
+  {
+    "test": "26300_Main.subflow3.Flow3_Suite287#CP",
+    "ratio": 0.80738457075354,
+    "normal_min_ratio": 0.588838049334548
+  },
+  {
+    "test": "30060_Main.subflow3.Flow3_Suite475#CP",
+    "ratio": 0.8075669492023385,
+    "normal_min_ratio": 0.6969814099362448
+  },
+  {
+    "test": "16960_Main.subflow2.Flow2_Suite320#CP",
+    "ratio": 0.8096912418757262,
+    "normal_min_ratio": 0.6995350339250589
+  },
+  {
+    "test": "38420_Main.subflow4.Flow4_Suite393#CP",
+    "ratio": 0.8098363894038081,
+    "normal_min_ratio": 0.7927583460950074
+  },
+  {
+    "test": "52160_Main.subflow6.Flow6_Suite80#CP",
+    "ratio": 0.8123628995418293,
+    "normal_min_ratio": 0.7773003478111411
+  },
+  {
+    "test": "17460_Main.subflow2.Flow2_Suite345#CP",
+    "ratio": 0.8131855015986535,
+    "normal_min_ratio": 0.6907548139941008
+  },
+  {
+    "test": "720_Main.subflow1.Flow1_Suite8#CP",
+    "ratio": 0.8142737288994037,
+    "normal_min_ratio": 0.6036478048866509
+  },
+  {
+    "test": "15820_Main.subflow2.Flow2_Suite263#CP",
+    "ratio": 0.8160560750315096,
+    "normal_min_ratio": 0.7596354084903861
+  },
+  {
+    "test": "22640_Main.subflow3.Flow3_Suite104#CP",
+    "ratio": 0.8162584110257106,
+    "normal_min_ratio": 0.816614696393744
+  },
+  {
+    "test": "59620_Main.subflow6.Flow6_Suite453#CP",
+    "ratio": 0.8171386120326328,
+    "normal_min_ratio": 0.8528194869574153
+  },
+  {
+    "test": "47880_Main.subflow5.Flow5_Suite366#CP",
+    "ratio": 0.819306453206963,
+    "normal_min_ratio": 0.7990130426380136
+  },
+  {
+    "test": "56740_Main.subflow6.Flow6_Suite309#CP",
+    "ratio": 0.8209953257919701,
+    "normal_min_ratio": 0.6222964489832314
+  },
+  {
+    "test": "29860_Main.subflow3.Flow3_Suite465#CP",
+    "ratio": 0.8226026121742234,
+    "normal_min_ratio": 0.7841525685365829
+  },
+  {
+    "test": "15100_Main.subflow2.Flow2_Suite227#CP",
+    "ratio": 0.8233328377315113,
+    "normal_min_ratio": 0.796785964556402
+  },
+  {
+    "test": "54760_Main.subflow6.Flow6_Suite210#CP",
+    "ratio": 0.823692376693682,
+    "normal_min_ratio": 0.7527521092297831
+  }
+]

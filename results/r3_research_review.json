@@ -1,0 +1,71 @@
+{
+  "round": "R3-20260919",
+  "decision": "REJECT_RUNTIME_AND_REPLAY_PROMOTION",
+  "scope": "A review of B/C negative research; R3 D/E delivery and combined acceptance remain pending",
+  "checks": {
+    "b_immutable_inputs_and_checkout_equivalence": true,
+    "c_exact_recorded_inputs_and_sources": true,
+    "independent_controls_bind_same_candidate": true,
+    "all_14_baseline_alerts_preserved_exactly": true,
+    "independent_arithmetic_reproduces_six_additions": true,
+    "all_scan_scores_match_independent_oracle": true,
+    "all_18_normal_labels_no_added_alerts": true,
+    "a_reproduces_20_mean_shift_false_alerts": true,
+    "a_reproduces_b_step_and_impulse_failures": true
+  },
+  "compared_scans": 1225,
+  "diagnostic_only_additions": [
+    [
+      1,
+      56,
+      "Main.subflow1"
+    ],
+    [
+      3,
+      40,
+      "Main.subflow1"
+    ],
+    [
+      14,
+      64,
+      "Main.subflow2"
+    ],
+    [
+      18,
+      64,
+      "Main.subflow3"
+    ],
+    [
+      23,
+      64,
+      "Main.subflow6"
+    ],
+    [
+      25,
+      80,
+      "Main.subflow1"
+    ]
+  ],
+  "reproduced_false_alerts": {
+    "mean_step": [
+      96
+    ],
+    "single_impulse": [
+      40
+    ]
+  },
+  "c_mean_step_false_alerts": 20,
+  "accepted_detector_coverage": "6/7; W25 missed; existing runtime/artifact/replay unchanged",
+  "candidate_source_sha256": "9b5f530d47cf11ae6ee0009cb348b5101bae40a8332ebd32bdea3c347560aba8",
+  "evidence_sha256": {
+    "workstreams/prediction/round3/pooled-challenge.json": "00bdf998454c84208a7f9519bc2ea1c51bdc6236649626e75cf8a2fba75610f0",
+    "workstreams/prediction/round3/c-snapshot-controls.json": "a4b459752f645e04f1e12912048e3460f28c4d73678a4b64ede7bb5a95bad217",
+    "workstreams/detection/round3/evaluation.json": "8cf166a0c6f8cdef12c57ae83a97b7b6b09fb0e8f3ba20dd5730fe907ebb1b3d"
+  },
+  "limits": [
+    "All 25 wafers are reused development data, not holdout.",
+    "Adjacent scans reuse observations; 7/7 category matching is not accepted detection.",
+    "W25 is sensitive to quantile/persistence choices; device80 is final boundary.",
+    "No new Edge deployment, tester receipt, unit or deadline acceptance."
+  ]
+}
