@@ -1,39 +1,39 @@
 # E — Frontend notes
 
 ## Progress
-- Assignment implemented locally; 40 tests, TypeScript, and production build pass on September 19, 2026. No deployment or VM work.
-- Branch: `team/e-frontend`; base: `eababfc4ffbb6c6faea4136b3dd9724773247aab`.
-- Isolated checkout: `/private/tmp/grp6-e-frontend`; initial status clean. Implementation commit is the commit containing this note; obtain its SHA with `git log -1 --format=%H`.
+- E implementation plus D-projection compatibility verified locally on September 19, 2026: 46 standard tests, 7 explicit D-code contract checks, TypeScript and production build pass. No deployment or VM work.
+- Branch `team/e-frontend`; original base `eababfc4ffbb6c6faea4136b3dd9724773247aab`; isolated checkout `/private/tmp/grp6-e-frontend`. Previous E commit `be0f0887816832b41ee62e680659ae207fb454fc` preserved. Follow-up commit is the commit containing this note.
+- Read-only upstream inspection: `origin/main` at `508e44c`; D projector at `2085284640bc8bcea7780c86e95bf3ea67c9327a`. No teammate branch was merged and no other checkout was switched.
 
 ## Decisions
-- All seven backend command states have truthful labels; ACK validation/schema use `received`, `queued_to_tester`, and `rejected`. Queueing never implies execution or receipt. Snapshot confirmation remains explicitly a backend report; optional receipt references are retained.
-- Adapters retain 320-point series, site series, scalar thresholds, scores/suggestions, coverage, response status/receipt, request provenance and original normalized `source_batch`. Full source identity conflicts, including actual-event target changes, reject atomically. Scoped compound UI IDs avoid collisions across run/tester/device/site/attempt; source IDs stay unchanged inside `source_batch`.
-- UI-only record-ID limit is 8192 to accommodate escaped compound IDs; scope/source IDs remain 120. Internal batches allow 200 records because 100 normalized events can each produce two UI records. Existing EventView/validatedView shape and assistant exports/behavior remain compatible; existing mismatched-scope filtering remains intact.
-- Actuals join only unique matching run/tester/source plus supplied lot/wafer/device/site/stage/attempt. Out-of-order actuals within a batch work; retries cannot erase actuals; conflicts never replace prior values. Dashboard ambiguity/conflicts remain explicit and missing predictions remain empty.
-- Charts use completed-device order, yield percentages and unknown-unit labels. Scalar threshold scale is unverified, so it is displayed separately rather than drawn as a measurement limit. Snapshot/SSE/chat control flow is unchanged; saved-source freshness remains visible on mobile.
+- All seven backend command states render truthfully. Queueing is not execution or receipt. Optional receipt references remain explicit; absent references remain unknown.
+- Retain 320-point/site series, thresholds, scores/suggestions, coverage/receipt, and normalized `source_batch`. Compound scoped UI IDs prevent run/tester/device/site/attempt collisions. UI-only IDs allow 8192 characters; source/scope IDs remain 120. Internal batches allow 200 records for 100 normalized events. Conflicting identities reject atomically; late actuals enrich without retry erasure.
+- D's `original_request_id` and `source_event_id` now survive snapshot parsing, adapter conversion and source retention, with keyboard-accessible provenance disclosures. Original-request mismatch blocks joins even when per-site IDs match. Null/missing site predictions and unknown units remain explicit.
+- `ui-wire.ts` accepts only D's two documented additive fields and delegates every other refinement to the read-only wire validators. It keeps E runnable on the requested base without merging D. The internal JSON schema includes a compatibility resource with those additions; a parity test detects drift from the shared wire schema. A may remove this compatibility layer/copy after advancing the shared base to D.
+- Assistant exports and EventView/validatedView shape remain compatible. Snapshot/SSE/chat control flow is unchanged. Charts show completed-device order and yield percentages; unverified scalar thresholds are displayed separately from measurement plots. Existing reduced-motion rules remain unchanged.
 
 ## Blockers
-- No remaining E implementation/check failure. Fresh end-to-end persisted chat/SSE reconnect and live transport acceptance were not performed; passing unit tests and local UI inspection do not establish those gates.
-- **D requested:** `frontend/lib/rtdi/repository.ts` command snapshot projection omits `tester_receipt_id`. Expose the correlated reference if available; UI already accepts/displays it and explicitly labels absence. Current `tester_confirmed` display alone is not independent tester-receipt proof.
-- **D requested:** `frontend/lib/rtdi/exporter-wire.ts` / `wire.ts` raw prediction/actual projection and original request provenance remain integration work. E consumes existing normalized per-site fields; no synthesized predictions. Clarify threshold scale before any measurement-limit overlay.
-- **A requested:** promote accepted behavior/contract limits to `SYSTEM.md`; update any A-owned examples that use obsolete ACK states. E did not edit these paths or any manifests/configuration.
+- No remaining E implementation/check failure. Fresh persisted chat/SSE reconnect, cloud transport and real tester receipts remain unverified. Synthetic interface checks do not prove those gates.
+- **D requested:** `frontend/lib/rtdi/repository.ts` command snapshot projection still omits `tester_receipt_id`; expose correlated references where available. E already accepts/displays them. `tester_confirmed` remains a backend report, not independently verified receipt.
+- **A requested:** integrate E with the published D backend and update `SYSTEM.md`/A-owned examples. D raw prediction/actual projection is now published and E compatibility is verified; it is no longer an unavailable-field blocker. Combined persisted delivery/backfill still needs integration acceptance. Threshold scale remains unverified.
 
 ## Handoff
-Changed paths (all within E allowlist):
+Cumulative changed paths, all E-allowlisted:
 - `frontend/app/{page.tsx,dashboard.css,sandbox/page.tsx}`
-- `frontend/lib/rtdi/{contracts.ts,dashboard.ts,edge-adapter.ts,ui-predictions.ts}`
+- `frontend/lib/rtdi/{contracts.ts,dashboard.ts,edge-adapter.ts,ui-predictions.ts,ui-wire.ts}`
 - `frontend/contracts/schemas.json`
-- `frontend/tests/{dashboard.test.mjs,ui-adapters.test.mjs}`
+- `frontend/tests/{dashboard.test.mjs,ui-adapters.test.mjs,ui-projection.test.mjs}`
 - `workstreams/frontend/NOTES.md`
 
-Fresh checks, run from `/private/tmp/grp6-e-frontend/frontend`:
-- `npm test > /private/tmp/grp6-e-tests.log 2>&1` — exit 0; 40 passed, 0 failed/skipped. Includes existing backend/replay/assistant checks and new states, 320 samples, 100-event conversion, zero/missing values, multi-site/out-of-order joins, wrong scopes, retries and identity conflicts.
-- `npx tsc --noEmit > /private/tmp/grp6-e-typecheck.log 2>&1` — exit 0; no diagnostics.
-- `npm run build > /private/tmp/grp6-e-build.log 2>&1` — exit 0; “Build complete.” Vinext reports its existing route-classification limitation.
-- `npm run dev -- --host 127.0.0.1 --port 5174 > /private/tmp/grp6-e-preview.log 2>&1` — local preview served at **http://localhost:5174**. Browser inspected dashboard at default width and 390×844: arrow-key tabs, visible focus, explicit empty predictions, contained horizontal table scrolling. Added and verified a keyboard-focusable table region; viewport override reset. Sandbox accepted synthetic two-site series and rendered both lines with unknown units/device-order axes. No AI or machine command invoked. Reduced-motion rules reviewed in `app/dashboard.css` and `app/globals.css`; emulated reduced-motion was not tested. Browser observations are recorded here; no screenshot files were committed.
+Fresh commands from `/private/tmp/grp6-e-frontend/frontend`:
+- `npm test > /private/tmp/grp6-e-next-tests.log 2>&1` — exit 0; 46 passed, 0 failed/skipped. Includes unchanged backend/replay/assistant tests and UI states, missing/zero values, 320-point/100-event limits, scoped/conflicting/out-of-order joins and provenance validation.
+- `GRP6_D_REVISION=2085284640bc8bcea7780c86e95bf3ea67c9327a node --test tests/ui-projection.test.mjs > /private/tmp/grp6-e-d-projection-check.log 2>&1` — exit 0; 7/7 pass. Loads D's actual projector and wire modules from git objects in memory; changes only import resolution, uses synthetic inputs, and writes no D files. Produces 3 projected records / 2 sites / 1 actual join, preserving null prediction, unknown units and provenance. Requires that commit fetched locally. Node emits an experimental `stripTypeScriptTypes` warning.
+- `npx tsc --noEmit > /private/tmp/grp6-e-next-typecheck.log 2>&1` — exit 0, no diagnostics.
+- `npm run build > /private/tmp/grp6-e-next-build.log 2>&1` — exit 0, “Build complete”; existing vinext route-classification warning remains.
+- `npm run dev -- --host 127.0.0.1 --port 5174 > /private/tmp/grp6-e-next-preview.log 2>&1` — served http://localhost:5174; preview stopped afterward. Browser-only synthetic D-shaped JSON import displayed 1.20 / 1.30, unknown units, 100% coverage and queued response. Enter opened the provenance disclosure and exposed each per-site/original/source ID with visible focus. Expanded disclosure inspected at default and 390×844 widths; temporary viewport reset. No AI or machine command invoked. Reduced-motion is source-reviewed, not emulated. Observations are recorded here; no screenshots committed.
 
-From checkout root: `git diff --check` — exit 0. `git diff --name-only eababfc4ffbb6c6faea4136b3dd9724773247aab` plus `git ls-files --others --exclude-standard` — every one of 11 paths matched E's allowlist; no outside-scope changes.
+Root checks: `git diff --check` passed. `git diff --name-only eababfc4ffbb6c6faea4136b3dd9724773247aab` plus `git ls-files --others --exclude-standard` — all 13 cumulative changed/untracked paths match E's allowlist. No shared dependency/configuration changes. Logs are temporary local evidence; committed tests reproduce the checks.
 
-Environment setup: offline install lacked cached packages; sandbox registry requests failed DNS. Approved `npm ci --ignore-scripts --cache /private/tmp/grp6-e-npm-cache` completed (676 packages). Premature type/build attempts while installation was incomplete failed; the final commands above were rerun successfully after installation. Lockfile/manifests remain unchanged. Logs are local temporary evidence, not committed artifacts; test sources reproduce checks.
+Historical setup/verification: `be0f088` passed 40 tests/typecheck/build and mobile keyboard review. Offline/sandbox dependency setup initially failed; approved isolated `npm ci --ignore-scripts --cache /private/tmp/grp6-e-npm-cache` succeeded. The first publication timed out HTTP 408; HTTP/1.1 retry published `be0f088`. These are resolved earlier attempts, not current failures.
 
-Next for A: review/integrate `team/e-frontend`, coordinate the D fields above, and run combined persisted snapshot/SSE/chat plus real receipt acceptance.
+Next for A: review/integrate E's follow-up with D, expose command receipt references, and run combined persisted snapshot/SSE/chat plus real-receipt acceptance.

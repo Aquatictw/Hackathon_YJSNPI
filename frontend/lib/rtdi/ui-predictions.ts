@@ -1,4 +1,4 @@
-import type {EdgeRecord} from './wire.ts';
+import type {UiEdgeRecord as EdgeRecord} from './ui-wire.ts';
 import {canonicalJson} from './wire.ts';
 
 // Preserve scope and request provenance without depending on globally unique SDK IDs.
