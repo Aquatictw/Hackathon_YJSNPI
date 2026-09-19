@@ -43,7 +43,7 @@ export async function readJsonBody(request: Request, limits: number | JsonBodyLi
   let bytes = compressed;
   if (encoding === "gzip") {
     try {
-      const source = new Response(compressed).body;
+      const source = new Response(new Uint8Array(compressed).buffer).body;
       if (!source) throw new Error("missing gzip stream");
       bytes = await readBytes(source.pipeThrough(new DecompressionStream("gzip")), options.maxDecompressedBytes);
     } catch (error) {

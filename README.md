@@ -521,3 +521,116 @@ Remaining coordination before live enablement:
 - raw-event retention/redaction policy and backend observability contact;
 - confirmation that exporting the competition fields is permitted, plus required redaction;
 - C/D/E agreement on per-site prediction and raw measurement query/display fields, including unknown unit/retest semantics.
+
+## E v0.2：接收與展示交接
+
+2026-09-19，本機階段。入口 `/replay`；首頁有「重播分析」連結。
+
+### 分工邊界
+
+| 負責人 | 輸出／責任 | E 如何使用 |
+|---|---|---|
+| C 異常分析 | 異常類型、evidence、序列、基準、分數、調查建議 | 原值展示與畫圖，不重跑判定或計算漏報率 |
+| D 後端／LLM | 查詢 API、認證、持久化、AI 解釋、commands 與 ACK | 依回應更新畫面；等待正式接口 |
+| E 前端／Demo | 接收格式檢查、篩選、圖表、載入／錯誤／缺資料狀態 | 不訓練模型、不改 Edge、不建立另一套後端 |
+
+這次未修改既有原型 OpenAI route。正式 AI 由 D 接管；新頁面不呼叫 OpenAI。
+
+### 已完成
+
+- 讀取 `public/replay/summary.json`，來源是 repo 的 `results/replay/summary.json`，契約依 本 README 的 frontend data handoff。
+- 瀏覽器匯入同格式 JSON（最大 5 MB），無上傳；無效資料保留舊畫面。
+- 25 片 wafer、2,000 devices、14 筆來源告警；數字僅做筆數／完成數加總。
+- wafer 與告警切換、各 site 序列圖、來源訊息／建議、複製欄位摘要、原始 evidence。
+- 原樣展示 `validation.metrics`，不計算或訓練模型；缺少階段显示未提供。
+- 未提供告警時不自行判定正常或漏報；機台接收狀態維持未提供。
+- 明示 replay、未知物理單位、序列索引不是時間。資料集 expected 標籤僅展示。
+
+### C／D 可以怎麼交付
+
+目前可直接給 E 一份符合本 README 的 handoff 的 summary.json，不需要為前端改演算法。更新 repo 範例後，在 frontend 執行：
+
+```bash
+node scripts/sync-replay.mjs
+```
+
+此命令驗證並複製快照到 public，留下來源 SHA256；不修改 results，不連外。正式 API 不必沿用這份離線 schema，E 會配合 D 在 adapter 轉接。
+
+正式串接待 D 提供：URL／認證方式、查詢或 SSE 規格、範例與錯誤格式、run/wafer/site/event/evidence ID、來源時間與模式、單位、AI 回覆及 evidence 引用、command/ACK 各階段定義與 receipt。C 提供 evidence 欄位語意與缺資料情況。這份文件列需求，不替 C／D 定案服務。
+
+### Demo
+
+1. `/replay`：說明正在看交付的離線摘要。
+2. 「開始 Demo／下一個案例」依序看 W1、W3、W14、W23、W25；切換各筆告警，看 site 曲線與來源建議。
+3. W25 沒有告警，展示空狀態，不由前端給分析結論。
+4. 「模型驗證」展示交付數值；「資料限制」保留來源說明。
+
+### 驗證
+
+14 個測試與 TypeScript 檢查通過。瀏覽器確認資料載入、W25 空狀態及六階段數值切換。Build 通過。此為 E v0.2 當時的檢查紀錄；正式 API／SSE 與機台回執整合仍待驗收，本機 OpenAI 實測見下節。
+
+### 本機 OpenAI 實測（2026-09-19）
+
+已在首頁以自造異常資料完成一次真實 `gpt-6-astra` 問答：回答引用 event/evidence ID，正確說明均值、門檻、simulation 與無 tester receipt。這只驗證本機對話，不代表 D 的正式服務或機台通路已完成。Node 20 不支援目前框架；本機已使用 Node 24.21.0 啟動。
+
+### 遠端整合更新
+
+已同步 D 的本機 snapshot/SSE、chat 與 command API 實作。上方 E v0.2 的「待 D 提供」為先前交接紀錄；現在 E 下一步是依本 README 的 D 接口接入畫面，確認部署 URL、認證及資料契約。先前本機 OpenAI 成功紀錄使用更新前的 proxy，不代表本次 D 新增的持久化對話／工具迴圈已驗證。
+
+## E / D integrated dashboard checkpoint — September 19
+
+The homepage now consumes D's persisted run snapshot and SSE, and sends questions to
+`POST /api/v1/runs/{id}/chat`. E does not duplicate detector or agent logic. The interface
+validates run/tester scope, separates replay from live provenance, shows source evidence
+and site curves, searches records, and displays prediction/command records read-only.
+EventSource resumes using its last event ID; stream interruptions retain the last snapshot
+with an explicit reconnect status. Snapshot refresh also runs on heartbeat to pick up command
+status changes. No command creation UI or live machine actions were added.
+
+Visual direction: forest-green navigation, warm neutral workspace, readable evidence cards,
+responsive layouts, focus indicators and reduced-motion support. Reference article:
+https://codelove.tw/@tony/post/agDlLq (frontend design, accessibility and testing skill categories;
+no third-party installer was run).
+
+Routes: `/` = D-backed investigation; `/replay` = offline wafer summary; `/sandbox` = the
+previous synthetic fixture/JSON prototype. AI is the actual D/OpenAI investigation on `/`;
+sandbox retains the explicitly labeled fixed-rule demo option.
+
+### Run the local integration
+
+Use Node >=22.18 (verified on 24.21.0). Keep OPENAI_API_KEY, OPENAI_MODEL and a random
+local INGEST_TOKEN in ignored `frontend/.dev.vars`. Never put credentials in `.example`
+files. Restart the dev server after setting variables. From `frontend/`:
+
+```bash
+node scripts/local-backend.mjs migrate
+npm run dev -- --host 127.0.0.1
+```
+
+In another terminal in `frontend/`, seed through D's local API:
+
+```bash
+node scripts/local-backend.mjs seed
+```
+
+Open http://localhost:5173 and click 載入批次 with defaults `grp6-replay-demo` /
+`grp6-replay`. Seed is retry-safe through D's batch IDs. It sends only to localhost,
+uses existing repository replay data, and does not call OpenAI. Replay timestamps are
+adapter-generated ordering timestamps, not original measurement times. These local setup
+scripts reuse D's schema/adapter and do not change production deployment configuration.
+
+### Verification and remaining limits
+
+- D migration applied locally; authenticated ingest accepted 14 replay records and snapshot
+  returned 14 evidence records. Browser showed the connected SSE and source site curves.
+- A real persisted OpenAI investigation completed: `get_run_summary` and
+  `get_incident_evidence` called, 480-character answer and trace stored in local D1.
+- 29 behavior tests, TypeScript and Vinext build passed, including frontend scope guards.
+- Fixed one D integration compile issue: pass a copied ArrayBuffer to Response for gzip
+  decoding; behavior remains unchanged and gzip tests pass.
+- No cloud deployment, grp6 live transport or machine receipt acceptance claimed. Prediction
+  records absent from the current replay remain explicitly empty; raw device-bundle
+  projection still belongs to D. Reloading the page clears visible chat; D preserves
+  investigation records, but listing old investigations is not exposed in this UI yet.
+
+Browser acceptance: the final dashboard rendered a real D/OpenAI answer with its evidence link and investigation ID; a missing-run lookup cleared prior data and showed 404; 390 px mobile layout had no horizontal overflow. Desktop/mobile layout, keyboard tab navigation and source labeling reviewed. Current local demo is `grp6-replay-demo` / `grp6-replay`.
