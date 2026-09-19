@@ -1,0 +1,89 @@
+{
+  "verified_at_utc": "2026-09-19T16:10:18.111883+00:00",
+  "revision": "14ff55bfd31694e49ff324564b13c0535d16fe9a",
+  "origin": "https://hackathon.aquatictw.com",
+  "deployment": {
+    "service": "grp6-preview",
+    "active": true,
+    "production_build": "passed",
+    "migrations": "none pending",
+    "seed": "0 new, 66 duplicates",
+    "rollback_backup": "/opt/grp6-preview/backups/before-14ff55bfd31694e49ff324564b13c0535d16fe9a-og87giWw",
+    "previous_release": "/opt/grp6-preview/releases/1c63398ee833bdda322f50cc3c8195adc07bd96c-LFQC8QzO"
+  },
+  "local_checks": {
+    "tests_passed": 168,
+    "typescript": "passed",
+    "production_build": "passed",
+    "source_navigation": 36,
+    "guide": 17,
+    "limitations_layout": 16,
+    "limitations_guide": 2
+  },
+  "public_http": {
+    "homepage": 200,
+    "replay": 200,
+    "assets": 13,
+    "events": 114,
+    "predictions": 24,
+    "joined_actuals": 24,
+    "measurements": 134,
+    "sse": "ready",
+    "commands_enabled": false,
+    "trusted_invalid_chat": 400,
+    "hostile_origin_chat": 403
+  },
+  "public_workspace": {
+    "base": "https://hackathon.aquatictw.com",
+    "checkedAt": "2026-09-19T16:05:53.665Z",
+    "modelCalls": 0,
+    "simulatedAnswers": 1,
+    "checks": [
+      "Replay homepage and shared three-page navigation",
+      "Persisted replay snapshot: 114 events",
+      "Load run and evidence selection",
+      "Suggested question fills draft without API request",
+      "Temperature tab emphasizes predicted/actual values with signed difference and source units",
+      "Prediction/command tabs preserve investigation log; 24 prediction rows",
+      "Switching incidents restores isolated conversations",
+      "Search and citation retain completed conversation",
+      "Reload restores run and conversation after fresh snapshot",
+      "Replay navigation, W25 miss disclosure, validation and limitations",
+      "Route round-trip retains conversation",
+      "Keyboard tabs and disconnect/reconnect retain evidence and conversation",
+      "Missing run clears stale scope; valid retry restores its conversation",
+      "Sandbox shared navigation and brand returns to replay homepage",
+      "Light/dark selection persists across reload",
+      "390px layout and contained table scrolling",
+      "Readable run fields and stream status; healthy investigation banner removed",
+      "Wafer motion pause/resume, top view and reduced-motion preference",
+      "Replay summary values and units do not overlap at desktop/mobile widths",
+      "Legacy /replay route remains functional"
+    ],
+    "errors": [],
+    "passed": true
+  },
+  "public_source_ui": {
+    "origin": "https://hackathon.aquatictw.com",
+    "checks": [
+      "en tour language selector",
+      "en compact source fields at 390px",
+      "en imported summary survives navigation and reload",
+      "en replay source and selected tab restored",
+      "en explicit backend switch loads real replay; repeated unit labels and readonly badge absent",
+      "zh-TW tour language selector",
+      "zh-TW compact source fields at 390px",
+      "zh-TW imported summary survives navigation and reload",
+      "zh-TW replay source and selected tab restored",
+      "zh-TW explicit backend switch loads real replay; repeated unit labels and readonly badge absent"
+    ],
+    "errors": [],
+    "posts": [],
+    "paidCalls": 0
+  },
+  "limitations": [
+    "Development replay deployment, not live Edge or tester acceptance.",
+    "No paid model requests. One browser-mocked investigation answer.",
+    "Source values in public UI tests are local browser imports; no source fixture was uploaded to the server."
+  ]
+}
