@@ -1,24 +1,35 @@
-# C — W25 detection candidate and false-alarm evaluation
+# C — detector cost and output-equivalent optimization
 
-Read [SYSTEM.md](../SYSTEM.md), especially detection/evidence semantics. Produce an evaluated W25 spread-down candidate while preserving the machine-running detector. A alone integrates runtime changes.
+Round: **R2-20260919**. Base: the exact published handoff SHA supplied by A at dispatch. Read AGENTS.md, SYSTEM.md and prompts/TEAMMATE.md first. The legacy first round is already accepted; do not repeat it.
 
 ## Write allowlist
 
 Only files under `workstreams/detection/`: your NOTES.md, candidate/evaluator code, fixtures, metrics and proposal. Existing grp6_app, artifacts, results, source data, frontend and team briefs are read-only to C. No shared config/deploy/VM edits.
 Maintain [your notes](../workstreams/detection/NOTES.md) using SYSTEM's notes rules.
-Use local branch `teammate-c-detection` in your own checkout/worktree from A's exact current-round handoff SHA. Publish only to remote `main` using SYSTEM's minimal synchronization protocol and [teammate prompt](../prompts/TEAMMATE.md). Never publish a remote role branch. This assignment records the completed first round; start a new round only after A supplies its updated assignment, round ID and base SHA.
+Use local branch `teammate-c-detection` in your own checkout/worktree from A's exact current-round handoff SHA. Publish only to remote `main` using SYSTEM's minimal synchronization protocol and [teammate prompt](../prompts/TEAMMATE.md). Never publish a remote role branch.
+
 
 ## Execute
 
-1. Reproduce current detection over all 25 wafers and read existing spread/baseline/site diagnostics. Preserve W2's measured low-yield finding despite its normal label; labels are evaluation metadata only.
-2. Implement one candidate for spread decrease inside the allowlist, with normal-baseline provenance, minimum sample/effect/persistence rules and bounded work. Do not encode wafer IDs or use future measurements/known answers as runtime inputs.
-3. Compare unchanged baseline and candidate on every wafer: expected-category coverage, all additional alerts, normal-labeled-wafer false alarms, alerts per wafer, first detection in completed devices and scan latency. Disclose that reused/tuned wafers are not independent holdouts and exact onset is unknown.
-4. Deliver candidate/evaluator, machine-readable metrics and a short recommendation with exact commands, thresholds, input hashes and representative evidence (series/site_series/baseline/score/count/direction/suggestion). Keep outputs inside workstreams/detection/.
+Profile the unchanged production WaferDetector over all 25 wafers, separating ingestion, scans, finalization and total time. Evaluate at most one workstream-local output-preserving optimization; compare exact alert categories, positions and evidence to baseline. Do not retune thresholds or repeat W25 fitting. Report warmup/repetitions, p50/p95/max local latency, environment/hashes and retained-state bounds. Desktop timing does not prove SDK callback or TP deadline compliance. Preserve W2 findings, W25 miss and rejected round-1 evidence. Deliver profile_detector.py, test_profile.py, round2/profile.json and ROUND2.md with an explicit promote/reject/defer recommendation. An evaluated negative result is acceptable.
 
-## Acceptance
+## Frozen inputs and dependencies
 
-- A reproduces baseline and candidate results without altering runtime/artifacts/results. Include all categories and any regressions; report missed W25 honestly if the candidate still fails.
-- W25 improvement is evaluated alongside false alarms, sample size and latency; a threshold change that merely fits W25 is not accepted as generalization proof.
-- Evidence uses source units, device-order axes and detector scores rather than invented probabilities. Deliver an explicit promote/reject recommendation; promotion requires A review.
+Use core/artifacts, source data, historical machine receipts and API/UI contracts at the assigned base as read-only inputs. Preserve route/response shapes, seven command states and shared public signatures. Other roles work concurrently in separate checkouts: do not revert their changes. B/C produce offline evidence only. D/E need no new fields from one another. A owns exporter reliability, integration/shared contracts and VM work. Report required outside-scope edits by path/reason and continue independent work.
 
-Before handoff audit your authored commits with `git show --name-only <commit>`, staged edits and `git status --short`; every authored path must be under workstreams/detection/. A cumulative base diff may include synchronized teammate work. Return base/branch SHA, commands/results and proposed A integration points.
+Inventory every file in your workstream and its references. Retain prior reproducibility evidence, including unsuccessful results. No cleanup deletion is authorized this round. New B/C CLIs must document default inputs and reject output outside their workstream.
+
+## Acceptance checks
+
+- python -B -m unittest discover -s workstreams/detection -p 'test_*.py' -v
+- python -B -m workstreams.detection.profile_detector --output workstreams/detection/round2/profile.json
+- python -B -m workstreams.detection.verify --contribution-ref 5f403bd
+- git diff --check; audit every authored commit, staged and untracked path against the allowlist.
+
+Run checks once on final implementation; after synchronization repeat only affected checks. A runs combined acceptance after all deliveries. A documented negative research result is acceptable; an implementation/check failure is BLOCKED until resolved or explicitly revised by A. Preserve live/auth/transport/units/deadline acceptance limits.
+
+## Delivery and completion
+
+Maintain Progress, Decisions, Blockers and Handoff in your NOTES.md. Record R2-20260919, IN_PROGRESS/BLOCKED/COMPLETE, exact base SHA, branch, implementation SHAs, paths, commands/results and evidence limits. Prior handoff is preserved at fd7fe29:workstreams/detection/NOTES.md.
+
+Publish scoped commits via normal fast-forward push to remote main following prompts/TEAMMATE.md. Include a [R2-20260919][C] COMPLETE marker only after acceptance checks pass. Return the exact delivery SHA in your response, never as a self-reference in its own commit. Stop editing after confirmed publication until A reviews or reassigns. Publication is not integration/deployment acceptance.

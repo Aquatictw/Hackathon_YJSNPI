@@ -1,6 +1,6 @@
-# D — backend projection and integration contracts
+# D — atomic command lifecycle guards
 
-Read [SYSTEM.md](../SYSTEM.md). Homepage snapshot/SSE/chat and real persisted AI already work locally. Close exporter projection gaps without rebuilding those integrations or claiming deployed transport.
+Round: **R2-20260919**. Base: the exact published handoff SHA supplied by A at dispatch. Read AGENTS.md, SYSTEM.md and prompts/TEAMMATE.md first. The legacy first round is already accepted; do not repeat it.
 
 ## Write allowlist
 
@@ -13,19 +13,31 @@ All paths below are relative to frontend/:
 
 Additional repository-root allowlist: `workstreams/backend/NOTES.md` only. Maintain [your notes](../workstreams/backend/NOTES.md) using SYSTEM's notes rules; this does not grant ownership of other files in that directory.
 Everything else is read-only: UI libs (including assistant/contracts/replay-adapter), pages, scripts, manifests/lockfiles/configs/examples, non-v1 routes, core/exporter, results and team briefs. Request cross-boundary changes from A/E.
-Use local branch `teammate-d-backend` in your own checkout/worktree from A's exact current-round handoff SHA. Publish only to remote `main` using SYSTEM's minimal synchronization protocol and [teammate prompt](../prompts/TEAMMATE.md). Never publish a remote role branch. This assignment records the completed first round; start a new round only after A supplies its updated assignment, round ID and base SHA. SYSTEM contains the sole API/status contract.
+Use local branch `teammate-d-backend` in your own checkout/worktree from A's exact current-round handoff SHA. Publish only to remote `main` using SYSTEM's minimal synchronization protocol and [teammate prompt](../prompts/TEAMMATE.md). Never publish a remote role branch.  SYSTEM contains the sole API/status contract.
+
 
 ## Execute
 
-1. Preserve bounded gzip/durable storage/idempotency/raw chunks. Project exporter prediction requests and actuals into scoped per-site records with stable IDs; preserve original request/device/run/tester identity. Device measurement access must be bounded; do not manufacture unavailable unit/attempt/completeness metadata.
-2. Keep wire.ts and edge-v1.schema.json aligned. Preserve accepted exporter string-version/Unix-time input and numeric-version/ISO normalized output. Agree additive fields/join behavior with E through A; preserve existing fixtures and reject conflicting IDs.
-3. Verify snapshot/SSE/retry/actual joins and command state/receipt guards using backend tests. Keep tools read-only and evidence-scoped. Incident lookup currently accepts optional run_id, not tester_id; document proposed API changes for A rather than silently changing consumers.
-4. Return exact commands/results, migrations, field examples in the handoff, base/branch SHA and deployment prerequisites to A. Explicitly retain user-auth and actual-container acceptance gates unless independently implemented/tested.
+Inspect and harden concurrent duplicate/conflicting command creation, expiry bypass using client occurred_at, stale state overwrites and wrong run/tester scope. Implement atomic, idempotent persistence retaining terminal states and truthful receipt provenance. Server time governs whether an unreceived queued command may be newly accepted; client timestamps cannot revive it. Already-received commands may report later outcomes under existing forward-only semantics. Preserve exact duplicate ACK retries; conflicting ACK content rejects. Add SQLite-backed interleaving/race regressions through the actual persistence path, plus expired, terminal and scope cases. Keep ACK storage/status update transactional. No tester command execution, identity-auth claim, remote migration/deployment or dependency changes.
 
-## Acceptance
+## Frozen inputs and dependencies
 
-- Tests cover multi-site/repeated requests, duplicate delivery, conflicting identity, out-of-order/ambiguous actuals and cross-run/tester isolation. Original raw payloads remain recoverable; bounded ingest commits before ACK.
-- Prediction/actual normalized records can reach existing snapshot/SSE consumers without losing scope or inventing receipt. Command states match SYSTEM; tester_confirmed requires correlated receipt semantics.
-- From frontend run `node --test tests/backend*.test.mjs`, `npm test`, `npx tsc --noEmit`, `npm run build`; report failures accurately and ask A for dependency/config changes. Do not deploy/migrate a remote DB yourself.
+Use core/artifacts, source data, historical machine receipts and API/UI contracts at the assigned base as read-only inputs. Preserve route/response shapes, seven command states and shared public signatures. Other roles work concurrently in separate checkouts: do not revert their changes. B/C produce offline evidence only. D/E need no new fields from one another. A owns exporter reliability, integration/shared contracts and VM work. Report required outside-scope edits by path/reason and continue independent work.
 
-Shared freeze: D may import but never edit assistant.ts exports instructions/demoAnswer/ChatMessage or E-owned EventView/validatedView. Preserve signatures/behavior expected across imports; A coordinates breaking changes. Check your authored commits (`git show --name-only <commit>`), staged edits and untracked files against this allowlist before handoff; a cumulative base diff may include synchronized teammate work.
+Inventory every file in your workstream and its references. Retain prior reproducibility evidence, including unsuccessful results. No cleanup deletion is authorized this round. New B/C CLIs must document default inputs and reject output outside their workstream.
+
+## Acceptance checks
+
+- cd frontend; node --test tests/backend*.test.mjs
+- cd frontend; npm test
+- cd frontend; npx tsc --noEmit
+- cd frontend; npm run build
+- git diff --check; audit every authored commit, staged and untracked path against the allowlist.
+
+Run checks once on final implementation; after synchronization repeat only affected checks. A runs combined acceptance after all deliveries. A documented negative research result is acceptable; an implementation/check failure is BLOCKED until resolved or explicitly revised by A. Preserve live/auth/transport/units/deadline acceptance limits.
+
+## Delivery and completion
+
+Maintain Progress, Decisions, Blockers and Handoff in your NOTES.md. Record R2-20260919, IN_PROGRESS/BLOCKED/COMPLETE, exact base SHA, branch, implementation SHAs, paths, commands/results and evidence limits. Prior handoff is preserved at fd7fe29:workstreams/backend/NOTES.md.
+
+Publish scoped commits via normal fast-forward push to remote main following prompts/TEAMMATE.md. Include a [R2-20260919][D] COMPLETE marker only after acceptance checks pass. Return the exact delivery SHA in your response, never as a self-reference in its own commit. Stop editing after confirmed publication until A reviews or reassigns. Publication is not integration/deployment acceptance.

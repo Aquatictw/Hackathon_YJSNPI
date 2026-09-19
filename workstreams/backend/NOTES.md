@@ -1,34 +1,20 @@
-# D — Backend notes
-
-> A integration disposition, September 19: D and E are integrated in main, including scoped joins, UI provenance and persisted command receipt projection. Original D history is retained by merge 28f5604; integration checks are in results/integration_20260919.json. Below is the first-round historical handoff; pending local integration requests are resolved, while machine/auth/transport gates remain open in SYSTEM. Future work uses SYSTEM's main-only publication protocol and A's next assignment.
+# D — R2-20260919
 
 ## Progress
 
-- Local assignment implemented and verified on 2026-09-19; ready for A's integration review. The user subsequently explicitly requested publication onto remote `main`, overriding the earlier team-branch-only publication restriction. No deployment, remote migration, VM, shared config or dependency-manifest changes.
-- Isolated checkout: `/Users/lindi/Downloads/meichuhackathon/grp6-d-backend`; branch `team/d-backend`; base `eababfc4ffbb6c6faea4136b3dd9724773247aab`. Main checkout was clean before worktree creation.
-- Per-site predictions/actuals now persist with source summaries/raw chunks in the same ingest transaction. ACKs contain original exporter event IDs only. Snapshot joins work regardless of arrival order and leave ambiguous matches unjoined; SSE sends immutable scoped records with resumable cursors.
-- Device measurement access is explicit run/tester/source-event scope, max 100 measurements/page, max 8 MiB raw reconstruction/17 chunks, and a response byte budget below 256 KiB. Raw flags, units/scaling and supplied unknown attempt metadata remain unchanged.
+- Status: IN_PROGRESS — assignment prepared; worker dispatch pending.
+- Prior accepted handoff: fd7fe29:workstreams/backend/NOTES.md (immutable Git history).
 
 ## Decisions
 
-- Add optional `original_request_id` and `source_event_id` to both wire/schema. `request_id` retains the exporter's per-site prediction ID; hashed projection event IDs include run/tester/source/type/site. Missing site predictions use null and a stable synthetic join ID; missing actuals remain only in raw/source summaries.
-- Example from inline synthetic fixture: prediction `{type:"prediction",request_id:"request:site:1",original_request_id:"request",source_event_id:"request-event",run_id:"run",tester_id:"tester",device_id:"device-a",site_id:1,stage:2,prediction:1.2,coverage:1,unit:null,response_status:"response_queued"}`. Its actual uses the same scoped request/device/site and `actual:1.3`; snapshot adds `actual`/computed absolute error only for a unique match. Coverage=1 does not assert verified units or complete measurements. No receipt is fabricated.
-- Add read-only `GET /api/v1/runs/{id}/measurements?tester_id=...&event_id=...&offset=0&limit=50`. Tester/source event are required; invalid query 422, absent scoped bundle 404. Response: `metadata`, `measurements`, `total`, `offset`, `next_offset`. No migration; existing `0000_grp6_backend.sql` tables suffice.
-- Exporter versions 1/"1" and Unix timestamps remain accepted; normalized version/time are 1/ISO. Numeric wafer IDs become strings, while raw payloads retain numeric values. Supplied attempts participate in joins. Incident lookup and command-state contracts are unchanged.
+- Follow team/D_BACKEND.md; preserve accepted baseline and historical evidence.
 
 ## Blockers
 
-- No remaining local implementation blocker. User authentication, actual-container HTTPS/outbox delivery, real D1 limits/load, and real correlated tester receipts remain unverified acceptance gates. SQLite tests replace only the D1 binding and do not prove Cloudflare or machine execution; receipt strings in tests are synthetic.
-- Requested owner A/E: review additive wire fields/new measurement API. E-owned `frontend/app/page.tsx`, `frontend/lib/rtdi/edge-adapter.ts`, `frontend/lib/rtdi/dashboard.ts` need actual/coverage/provenance presentation, globally scoped UI prediction IDs, out-of-order adapter handling and command labels. Existing homepage refreshes snapshots on SSE and accepts these records. UI files remain untouched.
-- Requested owner A: update `SYSTEM.md` after integration, retain auth/transport/receipt gates, and coordinate any future incident tester selector. Existing stored source summaries are not automatically backfilled; replaying unchanged raw events under a new batch ID can create missing projections. Same-batch retries remain read-only duplicates.
+- No implementation blocker known at dispatch; machine acceptance limits remain in SYSTEM.md.
 
 ## Handoff
 
-- Changed paths: `frontend/lib/rtdi/{backend-projection,backend-measurements,exporter-wire,raw-payload,repository,wire}.ts`; `frontend/contracts/edge-v1.schema.json`; `frontend/app/api/v1/runs/[id]/measurements/route.ts`; `frontend/tests/backend-storage.test.mjs`; this notes file. All are D-allowlisted.
-- Evidence: `frontend/tests/backend-storage.test.mjs` contains 10 SQLite-backed integration checks and inline fixtures, including injected rollback before HTTP ACK, raw recovery, retry/conflict, repeated/multi-site requests, cross-scope/attempt/ambiguous/out-of-order joins, SSE resume, gzip ingest, metadata/page bounds and persisted command guards. Existing `frontend/tests/backend.test.mjs` remains unchanged.
-- Exact acceptance commands from `frontend/`: `node --test tests/backend*.test.mjs` → exit 0, 22/22 pass; `npm test` → exit 0, 39/39 pass; `npx tsc --noEmit` → exit 0, no diagnostics; `npm run build` → exit 0, all five vinext build stages, including `/api/v1/runs/:id/measurements`. Build reports its existing static-classification warning for pages; no build failure.
-- Local runtime setup: Node v24.19.0 at `/Users/lindi/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin`; npm 11.6.0 supplied through cached pnpm dlx. Commands used `PATH=/Users/lindi/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin:/private/tmp/grp6-d-cache/pnpm/dlx/7b75dc79dd2484192a882e486751d798/mu8516vc-1ct5/node_modules/.bin:$PATH`. `npm ci --offline` completed with 875 packages after the initial network-restricted attempt interfered with installation; no dependency/config changes. An initial gzip test returned 415 because the fixture omitted Content-Type; corrected fixture now passes. Final checks above supersede preliminary setup/test failures.
-- Implementation commit `2085284640bc8bcea7780c86e95bf3ea67c9327a` pushed successfully to `origin/team/d-backend`. `git diff --check` passed; base-to-HEAD plus untracked allowlist audit passed for all 10 paths; working tree was clean after commit. The first sandboxed push failed DNS; authorized network retry succeeded.
-- Next action for A: review additive contracts and integrate with E. Deployment prerequisites remain A-owned auth, configured D1/ingest tokens, hosted HTTPS and actual-container/outage/receipt acceptance. No secret values are included.
-
-- Main publication handoff: assembled in isolated `/Users/lindi/Downloads/meichuhackathon/grp6-d-main-review` on remote-main base `12ebfadb661edba907ff7911731ea309a8b5b5c9`, preserving A's newer audit/evidence commit. D's two commits were cherry-picked as `0ccd860` and `d798166`; the original `team/d-backend` branch remains unchanged. `git diff --exit-code team/d-backend HEAD -- frontend` passed: frontend code, fixtures, dependencies and configuration are identical to the tested revision above. `git diff --check origin/main` passed; the ten-path allowlist remains unchanged. Publication uses a normal fast-forward push, never force.
+- Round: R2-20260919.
+- Base SHA: worker records the exact published handoff SHA supplied by A.
+- Delivery pending; no fresh test or completion claim.

@@ -1,24 +1,35 @@
-# B — offline prediction proposals
+# B — recorded prediction readiness audit
 
-Read [SYSTEM.md](../SYSTEM.md), especially requirements/runtime invariants. Preserve the machine-running baseline. A owns runtime promotion; your deliverable is a reproducible offline comparison.
+Round: **R2-20260919**. Base: the exact published handoff SHA supplied by A at dispatch. Read AGENTS.md, SYSTEM.md and prompts/TEAMMATE.md first. The legacy first round is already accepted; do not repeat it.
 
 ## Write allowlist
 
 Only files under `workstreams/prediction/`, including your NOTES.md, evaluation code, candidate artifacts, fixtures and results. All existing core/models/manifest/results/source data and these team briefs are read-only to B. No dependency/config/deploy/VM edits.
 Maintain [your notes](../workstreams/prediction/NOTES.md) using SYSTEM's notes rules.
-Use local branch `teammate-b-prediction` in your own checkout/worktree from A's exact current-round handoff SHA. Publish only to remote `main` using SYSTEM's minimal synchronization protocol and [teammate prompt](../prompts/TEAMMATE.md). Never publish a remote role branch. This assignment records the completed first round; start a new round only after A supplies its updated assignment, round ID and base SHA.
+Use local branch `teammate-b-prediction` in your own checkout/worktree from A's exact current-round handoff SHA. Publish only to remote `main` using SYSTEM's minimal synchronization protocol and [teammate prompt](../prompts/TEAMMATE.md). Never publish a remote role branch.
+
 
 ## Execute
 
-1. Read current manifest/runtime/validation and results/model_revalidation/validation.json; reproduce the six-stage baseline without rewriting them. Add an evaluator under the allowlist with explicit input/output arguments.
-2. Evaluate one useful candidate or missing-feature fallback against the unchanged baseline using wafer-separated folds. Fit preprocessing/selection only within training folds; enforce TP flow cutoffs and exclude future targets/final bins/labels.
-3. Report stage/wafer/site MAE, RMSE, worst error, coverage, baseline comparison and measured inference latency. Exercise future-feature invariance, missing inputs, finite outputs and device/site isolation; disclose tuning/holdout limitations and unverified units.
-4. Deliver candidate code/artifacts, machine-readable metrics and one short evaluation note inside workstreams/prediction, with exact commands, data/model hashes, branch/base SHA and proposed integration points for A.
+Audit recorded engineering and production-3 JSONL and correlated receipt/strict-audit evidence. Report scoped request counts, readiness, missing inputs, wait/lifecycle flags, actual joins and callback timing by stage/site. Missing metadata is unknown, not zero. Sequence-319 malformed action remains a known historical failure; sampled measurements cannot prove full completeness. Add adversarial fixtures for incomplete coverage, wrong scope, duplicate IDs, ambiguous actuals and lifecycle changes. Deliver readiness_audit.py, test_readiness.py, round2/readiness.json and ROUND2.md with exact hashes and a concrete G1/G2 machine-test matrix. Preserve the round-1 model/evaluation outputs; no retraining or promotion.
 
-## Acceptance
+## Frozen inputs and dependencies
 
-- A can reproduce baseline/candidate results from stated commands; all generated files stay inside the allowlist. No default build_models/calibrate invocation may overwrite production artifacts.
-- All six stages obey causal boundaries; comparison includes regressions and unsuccessful candidates. Empty/insufficient data never becomes fabricated successful predictions.
-- Proposal explains expected benefit/cost and what remains unverified on-machine. No claimed deployment, runtime replacement or guaranteed accuracy. A decides whether to promote.
+Use core/artifacts, source data, historical machine receipts and API/UI contracts at the assigned base as read-only inputs. Preserve route/response shapes, seven command states and shared public signatures. Other roles work concurrently in separate checkouts: do not revert their changes. B/C produce offline evidence only. D/E need no new fields from one another. A owns exporter reliability, integration/shared contracts and VM work. Report required outside-scope edits by path/reason and continue independent work.
 
-Before handoff audit your authored commits with `git show --name-only <commit>`, staged edits and `git status --short`; every authored path must be under workstreams/prediction/. A cumulative base diff may include synchronized teammate work. Report required external edits to A instead of making them.
+Inventory every file in your workstream and its references. Retain prior reproducibility evidence, including unsuccessful results. No cleanup deletion is authorized this round. New B/C CLIs must document default inputs and reject output outside their workstream.
+
+## Acceptance checks
+
+- python -B -m unittest discover -s workstreams/prediction -p 'test_*.py' -v
+- python -B -m workstreams.prediction.readiness_audit --output workstreams/prediction/round2/readiness.json
+- python -B -m workstreams.prediction.audit --results workstreams/prediction/results --report workstreams/prediction/round2/prior-audit.json
+- git diff --check; audit every authored commit, staged and untracked path against the allowlist.
+
+Run checks once on final implementation; after synchronization repeat only affected checks. A runs combined acceptance after all deliveries. A documented negative research result is acceptable; an implementation/check failure is BLOCKED until resolved or explicitly revised by A. Preserve live/auth/transport/units/deadline acceptance limits.
+
+## Delivery and completion
+
+Maintain Progress, Decisions, Blockers and Handoff in your NOTES.md. Record R2-20260919, IN_PROGRESS/BLOCKED/COMPLETE, exact base SHA, branch, implementation SHAs, paths, commands/results and evidence limits. Prior handoff is preserved at fd7fe29:workstreams/prediction/NOTES.md.
+
+Publish scoped commits via normal fast-forward push to remote main following prompts/TEAMMATE.md. Include a [R2-20260919][B] COMPLETE marker only after acceptance checks pass. Return the exact delivery SHA in your response, never as a self-reference in its own commit. Stop editing after confirmed publication until A reviews or reassigns. Publication is not integration/deployment acceptance.
