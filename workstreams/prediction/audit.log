@@ -1,0 +1,46 @@
+{
+  "status": "pass",
+  "prediction_rows": 48000,
+  "metric_groups_recomputed": 9360,
+  "hashes_verified": true,
+  "causal_fold_features_verified": true,
+  "primary_preservation_and_empty_abstention_verified": true,
+  "complete_data_regressions": {
+    "1": {
+      "sparse8_wafers_with_higher_mae": 23,
+      "sparse8_wafer_sites_with_higher_mae": 90,
+      "total_wafers": 25,
+      "total_wafer_sites": 100
+    },
+    "2": {
+      "sparse8_wafers_with_higher_mae": 25,
+      "sparse8_wafer_sites_with_higher_mae": 97,
+      "total_wafers": 25,
+      "total_wafer_sites": 100
+    },
+    "3": {
+      "sparse8_wafers_with_higher_mae": 13,
+      "sparse8_wafer_sites_with_higher_mae": 55,
+      "total_wafers": 25,
+      "total_wafer_sites": 100
+    },
+    "4": {
+      "sparse8_wafers_with_higher_mae": 24,
+      "sparse8_wafer_sites_with_higher_mae": 93,
+      "total_wafers": 25,
+      "total_wafer_sites": 100
+    },
+    "5": {
+      "sparse8_wafers_with_higher_mae": 22,
+      "sparse8_wafer_sites_with_higher_mae": 72,
+      "total_wafers": 25,
+      "total_wafer_sites": 100
+    },
+    "6": {
+      "sparse8_wafers_with_higher_mae": 21,
+      "sparse8_wafer_sites_with_higher_mae": 71,
+      "total_wafers": 25,
+      "total_wafer_sites": 100
+    }
+  }
+}

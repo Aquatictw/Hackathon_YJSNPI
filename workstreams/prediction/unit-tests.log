@@ -1,0 +1,18 @@
+test_all_scope_dimensions_remain_separate_and_order_independent (test_prediction.PredictionChecks.test_all_scope_dimensions_remain_separate_and_order_independent) ... ok
+test_comparisons_do_not_confuse_added_rows_with_paired_accuracy (test_prediction.PredictionChecks.test_comparisons_do_not_confuse_added_rows_with_paired_accuracy) ... ok
+test_empty_predictions_have_null_errors_and_zero_coverage (test_prediction.PredictionChecks.test_empty_predictions_have_null_errors_and_zero_coverage) ... ok
+test_insufficient_training_data_fails_explicitly (test_prediction.PredictionChecks.test_insufficient_training_data_fails_explicitly) ... ok
+test_irrelevant_future_targets_bins_and_labels_cannot_change_prediction (test_prediction.PredictionChecks.test_irrelevant_future_targets_bins_and_labels_cannot_change_prediction) ... ok
+test_missing_primary_input_uses_complete_sparse_model (test_prediction.PredictionChecks.test_missing_primary_input_uses_complete_sparse_model) ... ok
+test_missing_sparse_input_never_imputes_or_reuses_previous_device (test_prediction.PredictionChecks.test_missing_sparse_input_never_imputes_or_reuses_previous_device) ... ok
+test_outputs_cannot_escape_workstream (test_prediction.PredictionChecks.test_outputs_cannot_escape_workstream) ... ok
+test_overflow_does_not_escape_as_infinity (test_prediction.PredictionChecks.test_overflow_does_not_escape_as_infinity) ... ok
+test_primary_is_preserved_even_when_sparse_disagrees (test_prediction.PredictionChecks.test_primary_is_preserved_even_when_sparse_disagrees) ... ok
+test_runtime_and_matrix_agree_with_missing_inputs (test_prediction.PredictionChecks.test_runtime_and_matrix_agree_with_missing_inputs) ... ok
+test_training_statistics_use_only_given_training_rows (test_prediction.PredictionChecks.test_training_statistics_use_only_given_training_rows) ... ok
+test_unknown_stage_abstains (test_prediction.PredictionChecks.test_unknown_stage_abstains) ... ok
+
+----------------------------------------------------------------------
+Ran 13 tests in 0.027s
+
+OK
