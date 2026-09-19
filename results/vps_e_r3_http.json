@@ -1,0 +1,39 @@
+{
+  "origin": "http://127.0.0.1:5173",
+  "homepage": 200,
+  "replay": 200,
+  "assets": 25,
+  "events": 114,
+  "predictions": 24,
+  "joined_actuals": 24,
+  "measurement_count": 134,
+  "mode": "replay",
+  "sse": "ready",
+  "ai": true,
+  "commands": false,
+  "origin_checks": [
+    {
+      "path": "/api/assistant",
+      "request_origin": "https://hackathon.aquatictw.com",
+      "status": 400
+    },
+    {
+      "path": "/api/assistant",
+      "request_origin": "https://untrusted.invalid",
+      "status": 403
+    },
+    {
+      "path": "/api/v1/runs/grp6-replay-demo/chat",
+      "request_origin": "https://hackathon.aquatictw.com",
+      "status": 400
+    },
+    {
+      "path": "/api/v1/runs/grp6-replay-demo/chat",
+      "request_origin": "https://untrusted.invalid",
+      "status": 403
+    }
+  ],
+  "paid_ai_calls": 0,
+  "deployed_revision": "ad4a54aba21e49001f1a10c95a0636179b6cc116",
+  "checked_at_utc": "2026-09-19T11:21:40.6193241Z"
+}

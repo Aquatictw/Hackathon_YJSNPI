@@ -1,0 +1,49 @@
+{
+  "round": "R3-20260919",
+  "accepted_source_revision": "ad4a54aba21e49001f1a10c95a0636179b6cc116",
+  "deployed_preview_revision": "ad4a54aba21e49001f1a10c95a0636179b6cc116",
+  "deliveries": {
+    "D_complete": "972c349",
+    "D_implementation": "87099b487ce4935e6554a65bf35490f078f8aa1d",
+    "E_complete": "459992e",
+    "E_implementation": "1719ad4955c8e237c0df91577e4d2336f69428a8",
+    "B_C_followup_published_by_A": "ad4a54aba21e49001f1a10c95a0636179b6cc116"
+  },
+  "checks": {
+    "frontend_npm_test": {"passed": 109, "failed": 0, "provider": "test doubles only"},
+    "typescript_no_emit": "passed",
+    "production_build_on_vps": "passed",
+    "updater_bash_syntax": "passed before install",
+    "updater_activation": "passed with socket proxy stopped during state backup/migration and running process directory matching new release",
+    "seed": {"new_records": 0, "duplicate_alert_records": 14, "duplicate_source_records": 52, "persisted_events": 114},
+    "http_evidence": "results/vps_e_r3_http.json",
+    "browser": {
+      "url": "https://hackathon.aquatictw.com/?revision=ad4a54a",
+      "observed": ["persisted dark selection on fresh page", "114 source events", "14 incidents and evidence records", "event stream connected", "AI configured with submit-only invocation"],
+      "method": "actual browser accessibility tree and load-run interaction",
+      "additional_E_checks": "workstreams/frontend/NOTES.md"
+    },
+    "independent_static_review": "No blocking findings in D agent/chat/tools or A origin and deployment fixes",
+    "paid_ai_calls_for_this_integration": 0
+  },
+  "research": {
+    "decision": "ACCEPT_DIAGNOSTIC_FINDING_REJECT_RUNTIME_AND_REPLAY_PROMOTION",
+    "review": "results/burst_followup_review.json",
+    "matched_scans": 1050,
+    "preserved_baseline_payloads": 14,
+    "exact_indexed_evidence_files_checked": 44,
+    "runtime_sha256": "752e7c6c52b0c6e50a2c7ab37b7705ad21ec43ec18df968866832d07ba09afe9",
+    "B_followup_tests_reported": 24,
+    "C_tests_reported": 51,
+    "A_audits": ["Independent combinatorial scan/payload cross-check", "B validation file hashes", "C manifest file hashes and audit"],
+    "limits": ["W25 remains missed by accepted runtime/replay", "All 25 wafers are reused development data", "Relaxed burst scans add W15 false alarms; mean-transition controls fail variance specificity"]
+  },
+  "remaining_limits": [
+    "OpenAI key/model access was not tested with a paid request",
+    "No public user authentication or durable rate/cost guard; same-origin checking is not authentication",
+    "VPS uses local D1 and replay, not live Edge-container transport or tester receipts",
+    "Earlier machine TLS verification encountered an expired certificate; this integration did not repair or certify TLS",
+    "Existing core/machine evidence is unchanged and was not rerun for these frontend/deployment fixes",
+    "Another worker's new locked W25 worktree and prompts/message.txt were preserved outside this release"
+  ]
+}

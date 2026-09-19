@@ -2,6 +2,7 @@
 import assert from 'node:assert/strict';
 const origin = process.argv[2] || 'http://127.0.0.1:5173';
 const expectedAi = process.argv.includes('--expect-ai');
+const publicOrigin = process.argv.find(arg => arg.startsWith('--public-origin='))?.slice('--public-origin='.length);
 async function read(path) {
   const response = await fetch(new URL(path, origin), {signal: AbortSignal.timeout(20000)});
   assert.equal(response.status, 200, path);
@@ -45,4 +46,18 @@ const reader = stream.body.getReader();
 const {value} = await reader.read();
 assert.match(new TextDecoder().decode(value), /event: ready/);
 await reader.cancel();
-console.log(JSON.stringify({origin, homepage:200, replay:200, assets:assets.size, events:snapshot.events.length, predictions:predictions.length, joined_actuals:predictions.filter(e=>Number.isFinite(e.actual)).length, measurement_count:measurements.total, mode:snapshot.run.mode, sse:'ready', ai:config.openai_configured, commands:false}));
+const originChecks = [];
+if (publicOrigin) {
+  for (const path of ['/api/assistant', '/api/v1/runs/grp6-replay-demo/chat']) {
+    for (const [requestOrigin, expected] of [[publicOrigin, 400], ['https://untrusted.invalid', 403]]) {
+      // Invalid body must fail before key lookup, model requests or persistence.
+      const response = await fetch(new URL(path, origin), { method: 'POST', headers: {
+        Origin: requestOrigin, 'Content-Type': 'application/json',
+      }, body: '{}', signal: AbortSignal.timeout(20000) });
+      assert.equal(response.status, expected, `${path}: origin guard`);
+      await response.json();
+      originChecks.push({path, request_origin: requestOrigin, status: response.status});
+    }
+  }
+}
+console.log(JSON.stringify({origin, homepage:200, replay:200, assets:assets.size, events:snapshot.events.length, predictions:predictions.length, joined_actuals:predictions.filter(e=>Number.isFinite(e.actual)).length, measurement_count:measurements.total, mode:snapshot.run.mode, sse:'ready', ai:config.openai_configured, commands:false, origin_checks:originChecks, paid_ai_calls:0}));

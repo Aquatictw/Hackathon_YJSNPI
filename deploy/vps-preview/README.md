@@ -94,6 +94,9 @@ cat /opt/grp6-preview/nginx-upstream
 folder. `verify-http.mjs` checks HTML, built assets, replay, config, persisted
 snapshot and SSE. Pass `--expect-ai` after the origin for the configured preview;
 this only checks configuration presence and never calls OpenAI.
+Add `--public-origin=https://hackathon.aquatictw.com` to check both chat routes
+with invalid empty bodies: trusted origin returns 400, unrelated origin 403.
+Neither request can reach the model.
 For HTTPS proxy chat, set `APP_ORIGIN="https://hackathon.aquatictw.com"` in
 the private `.dev.vars`. Only that exact configured origin is trusted; forwarded
 headers do not authorize another origin. Restart after configuration changes.
