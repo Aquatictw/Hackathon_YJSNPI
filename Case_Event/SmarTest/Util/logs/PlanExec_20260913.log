@@ -1,0 +1,35 @@
+2026-09-13 05:18:36,935 - INFO - workspace: /home/user/Case_Event/SmarTest/workspace
+2026-09-13 05:18:36,936 - INFO - Kill SmarTest
+2026-09-13 05:18:37,479 - INFO - Errors: b'SmarTest no longer running for current user. Cleaning up.\n'
+2026-09-13 05:18:37,479 - INFO - run cmd: ['/opt/hp93000/soc/prod_env/lbin/kill_smarTest'] Success
+2026-09-13 05:18:37,479 - INFO - Kill Tcct
+2026-09-13 05:19:06,956 - INFO - 
+2026-09-13 05:19:06,957 - INFO - Found 0 running PH sessions.
+2026-09-13 05:19:06,957 - INFO - Checking remaining PH session processes.
+2026-09-13 05:19:06,957 - INFO - No remaining processes. Done!
+2026-09-13 05:19:06,957 - INFO - Errors: b'/opt/hp93000/testcell/sbin/kill_tc_sessions.sh: line 119: kill: (2387) - Operation not permitted\n/opt/hp93000/testcell/sbin/kill_tc_sessions.sh: line 119: kill: (2541) - Operation not permitted\nSmarTest no longer running for current user. Cleaning up.\n'
+2026-09-13 05:19:06,957 - INFO - run cmd: ['/opt/hp93000/testcell/bin/killTcct.prod'] Success
+2026-09-13 05:19:38,743 - INFO - run cmd: /opt/hp93000/soc/prod_env/bin/HPSmarTest --data=/home/user/Case_Event/SmarTest/workspace --testprogram=TestCase_Smt870/src/TestCase1/TestCase1_4site_ft.prog -o& Success
+2026-09-13 05:20:08,962 - INFO - [INFO] Starting 1:1 app deployment...
+2026-09-13 05:20:08,963 - INFO - Errors: b'[ERROR] Request failed.\n[ERROR] Session is not ready, cannot start or stop application.\n'
+2026-09-13 05:20:08,963 - INFO - run cmd: ['/opt/acs/nexus/bin/AppDeployer start'] Fail
+2026-09-13 05:21:05,305 - INFO - [INFO] Starting 1:1 app deployment...
+2026-09-13 05:21:05,305 - INFO - [INFO] Request completed successfully.
+2026-09-13 05:21:05,305 - INFO - run cmd: ['/opt/acs/nexus/bin/AppDeployer start'] Success
+2026-09-13 05:25:37,098 - INFO - workspace: /home/user/Case_Event/SmarTest/workspace
+2026-09-13 05:25:37,098 - INFO - Kill SmarTest
+2026-09-13 05:25:45,875 - INFO - run cmd: ['/opt/hp93000/soc/prod_env/lbin/kill_smarTest'] Success
+2026-09-13 05:25:45,875 - INFO - Kill Tcct
+2026-09-13 05:26:15,352 - INFO - 
+2026-09-13 05:26:15,352 - INFO - Found 0 running PH sessions.
+2026-09-13 05:26:15,352 - INFO - Checking remaining PH session processes.
+2026-09-13 05:26:15,352 - INFO - No remaining processes. Done!
+2026-09-13 05:26:15,352 - INFO - Errors: b'/opt/hp93000/testcell/sbin/kill_tc_sessions.sh: line 119: kill: (10949) - Operation not permitted\nSmarTest no longer running for current user. Cleaning up.\n'
+2026-09-13 05:26:15,352 - INFO - run cmd: ['/opt/hp93000/testcell/bin/killTcct.prod'] Success
+2026-09-13 05:26:46,586 - INFO - run cmd: /opt/hp93000/soc/prod_env/bin/HPSmarTest --data=/home/user/Case_Event/SmarTest/workspace --testprogram=TestCase_Smt870/src/TestCase1/TestCase1_4site_ft.prog -o& Success
+2026-09-13 05:27:16,629 - INFO - [INFO] Starting 1:1 app deployment...
+2026-09-13 05:27:16,630 - INFO - Errors: b'[ERROR] Request failed.\n[ERROR] Session is not ready, cannot start or stop application.\n'
+2026-09-13 05:27:16,630 - INFO - run cmd: ['/opt/acs/nexus/bin/AppDeployer start'] Fail
+2026-09-13 05:28:14,250 - INFO - [INFO] Starting 1:1 app deployment...
+2026-09-13 05:28:14,250 - INFO - [INFO] Request completed successfully.
+2026-09-13 05:28:14,250 - INFO - run cmd: ['/opt/acs/nexus/bin/AppDeployer start'] Success

@@ -1,0 +1,514 @@
+
+===== PAGE 1 =====
+黑客松
+Work Shop
+Vincent Chen
+Mail address: vincent-ft.chen@advantest.com
+All Rights Reserved - ADVANTEST CORPORATION
+CONFIDENTIAL
+
+===== PAGE 2 =====
+Agenda
+• What is RTDI
+• Gemini overview
+• How to use Gemini
+• NEXUS ONEAPI overview
+• Development environment
+• Deployment and production run simulation
+• Docker image deployment
+• Simulate production run
+• Dataset overview
+2 All Rights Reserved - ADVANTEST CORPORATION CONFIDENTIAL
+
+===== PAGE 3 =====
+ACS Real-Time Data Infrastructure is all about…
+Cross-Test-Floors Data Streaming
+Data-Driven Decision-Making During Test
+3 All Rights Reserved - ADVANTEST CORPORATION CONFIDENTIAL
+M
+M
+a
+a
+n
+t e
+S
+u f
+r ia
+T e s
+e m
+a c
+ls P
+t D
+i
+t u
+r o
+a t a
+r
+c
+i
+e
+n
+s
+g
+s
+P a
+P
+T
+r
+ae
+a
+r as
+m
+mt
+D
+e
+e ta
+t r
+r ic
+t a
+i c W a f e
+Q
+r
+uD aa
+P r
+lit y
+t a
+o b e P a c
+W
+k a
+ir eD
+g
+-a
+e
+B o
+t a
+T
+n d
+e s t
+S
+PR
+y
+ee
+A
+B u r n - I n
+s t e m T
+r f o r m a n c
+lia b ilit y D
+le r ts & A c
+/e
+ea
+tio
+s
+&t
+a
+n
+t
+s
+Time-to-market Automated ML
+ML Apps Models Deployment
+Development to Production/OSATs
+
+===== PAGE 4 =====
+ACS RTDI Optimizes Time-to-ML Deployment
+• ML Ops development shortens lead time
+• Modular Test Program Development
+• From 6M to 1M for new device
+▪ Decouples Test Program from Data and ML Model to
+• From 4Ws to 2Ws for replicating developed ML on new device minimize test program changes
+• From 4 weeks to 2~3 days for new ML on same device ▪ Encapsulates ML building blocks in APP to be reused
+by multiple test programs
+Customer ▪ Enables offloading compute-intensive test program logic
+to run in parallel
+Data Scientist AI / ML
+Workload • Advanced Debugging Capabilities
+Develops and tests
+AI / ML workloads SECURITY ACS
+Container
+mTLS
+Hub ▪ ACS Gemini : cloud-based simulation and debugging
+Customer
+Database environment to accelerate ML development and
+Test Engineer
+SECURITY deployment.
+mTLS
+• Automated ML Models Deployment to OSATs
+Test Floor SECURITY
+mTLS
+▪ Independent ML release cycles, faster updates and
+On-prem copy
+True Zero Trust™ from cloud rollouts without disrupting production testing
+DATA API
+Unified Server
+ACTION API ▪ Enabling rapid deployment and scaling of AI/ML
+SECURITY
+Test Cell
+mTLS models across foundry and OSAT production floors
+ACS Edge Server
+Event Stream
+ACS O ▪ Real-time monitoring*: full control over application
+V93000 API n
+System Nexus e x86 server with performance, system up-time, events, and logs
+A
+Host DECISION API P optional GPU
+Controller I
+10Gb/s Encrypted Ethernet
+mTLS Encrypted layer
+4 All Rights Reserved - ADVANTEST CORPORATION CONFIDENTIAL
+
+===== PAGE 5 =====
+Agenda
+• What is RTDI
+• Gemini overview
+• How to use Gemini
+• NEXUS ONEAPI overview
+• Development environment
+• Deployment and production run simulation
+• Docker image deployment
+• Simulate production run
+• Dataset overview
+5 All Rights Reserved - ADVANTEST CORPORATION CONFIDENTIAL
+
+===== PAGE 6 =====
+ACS Gemini Value Proposition
+Simplify the ACS RTDI Experience for Engineers and Customers
+• Accelerate AI/ML algorithm development
+• Enable AI/ML app performance benchmarks
+• Minimize physical resource investments during the ramp-up phase
+• Offer an SDK to integrate with ACS RTDI
+Provide a Virtual RTDI Experience for Promotional Purposes
+• Showcase ACS RTDI features through product demos
+• Provide training for internal users and customer engineers to familiarize
+them with ACS RTDI.
+Expedite customer engagement steps
+1. Customer uses ACS Gemini to familiarize with ACS RTDI
+2. Customer starts ACS RTDI POC (Proof of concept)
+3. Customer implements ACS RTDI in production
+6 AAll lRl Rigihgthst sR Reseesrevrevde d- -A ADDVAVANNTETESST TC COORRPPOORRATAITOIONN CONFIDENTIAL
+
+===== PAGE 7 =====
+ACS Gemini: How it Works
+An environment based on virtual
+machines that replicates a
+complete ACS RTDI setup,
+integrating ACS Container Hub,
+ACS Nexus, ACS Unified Server,
+and ACS Edge.
+Develop apps using synthetic or
+historical data to evaluate impact
+on yield and quality across one or
+more simulated test sessions.
+Deploy: After optimization, models
+can be containerized for
+streamlined deployment in real
+production with ACS RTDI.
+7 AAll lRl Rigihgthst sR Reseesrevrevde d- -A ADDVAVANNTETESST TC COORRPPOORRATAITOIONN CONFIDENTIAL
+
+===== PAGE 8 =====
+ACS Gemini User Experience
+Remote Desktop (VNC, SSH, SFTP)
+• Access the UI/UX through web browser
+• Creates virtual machines and a virtualized
+environment
+ACS Applications Reference Model
+• Reference model to mimic and expedite the
+ML development.
+ACS Software Development Kit
+• Enabling debugging Smart Test (7 or 8) OS
+Test Programs with synthetic or historical data
+• User Manual to create DIY Apps
+• STDF replay and feeding for ML modeling and
+apps performance evaluation
+Publish Apps to ACS Container Hub
+• Zero Trust Security environment
+• Applications delivered with high security to a
+physical ACS RTDI in production after
+optimization
+8 AAll lRl Rigihgthst sR Reseesrevrevde d- -A ADDVAVANNTETESST TC COORRPPOORRATAITOIONN CONFIDENTIAL
+
+===== PAGE 9 =====
+How to connect to Gemini
+• Use browser (firefox/chrome/edge) to connect to ACS Gemini
+• URL: ACS Gemini(https://sandbox.gemini.te-cloud.advantest.com/dashboard/virtual-machine)
+• The account and passwd is needed.
+– Account: eventgroup0919@gmail.com
+– Pass: 1Qaz2wsx
+• After login, user can find all VMs for this account.
+9 All Rights Reserved - ADVANTEST CORPORATION CONFIDENTIAL
+
+===== PAGE 10 =====
+How to access VM
+Step 1. Press the button of VM which want to access Step 3. Use RHEL 7.9 VM
+Step 2. Select protocol to access VM
+10 All Rights Reserved - ADVANTEST CORPORATION CONFIDENTIAL
+
+===== PAGE 11 =====
+File upload/download to VM
+Press Shift+Ctrl+Alt in the VM Press Upload Files to upload files
+Click the devices Or double click the target file to download to PC.
+11 All Rights Reserved - ADVANTEST CORPORATION CONFIDENTIAL
+
+===== PAGE 12 =====
+Agenda
+• What is RTDI
+• Gemini overview
+• How to use Gemini
+• NEXUS ONEAPI overview
+• Development environment
+• Deployment and production run simulation
+• Docker image deployment
+• Simulate production run
+• Dataset overview
+12 All Rights Reserved - ADVANTEST CORPORATION CONFIDENTIAL
+
+===== PAGE 13 =====
+Nexus/ONEAPI overview
+TCCT
+Container
+1. Real Time 3,Customized
+8. Action process
+Event 5. Load dataset
+test data generate
+Test Flow Begin
+Disk
+2. Real Time Event
+9. Action process Event/Results Handler
+4. Call MLs based
+Function
+ACS Adaptive Test
+on selected timing
+Nexus
+Library
+MLs
+7.Check if any action
+Actions
+Action Handler
+Function Disk
+Customer Original
+6. generate actions
+Test Flow 10. Real Time App with
+based on inference
+Result ONEAPI
+SmarTest result
+Host Computer
+Edge or AUS
+Step 3-6 will be different based on requirement.
+13 All Rights Reserved - ADVANTEST CORPORATION CONFIDENTIAL
+
+===== PAGE 14 =====
+Production event and test results
+Start
+test program ▪ Each block means one test suite.
+Lot Start
+➢ Each test suite may contain several test results.
+➢ Type of test result
+Wafer Start
+– Functional test – pass /fail only
+– Parametric test – one measure value, float or double
+SOT
+– Multiple parametric test – results of multiple pins, float or double.
+– Scan test –pass/fail only
+EOT
+➢ Each record of test result will contain test suite, test name and
+test number, and multiple parametric test has additional pin
+last information.
+device?
+▪ After test program finish execution, each device be assigned the
+soft bin number and hard bin number based on test results of
+Wafer End
+each site.
+Site to run test flow
+last
+wafer?
+Lot End
+14 All Rights Reserved - ADVANTEST CORPORATION CONFIDENTIAL
+
+===== PAGE 15 =====
+ACS ONEAPI Overview
+• ONEAPI provide a standard interface to receive real time data with standard format
+during production.
+✓ Nexus will communicate with SmarTest to receive real time data and forward the
+data to app which is using ONEAPI.
+• Each test result event will trigger function consumeData in app which is developed by
+ONEAPI.
+✓ The app can be processing/analyze data after receive the test results from Nexus.
+PRODUCTION_LOTSTART
+.
+PRODUCTION_WAFERSTART
+. PRODUCTION_TESTSTART
+SOL PRODUCTION_TESTEND
+SOW PRODUCTION_WAFEREND
+PRODUCTION_LOTEND
+SOT
+ONEAPI App MEASURED_PARAMETRIC
+Functional
+Nexus MEASURED_FUNCTIONAL
+Measurement conumeData() MEASURED_MULTI_PARAM
+EOT PRODUCTION_TESTFLOWSTART
+Binning PRODUCTION_TESTFLOWEND
+HC EOW DATALOGTEXT
+DEVICE_PIN
+EOL
+MEASURED_SCAN
+Edge
+.
+.
+15 All Rights Reserved - ADVANTEST CORPORATION CONFIDENTIAL
+
+===== PAGE 16 =====
+Overview of code
+• Interface.registerMonitor register the class which contain consumeData
+• Interface.connect start to monitor test event from Nexus.
+• When there is any event arrive, the ONEAPI will call cusumeData and occupied the thread until the function call finished.
+16 All Rights Reserved - ADVANTEST CORPORATION CONFIDENTIAL
+
+===== PAGE 17 =====
+ONEAPI User Guide and example log
+17 All Rights Reserved - ADVANTEST CORPORATION CONFIDENTIAL
+
+===== PAGE 18 =====
+Agenda
+• What is RTDI
+• Gemini overview
+• How to use Gemini
+• NEXUS ONEAPI overview
+• Development environment
+• Deployment and production run simulation
+• Docker image deployment
+• Simulate production run
+• Dataset overview
+18 All Rights Reserved - ADVANTEST CORPORATION CONFIDENTIAL
+
+===== PAGE 19 =====
+Development environment
+• Edge server:
+• When develop solution which need to use ONEAPI, user can use
+firefox in host controller to connect vscode server with password to
+development environment in Edge server.
+– The vs code server provide python 3.10.
+• Development environment is created with a docker and there is
+persist volume which folder is /home/debugger/project to avoid
+file missing once the container stop or crash.
+• Host Controller:
+• SmarTest in HC is in charged to communicate with tester, perform
+the measurement and generate test results to data log stream.
+• AUS:
+• After solution finishes development, user should build
+docker images in host controller and push to AUS. During
+production run simulation, the Edge server will pull the
+image from AUS and start the image to wait test result event
+from host controller.
+19 All Rights Reserved - ADVANTEST CORPORATION CONFIDENTIAL
+
+===== PAGE 20 =====
+Engineer package detail
+• There are several script of application to support user to reduce the effort
+to use SmarTest or deployed application log check.
+• Edge:
+– EdgeLog is the directory which save a utility to query partial log from edge server.
+– oneAPI_py3.10 is example project which utilize ONEAPI to collect the real time data.
+• SmarTest
+– Case_Smt870 is SmarTest program to simulate production.
+▪ recipe save all necessary files to simulate production.
+– runTp.sh is the script to help to load/run test program/run production.
+▪ Util keep all required script for runTp.sh
+– app_descriptor.josn:
+▪ Define what image should be use, the container name after start…etc.
+• firefox_128
+– The newer browser to support development.
+20 All Rights Reserved - ADVANTEST CORPORATION CONFIDENTIAL
+
+===== PAGE 21 =====
+How to access development environment
+• From host control, user can use ssh or firefox to connect development environment and passwd is needed.
+• Url: http://advantestcell.local:29080 passwd: 1qaz2wsx
+• ssh: ssh –p 29022 debugger@advantestcell.local
+• User can use sftp or vs code server to upload/download file.
+21 All Rights Reserved - ADVANTEST CORPORATION CONFIDENTIAL
+
+===== PAGE 22 =====
+How to run the code in development environment
+• After uploading the oneAPI template package
+to development environment, use python3 to
+run main.py
+22 All Rights Reserved - ADVANTEST CORPORATION CONFIDENTIAL
+
+===== PAGE 23 =====
+How to trigger SmarTest load program and run manually
+• When user want to debug application which is using ONEAPI to receive real time result
+from SmarTest, user need to run the program manually.
+• runTp.sh can help user to load test program/ run program manually or run production simulation.
+– Usage: ./runTp.sh {load|eng_run|prod_run} [loop_count]
+– “./runTp.sh load” will start SmarTest and load the target test program.
+– “./runTp.sh eng_run 2” will run test program two times.
+– “./runTp.sh prod_run” will run production simulation.
+Two steps to trigger program run.
+1. If program is not loaded, run ./runTp.sh load first.
+2. If program is loaded, run ./runTp.sh eng_run 1
+23 All Rights Reserved - ADVANTEST CORPORATION CONFIDENTIAL
+
+===== PAGE 24 =====
+Docker file example for image build
+▪ What is docker images
+• A Docker image is a read-only template that contains everything needed to run an application:
+• Application code
+• Runtime (Java, Python, Node.js, etc.)
+• Libraries and dependencies
+• Environment variables
+• Configuration files
+• Think of it like a snapshot or blueprint of an application.
+▪ Docker file is defined how to build the image to support user’s requirement.
+• Example:
+Base image
+Change directory in image
+Copy file to image
+Set environment variable in image
+Run the script in images
+24 All Rights Reserved - ADVANTEST CORPORATION CONFIDENTIAL
+
+===== PAGE 25 =====
+How to deploy image to AUS
+• tag.sh is a script that will do image build
+based on py-app.dockerfile, push image
+to AUS.
+• Need to run tag.sh with root permission.
+• sudo ./tag.sh
+25 All Rights Reserved - ADVANTEST CORPORATION CONFIDENTIAL
+
+===== PAGE 26 =====
+Simulate production run
+• Execute “./runTp.sh prod_run” to run production simulation.
+26 All Rights Reserved - ADVANTEST CORPORATION CONFIDENTIAL
+
+===== PAGE 27 =====
+Agenda
+• What is RTDI
+• Gemini overview
+• How to use Gemini
+• NEXUS ONEAPI overview
+• Development environment
+• Deployment and production run simulation
+• Docker image deployment
+• Simulate production run
+• Dataset overview
+27 All Rights Reserved - ADVANTEST CORPORATION CONFIDENTIAL
+
+===== PAGE 28 =====
+Dataset
+Device Info Device test results
+The naming rule of column name of device test results is <test number>_<test suite name>#<pin name>
+example.csv
+28 All Rights Reserved - ADVANTEST CORPORATION CONFIDENTIAL
+
+===== PAGE 29 =====
+Anomaly Behavior
+• In production, the distribution of test result will be Gaussian distribution
+when there is no any anomaly in test cell.
+• Site 2 Site unbalance • Trend Issue
+Trend up or down Standard deviation trend
+Measure value shifts
+change
+29 All Rights Reserved - ADVANTEST CORPORATION CONFIDENTIAL
+
+===== PAGE 30 =====
+Q&A
+30 All Rights Reserved - ADVANTEST CORPORATION CONFIDENTIAL

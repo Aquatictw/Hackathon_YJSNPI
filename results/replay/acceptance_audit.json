@@ -1,0 +1,47 @@
+{
+  "evidence_file": "C:\\Users\\USER\\Documents\\hackathon2026\\results\\replay\\replay.jsonl",
+  "sha256": "40f3ee864c9bd021ed1a7b864560473c6949e1ce061ca718daf93895e137f0c0",
+  "event_counts": {
+    "alert": 14
+  },
+  "model_hashes": [],
+  "stages": {
+    "1": {
+      "requests": 0,
+      "complete_responses": 0,
+      "max_latency_ms": 0.0
+    },
+    "2": {
+      "requests": 0,
+      "complete_responses": 0,
+      "max_latency_ms": 0.0
+    },
+    "3": {
+      "requests": 0,
+      "complete_responses": 0,
+      "max_latency_ms": 0.0
+    },
+    "4": {
+      "requests": 0,
+      "complete_responses": 0,
+      "max_latency_ms": 0.0
+    },
+    "5": {
+      "requests": 0,
+      "complete_responses": 0,
+      "max_latency_ms": 0.0
+    },
+    "6": {
+      "requests": 0,
+      "complete_responses": 0,
+      "max_latency_ms": 0.0
+    }
+  },
+  "malformed_lines": 0,
+  "errors": 0,
+  "incomplete_predictions": 0,
+  "replay_present": true,
+  "recorded_callback_gate": false,
+  "tester_receipt": "UNVERIFIED: inspect matching tester prediction and alert logs",
+  "live_acceptance": "INCOMPLETE until VM provenance and tester receipt are verified"
+}
