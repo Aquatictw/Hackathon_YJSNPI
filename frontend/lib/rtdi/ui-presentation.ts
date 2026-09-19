@@ -11,7 +11,7 @@ export function investigationAvailability(config: {openai_configured: boolean; b
   if (!config) return {enabled: false, title: 'Checking service', message: 'Checking investigation service availability.'};
   if (!config.backend_connected) return {enabled: false, title: 'Data service unavailable', message: 'The database connection needs attention. Offline replay remains available.'};
   if (!config.openai_configured) return {enabled: false, title: 'Investigation unavailable', message: 'The model service is not configured. Evidence browsing and rule-based sandbox analysis remain available.'};
-  return {enabled: true, title: 'Investigation available', message: 'Submitting a question uses the model API. Completed answers and citations are stored by the service.'};
+  return {enabled: true, title: 'Investigation available', message: 'Uses the model API with local reference notes and run data. No web search. Completed analysis and evidence citations are saved.'};
 }
 /** Evaluation is supplied metadata, never a wafer-number rule. */
 export function waferEvaluation(wafer: Replay['wafers'][number]) {

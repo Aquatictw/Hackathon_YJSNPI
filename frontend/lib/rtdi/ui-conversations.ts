@@ -4,7 +4,7 @@ const scopeSchema = z.object({run: z.string().min(1), tester: z.string().min(1)}
 const contextSchema = z.tuple([z.enum(['incident', 'event', 'run']), z.string()]);
 const messageSchema = z.object({
   role: z.enum(['user', 'assistant']), text: z.string(),
-  refs: z.array(z.string()).optional(), id: z.string().optional(),
+  refs: z.array(z.string()).optional(), knowledgeRefs: z.array(z.string()).optional(), id: z.string().optional(),
 });
 const conversationSchema = z.object({messages: z.array(messageSchema), question: z.string()});
 const sessionSchema = z.object({

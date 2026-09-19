@@ -5,6 +5,7 @@ import type { EdgeRecord } from "./wire";
 import type { ToolExecutor } from "./tool-contract";
 
 const runArgs = z.object({ run_id: z.string().min(1).max(120), tester_id: z.string().min(1).max(120).nullable() }).strict();
+const predictionArgs = runArgs.extend({ stage: z.number().int().min(1).max(6).nullable(), site_id: z.number().int().nullable() }).strict();
 const incidentArgs = z.object({ run_id: z.string().min(1).max(120), incident_id: z.string().min(1).max(120) }).strict();
 const compareArgs = z.object({ run_id: z.string().min(1).max(120), tester_id: z.string().min(1).max(120).nullable(), incident_id: z.string().min(1).max(120).nullable() }).strict();
 
@@ -57,7 +58,7 @@ function compareEvidence(records: EdgeRecord[], incidentId?: string | null) {
     series: entry.series,
     tests: [...entry.tests],
   }));
-  return { incident_id: incidentId ?? null, sites, limitation: sites.length < 2 ? "目前 evidence 不足以完成跨 site 比較。" : null };
+  return { incident_id: incidentId ?? null, sites, limitation: sites.length < 2 ? "There is insufficient evidence for a comparison across sites." : null };
 }
 
 const requireScope = (actualRun: string, allowedRun: string, actualTester: string | null, allowedTester?: string | null) => {
@@ -89,6 +90,13 @@ export function persistentToolExecutor(scope: { run_id: string; tester_id?: stri
       const evidence = snapshot.evidence.filter(item => item.incident_id === args.incident_id);
       return { output: { incident, evidence, run_id: scope.run_id, tester_id: resolvedTester },
         evidence_ids: evidence.flatMap(record => record.evidence_id ? [record.evidence_id] : []) };
+    }
+    if (name === "get_prediction_records") {
+      const args = predictionArgs.parse(rawArguments); requireScope(args.run_id, scope.run_id, args.tester_id, resolvedTester);
+      const snapshot = await scopedSnapshot(args.tester_id);
+      const matching = snapshot.events.filter(record => (record.type === "prediction" || record.type === "prediction_actual") && (args.stage === null || record.stage === args.stage) && (args.site_id === null || record.site_id === args.site_id));
+      const records = matching.slice(0, 100);
+      return { output: { run_id: scope.run_id, tester_id: resolvedTester, records, total: matching.length, truncated: matching.length > records.length, limitation: "Source records with repository-validated joins where available. Missing or ambiguous actuals are not confirmed pairs; a filtered subset is not whole-run accuracy." }, evidence_ids: records.map(record => record.event_id) };
     }
     if (name !== "compare_sites") throw new Error("unsupported read-only tool");
     const args = compareArgs.parse(rawArguments); requireScope(args.run_id, scope.run_id, args.tester_id, resolvedTester);
@@ -125,6 +133,7 @@ export function contextToolExecutor(view: EventView): ToolExecutor {
       if (!view.incident || view.incident.incident_id !== args.incident_id) throw new Error("incident not found in allowed context");
       return { output: { incident: view.incident, evidence }, evidence_ids: evidence.flatMap(record => record.evidence_id ? [record.evidence_id] : []) };
     }
+    if (name !== "compare_sites") throw new Error("This tool is unavailable for sandbox context.");
     const args = compareArgs.parse(rawArguments); requireScope(args.run_id, runId, args.tester_id, testerId);
     const output = compareEvidence(evidence, args.incident_id);
     return { output, evidence_ids: output.sites.flatMap(site => site.evidence_ids) };

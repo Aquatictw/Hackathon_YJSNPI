@@ -795,3 +795,46 @@ test('R3 failed answer persistence never returns an uncommitted model answer', a
     assert.deepEqual(JSON.parse(row.evidence_ids), ['r3-evidence']); assert.equal(JSON.parse(row.tool_trace)[0].ok, true);
   });
 });
+
+
+test('local Q&A accepts the selected language without run context or a database', async t => {
+  const now = Date.now(); t.mock.method(Date, 'now', () => now + 600_000);
+  const previous = env.DB; delete env.DB; env.OPENAI_API_KEY = 'synthetic-model-key';
+  const { handleChat } = await import('../lib/rtdi/chat-handler.ts');
+  const original = globalThis.fetch; let calls = 0;
+  globalThis.fetch = async (_url, options) => {
+    calls++;
+    const body = JSON.parse(options.body);
+    assert.deepEqual(body.tools, []); assert.match(body.instructions, /Response language: Traditional Chinese/);
+    return Response.json(modelAnswer('晶圓上包含多個晶粒。[KB-fundamentals]'));
+  };
+  const request = body => new Request('https://example.test/api/assistant', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+  const body = { mode: 'openai', topic: 'knowledge', language: 'zh-TW', question: 'What is a wafer?' };
+  try {
+    const response = await handleChat(request(body));
+    assert.equal(response.status, 200);
+    const result = await response.json();
+    assert.equal(result.investigation_id, null); assert.equal(result.tool_count, 0);
+    assert.deepEqual(result.evidence_ids, []); assert.equal(result.knowledge_sources[0].id, 'KB-fundamentals');
+    for (const invalid of [{ ...body, run_id: 'r' }, { ...body, language: 'fr' }, { ...body, mode: 'demo' }])
+      assert.equal((await handleChat(request(invalid))).status, 400);
+    assert.equal((await handleChat(request(body), 'r')).status, 400);
+    assert.equal(calls, 1);
+  } finally { env.DB = previous; globalThis.fetch = original; delete env.OPENAI_API_KEY; }
+});
+
+test('prediction tool retains scope, units and event citations and rejects a different tester', async () => {
+  reset(); await ingest([prediction(), actual()]);
+  const { persistentToolExecutor } = await import('../lib/rtdi/investigation-tools.ts');
+  const execute = persistentToolExecutor({ run_id: 'run', tester_id: 'tester' });
+  const args = { run_id: 'run', tester_id: 'tester', stage: 2, site_id: 1 };
+  const result = await execute('get_prediction_records', args);
+  assert.ok(result.output.records.length >= 1);
+  assert.ok(result.output.records.every(record => record.stage === 2 && record.site_id === 1 && record.tester_id === 'tester'));
+  assert.deepEqual(result.evidence_ids, result.output.records.map(record => record.event_id));
+  assert.equal(result.output.truncated, false);
+  assert.equal(result.output.records.find(record => record.type === 'prediction').unit, null);
+  await assert.rejects(execute('get_prediction_records', { ...args, tester_id: 'other' }), /outside/);
+  await assert.rejects(execute('get_prediction_records', { ...args, run_id: 'other' }), /outside/);
+  await assert.rejects(execute('get_prediction_records', { ...args, stage: 7 }));
+});

@@ -37,7 +37,7 @@ test('agent performs a bounded multi-step tool investigation with evidence trace
   const responses = [
     { status: 'completed', output: [{ type: 'function_call', name: 'get_run_summary', arguments: '{"run_id":"RUN-1","tester_id":"T-1"}', call_id: 'call-1' }] },
     { status: 'completed', output: [{ type: 'function_call', name: 'get_incident_evidence', arguments: '{"run_id":"RUN-1","incident_id":"INC-1"}', call_id: 'call-2' }] },
-    { status: 'completed', output: [{ type: 'message', content: [{ type: 'output_text', text: '觀察：Site 1 有均值上升。[EV-1]\n可能原因：尚待確認。\n建議：比較其他 site。' }] }] },
+    { status: 'completed', output: [{ type: 'message', content: [{ type: 'output_text', text: 'Observation: Site 1 shows an upward shift. [EV-1]\nThe cause is unconfirmed. Compare other sites.' }] }] },
   ];
   const requestBodies = [];
   const fetcher = async (_url, options) => {
@@ -64,7 +64,7 @@ test('agent performs a bounded multi-step tool investigation with evidence trace
 test('agent rejects citations that were not returned by tools', async () => {
   const responses = [
     { status: 'completed', output: [{ type: 'function_call', name: 'get_incident_evidence', arguments: '{"run_id":"RUN-1","incident_id":"INC-1"}', call_id: 'call-1' }] },
-    { status: 'completed', output: [{ type: 'message', content: [{ type: 'output_text', text: '觀察：有異常。[EV-INVENTED]' }] }] },
+    { status: 'completed', output: [{ type: 'message', content: [{ type: 'output_text', text: 'An anomaly is present. [EV-INVENTED]' }] }] },
   ];
   const fetcher = async () => new Response(JSON.stringify(responses.shift()), { status: 200 });
   await assert.rejects(() => runToolInvestigation({

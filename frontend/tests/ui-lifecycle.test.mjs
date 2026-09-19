@@ -70,7 +70,7 @@ test('blank tester resolves once and all refresh/chat URLs bind to the returned 
   h.streams[0].emit('ready'); assert.equal(h.requests[1].url, '/api/v1/runs/r1?tester_id=t1');
   h.requests[1].respond(fixture()); await tick();
   const chat = h.lifecycle.ask('why'); assert.equal(h.requests[2].url, '/api/v1/runs/r1/chat?tester_id=t1');
-  assert.deepEqual(JSON.parse(h.requests[2].options.body), {mode: 'openai', question: 'why', tester_id: 't1', incident_id: 'incident-first', history: []});
+  assert.deepEqual(JSON.parse(h.requests[2].options.body), {mode: 'openai', language: 'en', question: 'why', tester_id: 't1', incident_id: 'incident-first', history: []});
   h.requests[2].respond({answer: 'answer', evidence_ids: ['evidence-first'], investigation_id: 'id'}); await chat;
   assert.deepEqual(h.state().messages[1], {role: 'assistant', text: 'answer', refs: ['evidence-first'], id: 'id'});
   const retry = h.lifecycle.connect('r1', ''); assert.equal(h.state().data, null, 'unqualified lookup must not assume previous tester is still unique');
@@ -365,4 +365,19 @@ test('snapshot removal keeps same-incident history, while reassignment isolates 
   assert.deepEqual(h.state().messages, []); assert.equal(h.state().question, '');
   h.streams[0].emit('heartbeat'); h.requests.at(-1).respond(multipleEvidence()); await tick();
   assert.equal(h.state().selected, 'sibling'); assert.equal(h.state().messages.length, 2);
+});
+
+
+test('analysis forwards the selected language and preserves separate local references', async () => {
+  const h = harness(); await loadEvidence(h);
+  const pending = h.lifecycle.ask('Explain this result.', 'zh-TW');
+  const request = h.requests.at(-1);
+  assert.equal(JSON.parse(request.options.body).language, 'zh-TW');
+  request.respond({ answer: '平均值偏移。[evidence-first] [KB-statistics]', evidence_ids: ['evidence-first'], knowledge_sources: [{ id: 'KB-statistics' }], investigation_id: 'saved' });
+  await pending;
+  assert.deepEqual(h.state().messages[1].knowledgeRefs, ['KB-statistics']);
+  assert.deepEqual(h.state().messages[1].refs, ['evidence-first']);
+  h.lifecycle.selectEvidence('second'); h.lifecycle.selectEvidence('first');
+  assert.deepEqual(h.state().messages[1].knowledgeRefs, ['KB-statistics']);
+  h.lifecycle.dispose();
 });

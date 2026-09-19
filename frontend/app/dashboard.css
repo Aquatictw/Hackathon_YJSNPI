@@ -180,3 +180,14 @@
 .dc-primary,.dc-secondary,.dc-icon{min-height:40px}
 .dc-plot text{font-size:12px}
 @media(max-width:540px){.dc-nav{gap:10px}.dc-nav a{font-size:12px}.dc-nav svg{display:none}.dc-values small{font-size:12px}.dc-values strong{font-size:18px}.dc-legend{font-size:12px}.dc-event-list{max-height:110px}}
+
+.dc-assistant-controls{padding:12px 17px;border-bottom:1px solid var(--border);display:grid;gap:10px}
+.dc-assistant-controls>label{display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:12px}
+.dc-assistant-controls select{background:var(--card);color:var(--foreground);border:1px solid var(--input);padding:7px;border-radius:3px}
+.dc-assistant-controls>small{color:var(--muted-foreground);font-size:12px}
+.dc-assistant-modes{display:flex;flex-wrap:wrap;gap:6px}
+.dc-assistant-modes button{flex:1;border:1px solid var(--border);background:var(--background);color:var(--foreground);padding:9px;font-size:12px;border-radius:3px}
+.dc-assistant-modes button[aria-pressed=true]{background:var(--primary);color:var(--primary-foreground);border-color:var(--primary)}
+.dc-local-sources details{padding:9px 0;border-top:1px solid var(--border);font-size:12px;line-height:1.7;overflow-wrap:anywhere}
+.dc-local-sources summary{cursor:pointer;color:var(--primary)}
+.dc-local-sources p{margin:8px 0}.dc-local-sources small{color:var(--muted-foreground)}

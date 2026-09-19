@@ -23,7 +23,7 @@ type Stream = {addEventListener(type: string, listener: () => void): void; onerr
 type Transport = {fetch: typeof fetch; eventSource: (url: string) => Stream};
 const errorText = (value: unknown) => value instanceof Error ? value.message : 'Request failed';
 const responseError = (payload: unknown, fallback: string) => z.object({error: z.string()}).safeParse(payload).data?.error ?? fallback;
-const answerSchema = z.object({answer: z.string(), evidence_ids: z.array(z.string()).optional(), investigation_id: z.string().nullable().optional()});
+const answerSchema = z.object({answer: z.string(), evidence_ids: z.array(z.string()).optional(), investigation_id: z.string().nullable().optional(), knowledge_sources: z.array(z.object({id: z.string()})).optional()});
 
 /** The page and deferred-transport tests use this same lifecycle. Abort is only
  * resource cleanup: generation checks also reject transports that ignore it. */
@@ -137,27 +137,27 @@ export function createDashboardLifecycle(transport: Transport, publish: (state: 
       };
     } catch (error) {if (active()) patch({error: errorText(error), status: 'Connection failed'});}
   }
-  async function ask(question: string) {
+  async function ask(question: string, language: "en" | "zh-TW" = "en") {
     if (disposed || !state.scope || !question.trim() || state.busy) return;
     const g = generation, c = ++chatGeneration, scope = state.scope;
     const active = () => !disposed && generation === g && chatGeneration === c;
     const ctrl = new AbortController(); chatCancel = ctrl;
     const text = question.trim(), incident = dashboardEvidence(state).current?.incident_id;
-    const history = state.messages.slice(-10).map(m => ({role: m.role, content: m.text}));
+    const history = state.messages.slice(-10).map(m => ({role: m.role, content: m.text.slice(0, 5000)}));
     pendingQuestion = text;
     patch({busy: true, chatError: '', question: ''});
     remember();
     try {
       const response = await transport.fetch(runUrl(scope.run, scope.tester, '/chat'), {
         method: 'POST', headers: {'Content-Type': 'application/json'}, signal: ctrl.signal,
-        body: JSON.stringify({mode: 'openai', question: text, tester_id: scope.tester, incident_id: incident, history}),
+        body: JSON.stringify({mode: 'openai', language, question: text, tester_id: scope.tester, incident_id: incident, history}),
       });
       const payload = await response.json();
       if (!active()) return;
       if (!response.ok) throw Error(responseError(payload, 'AI investigation failed'));
       const body = answerSchema.parse(payload);
       pendingQuestion = '';
-      patch({messages: [...state.messages, {role: 'user', text}, {role: 'assistant', text: body.answer, refs: body.evidence_ids, id: body.investigation_id ?? undefined}]});
+      patch({messages: [...state.messages, {role: 'user', text}, {role: 'assistant', text: body.answer, refs: body.evidence_ids, ...(body.knowledge_sources?.length ? {knowledgeRefs: body.knowledge_sources.map(source => source.id)} : {}), id: body.investigation_id ?? undefined}]});
     } catch (error) {if (active()) patch({chatError: errorText(error), question: state.question || text});}
     finally {if (active()) {pendingQuestion = ''; patch({busy: false}); remember();}}
   }

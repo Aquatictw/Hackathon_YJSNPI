@@ -1,4 +1,4 @@
-export const toolNames = ["get_run_summary", "get_incident_evidence", "compare_sites"] as const;
+export const toolNames = ["get_run_summary", "get_incident_evidence", "compare_sites", "get_prediction_records"] as const;
 export type ToolName = typeof toolNames[number];
 export type ToolTrace = { name: ToolName; arguments: unknown; evidence_ids: string[]; ok: boolean };
 export type ToolExecution = { output: unknown; evidence_ids: string[] };
@@ -7,17 +7,22 @@ export type ToolExecutor = (name: ToolName, argumentsValue: unknown) => Promise<
 export const toolDefinitions = [
   {
     type: "function", name: "get_run_summary", strict: true,
-    description: "讀取指定 run 的來源模式、資料新鮮度、事件數、預測數和異常數。先用它確認資料範圍。",
+    description: "Read source mode, freshness, scope and event/incident counts for a run. Use this to establish the available data.",
     parameters: { type: "object", additionalProperties: false, properties: { run_id: { type: "string" }, tester_id: { type: ["string", "null"] } }, required: ["run_id", "tester_id"] },
   },
   {
     type: "function", name: "get_incident_evidence", strict: true,
-    description: "讀取一個 incident 的真實 evidence。回傳的數值和 evidence_id 才能用於異常結論。",
+    description: "Read a scoped incident and its evidence. Only returned measurements and evidence IDs support findings about this incident.",
     parameters: { type: "object", additionalProperties: false, properties: { run_id: { type: "string" }, incident_id: { type: "string" } }, required: ["run_id", "incident_id"] },
   },
   {
     type: "function", name: "compare_sites", strict: true,
-    description: "依已保存的 evidence 比較各 site；不自行推算未提供的測量或單位。",
+    description: "Compare sites using stored evidence. Do not invent missing measurements, units or causal explanations.",
     parameters: { type: "object", additionalProperties: false, properties: { run_id: { type: "string" }, tester_id: { type: ["string", "null"] }, incident_id: { type: ["string", "null"] } }, required: ["run_id", "tester_id", "incident_id"] },
+  },
+  {
+    type: "function", name: "get_prediction_records", strict: true,
+    description: "Read up to 100 prediction/actual records for the selected run, optionally filtered by stage and site. These are source records with any repository-validated actual joins; standalone actual records still require identity checks. Cite returned event IDs, preserve source and identity, and do not join ambiguous actuals.",
+    parameters: { type: "object", additionalProperties: false, properties: { run_id: { type: "string" }, tester_id: { type: ["string", "null"] }, stage: { type: ["integer", "null"], minimum: 1, maximum: 6 }, site_id: { type: ["integer", "null"] } }, required: ["run_id", "tester_id", "stage", "site_id"] },
   },
 ] as const;
