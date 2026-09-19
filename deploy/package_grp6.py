@@ -10,7 +10,7 @@ ROOT = Path(__file__).resolve().parents[1]
 def main(output=None):
     files = {}
     for name in ["__init__.py", "state.py", "runtime.py", "monitor.py", "live_main.py", "exporter.py",
-                 "report.py", "data.py", "metadata.py", "rehearse.py"]:
+                 "report.py", "data.py", "metadata.py", "rehearse.py", "sparse_burst.py"]:
         files["grp6_app/" + name] = (ROOT / "grp6_app" / name).read_bytes()
     for name in ["test_state.py", "test_monitor.py", "test_report.py", "test_exporter.py"]:
         files["grp6_app/tests/" + name] = (ROOT / "grp6_app/tests" / name).read_bytes()

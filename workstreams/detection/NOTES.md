@@ -1,5 +1,15 @@
 # C — R3-20260919
 
+## Current A integration handoff — September 19, 2026
+
+The user explicitly authorized A to commit and merge the stopped `worktree-w25-sparse-burst` worker. Source `a869f185e37a6b1547cedf0fb0c6cab896818c24` is integrated by `e289c7f`; original base `972c349`, pre-merge main `cb6a8b0`. The locked source checkout remains intact. No concurrent frontend work is included.
+
+Status: SOURCE_INTEGRATED_DEVELOPMENT_CANDIDATE. Calibration SHA `8e3c1f65432f78815f75eab566867f1ea1637b9eb2ee673262d946f250242872` reproduced; 70 existing core tests pass. All25 rerun and NumPy oracle agree: W25 spread-down@72, W15 none, zero new normal-label alerts, all14 core payloads unchanged. `sparse_burst_w25/REPORT.md` records commands, evidence and package-import correction. Source runtime uses the supplement automatically when its artifact exists; accepted results/replay and deployed runtime remain unchanged.
+
+Open: dedicated sparse-burst unit tests, synthetic controls, adversarial review and independent validation. W15 exclusion depends on first scan72 (alerts at56); excluding W07 from calibration adds W15/W18; fitting all18 normal-labeled wafers delays W25 to80. All wafers were inspected during development. These findings do not supersede the negative results from earlier candidates below. A publishes this source integration without deploying or promoting accepted replay.
+
+## Prior C research handoff (preserved)
+
 Status: READY_FOR_A (negative research). Shared main; published base 810b4ac9549a619ab09e9145f656c363c6d75035.
 A alone commits/publishes; no C Git mutation, remote access or other agents.
 
