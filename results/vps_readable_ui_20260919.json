@@ -1,0 +1,92 @@
+{
+  "deployed_revision": "b3caed92f9aa035aeb4a27d31577876dd0a7ce96",
+  "date": "2026-09-19",
+  "url": "https://hackathon.aquatictw.com/",
+  "production_build": "passed on VPS before activation",
+  "service": "grp6-preview.service",
+  "listen": "127.0.0.1:5173",
+  "nginx_upstream": "http://172.23.0.1:5173",
+  "rollback_backup": "/opt/grp6-preview/backups/before-b3caed92f9aa035aeb4a27d31577876dd0a7ce96-XKFSrbE5",
+  "previous_release": "46c602336ed19de2fc06ce56b79860427f85e035",
+  "http": {
+    "origin": "http://127.0.0.1:5173",
+    "homepage": 200,
+    "replay": 200,
+    "assets": 12,
+    "events": 114,
+    "predictions": 24,
+    "joined_actuals": 24,
+    "measurement_count": 134,
+    "mode": "replay",
+    "sse": "ready",
+    "ai": true,
+    "commands": false,
+    "origin_checks": [
+      {
+        "path": "/api/assistant",
+        "request_origin": "https://hackathon.aquatictw.com",
+        "status": 400
+      },
+      {
+        "path": "/api/assistant",
+        "request_origin": "https://untrusted.invalid",
+        "status": 403
+      },
+      {
+        "path": "/api/v1/runs/grp6-replay-demo/chat",
+        "request_origin": "https://hackathon.aquatictw.com",
+        "status": 400
+      },
+      {
+        "path": "/api/v1/runs/grp6-replay-demo/chat",
+        "request_origin": "https://untrusted.invalid",
+        "status": 403
+      }
+    ],
+    "paid_ai_calls": 0
+  },
+  "public_config": {
+    "openai_configured": true,
+    "model": "gpt-5.6-sol",
+    "backend_connected": true,
+    "ingest_configured": true,
+    "commands_configured": false
+  },
+  "public_browser": {
+    "base": "https://hackathon.aquatictw.com",
+    "checkedAt": "2026-09-19T12:52:28.506Z",
+    "modelCalls": 0,
+    "simulatedAnswers": 1,
+    "checks": [
+      "Replay homepage and shared three-page navigation",
+      "Persisted replay snapshot: 114 events",
+      "Load run and evidence selection",
+      "Suggested question fills draft without API request",
+      "Temperature tab emphasizes predicted/actual values with signed difference and source units",
+      "Prediction/command tabs preserve investigation log; 24 prediction rows",
+      "Switching incidents restores isolated conversations",
+      "Search and citation retain completed conversation",
+      "Reload restores run and conversation after fresh snapshot",
+      "Replay navigation, W25 miss disclosure, validation and limitations",
+      "Route round-trip retains conversation",
+      "Keyboard tabs and disconnect/reconnect retain evidence and conversation",
+      "Missing run clears stale scope; valid retry restores its conversation",
+      "Sandbox shared navigation and brand returns to replay homepage",
+      "Light/dark selection persists across reload",
+      "390px layout and contained table scrolling",
+      "Readable run fields and stream status; healthy investigation banner removed",
+      "Wafer motion pause/resume, top view and reduced-motion preference",
+      "Replay summary values and units do not overlap at desktop/mobile widths",
+      "Legacy /replay route remains functional"
+    ],
+    "errors": [],
+    "passed": true
+  },
+  "limits": [
+    "No paid model calls; live model access and generated English output remain untested. Medium reasoning and English instructions verified with mocked requests.",
+    "Historical investigation answers remain verbatim.",
+    "Public preview is replay-only; accepted replay still misses W25. No detector deployment.",
+    "No public user authentication; commands disabled."
+  ],
+  "paid_ai_calls": 0
+}
