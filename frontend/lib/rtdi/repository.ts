@@ -81,6 +81,10 @@ const commandView = (row: Row): CommandView => ({
 });
 
 export async function ingestEdgeBatch(batch: EdgeBatch, options: { identityPayload?: unknown; rawEvents?: RawExporterEvent[] } = {}): Promise<IngestResult> {
+  return ingestEdgeBatchAttempt(batch, options, 2);
+}
+
+async function ingestEdgeBatchAttempt(batch: EdgeBatch, options: { identityPayload?: unknown; rawEvents?: RawExporterEvent[] }, retries: number): Promise<IngestResult> {
   const db = binding();
   const batchKey = scopeKey(batch.edge_id, batch.batch_id);
   const batchHash = await contentHash(options.identityPayload ?? batch);
@@ -136,7 +140,7 @@ export async function ingestEdgeBatch(batch: EdgeBatch, options: { identityPaylo
   for (const item of accepted) {
     const event = item.event;
     const runKey = scopeKey(event.run_id, event.tester_id);
-    const quality = event.data_quality ?? (event.lot_id && event.wafer_id ? "complete" : "partial");
+    const quality = event.data_quality ?? "partial";
     if (item.raw) {
       const rawPayload = canonicalJson(item.raw.payload);
       const chunked = chunkUtf8Base64(rawPayload);
@@ -155,12 +159,12 @@ export async function ingestEdgeBatch(batch: EdgeBatch, options: { identityPaylo
       INSERT INTO runs (key, run_id, tester_id, edge_id, mode, lot_id, wafer_id, data_quality, last_event_at)
       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
       ON CONFLICT(key) DO UPDATE SET
-        edge_id = excluded.edge_id,
+        edge_id = CASE WHEN julianday(excluded.last_event_at) >= julianday(runs.last_event_at) THEN excluded.edge_id ELSE runs.edge_id END,
         mode = CASE WHEN runs.mode = 'live' THEN runs.mode ELSE excluded.mode END,
-        lot_id = COALESCE(excluded.lot_id, runs.lot_id),
-        wafer_id = COALESCE(excluded.wafer_id, runs.wafer_id),
+        lot_id = CASE WHEN julianday(excluded.last_event_at) >= julianday(runs.last_event_at) THEN COALESCE(excluded.lot_id, runs.lot_id) ELSE runs.lot_id END,
+        wafer_id = CASE WHEN julianday(excluded.last_event_at) >= julianday(runs.last_event_at) THEN COALESCE(excluded.wafer_id, runs.wafer_id) ELSE runs.wafer_id END,
         data_quality = CASE WHEN runs.data_quality = 'partial' OR excluded.data_quality = 'partial' THEN 'partial' ELSE 'complete' END,
-        last_event_at = MAX(runs.last_event_at, excluded.last_event_at),
+        last_event_at = CASE WHEN julianday(excluded.last_event_at) > julianday(runs.last_event_at) THEN excluded.last_event_at ELSE runs.last_event_at END,
         updated_at = CURRENT_TIMESTAMP
     `).bind(runKey, event.run_id, event.tester_id, batch.edge_id, event.source_mode, event.lot_id ?? null, event.wafer_id ?? null, quality, event.timestamp));
     statements.push(db.prepare(`
@@ -189,15 +193,33 @@ export async function ingestEdgeBatch(batch: EdgeBatch, options: { identityPaylo
         INSERT INTO incidents (key, incident_id, run_id, tester_id, title, status, severity, first_seen, last_seen)
         VALUES (?, ?, ?, ?, ?, 'open', ?, ?, ?)
         ON CONFLICT(key) DO UPDATE SET
-          title = excluded.title,
-          severity = CASE WHEN excluded.severity = 'critical' THEN 'critical' ELSE incidents.severity END,
-          last_seen = MAX(incidents.last_seen, excluded.last_seen),
+          title = CASE WHEN julianday(excluded.last_seen) >= julianday(incidents.last_seen) THEN excluded.title ELSE incidents.title END,
+          severity = CASE WHEN excluded.severity = 'critical' OR incidents.severity = 'critical' THEN 'critical'
+            WHEN excluded.severity = 'warning' OR incidents.severity = 'warning' THEN 'warning' ELSE 'info' END,
+          first_seen = CASE WHEN julianday(excluded.first_seen) < julianday(incidents.first_seen) THEN excluded.first_seen ELSE incidents.first_seen END,
+          last_seen = CASE WHEN julianday(excluded.last_seen) > julianday(incidents.last_seen) THEN excluded.last_seen ELSE incidents.last_seen END,
           updated_at = CURRENT_TIMESTAMP
       `).bind(incidentKey, event.incident_id, event.run_id, event.tester_id,
         event.message || event.kind || "未分類異常", event.severity ?? "warning", event.timestamp, event.timestamp));
     }
   }
-  await db.batch(statements);
+  try {
+    await db.batch(statements);
+  } catch (error) {
+    // A concurrent transaction may have won one of the unique identities after
+    // our reads. The failed batch rolled back in full. Re-plan only when a
+    // competing commit is visible; never ACK based on the failed write itself.
+    if (retries > 0) {
+      const competingBatch = await db.prepare("SELECT payload_hash FROM batches WHERE key = ?").bind(batchKey).first<Row>();
+      const competingEvents = accepted.length ? await db.batch(accepted.map(item => db.prepare("SELECT key FROM events WHERE key = ?").bind(item.key))) : [];
+      const competingEvidence = incomingEvidence.length ? await db.batch(incomingEvidence.map(item => db.prepare("SELECT key FROM evidence WHERE key = ?")
+        .bind(scopeKey(item.event.run_id, item.event.tester_id, item.event.evidence_id!)))) : [];
+      if (competingBatch || [...competingEvents, ...competingEvidence].some(result => rows(result as D1Result<Row>).length)) {
+        return ingestEdgeBatchAttempt(batch, options, retries - 1);
+      }
+    }
+    throw error;
+  }
   return { batch_id: batch.batch_id, accepted: accepted.filter(item => originalKeys.has(item.key)).map(item => item.event.event_id), duplicates, rejected: [], status: "stored" };
 }
 
@@ -212,8 +234,8 @@ export async function getRunSnapshot(runId: string, testerId?: string | null): P
   const run = matches[0];
   const selectedTester = String(run.tester_id);
   const [eventResult, incidentResult, commandResult] = await db.batch([
-    db.prepare("SELECT payload FROM events WHERE run_id = ? AND tester_id = ? ORDER BY occurred_at, sequence, event_id").bind(runId, selectedTester),
-    db.prepare("SELECT incident_id, title, status, severity, first_seen, last_seen FROM incidents WHERE run_id = ? AND tester_id = ? ORDER BY last_seen DESC").bind(runId, selectedTester),
+    db.prepare("SELECT payload FROM events WHERE run_id = ? AND tester_id = ? ORDER BY julianday(occurred_at), sequence, event_id").bind(runId, selectedTester),
+    db.prepare("SELECT incident_id, title, status, severity, first_seen, last_seen FROM incidents WHERE run_id = ? AND tester_id = ? ORDER BY julianday(last_seen) DESC").bind(runId, selectedTester),
     db.prepare(`SELECT c.command_id, c.run_id, c.tester_id, c.incident_id, c.kind, c.message, c.status, c.expires_at, c.created_at, c.updated_at,
       (SELECT r.tester_receipt_id FROM command_results AS r
        WHERE r.command_id = c.command_id AND r.run_id = c.run_id AND r.tester_id = c.tester_id AND r.status = c.status

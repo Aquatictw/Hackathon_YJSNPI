@@ -1,10 +1,11 @@
 import { z } from "zod";
 import { validatedView } from "./contracts";
 import { demoAnswer } from "./assistant";
-import { runToolInvestigation } from "./agent";
+import { runToolInvestigation, type InvestigationResult } from "./agent";
 import { contextToolExecutor, persistentToolExecutor } from "./investigation-tools";
 import { AmbiguousScopeError, finishInvestigation, getRunSnapshot, startInvestigation, StorageUnavailableError } from "./repository";
 import { HttpInputError, json, readJsonBody, sameOrigin } from "./http";
+import type { ToolTrace } from "./tool-contract";
 import { serverConfig } from "./server-config";
 
 const id = z.string().min(1).max(120);
@@ -31,6 +32,10 @@ export async function handleChat(request: Request, forcedRunId?: string): Promis
   if (!forcedRunId && body.context === undefined && body.run_id === undefined) return json({ error: "context 或 run_id 至少需要一項。" }, 400);
   if (forcedRunId && body.run_id && body.run_id !== forcedRunId) return json({ error: "run_id 與網址範圍不一致。" }, 409);
 
+  const queryTester = forcedRunId ? new URL(request.url).searchParams.get("tester_id") : null;
+  if (queryTester !== null && !id.safeParse(queryTester).success) return json({ error: "tester_id 格式不完整。" }, 400);
+  if (queryTester && body.tester_id && queryTester !== body.tester_id) return json({ error: "tester_id 與網址範圍不一致。" }, 409);
+
   const view = body.context === undefined ? null : (() => {
     try { return validatedView(body.context); }
     catch { return null; }
@@ -49,13 +54,18 @@ export async function handleChat(request: Request, forcedRunId?: string): Promis
 
   const runId = forcedRunId ?? body.run_id ?? view?.event.run_id;
   if (!runId) return json({ error: "缺少 run_id。" }, 400);
-  const testerId = body.tester_id ?? view?.event.tester_id ?? null;
+  let testerId = queryTester ?? body.tester_id ?? view?.event.tester_id ?? null;
   const persisted = Boolean(forcedRunId || body.run_id);
   let investigationId: string | null = null;
+  let completed: InvestigationResult | undefined;
   try {
     if (persisted) {
       const snapshot = await getRunSnapshot(runId, testerId);
       if (!snapshot) return json({ error: "找不到指定 run。", code: "run_not_found" }, 404);
+      testerId = snapshot.run.tester_id;
+      if (body.incident_id && !snapshot.incidents.some(item => item.incident_id === body.incident_id)) {
+        return json({ error: "找不到指定範圍的 incident。", code: "incident_not_found" }, 404);
+      }
       investigationId = await startInvestigation({ run_id: runId, tester_id: snapshot.run.tester_id, incident_id: body.incident_id, question: body.question, model });
     }
     const result = await runToolInvestigation({
@@ -66,20 +76,25 @@ export async function handleChat(request: Request, forcedRunId?: string): Promis
       scope: { run_id: runId, tester_id: testerId, incident_id: body.incident_id },
       executeTool: persisted ? persistentToolExecutor({ run_id: runId, tester_id: testerId }) : contextToolExecutor(view!),
     });
+    completed = result;
     if (investigationId) await finishInvestigation(investigationId, { status: result.status, answer: result.answer, evidence_ids: result.evidence_ids, tool_trace: result.tool_trace });
     return json({ mode: "openai", answer: result.answer, model, evidence_ids: result.evidence_ids, investigation_id: investigationId, tool_count: result.tool_trace.length });
   } catch (error) {
     if (investigationId) {
-      try { await finishInvestigation(investigationId, { status: "failed", error: error instanceof Error ? error.message : "investigation failed" }); }
+      const failure = error as { evidence_ids?: string[]; tool_trace?: ToolTrace[] } | null;
+      try { await finishInvestigation(investigationId, {
+        status: "failed", error: error instanceof DOMException && error.name === "TimeoutError" ? "investigation deadline exceeded" : "investigation failed",
+        evidence_ids: failure?.evidence_ids ?? completed?.evidence_ids ?? [], tool_trace: failure?.tool_trace ?? completed?.tool_trace ?? [],
+      }); }
       catch { /* Keep the original failure as the user-facing error. */ }
     }
     if (error instanceof StorageUnavailableError) return json({ error: "後端資料庫尚未啟用。", code: "storage_unavailable" }, 503);
     if (error instanceof AmbiguousScopeError) return json({ error: error.message, code: "ambiguous_scope" }, 409);
-    const status = (error as Error & { status?: number }).status;
+    const status = (error as (Error & { status?: number }) | null)?.status;
     if (status === 401) return json({ error: "OpenAI 認證失敗，請檢查伺服器 API key。", code: "upstream_error" }, 502);
     if (status === 429) return json({ error: "OpenAI 用量或速率受限，請稍後再試。", code: "upstream_error" }, 502);
     if (status === 403 || status === 404) return json({ error: "無法使用所設定的 OpenAI 模型，請檢查模型名稱與權限。", code: "upstream_error" }, 502);
-    if (error instanceof DOMException && error.name === "TimeoutError") return json({ error: "AI 調查逾時；已保存失敗狀態，Edge 預測不受影響。", code: "connection_error" }, 504);
+    if (error instanceof DOMException && error.name === "TimeoutError") return json({ error: "AI 調查逾時；Edge 預測不受影響。", code: "connection_error" }, 504);
     return json({ error: "AI 調查失敗；Edge 預測與既有告警仍會繼續運作。", code: "investigation_failed" }, 502);
   }
 }
