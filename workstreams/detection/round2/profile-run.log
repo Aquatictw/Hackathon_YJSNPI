@@ -1,0 +1,26 @@
+W01: 80 devices; 1 alerts; exact equivalence in 1 warmup + 4 measured pairs
+W02: 80 devices; 1 alerts; exact equivalence in 1 warmup + 4 measured pairs
+W03: 80 devices; 1 alerts; exact equivalence in 1 warmup + 4 measured pairs
+W04: 80 devices; 0 alerts; exact equivalence in 1 warmup + 4 measured pairs
+W05: 80 devices; 0 alerts; exact equivalence in 1 warmup + 4 measured pairs
+W06: 80 devices; 0 alerts; exact equivalence in 1 warmup + 4 measured pairs
+W07: 80 devices; 0 alerts; exact equivalence in 1 warmup + 4 measured pairs
+W08: 80 devices; 0 alerts; exact equivalence in 1 warmup + 4 measured pairs
+W09: 80 devices; 1 alerts; exact equivalence in 1 warmup + 4 measured pairs
+W10: 80 devices; 0 alerts; exact equivalence in 1 warmup + 4 measured pairs
+W11: 80 devices; 0 alerts; exact equivalence in 1 warmup + 4 measured pairs
+W12: 80 devices; 0 alerts; exact equivalence in 1 warmup + 4 measured pairs
+W13: 80 devices; 0 alerts; exact equivalence in 1 warmup + 4 measured pairs
+W14: 80 devices; 3 alerts; exact equivalence in 1 warmup + 4 measured pairs
+W15: 80 devices; 0 alerts; exact equivalence in 1 warmup + 4 measured pairs
+W16: 80 devices; 0 alerts; exact equivalence in 1 warmup + 4 measured pairs
+W17: 80 devices; 0 alerts; exact equivalence in 1 warmup + 4 measured pairs
+W18: 80 devices; 3 alerts; exact equivalence in 1 warmup + 4 measured pairs
+W19: 80 devices; 0 alerts; exact equivalence in 1 warmup + 4 measured pairs
+W20: 80 devices; 0 alerts; exact equivalence in 1 warmup + 4 measured pairs
+W21: 80 devices; 0 alerts; exact equivalence in 1 warmup + 4 measured pairs
+W22: 80 devices; 0 alerts; exact equivalence in 1 warmup + 4 measured pairs
+W23: 80 devices; 4 alerts; exact equivalence in 1 warmup + 4 measured pairs
+W24: 80 devices; 0 alerts; exact equivalence in 1 warmup + 4 measured pairs
+W25: 80 devices; 0 alerts; exact equivalence in 1 warmup + 4 measured pairs
+{"output": "C:\\Users\\USER\\Documents\\hackathon2026-c-detection\\workstreams\\detection\\round2\\profile.json", "equivalence": {"exact_alert_categories_positions_and_evidence": true, "exact_final_state": true, "historical_baseline_alerts_equal": true, "wafer_count": 25, "devices_per_repetition": 2000, "expected_categories_detected": 6, "expected_anomaly_wafers": 7, "W2_yield": 0.5375, "W25_expected_first_device": null}, "paired_ratios": {"ingestion": {"n": 100, "median_candidate_over_baseline": 0.9632485786937319, "min_ratio": 0.7398684939831919, "max_ratio": 1.4233722166995655, "candidate_faster_pairs": 59}, "active_scan": {"n": 100, "median_candidate_over_baseline": 0.9989654156459393, "min_ratio": 0.8898504267491462, "max_ratio": 1.1455000564956008, "candidate_faster_pairs": 53}, "device_total": {"n": 100, "median_candidate_over_baseline": 0.9913978379321242, "min_ratio": 0.8721190409207231, "max_ratio": 1.1347321610856642, "candidate_faster_pairs": 59}, "wafer_total": {"n": 100, "median_candidate_over_baseline": 0.9913880926766294, "min_ratio": 0.8720315566382043, "max_ratio": 1.1349461127266096, "candidate_faster_pairs": 59}}}

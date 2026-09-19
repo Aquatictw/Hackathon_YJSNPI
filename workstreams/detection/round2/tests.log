@@ -1,0 +1,25 @@
+test_bounded_capacity_and_retention (test_candidate.CandidateBehaviorTests.test_bounded_capacity_and_retention) ... ok
+test_calibration_ignores_every_nonfit_measurement (test_candidate.CandidateBehaviorTests.test_calibration_ignores_every_nonfit_measurement) ... ok
+test_collapse_needs_full_windows_and_two_new_scans (test_candidate.CandidateBehaviorTests.test_collapse_needs_full_windows_and_two_new_scans) ... ok
+test_invalid_window_breaks_persistence (test_candidate.CandidateBehaviorTests.test_invalid_window_breaks_persistence) ... ok
+test_minimum_family_hits_blocks_single_test_outlier (test_candidate.CandidateBehaviorTests.test_minimum_family_hits_blocks_single_test_outlier) ... ok
+test_missing_nan_and_infinity_fail_closed_without_shrinking_window (test_candidate.CandidateBehaviorTests.test_missing_nan_and_infinity_fail_closed_without_shrinking_window) ... ok
+test_normal_spread_and_site_offset_do_not_alert (test_candidate.CandidateBehaviorTests.test_normal_spread_and_site_offset_do_not_alert) ... ok
+test_prefix_evidence_is_frozen_when_future_changes (test_candidate.CandidateBehaviorTests.test_prefix_evidence_is_frozen_when_future_changes) ... ok
+test_sd_is_stable_at_large_offsets_and_rejects_overflow (test_candidate.CandidateBehaviorTests.test_sd_is_stable_at_large_offsets_and_rejects_overflow) ... ok
+test_stale_site_cannot_receive_second_persistence_vote (test_candidate.CandidateBehaviorTests.test_stale_site_cannot_receive_second_persistence_vote) ... ok
+test_unknown_site_invalidates_scope_and_new_instance_resets (test_candidate.CandidateBehaviorTests.test_unknown_site_invalidates_scope_and_new_instance_resets) ... ok
+test_boundary_finalization_and_phase_accounting (test_profile.ProfileTests.test_boundary_finalization_and_phase_accounting) ... ok
+test_csv_reader_preserves_order_sites_and_w2_yield (test_profile.ProfileTests.test_csv_reader_preserves_order_sites_and_w2_yield) ... ok
+test_differential_alerts_and_internal_state_at_every_callback (test_profile.ProfileTests.test_differential_alerts_and_internal_state_at_every_callback) ... ok
+test_empty_nonfinite_and_integer_string_site_identity (test_profile.ProfileTests.test_empty_nonfinite_and_integer_string_site_identity) ... ok
+test_equivalence_guard_rejects_position_evidence_and_state_changes (test_profile.ProfileTests.test_equivalence_guard_rejects_position_evidence_and_state_changes) ... ok
+test_output_confinement_precedes_any_input_read_or_write (test_profile.ProfileTests.test_output_confinement_precedes_any_input_read_or_write) ... ok
+test_percentile_method_and_empty_samples (test_profile.ProfileTests.test_percentile_method_and_empty_samples) ... ok
+test_residual_finalization_emits_equal_evidence (test_profile.ProfileTests.test_residual_finalization_emits_equal_evidence) ... ok
+test_retention_grows_with_devices_and_fresh_instance_resets (test_profile.ProfileTests.test_retention_grows_with_devices_and_fresh_instance_resets) ... ok
+
+----------------------------------------------------------------------
+Ran 20 tests in 0.610s
+
+OK

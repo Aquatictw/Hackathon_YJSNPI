@@ -1,0 +1,126 @@
+{
+  "status": "PASS",
+  "checks": {
+    "engineering_hash_matches_saved_audit": true,
+    "production_hash_matches_strict_audit": true,
+    "production_hash_matches_receipts": true,
+    "tester_hash_matches_receipts": true,
+    "engineering_counts_match": true,
+    "production_counts_match": true,
+    "strict_failure_reproduced": true,
+    "receipt_matches_reproduced": true,
+    "receipt_counts_reproduced": true,
+    "runtime_hash_matches_recorded_models": true,
+    "engineering_receipts_complete": true,
+    "recorded_actuals_uniquely_joined": true,
+    "no_conflicting_recorded_identities": true
+  },
+  "captures": {
+    "engineering": {
+      "requests": 6,
+      "site_rows": 24,
+      "readiness": {
+        "recorded_selected_inputs_ready": 24
+      },
+      "actual_joins": {
+        "joined": 24
+      },
+      "missing_features": {
+        "known_rows": 24,
+        "unknown_rows": 0,
+        "reported_missing_total": 0,
+        "names": {}
+      },
+      "waited_for_measurements": {
+        "true": 0,
+        "false": 6,
+        "unknown": 0
+      },
+      "lifecycle_changed": {
+        "true": 0,
+        "false": 6,
+        "unknown": 0
+      },
+      "unknown_head_rows": 24,
+      "unknown_attempt_rows": 24,
+      "unknown_unit_rows": 24,
+      "observed_feature_counts": {
+        "known": 24,
+        "unknown": 0,
+        "min": 25,
+        "max": 2529,
+        "mean": 1276.6666666666667,
+        "p95_nearest_rank": 2529
+      },
+      "callback_latency_ms": {
+        "known": 6,
+        "unknown": 0,
+        "min": 0.41857500036712736,
+        "max": 1.740742998663336,
+        "mean": 0.7997956654435256,
+        "p95_nearest_rank": 1.740742998663336
+      },
+      "callback_latency_when_waited_ms": {
+        "known": 0,
+        "unknown": 0,
+        "min": null,
+        "max": null,
+        "mean": null,
+        "p95_nearest_rank": null
+      }
+    },
+    "production3": {
+      "requests": 120,
+      "site_rows": 480,
+      "readiness": {
+        "recorded_selected_inputs_ready": 480
+      },
+      "actual_joins": {
+        "joined": 480
+      },
+      "missing_features": {
+        "known_rows": 480,
+        "unknown_rows": 0,
+        "reported_missing_total": 0,
+        "names": {}
+      },
+      "waited_for_measurements": {
+        "true": 18,
+        "false": 102,
+        "unknown": 0
+      },
+      "lifecycle_changed": {
+        "true": 0,
+        "false": 120,
+        "unknown": 0
+      },
+      "unknown_head_rows": 480,
+      "unknown_attempt_rows": 480,
+      "unknown_unit_rows": 480,
+      "observed_feature_counts": {
+        "known": 480,
+        "unknown": 0,
+        "min": 25,
+        "max": 2530,
+        "mean": 1276.4583333333333,
+        "p95_nearest_rank": 2529
+      },
+      "callback_latency_ms": {
+        "known": 120,
+        "unknown": 0,
+        "min": 0.36402500336407684,
+        "max": 8.349962001375388,
+        "mean": 1.1217882001195296,
+        "p95_nearest_rank": 3.3095449980464764
+      },
+      "callback_latency_when_waited_ms": {
+        "known": 18,
+        "unknown": 0,
+        "min": 1.821043999370886,
+        "max": 8.349962001375388,
+        "mean": 3.862023000288496,
+        "p95_nearest_rank": 8.349962001375388
+      }
+    }
+  }
+}
