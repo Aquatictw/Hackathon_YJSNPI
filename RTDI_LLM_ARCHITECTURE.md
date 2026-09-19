@@ -1,10 +1,14 @@
 # 第六組：半導體測試資料智慧洞察助理 — 完整方案與架構
 
-更新日期：2026-09-19。狀態：設計與驗收規格，尚未代表系統已實作、部署或取得分數。
+更新日期：2026-09-19。狀態：以現有 grp6_app 為核心的整合設計與驗收規格。六階段工程回覆已驗證；production 告警、完整報告及外部網站閉環仍需驗收。
 
-> 最新執行計畫：[HACKATHON_DELIVERY_PLAN.md](HACKATHON_DELIVERY_PLAN.md)。目前目標已擴為涵蓋全部 100% 評分項目，採「統計／ML＋互動證據報告＋可選 LLM」。分工、功能優先順序與交付標準以新計畫為準；本文件保留題目及平台介面細節。
+> 最新執行計畫：[README.md](README.md)。目前目標已擴為涵蓋全部 100% 評分項目，採「統計／ML＋互動證據報告＋可選 LLM」。分工、功能優先順序與交付標準以新計畫為準；本文件保留題目及平台介面細節。
 
-本文件獨立於 `grp6_app`，不採用該資料夾的程式、假設或完成度。目標先涵蓋題目完成度 60% 的評分項目，再透過 LLM 自主調查與互動報告爭取創新分數。實際分數由評審決定，不能保證保底 60 分。
+本方案沿用已部署的 `grp6_app`，以 `README.md` 中的 frontend handoff 與可重現紀錄為整合基礎，不重寫已驗證的 ONEAPI 路徑。目標先涵蓋題目完成度 60% 的評分項目，再透過 LLM 自主調查與互動報告爭取創新分數。實際分數由評審決定，不能保證保底 60 分。
+
+本機模型：`grp6_app/artifacts/runtime.json`（六模型與 detector baseline）、`manifest.json`（特徵）、`validation.json`（驗證）；細項在 `results/model_revalidation/validation.json`。訓練資料：`source_review/training/Data/A12345_W01_RawResult.csv` 至 `A12345_W25_RawResult.csv`。HC 資料：`/home/user/Case_Event/training/Data`；image 模型：`/opt/nexus/OneAPI/bin/grp6_app/artifacts/runtime.json`。
+
+差異與交付關卡見 `README.md`。已有前端原型，durable ingest/SSE、LLM tools 與命令閉環尚待完成。
 
 ## 1. 設計結論
 
@@ -119,7 +123,7 @@ flowchart LR
 1. `consumeData(tc, data)` 先呼叫 `data.getType()`，依事件種類呼叫合法 getter/query。
 2. 在 callback 返回前，取出並複製需要的值；不能把原生 `NexusData` 物件放進 Queue，等稍後才讀。
 3. 立即更新預測所需的當前特徵，或提供明確的處理序號屏障；單純把全部工作丟入背景 Queue，可能讓預測請求超前資料處理。
-4. callback 不等待 HTTP、LLM、報告產生或大檔磁碟寫入；統計彙總、外送與報告在背景 worker 做。
+4. 設計目標：callback 不等待 HTTP、LLM、報告產生或大檔磁碟寫入。現行報告使用背景 worker；統計偵測與 JSONL/stdout 寫入仍同步，須實測負載，不可宣稱全部已非同步。
 5. `consumeTPRequest(tc, request) -> str` 是同步回覆。不能假設先回一個「pending」再透過網站補回數值，就等同滿足 TP 協定。
 6. 不假設事件通道與 TP request 通道完全同序；實測 callback/thread 與接收時序。缺特徵時採用預先驗證的 fallback，並保留降級紀錄。
 
@@ -145,10 +149,10 @@ flowchart LR
   "device_id": "device-id",
   "site_id": 2,
   "attempt": 1,
-  "event_time": "ISO-8601 UTC",
+  "timestamp": "2026-09-19T05:30:00Z",
   "received_at": "ISO-8601 UTC",
   "test_number": 100,
-  "test_suite": "Main.sensor1_CP",
+  "test_name": "100_Main.sensor1#CP",
   "pin": "pin-from-source",
   "value": 76.4,
   "unit": "unit-from-source",
@@ -162,7 +166,7 @@ flowchart LR
 
 請求到達 → 驗證編號及目前 site/device → 取得合法特徵快照 → 呼叫對應模型 → 驗證有限數值與輸出 shape → 依 TP 協定序列化字串 → 返回 → 非同步記錄延遲／網站更新。
 
-**目前只確認 TP 傳編號 1～6、ONEAPI request 為 JSON 字串及 callback 回傳字串。尚未確認 JSON 是否為 `{"key":"predict","data":1}`，也未確認回覆是單一值、site map 或其他封裝。** 必須取得 template 與 TP 接收端解析程式；本文件不把前次對話的示意當成已知協定。
+**已核對 ACSTML/Predict.java 及 grp6 紀錄：** request JSON 的 key 為 predict、data 是 1～6 整數。回覆 `set_wait(tc.testerId, 10, message)` 再 `get(tc.testerId)`；message 為 `prediction N: (site,value) ...`。六階段各 site 工程回覆有 `Exec Pass: 1 / Exec Fail: 0`。缺值/未知請求/有效 timeout 仍需验收；10 不是已驗證的 TP deadline。
 
 禁止把所有 site/device 的預測平均後回傳，除非 TP 明確要求該聚合值。未知編號、模型缺失、缺值及逾時處理也要符合 TP 的實際錯誤協定；不可憑空發明 TP 不接受的 JSON。
 
@@ -170,7 +174,7 @@ flowchart LR
 
 異常判定成立時，以 `ActionManager.set_message(tc.testerId, message)` 建立短訊息；背景 LLM 再補充可追問的完整報告。即時基本警告不等待 LLM。
 
-手冊列出 `ActionManager.get(testerid)` 在 `consumeTPRequest` 時呼叫。需從實際 template／TP 核對 action request 分支，將累積 action 正確送回，再依協定確認何時 `clean`。不要在溫度預測分支一律返回 action，也不要在機台尚未取得前清掉訊息。
+已核對分流：prediction 用 `get(testerid)`；production 訊息在 `key=prod_action` 用 `get_prod(testerid)`。驗證最後告警在 session 結束前被領取，不提前清除訊息。
 
 `set_message` 呼叫成功、action 已提供、機台已顯示，是不同證據。網站分別顯示 `queued / provided / confirmed / failed / expired`；只有真的觀察到 TP ACK 或機台 log/UI 證據才標為 confirmed。查清多筆訊息是否覆蓋、最大長度與中文編碼。
 
@@ -385,64 +389,28 @@ cd /home/user/Case_Event/SmarTest
 
 ## 10. 目前證據與尚缺資訊
 
-### 10.1 已確認
+### 10.1 已驗證
 
-- 本機有題目、WorkShop、ONEAPI 手冊、Docker 範例、requirements、歷史 `py-app.log`。
-- 截圖顯示 HC → `debugger@advantestcell.local:29022` 曾成功；開發環境 Python 3.10.12，project 為 `/data/project/` symlink。
-- 現有 Case_Event 解壓內容主要是 SmarTest utility 與 workspace metadata；檢視範圍內未找到 25 份 CSV、ONEAPI `bin` 模板、`Case_Smt870`、recipe、`tag.sh`。
-- `startSmt.py` 實際會用到 `Case_Smt870/src/TestCase1/TestCase1_4site_ft.prog` 及 `recipe/acs_tcct_4site_ft.xml`；目前的解壓資料不能視為完整可執行套件。
-- 歷史 log 有 ONEAPI 連線及 parametric event 範例，但不是本次方案已跑通的證據。
+- 25 CSV/2,000 devices、完整巢狀 TP flow、ONEAPI wrapper、tag.sh 已取得，native SDK 在 VM。使用 `source_review`，勿用截斷 ZIP。
+- 六模型/manifest/wafer 分組驗證完成；detector replay 命中 6/7 指定異常，W25 spread-down 未解決。
+- 最新 grp6 core image `20260919T062939Z` 通過 21 packaged VM tests 與真實 SDK construction；本機完整 suite 為 26 tests。工程 run 六階段四 site coverage 100%，24 prediction_actual，0 audit errors，0.419–1.741 ms；tester EDL 六筆 action 各 Exec Pass 1 / Fail 0。
+- 編碼 metadata B13456 / 02 與 tester ASCII datalog 一致。HC 已保存 `grp6_core_eng_{evidence.jsonl,audit.json,report.html,tester.edl,tester.txt}`；JSONL SHA256 `274c1892e177dc6834bfd6931b8924c560e53fb9a5f367766434591fbedb4da3`。HTML 已產出，actual join 的實機報告核對仍待完成。
+- 首次 production 啟動重建 session 導致 Edge app 被移除；AppDeployer stop/start 在 lot 中途恢復，該次 80 devices / 74 pass / 6 fail 不算完整整合驗收。Stage 5/6 出現 200 ms 仍不足的 feature coverage。保存 partial logs/STDF，改 ONEAPI_DEBUG=1 後在既有 TCCT session 重跑；尚未取得 production anomaly receipt。replay JSONL/HTML 可交付並標示 replay。
 
-### 10.2 阻塞項目與取得方法
+### 10.2 剩餘關卡
 
-| 優先 | 缺少資訊／資源 | 如何取得 | 影響 |
-| --- | --- | --- | --- |
-| P0 | 完整 25 份 CSV 與資料字典 | 從 HC 完整 Case_Event 或主辦方資料包取得；核對檔案 hash／大小 | 無法解析、訓練與評估 |
-| P0 | 官方 ONEAPI Python 3.10 template、native library、設定 | 找 `oneAPI_py3.10`、`main.py`、`oneapi.py`、`liboneAPI.so` | 無法確認真實 API 與啟動流程 |
-| P0 | 完整 TP 與 recipe | 找 `Case_Smt870`、預測接收程式、recipe | 無法確認 request/reply、多 site 與執行流程 |
-| P0 | TP deadline、回覆格式與 action 分支 | 看接收端程式，錄一輪 request/response；必要時詢問主辦方 | 無法保證時機正確及機台接受 |
-| P0 | Event/TP request 的先後與執行緒模型 | 用實際 template 增加時間戳／處理序號觀察 | 避免前一顆／未完成特徵進入預測 |
-| P0 | 正式 Edge → 外部後端 HTTPS 能力 | 從部署 container 實測 GET/POST、DNS、TLS | 外部網站 live 與 LLM 指令閉環 |
-| P0 | 外送授權與允許資料欄位 | 確認活動規範及主辦方說明 | 決定外部 LLM 可接收的範圍 |
-| P0 | AUS 部署腳本與權限 | 取回 `tag.sh`、確認 image namespace/credential | 無法完成正式部署 |
-| P1 | Backend 主機、HTTPS URL、持久儲存 | 選定可部署服務並建立 health/ingest | 網站與 agent 沒有執行位置 |
-| P1 | API key、模型權限、rate limits | 由後端 runtime secret 提供並小量測試 | LLM 無法執行或受限流 |
-| P1 | CSV 的 P/F、bin、unit、scaling、重測規則 | 用真實資料與 TP 交叉核對 | 良率、溫度、特徵可能算錯 |
-| P1 | 指定異常的測項、site、起始位置 | 資料探索與 TP 模擬邏輯 | 精確偵測延遲與根因評估 |
-| P1 | action thread safety、get/clean、ACK/長度 | template、手冊與真實操作驗證 | 網站成功但機台沒收到 |
-| P1 | 模型精度與評分容忍門檻 | 主辦方評估規則 | 設定最終 acceptance criteria |
-| P1 | 外部通知對象與方式 | 定義工程師帳號／角色，之後再接外部通知服務 | 場景一驗收 |
-| P2 | 重新啟動後 state/outbox 恢復 | 確認正式 volume 與恢復策略 | 提升 demo 韌性 |
+| 關卡 | 尚缺 |
+| --- | --- |
+| G1 契約 | units/scaling/invalid flags、deadline、缺值/未知請求與 cutoff 定義 |
+| G2 隔離與時序 | retest/head/wafer/reconnect、遲到 measurement 與 timeout 實機證據 |
+| G3 偵測 | W25、每類別偵測時點與正常誤報；開發資料不冒充獨立驗證 |
+| G4 production | 真實異常 → set_message → get_prod → tester EDL/UI |
+| G5 證據 | run/event/request/device identity、prediction/actual、圖表窗口與 summary |
+| G6 報告 | 正常 run、良率、六階段表、錯誤與回執 |
+| G7/G8 運行 | callback 負載、持久化、完整彩排、release/replay 保存 |
+| 外部整合 | HTTPS/auth/outbox/DB/SSE、LLM tools、commands/ACK |
 
-### 10.3 立即收集遠端資料
-
-在目前 `user@group-6` 的 HC shell 執行唯讀盤點：
-
-```bash
-find /home/user/Case_Event -maxdepth 4 -type d
-find /home/user/Case_Event -type f \( -name '*.csv' -o -name 'main.py' -o -name 'oneapi.py' -o -name 'tag.sh' -o -name '*.prog' -o -name '*.java' -o -name '*.xml' \) | head -200
-```
-
-在 `debugger` shell：
-
-```bash
-cd /home/debugger/project
-pwd -P
-find . -maxdepth 4 -type f | head -200
-```
-
-如果要打包該開發專案，先進入 symlink 指向的目錄再打包 `.`，避免只得到 symlink 本身：
-
-```bash
-cd /home/debugger/project
-tar -czf /tmp/debugger_project_grp6.tar.gz .
-tar -tzf /tmp/debugger_project_grp6.tar.gz | head -30
-sha256sum /tmp/debugger_project_grp6.tar.gz
-```
-
-打包前先確認專案內是否含 `.env`、API key 等無需分享的設定，排除那些檔案。上述命令不會排除秘密，不能直接把結果當公開發布包。
-
-在 HC 可另行打包 `/home/user/Case_Event` 完整內容；成功下載後比較遠端 `sha256sum` 與本地 PowerShell `Get-FileHash -Algorithm SHA256`，再比對檔案清單，避免之前截斷下載問題。
+完整驗收標準見本文件 §12 與 `README.md`。使用 grp6/group-6；傳輸由使用者協助，不在 SmarTest session 重啟 Nexus。
 
 ## 11. 實作順序與完成定義
 
@@ -452,7 +420,7 @@ sha256sum /tmp/debugger_project_grp6.tar.gz
 
 ### M1：ONEAPI 最小閉環
 
-官方 template 真正接上 Nexus → 正確擷取事件 → 分辨六種請求 → 使用真實資料訓練的 baseline 按協定回覆 → 注入明確標示的測試告警確認 `set_message/get` 到機台。這階段先驗證管道，不能把測試告警当成異常偵測成果。
+官方 template 真正接上 Nexus → 正確擷取事件 → 分辨六種請求 → 使用真實資料訓練的 baseline 按協定回覆 → 注入明確標示的測試告警確認 `set_message` → `prod_action/get_prod` 到機台。這階段先驗證管道，不能把測試告警当成異常偵測成果。
 
 ### M2：模型與異常達標
 
@@ -474,7 +442,7 @@ sha256sum /tmp/debugger_project_grp6.tar.gz
 
 ## 12. 驗收清單
 
-更新：2026-09-19。以下新增進度依現有 `grp6_app`、驗證產物與 `CONTEST.md` 的 grp6 實測紀錄核對；原設計與現有實作的整合尚待完成。打勾只代表該項具體證據已具備，不代表整個場景通過或保證得分。
+更新：2026-09-19。以下新增進度依現有 `grp6_app`、驗證產物與 `README.md` 的 grp6 實測紀錄核對；原設計與現有實作的整合尚待完成。打勾只代表該項具體證據已具備，不代表整個場景通過或保證得分。
 
 ### A／B 已驗證的中間交付
 
@@ -482,29 +450,41 @@ sha256sum /tmp/debugger_project_grp6.tar.gz
 - [x] 六個 target、pin 與請求階段對應已建立；六階段 feature manifest 依 TP 執行順序產生（`grp6_app/artifacts/manifest.json`）。物理單位尚待 live 核對。
 - [x] 六個 Ridge 模型及 mean baseline 完成五折 wafer 分組驗證，feature selection 在各 training fold 內完成（`grp6_app/artifacts/validation.json`）。
 - [x] 偵測器與 HTML 證據報告已有 25 wafer replay；命中 6/7 指定異常 wafer，W25 spread decrease 未命中。正常檢查資料曾用於開發，不視為獨立驗證。
-- [x] 原版 image 在 grp6 建置／推送成功，8 個 runtime tests 在 image 與 code-server 通過；版本與 digest 已記錄於 `CONTEST.md`。
+- [x] 原版 image 在 grp6 建置／推送成功，8 個 runtime tests 在 image 與 code-server 通過；版本與 digest 已記錄於 `README.md`。
 - [x] Nexus 顯示 app running，ONEAPI event／command 連線與 tester 的 test-program acknowledgment 已觀察到。
 - [x] 本機修正 `PartFlag=0x0` callback 錯誤，加入原始 flag 保存與 stdout evidence；14 個本機測試通過（`results/fix_tests.log`）。
 - [x] hex-flag 修正版 image 部署後，工程測試四個 site 的 TestEnd 完成且無 callback error（grp6 `grp6_livefix_edge.log`：12,183 callbacks／12,124 mapped measurements）。
-- [x] 工程測試第 2／3／4／6 階段四個 site coverage 均 100%；tester Message Center 實際顯示第 4／6 階段。第 1／5 階段不足，尚不算六階段通過。
-- [x] 加入 measurement channel 延遲的有界等待、跨 touchdown 拒絕、future-feature invariance 測試；17 個本機測試通過（`results/channel_fix_tests.log`）。等待修正尚待 VM 驗證。
+- [x] 歷史 checkpoint（後續六階段成功已取代）：工程測試第 2／3／4／6 階段四個 site coverage 均 100%；tester Message Center 實際顯示第 4／6 階段。第 1／5 階段不足，尚不算六階段通過。
+- [x] 加入 measurement channel 延遲的有界等待、跨 touchdown 拒絕、future-feature invariance 測試；17 個本機測試通過（`results/channel_fix_tests.log`）。後續 VM runtime/正常六階段已通過；等待分支仍待 live 驗證。
 - [x] 每階段、wafer、site 的五折 out-of-fold 誤差及 train/test wafer 清單已保存（`results/model_revalidation/validation.json`）；重算結果與原 aggregate metrics 一致。
-- [ ] channel 等待修正版在 VM 通過六階段 coverage 與 timeout 測試。
+- [ ] channel 等待分支在 VM 通過遲到恢復與 effective timeout；正常六階段 coverage 已另項通過。
 - [x] channel 修正版在 grp6 image 通過 12 個 runtime tests；單次工程測試六階段、四 site coverage 全為 100%，callback audit 無錯誤，延遲 0.57–1.05 ms（遠端 `grp6_channel_audit.json`）。此次沒有進入等待分支，不能宣稱 live 延遲恢復／timeout 已驗收。
 - [x] 單次 grp6 engineering run：六階段四個 active site coverage 均 100%；`grp6_channel_tester.edl` 保存六筆 prediction action，各有 `Exec Pass: 1 / Exec Fail: 0`。此項只證明本次回覆被 tester 執行，不代表 live 精度或 production 穩定性已驗收。
 - [ ] 真實偵測異常經 `set_message`、`prod_action` 到 tester 顯示，具備可關聯的完整證據。
 - [ ] W25 漏報完成原因分析與可重現評估；不得依 wafer 編號硬編判斷。
 - [ ] 完整 production rehearsal、image 身分、事件紀錄與 replay 備案保存。
 
+- [x] 新版證據/報告/metadata 本機 26 tests 通過：run/tester 隔離、重複 request 的 actual join、正常 run/良率、錯誤與來源 SHA256。
+- [x] core image `20260919T062939Z` 在 grp6 build/push、21 packaged tests、真實 SDK construction 與六階段工程回覆通過；證據見 §10.1。
+- [x] 工程 B13456 / 02 decoded metadata 與 tester ASCII datalog 相符。
+- [ ] 同版本完整 production、遲到 measurement、有效 timeout 與完整證據保存通過。
+- [ ] 不同 wafer 的實機 scope 切換驗證；不得由單一 wafer 正確解碼推論跨 wafer 已通過。
+
+- [x] 2026-09-19 production run 3：80 devices、120 requests、480 actuals；production process sequence 1–765 完整保存。啟動前另一 process 的單筆 monitor_start 另存 raw capture。
+- [x] production JSONL → HTML：480/480 actual join、零 report error；`grp6_production_evidence.zip` 已在 HC 產生。
+- [x] 真實 site imbalance / mean up / mean down 告警於第 32 個 device 產生，三筆 set_message 已由 get_prod 返回；此項僅驗證管道返回，不代表 tester 顯示。
+- [ ] matching tester alert receipt；EDL 搜尋尚未找到這三筆 alert ID。
+- [x] 本機新增 capture integrity / expected device count / replay rejection 測試，完整 suite 31 tests 通過。
+
 ### 完整場景驗收（未完成項保留未勾選）
 
 - [ ] 六個 target 名稱、pin、unit 與請求編號已核對。
-- [ ] 每階段只看請求之前已取得的特徵；修改未來測項後，當前階段預測不變。
+- [ ] cutoff 要確認是 TP 執行順序或 callback 到達時間。目前最多等 200 ms 收取 stage-eligible 特徵；future-feature invariance 本機已通過，live 時序/deadline 待驗證。
 - [ ] 多 device/site/head、重測、跨 wafer 不會混用特徵或聚合回覆。
 - [ ] TP 接受六種回覆；未知編號／缺值／錯誤的回覆符合實際契約。
 - [x] baseline 與正式模型都有按 wafer 分組的驗證結果（現有 grp6_app，`artifacts/validation.json`；不代表 live 精度驗收）。
 - [ ] site imbalance、low yield、mean up/down、stdev up/down 均有評估，正常 wafer 誤報有統計。
-- [ ] 正式 app 已部署到 AUS／Edge，處理真實 Nexus 事件。
+- [x] grp6 app 已部署到 AUS/Edge 並處理真實 Nexus 工程事件；production 另項驗收。
 - [ ] 異常使用 `tc.testerId` 設定訊息，action 被正確提供，機台顯示有證據。
 - [ ] 機台預測與告警有事件時間、請求時間、回覆時間、模型版本和處理結果。
 - [ ] 網站收到 live 資料，斷線／stale／replay 不會誤標為即時正常。
@@ -514,59 +494,37 @@ sha256sum /tmp/debugger_project_grp6.tar.gz
 - [ ] user query 有實際資料支撐；沒有人工硬編答案假裝模型分析。
 - [ ] 尚未量測的精度／延遲不寫成已達標；得分不以完成 checklist 自行保證。
 
-## 13. 四／五人分工與整合
+## 13. 五人分工與整合
 
-> 本節為先前以核心完成度優先的分工紀錄。完整評分版本已改為 A 平台、B 預測、C 異常、D 後端與 LLM、E 網站與 Demo，請使用 [最新計畫第 8 節](HACKATHON_DELIVERY_PLAN.md#8-五人完整分工)。
+### 13.1 現行責任
 
-### 13.1 五人配置（建議）
+沿用 grp6_app，對齊 README.md 的 frontend handoff，取代舊 B 包含異常、C 後端的分工。
 
-以完整功能的負責人劃分，每人負責實作、測試和可展示的證據。A 擔任技術整合負責人；人名可直接替換 A～E。所有工作以新方案為基礎，不依賴 `grp6_app`。
-
-| 人員 | 主責與適合能力 | 第一件事 | 必交付物 | 完成驗收 |
-| --- | --- | --- | --- | --- |
-| A：機台整合／部署 | 熟 Linux、Python、Docker，能處理現場問題 | 從 Gemini 取回完整 ONEAPI、TP、recipe、CSV、tag.sh；記錄真實 request/reply | `edge/bin`、`edge/adapter`、`edge/state`、`deploy`；TP fixtures、部署手冊及 image 版本 | Gemini 正式量產中收到事件，六種預測正確回覆，機台顯示異常訊息 |
-| B：資料／模型／異常 | 熟 Python、資料分析、ML | 核對 25 CSV schema、標籤、六階段因果邊界 | `training`、`edge/analytics`、`edge/models`；六個模型、manifest、所有題目異常類型及評估表 | 逐 wafer/site 驗證誤差與誤報；未來測項不影響先前預測；可用真實事件 replay |
-| C：後端／外部資料通路 | 熟 API、資料庫、網路部署 | 建 HTTPS health、ingest，和 A 實測正式 Edge 能否 POST | `backend/api`、`backend/storage`、`edge/transport`；outbox、事件入庫、SSE、命令領取／ACK | 網站拿到 live 資料；斷線可補傳且不重複；命令可到機台並回報狀態 |
-| D：LLM 決策／工具 | 熟 API 整合、工具呼叫、狀態流程 | 按既定 schema 用標示為 mock 的事件串通工具迴圈 | `backend/agent`；工具封裝、決策 schema、證據報告、對話與失敗處理 | 真實異常能觸發多步調查、引用 evidence、產生報告及命令；API 失敗不拖垮 Edge |
-| E：網站／Demo 驗收 | 熟前端、圖表、操作流程及展示 | 用共用事件範例建立總覽與異常清單 | `web`、Demo 腳本、端到端驗收紀錄；live/replay、預測、報告、聊天、回傳狀態 | 評審可看懂即時狀態、六階段結果和異常證據；能追問並看到真實執行狀態 |
-
-第五人不應只做簡報：負責網站及從使用者角度驗收完整流程。A 不必替所有人修 bug，各模組的問題仍由原負責人解決。B 工作量較重，先做 baseline 和基本統計，D 在工具串通後可協助包裝分析結果與報告測試。
-
-### 13.2 四人配置
-
-**A、B、C 的責任保留；D 合併 LLM 與精簡網站。** 网站限制為一頁：總覽、異常卡、預測表、聊天區，不做複雜動畫、多頁管理後台或額外通知供應商。C 提供完整可直接使用的 API 與 SSE，減少 D 的整合負擔。
-
-如果四人中只有一位專職前端，可以改為 D 專做網站、C 同時負責後端與 LLM；此時縮小 LLM 工具集合至查摘要、查趨勢、發布報告／訊息，並優先沿用簡單的資料庫與 HTTP 架構。A 的機台整合與 B 的模型工作仍各自有明確負責人。
-
-### 13.3 開工先凍結五個介面
-
-這裡的凍結是第一版協作契約，不是把未知的 TP 協定自行定案。每個介面附一份成功與失敗的 fixture；mock 標記清楚，A 取得真實資料後立即替換／校正。
-
-| 介面 | 負責定義／使用 | 必須約定 |
+| 角色 | 責任 | 驗收 |
 | --- | --- | --- |
-| 標準事件 | A、B、C | tester/run/lot/wafer/device/site/attempt、測項 identity、時間、單位、序號與品質 |
-| 預測函式 | B 提供、A 呼叫 | stage、scope、特徵快照、cutoff、模型版本、輸出 shape、缺值／錯誤狀態 |
-| 異常 evidence | B 提供、C 保存、D/E 使用 | 類型、方向、sample_count、window、baseline、score、證據 ID |
-| 网站 API | C 提供、D/E 使用 | ingest、run 快照、SSE、報告、chat；錯誤碼、live/replay、重連游標 |
-| 機台命令 | C 管通路、D 提出、A 執行、E 顯示 | command_id、tester/run、TTL、去重、執行結果；機台確認與僅已排隊的差異 |
+| A 平台部署 | ONEAPI/state/image/evidence | production、六階段、tester 告警回執、release |
+| B 預測 | 六模型/manifest/wafer-site 驗證 | scoped prediction/actual、缺值降級與時序 |
+| C 異常 | site/yield/mean/spread/evidence | W25、誤報、偵測時間與圖表報告 |
+| D 後端與 LLM | ingest/storage/SSE/tools/commands/ACK | 持久化、live stream、多步調查、機台命令閉環 |
+| E 前端與 Demo | adapter/圖表/預測/報告 | 真實 fixture/API；live/replay/stale/unknown/receipt |
 
-`contracts/` 由 A 協調版本，相關負責人共同確認；禁止 A、B 各自猜測特徵命名，也禁止 D、E 自創一套與 C 不同的 JSON。C 寫 `edge/transport`，A 寫 `edge/adapter`，連接處透過明確介面整合，避免同時編輯 `main.py`。
+程式與測試繼續使用，不強制目錄改名。四人時合併 D/E 並縮小 UI。
 
-### 13.4 並行工作與整合關卡
+### 13.2 接線契約
 
-1. **開工同步**：A 取遠端資源、B 盤資料、C 建 health/ingest、D 用 mock 測工具、E 用同一 fixture 畫 UI。mock 可協助並行，但不算題目驗收。
-2. **第一條真實資料**：A → C → E，看見一筆真實事件及身分、時間；B 同時交付可被 A 呼叫的 baseline。先確認連得通，再擴充功能。
-3. **機台閉環**：A+B 完成六種預測與 `set_message`；A+C 完成命令／ACK；B 交付真實異常 evidence，C 保存、E 顯示。
-4. **LLM 閉環**：D 使用 B 的分析工具及 C 的紀錄，產生有證據報告；E 顯示調查與聊天結果；由 A 驗證機台訊息。
-5. **正式彩排**：A 固定部署版本，B 確認模型與誤差，C 測斷線補傳，D 測 LLM 失敗與工具重試，E 主持完整 Demo 並逐項記錄未通過之處。
+- Raw JSONL 以 monitor.py 為準；Unix 秒、kind、tester 是記錄格式，不是網站 API。
+- 外送 v1 以現有 adapter 的 numeric schema_version=1、edge_id、batch_id、events 為起點；event 用 event_id/type/tester_id/timestamp（ISO UTC）、source_mode 及完整 scope。尚非已部署 exporter。
+- 根 handoff 的 string version/nested scope/payload 提案不再作 wire 方向；前端 0.1-draft 為內部 view model。
+- 多 site request 需 site-specific prediction ID 加共同 request ID，保留 coverage；不造假歷史 device ID。
+- Adapter 必須保存 series/site_series/baseline/threshold/direction，現有限 adapter 尚會丟失數列。D 定案 durable 接收/拒絕 IDs 與命令狀態，A/E 驗證。
+- confirmed 需匹配 tester EDL/UI；HTTP ACK、queued/returned、AI 文字不能替代。
 
-至少安排一次中途整合及一次正式部署彩排，不能等每人「全部完成」才第一次接線。進度回報用「可重現的命令／畫面／fixture＋仍缺什麼」，不只說完成百分比。
+### 13.3 順序
 
-### 13.5 時間不足時的取捨
-
-保留：真實 Gemini 部署、六階段回覆、所有題目異常類型的基本偵測、機台訊息、可查詢報告。優先刪減：多 agent、動畫、多通知服務、複雜模型搜尋、自動改測試策略。
-
-前半段若外網仍不通，C 與 A 先確認正式可行路徑；D/E 可繼續以明確標記的 replay 整合，同時準備內網可用的報告頁。不能讓 A/B 的核心時機與機台驗收等待外部網站或 LLM。
+1. 分享已有工程 JSONL/audit/EDL 及標示 replay 的 HTML。
+2. 修 live report、補 evidence scope、測 converter。
+3. production 第一個真實異常到 tester，立即交付 JSONL/HTML/receipt。
+4. 完成 G1–G8；D/E 並行完成外部通路、LLM 與全流程 Demo。
 
 ## 14. 參考與來源
 

@@ -9,9 +9,9 @@ ROOT = Path(__file__).resolve().parents[1]
 def main():
     files = {}
     for name in ["__init__.py", "state.py", "runtime.py", "monitor.py", "live_main.py",
-                 "report.py", "data.py", "rehearse.py"]:
+                 "report.py", "data.py", "metadata.py", "rehearse.py"]:
         files["grp6_app/" + name] = (ROOT / "grp6_app" / name).read_bytes()
-    for name in ["test_state.py", "test_monitor.py"]:
+    for name in ["test_state.py", "test_monitor.py", "test_report.py"]:
         files["grp6_app/tests/" + name] = (ROOT / "grp6_app/tests" / name).read_bytes()
     for path in sorted((ROOT / "grp6_app/artifacts").glob("*.json")):
         files["grp6_app/artifacts/" + path.name] = path.read_bytes()

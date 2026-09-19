@@ -6,11 +6,28 @@ The app detects semiconductor test anomalies, produces an HTML evidence report, 
 
 ## Resume here
 
-1. Reconnect to **grp6 only** and verify the named dashboard rows and hostname `group-6`. Retrieve the latest channel-fix deployment identity and remote `grp6_channel_audit.json`; do not rebuild an already deployed fix solely because an older checkpoint says upload pending.
-2. Preserve channel-fix image 20260919T052422Z, retrieve its image ID/digest, and retain grp6_channel_evidence.jsonl, grp6_channel_audit.json, and tester datalog grp6_channel_tester.edl. Its newest recorded run has full six-stage/four-site coverage; verify that evidence against the actual running image.
-3. Repeat a controlled engineering run and exercise delayed measurement/timeout behavior. The successful run did not enter the wait branch, so it does not validate live recovery from the earlier stage 1/5 coverage gaps.
-4. Run simulated production with the app ready before lot start. Correlate a real detected anomaly, `set_message`, `prod_action` response, and actual tester display. Save JSONL, HTML, stdout, tester logs/screenshots, and image/model identities.
-5. Keep replay ready; investigate W25's missed spread decrease without hard-coding wafer labels. Complete the final demo rehearsal.
+Checkpoint (September 19, 14:38 Taipei): uploaded core bundle verified on `group-6`: 331,948 bytes, SHA256 `c49930d9a7ecb55ad4a77a38a705c58095406be234572c21558bc4e8d07d762c`. Image `unifiedserver.local/grp6/py-app:20260919T062939Z` built/pushed, **21 packaged VM tests** and real SDK Monitor construction passed. AppDeployer stop/start succeeded without restarting Nexus; ONEAPI communication enabled. One engineering touchdown passed all six stages/four sites, 24 prediction_actual records, zero audit errors, 0.419–1.741 ms callback latency. Tester EDL records six actions, each Exec Pass 1 / Fail 0. Decoded B13456 / 02 matches tester ASCII datalog. JSONL SHA256 `274c1892e177dc6834bfd6931b8924c560e53fb9a5f367766434591fbedb4da3`. HTML generated from that file. Remote files: `grp6_core_eng_{evidence.jsonl,audit.json,report.html,tester.edl,tester.txt}`, `grp6_core_eng_edge.log`, `grp6_core_build.log`. Old deployment record saved as `grp6_deployment_before_core.json`; SmarTest workspace backed up and tar-verified as `grp6_before_prod_workspace.tgz`. Production launcher started at 14:36:39; at checkpoint it was completing its supplied cleanup/sleep. Production acceptance is still pending; inspect `grp6_core_prod.log` and live Edge logs next.
+
+Production checkpoint (September 19, 14:53 Taipei): the first production launcher recreated the tester session and removed the Edge deployment while AppDeployer retained stale state. Stop/start recovered the app mid-lot; that 80-device run (74 pass / 6 fail) is incomplete integration evidence. Stage 5/6 measurement coverage sometimes stayed near 0.59/0.56 after the 200 ms wait, so predictions were correctly withheld. EdgeLog output also omitted early events under native DEBUG verbosity. Preserved `grp6_core_prod_partial*`, `grp6_core_prod_edge2.log`, and `/tmp/STDF` copy `grp6_core_prod_partial_stdf/`. Changed documented `ONEAPI_DEBUG` from 6 to 1, preserving `grp6_descriptor_debug6.json`; no model/runtime change. App stop/start succeeded and communication was enabled at 06:47:13 UTC (`grp6_core_prod2_{start,ready}.log`). Rerunning the supplied recipe through the already-bound TCCT session to avoid another session teardown. Full production, actual joins, anomaly receipts and durable export remain unchecked.
+
+Production checkpoint (September 19, 15:15 Taipei): run 3 completed 80 devices (74 pass / 6 fail), 120 prediction requests and 480 actual records. Five-second EdgeLog snapshots retain the complete production process, sequence 1–765. A pre-lot startup-only record from 07:03:13 UTC is preserved in `grp6_core_prod3_capture_all.jsonl`; the production process starts at 07:04:19 UTC. Normalized JSONL keeps that process only. HTML reconstruction joins 480/480 actuals with no errors. Three real alerts at device 32 (site imbalance, mean up, mean down) were queued and returned together by `get_prod`; matching tester alert receipt is still unverified. Current EDL preserves prediction action execution but the searched alert IDs were not found. Do not mark display confirmed.
+
+Run 2 captured only 317 unique events because collection began late and is not a full-lot acceptance run. `EdgeLog` returns partial logs, so end-only retrieval is insufficient. Run 3 snapshots, STDF and raw capture are preserved remotely. Engineering archive downloaded locally, ZIP integrity passed, JSONL SHA matches `274c1892e177dc6834bfd6931b8924c560e53fb9a5f367766434591fbedb4da3`; local audit confirms continuous sequence and zero errors.
+
+- [x] Local evidence/report/metadata/audit regression suite: 31 tests pass (`results/core_evidence_tests.log`).
+- [x] Full production process recorded remotely: 80 devices, 120 requests, 480 actuals, continuous sequence 1–765.
+- [x] Production HTML generated from exact JSONL: 480 actual joins, no report errors.
+- [ ] Production archive independently audited locally and tester alert receipt correlated.
+- [x] Uploaded core revision passes 21 packaged tests and real SDK construction on grp6; engineering run has 24 actual records and six tester action receipts.
+- [x] Engineering metadata B13456 / 02 independently matches tester ASCII output; source JSONL and generated HTML preserved remotely.
+- [ ] Same new revision passes real SDK/image tests and engineering/production on grp6.
+- [x] Engineering encoded metadata matches tester output; report joins all 24 prediction actuals.
+- [ ] Production anomaly receipt, final HTML and exact source JSONL exported.
+
+1. Keep deployed image `20260919T062939Z` and model SHA unchanged while preserving production evidence. Do not rerun or rebuild merely to reproduce existing proof.
+2. Download `/home/user/Case_Event/grp6_production_evidence.zip` with the user's help and audit with `--expected-devices 80 --expected-touchdowns 20`. Match prediction actions and alert IDs against tester records; returned messages alone remain unconfirmed.
+3. Merge remote commits `0816050` and `6024dd7`, preserving core metadata/UUID/actual joins. Exporter additions need focused compatibility tests and a VM smoke test before enabling HTTPS.
+4. Keep remaining timing/units/lifecycle/W25 gates open until separately proven.
 
 Prioritize real Gemini operation, correct timing, tester feedback, and a queryable report. Reduce model/UI complexity before sacrificing integration. Submission deadline/format, presentation duration, prediction tolerance, physical temperature units, and effective TP timeout remain unconfirmed. Old time-box estimates were not a contest deadline.
 
@@ -220,9 +237,9 @@ Replay needs no SDK connection or NumPy. Present connection/data freshness and l
 
 ## Architecture and team coordination
 
-`RTDI_LLM_ARCHITECTURE.md` was not edited by this consolidation. Concurrent updates to that file were preserved, including the newer channel-run checkpoint summarized above. It describes an independent proposed implementation; its old status sections and links to removed notes do not override this record. Its referenced HACKATHON_DELIVERY_PLAN.md is absent. Former CONTEST.md, TEAM_PROGRESS.md, HACKATHON_PREP.md, AGENTS.md, grp6_app/README.md, deploy/RUNBOOK.md, FRONTEND_HANDOFF.md, frontend/README.md, frontend/HANDOFF.md, and frontend/contracts/README.md content now lives here; old handoff/prep pointers also refer to this consolidated record.
+`RTDI_LLM_ARCHITECTURE.md` now adopts the existing grp6_app implementation and separates verified engineering evidence, pending production acceptance, and optional external services. Former FRONTEND_HANDOFF.md and deployment notes are consolidated here. The untracked grp6_FRONTEND_HANDOFF.md is a separate teammate copy; it does not override the implementation contract below.
 
-Available role evidence supports A (machine integration/deployment), with substantial B contributions (data/models/detection), using architecture §13.1 roles. A's full live acceptance remains open and B has the W25 gap. A local E frontend prototype now exists alongside the HTML report. External backend/transport, multi-step LLM agent, and live dashboard integration remain pending. Align with teammates before treating the architecture and grp6_app as one implementation. External services must not block local predictions, basic alerts, or core rehearsal.
+Available role evidence supports A (machine integration/deployment), with substantial B contributions (prediction/models) and C contributions (detection/report), using architecture §13.1 roles. A's full live acceptance remains open and C has the W25 gap. A local E frontend prototype now exists alongside the HTML report. External backend/transport, multi-step LLM agent, and live dashboard integration remain pending. Align with teammates before treating the architecture and grp6_app as one implementation. External services must not block local predictions, basic alerts, or core rehearsal.
 
 References: `Question_20260919.pdf` (requirements/scoring), `WorkShop_Material.pdf` (transfer p11, development/deployment pp19–26, data/anomalies pp28–29), `ONEAPI_Manual.pdf` (Monitor, NexusData, ActionManager, lifecycle), `py-app.dockerfile`, `requirements.txt`. Extracted texts are in tmp/pdfs. Supplied py-app.log is reference output only, never evidence of our live run.
 
@@ -383,29 +400,33 @@ interface ReplaySummary {
 - **Source status:** replay events explicitly say mode=replay; raw live events omit mode. The backend must attach provenance. Missing mode does not prove live freshness.
 - **Errors:** request_error, callback_error, action_error and report_error are separate records. Show failure/insufficient-data states instead of treating missing data as normal.
 
-### Exporter gaps
+### Evidence and external wire contract
 
-The current logs do not yet have uniform event IDs, run IDs, sequence numbers, or a schema version. Prediction records also omit explicit lot/wafer/touchdown IDs. Only the first 12 mapped measurements per app process are individually logged: the evidence log is **not a complete raw-measurement feed**.
+Core image `20260919T062939Z` adds numeric schema_version=1, UUID event/run/request/device IDs, sequence, ISO timestamp, source_mode=live, lot/wafer/touchdown scope, model SHA, final prediction actual/error records and run summaries. These changes pass 26 local tests and 21 packaged VM tests; engineering produced 24 actual records and six successful tester action receipts. Production acceptance remains open. The first 12 mapped measurements are sampled: JSONL is not a complete raw feed. Repeated predictions retain separate IDs; raw device identity is test UUID + site, with PartID recorded separately. Multi-head site collisions fail closed.
 
-The backend/Edge exporter needs to attach scope at collection time, preserve IDs across retries, store events, and expose a snapshot plus updates. This is the recommended envelope, **proposed and not implemented**:
+Raw JSONL uses kind/tester/lot/wafer/time and multisite prediction maps. It is not directly the frontend wire format. The v1 UI adapter accepts numeric schema_version=1 (not the old string '1' nested payload proposal):
 
 ~~~ts
-interface DashboardEnvelope<T> {
-  schema_version: '1';
-  event_id: string;                    // stable across retries
-  run_id: string;
-  sequence: number;
-  mode: 'live' | 'replay';
-  received_at: string;                 // ISO 8601
-  event_time: string | null;           // null when source has none
-  scope: {
-    tester_id: string | null;
-    lot_id: string | null;
-    wafer_id: string | null;
-    touchdown: number | null;
-  };
-  payload: T;                         // existing event payload
+interface EdgeBatch {
+  schema_version: 1;
+  edge_id: string;
+  batch_id: string;
+  events: Array<{
+    event_id: string;
+    type: 'measurement' | 'prediction' | 'prediction_actual' | 'evidence' | 'heartbeat' | 'run_summary';
+    tester_id: string;
+    timestamp: string; // timezone-qualified ISO 8601
+    run_id?: string;
+    lot_id?: string; wafer_id?: string;
+    site_id?: number; device_id?: string;
+    source_mode?: 'live' | 'replay' | 'simulation';
+    [field: string]: unknown;
+  }>;
 }
 ~~~
 
-No deployed HTTP URL, SSE/WebSocket endpoint, ACK protocol, or user-to-tester command API exists in our current app. Agree those with the backend teammate; do not assume route names. LLM chat and user-triggered tester commands are separate planned capabilities.
+Frontend/lib/rtdi/edge-adapter.ts defines accepted per-type fields. Split each raw prediction request into per-site events; preserve device/run/tester scope for actual joins. The adapter currently uses request_id as its prediction ID, so an exporter must use the unique per-site prediction_id as that wire request_id and retain the original request identity separately. Unknown units/scopes remain unknown. The adapter does not yet display raw alert series, coverage or tester receipt state; the standalone HTML report retains these details.
+
+No deployed HTTP ingestion URL, SSE/WebSocket endpoint, delivery ACK protocol, or user-to-tester command API is implemented by the core. LLM chat and user-triggered commands remain separate backend/frontend work.
+
+Encoded production metadata: Main.lotidTest tests 20/21 carry lower/upper ASCII chunks; Main.waferidTest test 25 carries the wafer string. New runtime isolates detector windows on decoded scope changes even in final-test mode without WaferStart. A touchdown containing mixed scopes is rejected rather than aggregated. Raw test flags are sampled for audit; their validity bits and physical scaling still need SDK/runtime confirmation.

@@ -150,5 +150,58 @@ class ProtocolTests(unittest.TestCase):
             for replacement in [1e12,-1e12,float('nan')]:
                 modified=dict(current,**dict.fromkeys(future,replacement))
                 self.assertEqual(self.core.models.predict(stage,modified),before)
+    def records(self):
+        return [json.loads(s) for s in Path(self.tmp.name,"evidence.jsonl").read_text().splitlines()]
+
+    def test_repeated_predictions_join_final_actuals_without_overwriting(self):
+        from grp6_app.data import TARGETS
+        model=self.core.models.models["1"]
+        for site in ["1","2"]:
+            for name,value in zip(model["features"],model["mean"]):
+                self.core.state.record(self.tc.testerId,site,name,value)
+            self.core.state.record(self.tc.testerId,site,TARGETS[1],.25)
+        for _ in range(2): self.core.consumeTPRequest(self.tc,'{"key":"predict","data":1}')
+        self.core.consumeData(self.tc,Event("PRODUCTION_TESTEND",get_ResultCount=2,
+            query_HeadSite=[65537,65538],query_PartFlag=["0x0","0x0"],
+            query_SBinResult=[1,1],query_PartId=["a","b"]))
+        actuals=[r for r in self.records() if r["kind"]=="prediction_actual"]
+        self.assertEqual(len(actuals),4)
+        self.assertEqual(len({r["prediction_id"] for r in actuals}),4)
+        self.assertTrue(all(r["actual"]==.25 for r in actuals))
+        self.assertEqual(self.core.counts["callback_errors"],0)
+
+    def test_second_tester_lot_does_not_change_first_run(self):
+        before=self.core.tester_runs[self.tc.testerId]
+        self.core.consumeData(SimpleNamespace(testerId="second"),Event("PRODUCTION_LOTSTART",get_LotId="B"))
+        self.core.log("check",tester=self.tc.testerId)
+        self.assertEqual(self.records()[-1]["run_id"],before)
+
+    def test_ambiguous_heads_fail_closed(self):
+        self.core.consumeData(self.tc,Event("PRODUCTION_TESTSTART",get_ResultCount=2,query_HeadSite=[65537,131073]))
+        self.assertEqual(self.core.state.snapshot(self.tc.testerId),{})
+        self.assertEqual(self.records()[-1]["kind"],"callback_error")
+
+    def metadata(self, wafer, other_wafer=None):
+        encoded=lambda s: int.from_bytes(s.encode("ascii"),"big")
+        for number,suite,values in [(20,"lotidTest",["456","456"]),(21,"lotidTest",["B13","B13"]),
+                                    (25,"waferidTest",[wafer,other_wafer or wafer])]:
+            self.core.consumeData(self.tc,Event("MEASURED_PARAMETRIC",get_ResultCount=2,
+                query_HeadSite=[65537,65538],query_TestNumber=[number,number],
+                query_TestSuite=["Main."+suite]*2,query_Result=[encoded(s) for s in values]))
+
+    def test_encoded_metadata_isolates_simulated_wafers(self):
+        self.metadata("2")
+        self.assertEqual(self.core.identity[self.tc.testerId],("B13456","2"))
+        previous=self.core.detectors[self.tc.testerId]
+        previous.add("1",{},True)
+        self.start(); self.metadata("3")
+        self.assertEqual(self.core.identity[self.tc.testerId],("B13456","3"))
+        self.assertEqual(self.core.detectors[self.tc.testerId].completed,0)
+        self.assertEqual(self.core.counts["callback_errors"],0)
+
+    def test_mixed_wafer_metadata_fails_closed(self):
+        self.metadata("2","3")
+        self.assertEqual(self.core.state.snapshot(self.tc.testerId),{})
+        self.assertEqual(self.records()[-1]["kind"],"callback_error")
 
 if __name__=='__main__':unittest.main()
