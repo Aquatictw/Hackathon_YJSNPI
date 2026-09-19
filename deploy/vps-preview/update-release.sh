@@ -36,6 +36,10 @@ if [[ -L $base/current && -d $base/current ]]; then old=$(readlink -f "$base/cur
 backup=$(mktemp -d "$base/backups/before-$revision-XXXXXXXX")
 activated=0
 stopped=0
+proxy_stopped=0
+resume_proxy() {
+  if (( proxy_stopped )); then systemctl start grp6-preview-docker.socket; fi
+}
 rollback() {
   status=$?
   trap - ERR
@@ -46,7 +50,7 @@ rollback() {
     if [[ -n $old && -d $old ]]; then
       ln -sfn "$old" "$base/current.rollback"
       mv -Tf "$base/current.rollback" "$base/current"
-      systemctl start grp6-preview.service || true
+      systemctl restart grp6-preview.service || true
     fi
     echo "Update failed; previous release/state restored. Evidence: $backup" >&2
   elif (( stopped )) && [[ -n $old && -d $old ]]; then
@@ -54,9 +58,16 @@ rollback() {
     systemctl start grp6-preview.service || true
     echo "Backup failed; original release/state retained and service restarted. Evidence: $backup" >&2
   fi
+  resume_proxy || true
   exit "$status"
 }
 trap rollback ERR
+# The socket proxy Requires the app: incoming traffic can otherwise reactivate
+# the old release while its database is being backed up or migrated.
+if systemctl is-active --quiet grp6-preview-docker.socket; then
+  proxy_stopped=1
+  systemctl stop grp6-preview-docker.socket grp6-preview-docker.service
+fi
 systemctl stop grp6-preview.service
 stopped=1
 if [[ -d $base/shared/state ]]; then cp -a "$base/shared/state" "$backup/state"; fi
@@ -65,10 +76,12 @@ install -d -o grp6-preview -g grp6-preview -m 0750 "$base/shared/state"
 run_app node scripts/local-backend.mjs migrate
 ln -sfn "$release" "$base/current.next"
 mv -Tf "$base/current.next" "$base/current"
-systemctl start grp6-preview.service
+systemctl restart grp6-preview.service
 healthy=0
 for attempt in {1..60}; do
-  if curl --fail --silent --max-time 3 http://127.0.0.1:5173/api/config > "$backup/config.json"; then healthy=1; break; fi
+  app_pid=$(systemctl show grp6-preview.service -p MainPID --value)
+  app_cwd=$(readlink -f "/proc/$app_pid/cwd" || true)
+  if [[ $app_cwd == "$release/frontend" ]] && curl --fail --silent --max-time 3 http://127.0.0.1:5173/api/config > "$backup/config.json"; then healthy=1; break; fi
   sleep 1
 done
 [[ $healthy == 1 ]]
@@ -79,6 +92,7 @@ curl --fail --silent --max-time 15 http://127.0.0.1:5173/ > "$backup/home.html"
 curl --fail --silent --max-time 15 http://127.0.0.1:5173/replay > "$backup/replay.html"
 curl --fail --silent --max-time 15 'http://127.0.0.1:5173/api/v1/runs/grp6-replay-demo?tester_id=grp6-replay' > "$backup/snapshot.json"
 node -e 'const s=require(process.argv[1]);if(s.run?.mode!=="replay" || !s.events?.length) process.exit(1); console.log("Replay snapshot: "+s.events.length+" events")' "$backup/snapshot.json"
+resume_proxy
 if [[ -n $old && -d $old ]]; then ln -sfn "$old" "$base/previous"; fi
 trap - ERR
 echo "Deployed $revision at http://127.0.0.1:5173 (grp6-preview.service)"

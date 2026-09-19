@@ -11,6 +11,7 @@ const assets = new Set();
 for (const path of ['/', '/replay']) {
   const html = await (await read(path)).text();
   assert.match(html, /RTDI/);
+  assert.match(html, /theme-selector/, `${path}: deployed theme control`);
   for (const match of html.matchAll(/(?:src|href)="([^"]+\.(?:js|css))"/g)) {
     if (match[1].startsWith('/')) assets.add(match[1]);
   }
