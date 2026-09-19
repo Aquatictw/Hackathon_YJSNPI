@@ -1,7 +1,7 @@
 # E — R3-20260919
 
 ## Progress
-- IN_PROGRESS — implementation and acceptance passed; publication synchronization pending. Base `7f99026b23a33a356c2470caa184eef9176f3034`; own worktree `/private/tmp/grp6-e-r3`; local branch `teammate-e-frontend-r3` (R2 branch still in use). Initial status clean; startup `git fetch origin` and `git merge-base --is-ancestor 7f99026b23a33a356c2470caa184eef9176f3034 origin/main` passed. Earlier worktrees preserved.
+- COMPLETE — implementation and required local/browser acceptance passed. [R3-20260919][E] COMPLETE. Base `7f99026b23a33a356c2470caa184eef9176f3034`; own worktree `/private/tmp/grp6-e-r3`; local branch `teammate-e-frontend-r3` (R2 branch still in use). Initial status clean; startup `git fetch origin` and `git merge-base --is-ancestor 7f99026b23a33a356c2470caa184eef9176f3034 origin/main` passed. Earlier worktrees preserved.
 - Implementation `1719ad4955c8e237c0df91577e4d2336f69428a8`: common accessible light/dark/system selector, semantic colors/contrast, truthful AI availability/retry, readable prediction precision with exact values retained, source-driven replay evaluation and filter/selection recovery. Six new presentation/contrast regressions; R2 lifecycle unchanged.
 
 ## Decisions
@@ -34,8 +34,10 @@ Commands from frontend unless marked root:
 - `npm run build`: exit 0; `/private/tmp/grp6-e-r3-build.log`. Existing vinext route-classification warning remains.
 - Root `git diff --check`, staged check, explicit changed/untracked allowlist audit: passed. Implementation commit contains only the ten UI/test paths listed above; this notes file is the only additional authored path.
 
+- Publication sync: final `git fetch origin` succeeded; merged `fca8912da03db0f00db94ff990e59f4d32bade4a` with `git merge --no-edit origin/main` without conflicts, merge `8e7c66911f9a40f3b82f3656fe679d67b3feb49a`. Incoming A/B/C research/docs and shell LF attribute preserve rejected-candidate evidence; no frontend code/dependency changes. `git diff --exit-code 1719ad4 HEAD -- frontend` exited 0, so passing checks/browser observations were reused under minimal synchronization. All E authored commits and staged/untracked paths audited separately from imported owner files. Local preview process stopped after checks.
+
 ## Blockers
 - None for local implementation. No outside-scope edit requested. Real paid AI, auth, live Edge transport, units/deadlines and correlated machine receipts remain unverified acceptance owned by A; no VPS/VM/deployment changes made.
 
 ## Handoff
-- Implementation SHA above; final completion/delivery SHA will be returned after publication. Publish only main using minimal synchronization, preserve teammates, then stop for A review.
+- Implementation `1719ad4955c8e237c0df91577e4d2336f69428a8`; browser handoff `e3163b3`. Final completion/delivery SHA supplied in response after explicit `git push origin HEAD:refs/heads/main`. E deliverables/checks are recorded above; no implementation blocker. Next owner A: combined integration review and deployment decision. Stop editing after confirmed publication; no claim of deployment/live acceptance.
