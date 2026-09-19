@@ -23,7 +23,10 @@ proxy_read_timeout 3600s;
 
 Open `/` and click **載入批次** with the prefilled `grp6-replay-demo` /
 `grp6-replay`; `/replay` also works. Data is explicitly labeled replay. No
-OpenAI or command token is installed. Public user authentication is not
+command token is installed. OpenAI settings are now installed in the private
+VPS secret file; configuration was checked without paid API calls. Key validity
+and model access remain untested. Avoid paid smoke tests due to limited quota.
+Public user authentication is not
 implemented by this app; nginx access controls remain the user's configuration.
 The public preview is https://hackathon.aquatictw.com/. The prediction seed
 contains the first device at each of four sites from W01, six stages each,
@@ -58,7 +61,7 @@ requires that revision to be an ancestor of the local `origin/main`.
   atomic symlink; `previous` points to the preceding successfully active release.
 - Persistent local D1: `/opt/grp6-preview/shared/state`. Secrets:
   `/opt/grp6-preview/shared/.dev.vars` (root/preview group, mode 0640). The
-  generated ingest token is local to this preview. Both paths survive releases.
+  user-supplied ingest token is local to this preview. Both paths survive releases.
 - Node 22.18.0 is isolated in `/opt/grp6-preview/node`, verified against the
   Node distribution SHA256; the existing global Node 20 is unchanged. This VPS
   exposes an old QEMU CPU: native workerd could not start even a minimal worker.
@@ -87,7 +90,9 @@ cat /opt/grp6-preview/nginx-upstream
 
 `bootstrap.sh` installs the isolated runtime/user/service and updater from this
 folder. `verify-http.mjs` checks HTML, built assets, replay, config, persisted
-snapshot and SSE. `verify-recovery.sh` exercises the actual updater's backup
+snapshot and SSE. Pass `--expect-ai` after the origin for the configured preview;
+this only checks configuration presence and never calls OpenAI.
+`verify-recovery.sh` exercises the actual updater's backup
 and activation failure paths using temporary copies with injected failures; it
 causes two intentional preview interruptions and checks the old snapshot and
 release after each. It does not alter the installed updater or application
