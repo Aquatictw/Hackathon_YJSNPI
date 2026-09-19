@@ -457,3 +457,33 @@ test('R2 pending-command expiry changes only the requested run/tester and preser
   assert.deepEqual(await repo.getPendingCommands('r2-tester'), []);
   assert.equal(commandRow('other-run-command').status, 'expired'); assert.equal(commandRow('other-tester-command').status, 'queued');
 });
+
+test('R2 command HTTP responses retain status codes, confirmation guards and scoped receipt provenance', async () => {
+  await seedCommandScopes();
+  env.COMMAND_TOKEN = 'test-command-token';
+  const createRoute = await import('../app/api/v1/runs/[id]/commands/route.ts');
+  const resultRoute = await import('../app/api/v1/commands/[id]/results/route.ts');
+  const create = body => createRoute.POST(new Request('https://example.test/api/v1/runs/r2-run/commands?tester_id=r2-tester', {
+    method: 'POST', headers: { Origin: 'https://example.test', 'Content-Type': 'application/json' }, body: JSON.stringify(body),
+  }), { params: Promise.resolve({ id: 'r2-run' }) });
+  const result = (body, id = 'r2-command') => resultRoute.POST(new Request(`https://example.test/api/v1/commands/${id}/results`, {
+    method: 'POST', headers: { Authorization: 'Bearer test-command-token', 'Content-Type': 'application/json' }, body: JSON.stringify(body),
+  }), { params: Promise.resolve({ id }) });
+  assert.equal((await create(commandInput())).status, 201);
+  assert.equal((await create(commandInput())).status, 200);
+  assert.equal((await create(commandInput({ message: 'conflicting' }))).status, 409);
+  assert.equal((await result(commandAck({ tester_id: 'wrong' }))).status, 409);
+  assert.equal((await result(commandAck(), 'missing')).status, 404);
+  const missingReceipt = { ...commandAck(), status: 'tester_confirmed' };
+  assert.equal((await result(missingReceipt)).status, 422);
+  await assert.rejects(repo.recordCommandResult('r2-command', missingReceipt), /tester_receipt_id/);
+  const confirmed = commandAck({ status: 'tester_confirmed', tester_receipt_id: 'synthetic-http-receipt' });
+  assert.equal((await result(confirmed)).status, 200);
+  const duplicate = await result(confirmed);
+  assert.equal(duplicate.status, 200);
+  assert.deepEqual(await duplicate.json(), { command_id: 'r2-command', status: 'tester_confirmed', duplicate: true });
+  assert.equal((await result({ ...confirmed, tester_receipt_id: 'conflicting' })).status, 409);
+  assert.equal((await result(commandAck())).status, 409);
+  assert.equal(ackRows().length, 1);
+  assert.equal((await repo.getRunSnapshot('r2-run', 'r2-tester')).commands[0].tester_receipt_id, 'synthetic-http-receipt');
+});
