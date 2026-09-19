@@ -1,7 +1,9 @@
+import { joinPredictionActuals, projectExporterEvents } from "./backend-projection";
 import { env } from "cloudflare:workers";
 import { canApplyCommandStatus, type CommandResultInput, type CreateCommandInput } from "./command-contract";
 import type { RawExporterEvent } from "./exporter-wire";
-import { chunkUtf8Base64 } from "./raw-payload";
+import { measurementPage } from "./backend-measurements";
+import { chunkUtf8Base64, decodeUtf8Base64Chunks } from "./raw-payload";
 import { canonicalJson, contentHash, type EdgeBatch, type EdgeRecord } from "./wire";
 
 type Row = Record<string, unknown>;
@@ -87,7 +89,13 @@ export async function ingestEdgeBatch(batch: EdgeBatch, options: { identityPaylo
   }
 
   const rawByKey = new Map((options.rawEvents ?? []).map(raw => [scopeKey(raw.run_id, raw.tester_id, raw.event_id), raw]));
-  const prepared = await Promise.all(batch.events.map(async event => {
+  const projections = await projectExporterEvents(options.rawEvents ?? [], batch.events);
+  const allEvents = [...batch.events, ...projections];
+  const originalKeys = new Set(batch.events.map(event => scopeKey(event.run_id, event.tester_id, event.event_id)));
+  if (new Set(allEvents.map(event => scopeKey(event.run_id, event.tester_id, event.event_id))).size !== allEvents.length) {
+    throw new IdentityConflictError("source and projection event identities collide");
+  }
+  const prepared = await Promise.all(allEvents.map(async event => {
     const key = scopeKey(event.run_id, event.tester_id, event.event_id);
     const raw = rawByKey.get(key);
     return {
@@ -105,7 +113,9 @@ export async function ingestEdgeBatch(batch: EdgeBatch, options: { identityPaylo
   prepared.forEach((item, index) => {
     const existing = rows(existingResults[index] as D1Result<{ payload_hash: string }>)[0];
     if (!existing) accepted.push(item);
-    else if (existing.payload_hash === item.hash) duplicates.push(item.event.event_id);
+    else if (existing.payload_hash === item.hash) {
+      if (originalKeys.has(item.key)) duplicates.push(item.event.event_id);
+    }
     else conflicts.push(item.event.event_id);
   });
   const incomingEvidence = accepted.filter(item => item.event.type === "evidence" && item.event.evidence_id);
@@ -186,7 +196,7 @@ export async function ingestEdgeBatch(batch: EdgeBatch, options: { identityPaylo
     }
   }
   await db.batch(statements);
-  return { batch_id: batch.batch_id, accepted: accepted.map(item => item.event.event_id), duplicates, rejected: [], status: "stored" };
+  return { batch_id: batch.batch_id, accepted: accepted.filter(item => originalKeys.has(item.key)).map(item => item.event.event_id), duplicates, rejected: [], status: "stored" };
 }
 
 export async function getRunSnapshot(runId: string, testerId?: string | null): Promise<RunSnapshot | null> {
@@ -207,7 +217,7 @@ export async function getRunSnapshot(runId: string, testerId?: string | null): P
   const eventRows = rows(eventResult as D1Result<Row>);
   const incidentRows = rows(incidentResult as D1Result<Row>);
   const commandRows = rows(commandResult as D1Result<Row>);
-  const eventRecords = eventRows.map(row => parsePayload(row.payload));
+  const eventRecords = joinPredictionActuals(eventRows.map(row => parsePayload(row.payload)));
   return {
     run: {
       run_id: String(run.run_id), tester_id: selectedTester, edge_id: String(run.edge_id), mode: String(run.mode),
@@ -348,4 +358,22 @@ export async function finishInvestigation(id: string, result: { status: "complet
   const db = binding();
   await db.prepare(`UPDATE investigations SET status = ?, answer = ?, evidence_ids = ?, tool_trace = ?, error = ?, updated_at = CURRENT_TIMESTAMP
     WHERE investigation_id = ?`).bind(result.status, result.answer ?? null, JSON.stringify(result.evidence_ids ?? []), JSON.stringify(result.tool_trace ?? []), result.error ?? null, id).run();
+}
+
+/** Fetch one explicitly scoped device bundle; never scan all run measurements. */
+export async function getDeviceMeasurements(runId: string, testerId: string, eventId: string, offset = 0, limit = 50) {
+  const db = binding();
+  const key = scopeKey(runId, testerId, eventId);
+  const raw = await db.prepare("SELECT payload_bytes, chunk_count, payload_hash FROM raw_events WHERE key = ? AND event_type = 'device_completed'")
+    .bind(key).first<Row>();
+  if (!raw) return null;
+  const count = Number(raw.chunk_count);
+  if (Number(raw.payload_bytes) > 8_388_608 || count < 1 || count > 17) throw new Error("Raw payload exceeds read limit");
+  const result = await db.prepare("SELECT chunk_index, payload_base64 FROM raw_event_chunks WHERE event_key = ? ORDER BY chunk_index LIMIT 17")
+    .bind(key).all<Row>();
+  const chunks = rows(result);
+  if (chunks.length !== count || chunks.some((chunk, index) => Number(chunk.chunk_index) !== index)) throw new Error("Incomplete raw payload");
+  const payload = JSON.parse(decodeUtf8Base64Chunks(chunks.map(chunk => String(chunk.payload_base64))));
+  if (await contentHash(payload) !== raw.payload_hash) throw new Error("Raw payload hash mismatch");
+  return measurementPage(payload, offset, limit);
 }

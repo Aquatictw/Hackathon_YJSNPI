@@ -17,3 +17,17 @@ export function chunkUtf8Base64(value: string, maxRawBytes = 500_000): { byteLen
   }
   return { byteLength: bytes.byteLength, chunks };
 }
+
+export function decodeUtf8Base64Chunks(chunks: string[], maxBytes = 8_388_608): string {
+  let size = 0;
+  const parts = chunks.map(chunk => {
+    const binary = atob(chunk);
+    size += binary.length;
+    if (size > maxBytes) throw new Error("Raw payload exceeds read limit");
+    return Uint8Array.from(binary, character => character.charCodeAt(0));
+  });
+  const bytes = new Uint8Array(size);
+  let offset = 0;
+  for (const part of parts) { bytes.set(part, offset); offset += part.length; }
+  return new TextDecoder("utf-8", { fatal: true }).decode(bytes);
+}

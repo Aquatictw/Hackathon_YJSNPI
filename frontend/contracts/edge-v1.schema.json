@@ -45,6 +45,8 @@
         "unit": { "type": ["string", "null"], "maxLength": 32 },
         "quality": { "type": "string", "maxLength": 32 },
         "request_id": { "$ref": "#/$defs/id" },
+        "original_request_id": { "$ref": "#/$defs/id" },
+        "source_event_id": { "$ref": "#/$defs/id" },
         "stage": { "type": "integer", "minimum": 1, "maximum": 6 },
         "prediction": { "type": ["number", "null"] },
         "actual": { "type": "number" },
