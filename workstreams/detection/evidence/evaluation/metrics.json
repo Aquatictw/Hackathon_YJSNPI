@@ -1,0 +1,4687 @@
+{
+  "mode": "offline development replay",
+  "live_integration": "NOT TESTED",
+  "base_sha": "eababfc4ffbb6c6faea4136b3dd9724773247aab",
+  "evaluation_head_sha": "eababfc4ffbb6c6faea4136b3dd9724773247aab",
+  "evaluated_code_sha256": {
+    "workstreams/detection/candidate.py": "20781d0df67bde4c32085f2d6e2e30deaa01fe96565493dbf6dbe74cc6e73b4a",
+    "workstreams/detection/evaluate.py": "ce9880c2b2e009d06c12d4c9ea4302205e68cd4b6421041e91ea38f9ecdff51b"
+  },
+  "evaluated_code_hash_encoding": "UTF-8 source bytes with CRLF normalized to LF; input hashes remain raw bytes",
+  "environment": {
+    "python": "3.12.2",
+    "numpy": "2.2.6",
+    "platform": "Windows-11-10.0.22000-SP0",
+    "timing_clock": "perf_counter_ns"
+  },
+  "input_sha256": {
+    "source_review/training/Data/A12345_W01_RawResult.csv": "de7eab2ec4a6cdd1883a3285699df3ece94e4baad3b2d05bd0d8504b01a6252a",
+    "source_review/training/Data/A12345_W02_RawResult.csv": "d13f249574db322a2e9287e92a13816630eb4437276118cb4ace2a18339b8bd9",
+    "source_review/training/Data/A12345_W03_RawResult.csv": "8e9a661aa5d62bb8bc68bdc8589bf96c7bb7a57fd532f8ce07ccf105f22d9062",
+    "source_review/training/Data/A12345_W04_RawResult.csv": "62b17e83d1b85765d1237f1c9f421aac034e2dfab91891cf17f78ea955c4ce7e",
+    "source_review/training/Data/A12345_W05_RawResult.csv": "9cc868a82bbefc6f1b600229e64718e327af3ba71e31837c95349375b9dbe93b",
+    "source_review/training/Data/A12345_W06_RawResult.csv": "1dbc9d2b1998215b2c40b303711380514a8d34757f635fbfe5739a6f26d398c6",
+    "source_review/training/Data/A12345_W07_RawResult.csv": "76f239541bdf9bda382bf87c9f95cf260725009b98c986e493e3b418d6cf1002",
+    "source_review/training/Data/A12345_W08_RawResult.csv": "5c8a6993baf023dc7505ddb93c26110248ed2d7abae3baaf10235de55ce8bf0c",
+    "source_review/training/Data/A12345_W09_RawResult.csv": "8b9f3343a72e073133a19351dcdda30f22af4d4451eb4d103f7a24f3db9fa72e",
+    "source_review/training/Data/A12345_W10_RawResult.csv": "cc875c1efd9db84bea53102f51b473a3d5cc5acf95452d02c0bc4dda768e976a",
+    "source_review/training/Data/A12345_W11_RawResult.csv": "457f03693f57cd66414a5bca33a1e463bd1b8a4e10515e82b4d364e88f7903ec",
+    "source_review/training/Data/A12345_W12_RawResult.csv": "f59df33fc197d1df8b375560349a854eebc38c6f8a18ad07bf44d62da360c3c0",
+    "source_review/training/Data/A12345_W13_RawResult.csv": "3b6f7c97fa4787bec43f18cdbdfad1886fc7cb77ad496bf2283b3eca8aa66c30",
+    "source_review/training/Data/A12345_W14_RawResult.csv": "078357bd644b17aa8a69413ccd8495bc103fd9fb3793f4386d98d6fd376f2f8f",
+    "source_review/training/Data/A12345_W15_RawResult.csv": "ed6490ce66956f3e09628d12e2173ea890b90441647a434138047e41152ae18d",
+    "source_review/training/Data/A12345_W16_RawResult.csv": "d282c7ac242980ec70589d40f1fc56d0f426af09f27b115603081703511ed24c",
+    "source_review/training/Data/A12345_W17_RawResult.csv": "2b42b26762785bce2e4bc2f18de01220c7d6fe496ca4f55ba6bd016a829b582b",
+    "source_review/training/Data/A12345_W18_RawResult.csv": "27733bfaa379c7a68ad78785488304fa941a599efe1be7efea68b624f33b33bb",
+    "source_review/training/Data/A12345_W19_RawResult.csv": "e1fed9d9376bb23689bb2cadb015cb536ad329652d3521db6f3b85b3d9fbe674",
+    "source_review/training/Data/A12345_W20_RawResult.csv": "64c4d63ac176977b445bf915dc535930f9389565f3c99ec82e754204e46049e7",
+    "source_review/training/Data/A12345_W21_RawResult.csv": "4a8745c287d1008e84348ac65d7cce3b3f509769f2467cb9cc768c07e3e889de",
+    "source_review/training/Data/A12345_W22_RawResult.csv": "79ef9405f973f01445a15d1ab3e47a15f5b14cf289cdfece9ace6cd783ce40af",
+    "source_review/training/Data/A12345_W23_RawResult.csv": "2c868e9d5c54bb151236378c599b2a7d90fc683d1859184ed514c8f2da02ed3a",
+    "source_review/training/Data/A12345_W24_RawResult.csv": "c22f9593b90d12fb62edae4b2dabcc557eb51085e322df735aca277b0a22678f",
+    "source_review/training/Data/A12345_W25_RawResult.csv": "dd6a0be74f035dba30e6dd541fe79343251442250703a3ed576e84e4a536be78",
+    "grp6_app/artifacts/runtime.json": "752e7c6c52b0c6e50a2c7ab37b7705ad21ec43ec18df968866832d07ba09afe9",
+    "grp6_app/runtime.py": "35f2551d2c7d1a79e75fa60ee373bbf6c63f6fd497bd47438e17659d8d19f717",
+    "grp6_app/build_models.py": "3dc70930d788d88bf564a5f2ebdf6c3c09a1a51e99cc7efffb632193b27bd00b",
+    "grp6_app/rehearse.py": "983ce0efd463ebba8f159b99aacea96ae6799af6b0126cfd3bb5a558900f3192"
+  },
+  "inputs_unchanged_after_run": true,
+  "baseline_equals_fresh_rehearse_alerts": true,
+  "calibration_sha256": "da3a2b139cfaf1e4b7f9faae218f206f402901f9a81e22b4d458621e51dd64ee",
+  "baseline": {
+    "expected_category_detected": 6,
+    "expected_anomaly_wafers": 7,
+    "category_coverage": {
+      "site_imbalance": {
+        "expected_wafers": [
+          1
+        ],
+        "detected_expected_wafers": [
+          1
+        ],
+        "all_alerts": 1
+      },
+      "low_yield": {
+        "expected_wafers": [
+          3,
+          9
+        ],
+        "detected_expected_wafers": [
+          3,
+          9
+        ],
+        "all_alerts": 3
+      },
+      "mean_drift_up": {
+        "expected_wafers": [
+          14
+        ],
+        "detected_expected_wafers": [
+          14
+        ],
+        "all_alerts": 3
+      },
+      "mean_drift_down": {
+        "expected_wafers": [
+          18
+        ],
+        "detected_expected_wafers": [
+          18
+        ],
+        "all_alerts": 3
+      },
+      "spread_up": {
+        "expected_wafers": [
+          23
+        ],
+        "detected_expected_wafers": [
+          23
+        ],
+        "all_alerts": 1
+      },
+      "spread_down": {
+        "expected_wafers": [
+          25
+        ],
+        "detected_expected_wafers": [],
+        "all_alerts": 3
+      }
+    },
+    "total_alerts": 14,
+    "normal_labeled_alert_wafers": [
+      2
+    ],
+    "normal_labeled_alerts": 1,
+    "normal_labeled_wafer_count": 18,
+    "normal_labeled_wafer_alert_rate": 0.05555555555555555,
+    "label_mismatch_note": "W2 has measured yield 53.75%; preserve its valid low-yield alert despite the normal label. Other alert truth is not independently adjudicated."
+  },
+  "candidate_combined": {
+    "expected_category_detected": 6,
+    "expected_anomaly_wafers": 7,
+    "category_coverage": {
+      "site_imbalance": {
+        "expected_wafers": [
+          1
+        ],
+        "detected_expected_wafers": [
+          1
+        ],
+        "all_alerts": 1
+      },
+      "low_yield": {
+        "expected_wafers": [
+          3,
+          9
+        ],
+        "detected_expected_wafers": [
+          3,
+          9
+        ],
+        "all_alerts": 3
+      },
+      "mean_drift_up": {
+        "expected_wafers": [
+          14
+        ],
+        "detected_expected_wafers": [
+          14
+        ],
+        "all_alerts": 3
+      },
+      "mean_drift_down": {
+        "expected_wafers": [
+          18
+        ],
+        "detected_expected_wafers": [
+          18
+        ],
+        "all_alerts": 3
+      },
+      "spread_up": {
+        "expected_wafers": [
+          23
+        ],
+        "detected_expected_wafers": [
+          23
+        ],
+        "all_alerts": 1
+      },
+      "spread_down": {
+        "expected_wafers": [
+          25
+        ],
+        "detected_expected_wafers": [],
+        "all_alerts": 5
+      }
+    },
+    "total_alerts": 16,
+    "normal_labeled_alert_wafers": [
+      2
+    ],
+    "normal_labeled_alerts": 1,
+    "normal_labeled_wafer_count": 18,
+    "normal_labeled_wafer_alert_rate": 0.05555555555555555,
+    "label_mismatch_note": "W2 has measured yield 53.75%; preserve its valid low-yield alert despite the normal label. Other alert truth is not independently adjudicated."
+  },
+  "additional_alert_count": 2,
+  "baseline_alert_regressions": [],
+  "wafers": [
+    {
+      "wafer": 1,
+      "devices": 80,
+      "yield": 0.85,
+      "expected": "site_imbalance",
+      "calibration_partition": "development_check_reused",
+      "baseline_alerts": [
+        {
+          "kind": "site_imbalance",
+          "score": 5.429265767978452,
+          "test": "5560_Main.subflow1.Flow1_Suite250#CP",
+          "message": "5560_Main.subflow1.Flow1_Suite250#CP: site 1 vs 4 differs by 12.22 baseline SD",
+          "observed": 2.604625,
+          "reference": 1.1215,
+          "series": [
+            1.505,
+            1.447,
+            1.427,
+            1.383,
+            5.258,
+            1.321,
+            1.408,
+            1.005,
+            6.608,
+            1.524,
+            1.414,
+            1.0,
+            1.512,
+            1.448,
+            1.413,
+            0.987,
+            1.504,
+            1.48,
+            1.509,
+            0.991,
+            1.5,
+            1.433,
+            1.514,
+            1.015,
+            1.444,
+            1.407,
+            1.414,
+            1.289,
+            1.506,
+            1.439,
+            1.382,
+            1.302
+          ],
+          "site": "1",
+          "completed_devices": 32,
+          "site_series": {
+            "1": [
+              1.505,
+              5.258,
+              6.608,
+              1.512,
+              1.504,
+              1.5,
+              1.444,
+              1.506
+            ],
+            "2": [
+              1.447,
+              1.321,
+              1.524,
+              1.448,
+              1.48,
+              1.433,
+              1.407,
+              1.439
+            ],
+            "3": [
+              1.427,
+              1.408,
+              1.414,
+              1.413,
+              1.509,
+              1.514,
+              1.414,
+              1.382
+            ],
+            "4": [
+              1.383,
+              1.005,
+              1.0,
+              0.987,
+              0.991,
+              1.015,
+              1.289,
+              1.302
+            ]
+          },
+          "baseline": {
+            "mean": 1.464,
+            "sd": 0.12140990970720202,
+            "thresholds": {
+              "site_imbalance": 2.25,
+              "mean_drift_up": 4.293993254674236,
+              "mean_drift_down": 2.0097206281467628,
+              "spread_up": 3.68112770690714,
+              "spread_down": 3.230574549349658
+            }
+          },
+          "suggestion": "Compare socket/contact and site calibration.",
+          "family": "Main.subflow1",
+          "family_score_over_threshold": 1.0913000625301108,
+          "family_persistence_scans": 1
+        }
+      ],
+      "candidate_additional_alerts": [
+        {
+          "completed_devices": 56,
+          "site": "2",
+          "family": "Main",
+          "sample_count_per_test": 12,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 6,
+          "hit_fraction": 0.25,
+          "threshold": 0.18666666666666665,
+          "fresh_site_samples": true,
+          "score": 1.3392857142857144,
+          "passed": true,
+          "persistence_scans": 2,
+          "direction": "down",
+          "kind": "spread_down",
+          "test": "560_Main.Suite14#CP",
+          "detector": "normal_reference_site_window_v1",
+          "message": "Main site 2: 6/24 tests have SD at most 70% of normal reference",
+          "observed": 0.025586861863073386,
+          "reference": 0.04917796480358071,
+          "series": [
+            1.391,
+            1.361,
+            1.353,
+            1.409,
+            1.395,
+            1.428,
+            1.344,
+            1.394,
+            1.347,
+            1.367,
+            1.391,
+            1.359
+          ],
+          "series_device_order": [
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14
+          ],
+          "site_series": {
+            "1": [
+              1.387,
+              1.324,
+              1.379,
+              1.361,
+              1.389,
+              1.373,
+              1.377,
+              1.376,
+              1.27,
+              1.469,
+              1.299,
+              1.433
+            ],
+            "2": [
+              1.391,
+              1.361,
+              1.353,
+              1.409,
+              1.395,
+              1.428,
+              1.344,
+              1.394,
+              1.347,
+              1.367,
+              1.391,
+              1.359
+            ],
+            "3": [
+              1.428,
+              1.376,
+              1.372,
+              1.408,
+              1.368,
+              1.381,
+              1.4,
+              1.428,
+              1.387,
+              1.388,
+              1.364,
+              1.393
+            ],
+            "4": [
+              1.349,
+              1.32,
+              1.446,
+              1.418,
+              1.443,
+              1.36,
+              1.462,
+              1.347,
+              1.32,
+              1.348,
+              1.4,
+              1.444
+            ]
+          },
+          "site_series_device_order": {
+            "1": [
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12,
+              13,
+              14
+            ],
+            "2": [
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12,
+              13,
+              14
+            ],
+            "3": [
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12,
+              13,
+              14
+            ],
+            "4": [
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12,
+              13,
+              14
+            ]
+          },
+          "baseline": {
+            "sd": 0.04917796480358071,
+            "statistic": "median normal per-site window population SD",
+            "calibration_sha256": "da3a2b139cfaf1e4b7f9faae218f206f402901f9a81e22b4d458621e51dd64ee",
+            "thresholds": {
+              "sd_ratio_limit": 0.7,
+              "family_hit_fraction": 0.18666666666666665
+            }
+          },
+          "units": "source CSV units; physical units unverified",
+          "axis": "completed-device order within site",
+          "score_semantics": "family hit fraction / threshold; not a probability",
+          "suggestion": "Check clipping, stale results, and measurement range changes; compare raw per-site values."
+        }
+      ],
+      "combined_alerts": [
+        {
+          "kind": "site_imbalance",
+          "score": 5.429265767978452,
+          "test": "5560_Main.subflow1.Flow1_Suite250#CP",
+          "message": "5560_Main.subflow1.Flow1_Suite250#CP: site 1 vs 4 differs by 12.22 baseline SD",
+          "observed": 2.604625,
+          "reference": 1.1215,
+          "series": [
+            1.505,
+            1.447,
+            1.427,
+            1.383,
+            5.258,
+            1.321,
+            1.408,
+            1.005,
+            6.608,
+            1.524,
+            1.414,
+            1.0,
+            1.512,
+            1.448,
+            1.413,
+            0.987,
+            1.504,
+            1.48,
+            1.509,
+            0.991,
+            1.5,
+            1.433,
+            1.514,
+            1.015,
+            1.444,
+            1.407,
+            1.414,
+            1.289,
+            1.506,
+            1.439,
+            1.382,
+            1.302
+          ],
+          "site": "1",
+          "completed_devices": 32,
+          "site_series": {
+            "1": [
+              1.505,
+              5.258,
+              6.608,
+              1.512,
+              1.504,
+              1.5,
+              1.444,
+              1.506
+            ],
+            "2": [
+              1.447,
+              1.321,
+              1.524,
+              1.448,
+              1.48,
+              1.433,
+              1.407,
+              1.439
+            ],
+            "3": [
+              1.427,
+              1.408,
+              1.414,
+              1.413,
+              1.509,
+              1.514,
+              1.414,
+              1.382
+            ],
+            "4": [
+              1.383,
+              1.005,
+              1.0,
+              0.987,
+              0.991,
+              1.015,
+              1.289,
+              1.302
+            ]
+          },
+          "baseline": {
+            "mean": 1.464,
+            "sd": 0.12140990970720202,
+            "thresholds": {
+              "site_imbalance": 2.25,
+              "mean_drift_up": 4.293993254674236,
+              "mean_drift_down": 2.0097206281467628,
+              "spread_up": 3.68112770690714,
+              "spread_down": 3.230574549349658
+            }
+          },
+          "suggestion": "Compare socket/contact and site calibration.",
+          "family": "Main.subflow1",
+          "family_score_over_threshold": 1.0913000625301108,
+          "family_persistence_scans": 1
+        },
+        {
+          "completed_devices": 56,
+          "site": "2",
+          "family": "Main",
+          "sample_count_per_test": 12,
+          "family_tests": 24,
+          "valid_tests": 24,
+          "hits": 6,
+          "hit_fraction": 0.25,
+          "threshold": 0.18666666666666665,
+          "fresh_site_samples": true,
+          "score": 1.3392857142857144,
+          "passed": true,
+          "persistence_scans": 2,
+          "direction": "down",
+          "kind": "spread_down",
+          "test": "560_Main.Suite14#CP",
+          "detector": "normal_reference_site_window_v1",
+          "message": "Main site 2: 6/24 tests have SD at most 70% of normal reference",
+          "observed": 0.025586861863073386,
+          "reference": 0.04917796480358071,
+          "series": [
+            1.391,
+            1.361,
+            1.353,
+            1.409,
+            1.395,
+            1.428,
+            1.344,
+            1.394,
+            1.347,
+            1.367,
+            1.391,
+            1.359
+          ],
+          "series_device_order": [
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14
+          ],
+          "site_series": {
+            "1": [
+              1.387,
+              1.324,
+              1.379,
+              1.361,
+              1.389,
+              1.373,
+              1.377,
+              1.376,
+              1.27,
+              1.469,
+              1.299,
+              1.433
+            ],
+            "2": [
+              1.391,
+              1.361,
+              1.353,
+              1.409,
+              1.395,
+              1.428,
+              1.344,
+              1.394,
+              1.347,
+              1.367,
+              1.391,
+              1.359
+            ],
+            "3": [
+              1.428,
+              1.376,
+              1.372,
+              1.408,
+              1.368,
+              1.381,
+              1.4,
+              1.428,
+              1.387,
+              1.388,
+              1.364,
+              1.393
+            ],
+            "4": [
+              1.349,
+              1.32,
+              1.446,
+              1.418,
+              1.443,
+              1.36,
+              1.462,
+              1.347,
+              1.32,
+              1.348,
+              1.4,
+              1.444
+            ]
+          },
+          "site_series_device_order": {
+            "1": [
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12,
+              13,
+              14
+            ],
+            "2": [
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12,
+              13,
+              14
+            ],
+            "3": [
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12,
+              13,
+              14
+            ],
+            "4": [
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12,
+              13,
+              14
+            ]
+          },
+          "baseline": {
+            "sd": 0.04917796480358071,
+            "statistic": "median normal per-site window population SD",
+            "calibration_sha256": "da3a2b139cfaf1e4b7f9faae218f206f402901f9a81e22b4d458621e51dd64ee",
+            "thresholds": {
+              "sd_ratio_limit": 0.7,
+              "family_hit_fraction": 0.18666666666666665
+            }
+          },
+          "units": "source CSV units; physical units unverified",
+          "axis": "completed-device order within site",
+          "score_semantics": "family hit fraction / threshold; not a probability",
+          "suggestion": "Check clipping, stale results, and measurement range changes; compare raw per-site values."
+        }
+      ],
+      "alert_counts": {
+        "baseline": 1,
+        "candidate_additional": 1,
+        "combined": 2
+      },
+      "first_detection": {
+        "baseline_alerts": {
+          "site_imbalance": 32,
+          "low_yield": null,
+          "mean_drift_up": null,
+          "mean_drift_down": null,
+          "spread_up": null,
+          "spread_down": null
+        },
+        "combined_alerts": {
+          "site_imbalance": 32,
+          "low_yield": null,
+          "mean_drift_up": null,
+          "mean_drift_down": null,
+          "spread_up": null,
+          "spread_down": 56
+        }
+      },
+      "candidate_strongest_scan": {
+        "completed_devices": 56,
+        "site": "2",
+        "family": "Main",
+        "sample_count_per_test": 12,
+        "family_tests": 24,
+        "valid_tests": 24,
+        "hits": 6,
+        "hit_fraction": 0.25,
+        "threshold": 0.18666666666666665,
+        "fresh_site_samples": true,
+        "score": 1.3392857142857144,
+        "passed": true,
+        "persistence_scans": 2,
+        "direction": "down"
+      }
+    },
+    {
+      "wafer": 2,
+      "devices": 80,
+      "yield": 0.5375,
+      "expected": "normal",
+      "calibration_partition": "normal_fit_reused",
+      "baseline_alerts": [
+        {
+          "kind": "low_yield",
+          "score": 0.17500000000000004,
+          "test": "completed_device_results",
+          "message": "Yield 62.5% (20/32) below 80%",
+          "observed": 0.625,
+          "reference": 0.8,
+          "series": [
+            0.0,
+            0.5,
+            0.3333333333333333,
+            0.5,
+            0.6,
+            0.6666666666666666,
+            0.7142857142857143,
+            0.75,
+            0.6666666666666666,
+            0.7,
+            0.7272727272727273,
+            0.6666666666666666,
+            0.6923076923076923,
+            0.7142857142857143,
+            0.6666666666666666,
+            0.6875,
+            0.7058823529411765,
+            0.7222222222222222,
+            0.6842105263157895,
+            0.65,
+            0.6190476190476191,
+            0.5909090909090909,
+            0.6086956521739131,
+            0.625,
+            0.64,
+            0.6153846153846154,
+            0.6296296296296297,
+            0.6428571428571429,
+            0.6206896551724138,
+            0.6,
+            0.6129032258064516,
+            0.625
+          ],
+          "site": "all",
+          "completed_devices": 32,
+          "site_series": {},
+          "baseline": null,
+          "suggestion": "Review failing bins and recent process or setup changes."
+        }
+      ],
+      "candidate_additional_alerts": [],
+      "combined_alerts": [
+        {
+          "kind": "low_yield",
+          "score": 0.17500000000000004,
+          "test": "completed_device_results",
+          "message": "Yield 62.5% (20/32) below 80%",
+          "observed": 0.625,
+          "reference": 0.8,
+          "series": [
+            0.0,
+            0.5,
+            0.3333333333333333,
+            0.5,
+            0.6,
+            0.6666666666666666,
+            0.7142857142857143,
+            0.75,
+            0.6666666666666666,
+            0.7,
+            0.7272727272727273,
+            0.6666666666666666,
+            0.6923076923076923,
+            0.7142857142857143,
+            0.6666666666666666,
+            0.6875,
+            0.7058823529411765,
+            0.7222222222222222,
+            0.6842105263157895,
+            0.65,
+            0.6190476190476191,
+            0.5909090909090909,
+            0.6086956521739131,
+            0.625,
+            0.64,
+            0.6153846153846154,
+            0.6296296296296297,
+            0.6428571428571429,
+            0.6206896551724138,
+            0.6,
+            0.6129032258064516,
+            0.625
+          ],
+          "site": "all",
+          "completed_devices": 32,
+          "site_series": {},
+          "baseline": null,
+          "suggestion": "Review failing bins and recent process or setup changes."
+        }
+      ],
+      "alert_counts": {
+        "baseline": 1,
+        "candidate_additional": 0,
+        "combined": 1
+      },
+      "first_detection": {
+        "baseline_alerts": {
+          "site_imbalance": null,
+          "low_yield": 32,
+          "mean_drift_up": null,
+          "mean_drift_down": null,
+          "spread_up": null,
+          "spread_down": null
+        },
+        "combined_alerts": {
+          "site_imbalance": null,
+          "low_yield": 32,
+          "mean_drift_up": null,
+          "mean_drift_down": null,
+          "spread_up": null,
+          "spread_down": null
+        }
+      },
+      "candidate_strongest_scan": {
+        "completed_devices": 48,
+        "site": "2",
+        "family": "Main.subflow2",
+        "sample_count_per_test": 12,
+        "family_tests": 500,
+        "valid_tests": 500,
+        "hits": 68,
+        "hit_fraction": 0.136,
+        "threshold": 0.156,
+        "fresh_site_samples": true,
+        "score": 0.8717948717948718,
+        "passed": false,
+        "persistence_scans": 0,
+        "direction": "down"
+      }
+    },
+    {
+      "wafer": 3,
+      "devices": 80,
+      "yield": 0.675,
+      "expected": "low_yield",
+      "calibration_partition": "development_check_reused",
+      "baseline_alerts": [
+        {
+          "kind": "low_yield",
+          "score": 0.23750000000000004,
+          "test": "completed_device_results",
+          "message": "Yield 56.2% (18/32) below 80%",
+          "observed": 0.5625,
+          "reference": 0.8,
+          "series": [
+            0.0,
+            0.5,
+            0.6666666666666666,
+            0.5,
+            0.6,
+            0.5,
+            0.5714285714285714,
+            0.5,
+            0.4444444444444444,
+            0.4,
+            0.36363636363636365,
+            0.4166666666666667,
+            0.38461538461538464,
+            0.35714285714285715,
+            0.4,
+            0.4375,
+            0.47058823529411764,
+            0.5,
+            0.5263157894736842,
+            0.5,
+            0.5238095238095238,
+            0.5454545454545454,
+            0.5652173913043478,
+            0.5833333333333334,
+            0.6,
+            0.6153846153846154,
+            0.5925925925925926,
+            0.6071428571428571,
+            0.5862068965517241,
+            0.5666666666666667,
+            0.5483870967741935,
+            0.5625
+          ],
+          "site": "all",
+          "completed_devices": 32,
+          "site_series": {},
+          "baseline": null,
+          "suggestion": "Review failing bins and recent process or setup changes."
+        }
+      ],
+      "candidate_additional_alerts": [],
+      "combined_alerts": [
+        {
+          "kind": "low_yield",
+          "score": 0.23750000000000004,
+          "test": "completed_device_results",
+          "message": "Yield 56.2% (18/32) below 80%",
+          "observed": 0.5625,
+          "reference": 0.8,
+          "series": [
+            0.0,
+            0.5,
+            0.6666666666666666,
+            0.5,
+            0.6,
+            0.5,
+            0.5714285714285714,
+            0.5,
+            0.4444444444444444,
+            0.4,
+            0.36363636363636365,
+            0.4166666666666667,
+            0.38461538461538464,
+            0.35714285714285715,
+            0.4,
+            0.4375,
+            0.47058823529411764,
+            0.5,
+            0.5263157894736842,
+            0.5,
+            0.5238095238095238,
+            0.5454545454545454,
+            0.5652173913043478,
+            0.5833333333333334,
+            0.6,
+            0.6153846153846154,
+            0.5925925925925926,
+            0.6071428571428571,
+            0.5862068965517241,
+            0.5666666666666667,
+            0.5483870967741935,
+            0.5625
+          ],
+          "site": "all",
+          "completed_devices": 32,
+          "site_series": {},
+          "baseline": null,
+          "suggestion": "Review failing bins and recent process or setup changes."
+        }
+      ],
+      "alert_counts": {
+        "baseline": 1,
+        "candidate_additional": 0,
+        "combined": 1
+      },
+      "first_detection": {
+        "baseline_alerts": {
+          "site_imbalance": null,
+          "low_yield": 32,
+          "mean_drift_up": null,
+          "mean_drift_down": null,
+          "spread_up": null,
+          "spread_down": null
+        },
+        "combined_alerts": {
+          "site_imbalance": null,
+          "low_yield": 32,
+          "mean_drift_up": null,
+          "mean_drift_down": null,
+          "spread_up": null,
+          "spread_down": null
+        }
+      },
+      "candidate_strongest_scan": {
+        "completed_devices": 64,
+        "site": "2",
+        "family": "Main",
+        "sample_count_per_test": 12,
+        "family_tests": 24,
+        "valid_tests": 24,
+        "hits": 8,
+        "hit_fraction": 0.3333333333333333,
+        "threshold": 0.18666666666666665,
+        "fresh_site_samples": true,
+        "score": 1.7857142857142858,
+        "passed": true,
+        "persistence_scans": 1,
+        "direction": "down"
+      }
+    },
+    {
+      "wafer": 4,
+      "devices": 80,
+      "yield": 0.9625,
+      "expected": "normal",
+      "calibration_partition": "normal_fit_reused",
+      "baseline_alerts": [],
+      "candidate_additional_alerts": [],
+      "combined_alerts": [],
+      "alert_counts": {
+        "baseline": 0,
+        "candidate_additional": 0,
+        "combined": 0
+      },
+      "first_detection": {
+        "baseline_alerts": {
+          "site_imbalance": null,
+          "low_yield": null,
+          "mean_drift_up": null,
+          "mean_drift_down": null,
+          "spread_up": null,
+          "spread_down": null
+        },
+        "combined_alerts": {
+          "site_imbalance": null,
+          "low_yield": null,
+          "mean_drift_up": null,
+          "mean_drift_down": null,
+          "spread_up": null,
+          "spread_down": null
+        }
+      },
+      "candidate_strongest_scan": {
+        "completed_devices": 72,
+        "site": "3",
+        "family": "Main.subflow5",
+        "sample_count_per_test": 12,
+        "family_tests": 500,
+        "valid_tests": 500,
+        "hits": 59,
+        "hit_fraction": 0.118,
+        "threshold": 0.13799999999999998,
+        "fresh_site_samples": true,
+        "score": 0.855072463768116,
+        "passed": false,
+        "persistence_scans": 0,
+        "direction": "down"
+      }
+    },
+    {
+      "wafer": 5,
+      "devices": 80,
+      "yield": 0.875,
+      "expected": "normal",
+      "calibration_partition": "normal_fit_reused",
+      "baseline_alerts": [],
+      "candidate_additional_alerts": [],
+      "combined_alerts": [],
+      "alert_counts": {
+        "baseline": 0,
+        "candidate_additional": 0,
+        "combined": 0
+      },
+      "first_detection": {
+        "baseline_alerts": {
+          "site_imbalance": null,
+          "low_yield": null,
+          "mean_drift_up": null,
+          "mean_drift_down": null,
+          "spread_up": null,
+          "spread_down": null
+        },
+        "combined_alerts": {
+          "site_imbalance": null,
+          "low_yield": null,
+          "mean_drift_up": null,
+          "mean_drift_down": null,
+          "spread_up": null,
+          "spread_down": null
+        }
+      },
+      "candidate_strongest_scan": {
+        "completed_devices": 80,
+        "site": "1",
+        "family": "Main",
+        "sample_count_per_test": 12,
+        "family_tests": 24,
+        "valid_tests": 24,
+        "hits": 5,
+        "hit_fraction": 0.20833333333333334,
+        "threshold": 0.22833333333333333,
+        "fresh_site_samples": true,
+        "score": 0.9124087591240876,
+        "passed": false,
+        "persistence_scans": 0,
+        "direction": "down"
+      }
+    },
+    {
+      "wafer": 6,
+      "devices": 80,
+      "yield": 0.925,
+      "expected": "normal",
+      "calibration_partition": "development_check_reused",
+      "baseline_alerts": [],
+      "candidate_additional_alerts": [],
+      "combined_alerts": [],
+      "alert_counts": {
+        "baseline": 0,
+        "candidate_additional": 0,
+        "combined": 0
+      },
+      "first_detection": {
+        "baseline_alerts": {
+          "site_imbalance": null,
+          "low_yield": null,
+          "mean_drift_up": null,
+          "mean_drift_down": null,
+          "spread_up": null,
+          "spread_down": null
+        },
+        "combined_alerts": {
+          "site_imbalance": null,
+          "low_yield": null,
+          "mean_drift_up": null,
+          "mean_drift_down": null,
+          "spread_up": null,
+          "spread_down": null
+        }
+      },
+      "candidate_strongest_scan": {
+        "completed_devices": 80,
+        "site": "2",
+        "family": "Main",
+        "sample_count_per_test": 12,
+        "family_tests": 24,
+        "valid_tests": 24,
+        "hits": 4,
+        "hit_fraction": 0.16666666666666666,
+        "threshold": 0.18666666666666665,
+        "fresh_site_samples": true,
+        "score": 0.8928571428571429,
+        "passed": false,
+        "persistence_scans": 0,
+        "direction": "down"
+      }
+    },
+    {
+      "wafer": 7,
+      "devices": 80,
+      "yield": 0.8625,
+      "expected": "normal",
+      "calibration_partition": "normal_fit_reused",
+      "baseline_alerts": [],
+      "candidate_additional_alerts": [],
+      "combined_alerts": [],
+      "alert_counts": {
+        "baseline": 0,
+        "candidate_additional": 0,
+        "combined": 0
+      },
+      "first_detection": {
+        "baseline_alerts": {
+          "site_imbalance": null,
+          "low_yield": null,
+          "mean_drift_up": null,
+          "mean_drift_down": null,
+          "spread_up": null,
+          "spread_down": null
+        },
+        "combined_alerts": {
+          "site_imbalance": null,
+          "low_yield": null,
+          "mean_drift_up": null,
+          "mean_drift_down": null,
+          "spread_up": null,
+          "spread_down": null
+        }
+      },
+      "candidate_strongest_scan": {
+        "completed_devices": 72,
+        "site": "4",
+        "family": "Main.subflow2",
+        "sample_count_per_test": 12,
+        "family_tests": 500,
+        "valid_tests": 500,
+        "hits": 47,
+        "hit_fraction": 0.094,
+        "threshold": 0.124,
+        "fresh_site_samples": true,
+        "score": 0.7580645161290323,
+        "passed": false,
+        "persistence_scans": 0,
+        "direction": "down"
+      }
+    },
+    {
+      "wafer": 8,
+      "devices": 80,
+      "yield": 0.9625,
+      "expected": "normal",
+      "calibration_partition": "normal_fit_reused",
+      "baseline_alerts": [],
+      "candidate_additional_alerts": [],
+      "combined_alerts": [],
+      "alert_counts": {
+        "baseline": 0,
+        "candidate_additional": 0,
+        "combined": 0
+      },
+      "first_detection": {
+        "baseline_alerts": {
+          "site_imbalance": null,
+          "low_yield": null,
+          "mean_drift_up": null,
+          "mean_drift_down": null,
+          "spread_up": null,
+          "spread_down": null
+        },
+        "combined_alerts": {
+          "site_imbalance": null,
+          "low_yield": null,
+          "mean_drift_up": null,
+          "mean_drift_down": null,
+          "spread_up": null,
+          "spread_down": null
+        }
+      },
+      "candidate_strongest_scan": {
+        "completed_devices": 48,
+        "site": "2",
+        "family": "Main",
+        "sample_count_per_test": 12,
+        "family_tests": 24,
+        "valid_tests": 24,
+        "hits": 3,
+        "hit_fraction": 0.125,
+        "threshold": 0.18666666666666665,
+        "fresh_site_samples": true,
+        "score": 0.6696428571428572,
+        "passed": false,
+        "persistence_scans": 0,
+        "direction": "down"
+      }
+    },
+    {
+      "wafer": 9,
+      "devices": 80,
+      "yield": 0.6875,
+      "expected": "low_yield",
+      "calibration_partition": "development_check_reused",
+      "baseline_alerts": [
+        {
+          "kind": "low_yield",
+          "score": 0.09166666666666667,
+          "test": "completed_device_results",
+          "message": "Yield 70.8% (51/72) below 80%",
+          "observed": 0.7083333333333334,
+          "reference": 0.8,
+          "series": [
+            1.0,
+            1.0,
+            1.0,
+            0.75,
+            0.8,
+            0.8333333333333334,
+            0.8571428571428571,
+            0.875,
+            0.8888888888888888,
+            0.9,
+            0.9090909090909091,
+            0.8333333333333334,
+            0.8461538461538461,
+            0.8571428571428571,
+            0.8666666666666667,
+            0.8125,
+            0.8235294117647058,
+            0.8333333333333334,
+            0.8421052631578947,
+            0.85,
+            0.8571428571428571,
+            0.8636363636363636,
+            0.8260869565217391,
+            0.8333333333333334,
+            0.84,
+            0.8076923076923077,
+            0.8148148148148148,
+            0.8214285714285714,
+            0.7931034482758621,
+            0.8,
+            0.8064516129032258,
+            0.8125,
+            0.8181818181818182,
+            0.7941176470588235,
+            0.7714285714285715,
+            0.75,
+            0.7567567567567568,
+            0.7631578947368421,
+            0.7435897435897436,
+            0.75,
+            0.7560975609756098,
+            0.7619047619047619,
+            0.7441860465116279,
+            0.75,
+            0.7333333333333333,
+            0.7391304347826086,
+            0.723404255319149,
+            0.7291666666666666,
+            0.7346938775510204,
+            0.74,
+            0.7254901960784313,
+            0.7307692307692307,
+            0.7169811320754716,
+            0.7222222222222222,
+            0.7272727272727273,
+            0.7321428571428571,
+            0.7368421052631579,
+            0.7413793103448276,
+            0.7457627118644068,
+            0.75,
+            0.7540983606557377,
+            0.7580645161290323,
+            0.746031746031746,
+            0.734375,
+            0.7230769230769231,
+            0.7121212121212122,
+            0.7164179104477612,
+            0.7058823529411765,
+            0.7101449275362319,
+            0.7142857142857143,
+            0.704225352112676,
+            0.7083333333333334
+          ],
+          "site": "all",
+          "completed_devices": 72,
+          "site_series": {},
+          "baseline": null,
+          "suggestion": "Review failing bins and recent process or setup changes."
+        }
+      ],
+      "candidate_additional_alerts": [],
+      "combined_alerts": [
+        {
+          "kind": "low_yield",
+          "score": 0.09166666666666667,
+          "test": "completed_device_results",
+          "message": "Yield 70.8% (51/72) below 80%",
+          "observed": 0.7083333333333334,
+          "reference": 0.8,
+          "series": [
+            1.0,
+            1.0,
+            1.0,
+            0.75,
+            0.8,
+            0.8333333333333334,
+            0.8571428571428571,
+            0.875,
+            0.8888888888888888,
+            0.9,
+            0.9090909090909091,
+            0.8333333333333334,
+            0.8461538461538461,
+            0.8571428571428571,
+            0.8666666666666667,
+            0.8125,
+            0.8235294117647058,
+            0.8333333333333334,
+            0.8421052631578947,
+            0.85,
+            0.8571428571428571,
+            0.8636363636363636,
+            0.8260869565217391,
+            0.8333333333333334,
+            0.84,
+            0.8076923076923077,
+            0.8148148148148148,
+            0.8214285714285714,
+            0.7931034482758621,
+            0.8,
+            0.8064516129032258,
+            0.8125,
+            0.8181818181818182,
+            0.7941176470588235,
+            0.7714285714285715,
+            0.75,
+            0.7567567567567568,
+            0.7631578947368421,
+            0.7435897435897436,
+            0.75,
+            0.7560975609756098,
+            0.7619047619047619,
+            0.7441860465116279,
+            0.75,
+            0.7333333333333333,
+            0.7391304347826086,
+            0.723404255319149,
+            0.7291666666666666,
+            0.7346938775510204,
+            0.74,
+            0.7254901960784313,
+            0.7307692307692307,
+            0.7169811320754716,
+            0.7222222222222222,
+            0.7272727272727273,
+            0.7321428571428571,
+            0.7368421052631579,
+            0.7413793103448276,
+            0.7457627118644068,
+            0.75,
+            0.7540983606557377,
+            0.7580645161290323,
+            0.746031746031746,
+            0.734375,
+            0.7230769230769231,
+            0.7121212121212122,
+            0.7164179104477612,
+            0.7058823529411765,
+            0.7101449275362319,
+            0.7142857142857143,
+            0.704225352112676,
+            0.7083333333333334
+          ],
+          "site": "all",
+          "completed_devices": 72,
+          "site_series": {},
+          "baseline": null,
+          "suggestion": "Review failing bins and recent process or setup changes."
+        }
+      ],
+      "alert_counts": {
+        "baseline": 1,
+        "candidate_additional": 0,
+        "combined": 1
+      },
+      "first_detection": {
+        "baseline_alerts": {
+          "site_imbalance": null,
+          "low_yield": 72,
+          "mean_drift_up": null,
+          "mean_drift_down": null,
+          "spread_up": null,
+          "spread_down": null
+        },
+        "combined_alerts": {
+          "site_imbalance": null,
+          "low_yield": 72,
+          "mean_drift_up": null,
+          "mean_drift_down": null,
+          "spread_up": null,
+          "spread_down": null
+        }
+      },
+      "candidate_strongest_scan": {
+        "completed_devices": 80,
+        "site": "3",
+        "family": "Main.subflow5",
+        "sample_count_per_test": 12,
+        "family_tests": 500,
+        "valid_tests": 500,
+        "hits": 56,
+        "hit_fraction": 0.112,
+        "threshold": 0.13799999999999998,
+        "fresh_site_samples": true,
+        "score": 0.8115942028985509,
+        "passed": false,
+        "persistence_scans": 0,
+        "direction": "down"
+      }
+    },
+    {
+      "wafer": 10,
+      "devices": 80,
+      "yield": 0.95,
+      "expected": "normal",
+      "calibration_partition": "normal_fit_reused",
+      "baseline_alerts": [],
+      "candidate_additional_alerts": [],
+      "combined_alerts": [],
+      "alert_counts": {
+        "baseline": 0,
+        "candidate_additional": 0,
+        "combined": 0
+      },
+      "first_detection": {
+        "baseline_alerts": {
+          "site_imbalance": null,
+          "low_yield": null,
+          "mean_drift_up": null,
+          "mean_drift_down": null,
+          "spread_up": null,
+          "spread_down": null
+        },
+        "combined_alerts": {
+          "site_imbalance": null,
+          "low_yield": null,
+          "mean_drift_up": null,
+          "mean_drift_down": null,
+          "spread_up": null,
+          "spread_down": null
+        }
+      },
+      "candidate_strongest_scan": {
+        "completed_devices": 72,
+        "site": "1",
+        "family": "Main.subflow4",
+        "sample_count_per_test": 12,
+        "family_tests": 500,
+        "valid_tests": 500,
+        "hits": 59,
+        "hit_fraction": 0.118,
+        "threshold": 0.13799999999999998,
+        "fresh_site_samples": true,
+        "score": 0.855072463768116,
+        "passed": false,
+        "persistence_scans": 0,
+        "direction": "down"
+      }
+    },
+    {
+      "wafer": 11,
+      "devices": 80,
+      "yield": 0.9125,
+      "expected": "normal",
+      "calibration_partition": "normal_fit_reused",
+      "baseline_alerts": [],
+      "candidate_additional_alerts": [],
+      "combined_alerts": [],
+      "alert_counts": {
+        "baseline": 0,
+        "candidate_additional": 0,
+        "combined": 0
+      },
+      "first_detection": {
+        "baseline_alerts": {
+          "site_imbalance": null,
+          "low_yield": null,
+          "mean_drift_up": null,
+          "mean_drift_down": null,
+          "spread_up": null,
+          "spread_down": null
+        },
+        "combined_alerts": {
+          "site_imbalance": null,
+          "low_yield": null,
+          "mean_drift_up": null,
+          "mean_drift_down": null,
+          "spread_up": null,
+          "spread_down": null
+        }
+      },
+      "candidate_strongest_scan": {
+        "completed_devices": 64,
+        "site": "3",
+        "family": "Main.subflow4",
+        "sample_count_per_test": 12,
+        "family_tests": 500,
+        "valid_tests": 500,
+        "hits": 53,
+        "hit_fraction": 0.106,
+        "threshold": 0.136,
+        "fresh_site_samples": true,
+        "score": 0.7794117647058822,
+        "passed": false,
+        "persistence_scans": 0,
+        "direction": "down"
+      }
+    },
+    {
+      "wafer": 12,
+      "devices": 80,
+      "yield": 0.975,
+      "expected": "normal",
+      "calibration_partition": "development_check_reused",
+      "baseline_alerts": [],
+      "candidate_additional_alerts": [],
+      "combined_alerts": [],
+      "alert_counts": {
+        "baseline": 0,
+        "candidate_additional": 0,
+        "combined": 0
+      },
+      "first_detection": {
+        "baseline_alerts": {
+          "site_imbalance": null,
+          "low_yield": null,
+          "mean_drift_up": null,
+          "mean_drift_down": null,
+          "spread_up": null,
+          "spread_down": null
+        },
+        "combined_alerts": {
+          "site_imbalance": null,
+          "low_yield": null,
+          "mean_drift_up": null,
+          "mean_drift_down": null,
+          "spread_up": null,
+          "spread_down": null
+        }
+      },
+      "candidate_strongest_scan": {
+        "completed_devices": 48,
+        "site": "4",
+        "family": "Main.subflow2",
+        "sample_count_per_test": 12,
+        "family_tests": 500,
+        "valid_tests": 500,
+        "hits": 54,
+        "hit_fraction": 0.108,
+        "threshold": 0.124,
+        "fresh_site_samples": true,
+        "score": 0.8709677419354839,
+        "passed": false,
+        "persistence_scans": 0,
+        "direction": "down"
+      }
+    },
+    {
+      "wafer": 13,
+      "devices": 80,
+      "yield": 0.925,
+      "expected": "normal",
+      "calibration_partition": "normal_fit_reused",
+      "baseline_alerts": [],
+      "candidate_additional_alerts": [],
+      "combined_alerts": [],
+      "alert_counts": {
+        "baseline": 0,
+        "candidate_additional": 0,
+        "combined": 0
+      },
+      "first_detection": {
+        "baseline_alerts": {
+          "site_imbalance": null,
+          "low_yield": null,
+          "mean_drift_up": null,
+          "mean_drift_down": null,
+          "spread_up": null,
+          "spread_down": null
+        },
+        "combined_alerts": {
+          "site_imbalance": null,
+          "low_yield": null,
+          "mean_drift_up": null,
+          "mean_drift_down": null,
+          "spread_up": null,
+          "spread_down": null
+        }
+      },
+      "candidate_strongest_scan": {
+        "completed_devices": 48,
+        "site": "4",
+        "family": "Main.subflow1",
+        "sample_count_per_test": 12,
+        "family_tests": 500,
+        "valid_tests": 500,
+        "hits": 54,
+        "hit_fraction": 0.108,
+        "threshold": 0.13,
+        "fresh_site_samples": true,
+        "score": 0.8307692307692307,
+        "passed": false,
+        "persistence_scans": 0,
+        "direction": "down"
+      }
+    },
+    {
+      "wafer": 14,
+      "devices": 80,
+      "yield": 0.8375,
+      "expected": "mean_drift_up",
+      "calibration_partition": "development_check_reused",
+      "baseline_alerts": [
+        {
+          "kind": "mean_drift_up",
+          "score": 3.5475619504396545,
+          "test": "13540_Main.subflow2.Flow2_Suite149#CP",
+          "message": "13540_Main.subflow2.Flow2_Suite149#CP site 4: mean changed +6.74 baseline SD",
+          "observed": 1.3015,
+          "reference": 0.9844999999999999,
+          "series": [
+            0.899,
+            0.915,
+            1.001,
+            1.123,
+            1.264,
+            1.399,
+            1.578,
+            0.965
+          ],
+          "site": "4",
+          "completed_devices": 32,
+          "site_series": {
+            "1": [
+              0.933,
+              0.973,
+              0.935,
+              1.084,
+              1.166,
+              1.355,
+              1.385,
+              0.934
+            ],
+            "2": [
+              0.96,
+              0.876,
+              0.918,
+              1.157,
+              1.216,
+              1.391,
+              1.496,
+              0.916
+            ],
+            "3": [
+              0.948,
+              0.935,
+              1.03,
+              1.214,
+              1.264,
+              1.414,
+              1.607,
+              0.953
+            ],
+            "4": [
+              0.899,
+              0.915,
+              1.001,
+              1.123,
+              1.264,
+              1.399,
+              1.578,
+              0.965
+            ]
+          },
+          "baseline": {
+            "mean": 0.955,
+            "sd": 0.04703643837242901,
+            "thresholds": {
+              "site_imbalance": 2.25,
+              "mean_drift_up": 1.8997429641594747,
+              "mean_drift_down": 2.2083942491038537,
+              "spread_up": 3.6421016389328837,
+              "spread_down": 2.9226376193692514
+            }
+          },
+          "suggestion": "Check thermal settling and measurement reference stability.",
+          "family": "Main.subflow2",
+          "family_score_over_threshold": 2.7842250176613663,
+          "family_persistence_scans": 1
+        },
+        {
+          "kind": "mean_drift_down",
+          "score": 4.3428571428571505,
+          "test": "13260_Main.subflow2.Flow2_Suite135#CP",
+          "message": "13260_Main.subflow2.Flow2_Suite135#CP site 4: mean changed -6.66 baseline SD",
+          "observed": 1.1248571428571428,
+          "reference": 1.418,
+          "series": [
+            1.163,
+            1.209,
+            1.28,
+            1.366,
+            1.568,
+            1.633,
+            1.707,
+            1.117,
+            1.123,
+            1.143,
+            1.156,
+            1.105,
+            1.169,
+            1.061
+          ],
+          "site": "4",
+          "completed_devices": 56,
+          "site_series": {
+            "1": [
+              1.114,
+              1.111,
+              1.116,
+              1.249,
+              1.392,
+              1.521,
+              1.622,
+              1.121,
+              1.136,
+              1.121,
+              1.101,
+              1.123,
+              1.09,
+              1.093
+            ],
+            "2": [
+              1.112,
+              1.117,
+              1.25,
+              1.302,
+              1.433,
+              1.543,
+              1.636,
+              1.094,
+              1.117,
+              1.138,
+              1.042,
+              1.167,
+              1.156,
+              1.11
+            ],
+            "3": [
+              1.182,
+              1.15,
+              1.248,
+              1.321,
+              1.434,
+              1.55,
+              1.715,
+              1.096,
+              1.112,
+              1.137,
+              1.143,
+              1.104,
+              1.121,
+              1.104
+            ],
+            "4": [
+              1.163,
+              1.209,
+              1.28,
+              1.366,
+              1.568,
+              1.633,
+              1.707,
+              1.117,
+              1.123,
+              1.143,
+              1.156,
+              1.105,
+              1.169,
+              1.061
+            ]
+          },
+          "baseline": {
+            "mean": 1.145,
+            "sd": 0.043998075830371804,
+            "thresholds": {
+              "site_imbalance": 2.25,
+              "mean_drift_up": 2.909218132481194,
+              "mean_drift_down": 1.5341579995506245,
+              "spread_up": 3.4949013287444615,
+              "spread_down": 2.0978190267316648
+            }
+          },
+          "suggestion": "Check thermal settling and measurement reference stability.",
+          "family": "Main.subflow2",
+          "family_score_over_threshold": 2.383667924497254,
+          "family_persistence_scans": 1
+        },
+        {
+          "kind": "spread_down",
+          "score": 1.1136570240168635,
+          "test": "13260_Main.subflow2.Flow2_Suite135#CP",
+          "message": "13260_Main.subflow2.Flow2_Suite135#CP site 3: spread ratio 0.10",
+          "observed": 0.019425740011644314,
+          "reference": 0.2009085612909515,
+          "series": [
+            1.182,
+            1.15,
+            1.248,
+            1.321,
+            1.434,
+            1.55,
+            1.715,
+            1.096,
+            1.112,
+            1.137,
+            1.143,
+            1.104,
+            1.121,
+            1.104,
+            1.082,
+            1.094
+          ],
+          "site": "3",
+          "completed_devices": 64,
+          "site_series": {
+            "1": [
+              1.114,
+              1.111,
+              1.116,
+              1.249,
+              1.392,
+              1.521,
+              1.622,
+              1.121,
+              1.136,
+              1.121,
+              1.101,
+              1.123,
+              1.09,
+              1.093,
+              1.163,
+              1.082
+            ],
+            "2": [
+              1.112,
+              1.117,
+              1.25,
+              1.302,
+              1.433,
+              1.543,
+              1.636,
+              1.094,
+              1.117,
+              1.138,
+              1.042,
+              1.167,
+              1.156,
+              1.11,
+              1.099,
+              1.159
+            ],
+            "3": [
+              1.182,
+              1.15,
+              1.248,
+              1.321,
+              1.434,
+              1.55,
+              1.715,
+              1.096,
+              1.112,
+              1.137,
+              1.143,
+              1.104,
+              1.121,
+              1.104,
+              1.082,
+              1.094
+            ],
+            "4": [
+              1.163,
+              1.209,
+              1.28,
+              1.366,
+              1.568,
+              1.633,
+              1.707,
+              1.117,
+              1.123,
+              1.143,
+              1.156,
+              1.105,
+              1.169,
+              1.061,
+              1.109,
+              1.095
+            ]
+          },
+          "baseline": {
+            "mean": 1.145,
+            "sd": 0.043998075830371804,
+            "thresholds": {
+              "site_imbalance": 2.25,
+              "mean_drift_up": 2.909218132481194,
+              "mean_drift_down": 1.5341579995506245,
+              "spread_up": 3.4949013287444615,
+              "spread_down": 2.0978190267316648
+            }
+          },
+          "suggestion": "Check clipping, stale results, and range changes.",
+          "family": "Main.subflow2",
+          "family_score_over_threshold": 3.5199480314929716,
+          "family_persistence_scans": 2
+        }
+      ],
+      "candidate_additional_alerts": [],
+      "combined_alerts": [
+        {
+          "kind": "mean_drift_up",
+          "score": 3.5475619504396545,
+          "test": "13540_Main.subflow2.Flow2_Suite149#CP",
+          "message": "13540_Main.subflow2.Flow2_Suite149#CP site 4: mean changed +6.74 baseline SD",
+          "observed": 1.3015,
+          "reference": 0.9844999999999999,
+          "series": [
+            0.899,
+            0.915,
+            1.001,
+            1.123,
+            1.264,
+            1.399,
+            1.578,
+            0.965
+          ],
+          "site": "4",
+          "completed_devices": 32,
+          "site_series": {
+            "1": [
+              0.933,
+              0.973,
+              0.935,
+              1.084,
+              1.166,
+              1.355,
+              1.385,
+              0.934
+            ],
+            "2": [
+              0.96,
+              0.876,
+              0.918,
+              1.157,
+              1.216,
+              1.391,
+              1.496,
+              0.916
+            ],
+            "3": [
+              0.948,
+              0.935,
+              1.03,
+              1.214,
+              1.264,
+              1.414,
+              1.607,
+              0.953
+            ],
+            "4": [
+              0.899,
+              0.915,
+              1.001,
+              1.123,
+              1.264,
+              1.399,
+              1.578,
+              0.965
+            ]
+          },
+          "baseline": {
+            "mean": 0.955,
+            "sd": 0.04703643837242901,
+            "thresholds": {
+              "site_imbalance": 2.25,
+              "mean_drift_up": 1.8997429641594747,
+              "mean_drift_down": 2.2083942491038537,
+              "spread_up": 3.6421016389328837,
+              "spread_down": 2.9226376193692514
+            }
+          },
+          "suggestion": "Check thermal settling and measurement reference stability.",
+          "family": "Main.subflow2",
+          "family_score_over_threshold": 2.7842250176613663,
+          "family_persistence_scans": 1
+        },
+        {
+          "kind": "mean_drift_down",
+          "score": 4.3428571428571505,
+          "test": "13260_Main.subflow2.Flow2_Suite135#CP",
+          "message": "13260_Main.subflow2.Flow2_Suite135#CP site 4: mean changed -6.66 baseline SD",
+          "observed": 1.1248571428571428,
+          "reference": 1.418,
+          "series": [
+            1.163,
+            1.209,
+            1.28,
+            1.366,
+            1.568,
+            1.633,
+            1.707,
+            1.117,
+            1.123,
+            1.143,
+            1.156,
+            1.105,
+            1.169,
+            1.061
+          ],
+          "site": "4",
+          "completed_devices": 56,
+          "site_series": {
+            "1": [
+              1.114,
+              1.111,
+              1.116,
+              1.249,
+              1.392,
+              1.521,
+              1.622,
+              1.121,
+              1.136,
+              1.121,
+              1.101,
+              1.123,
+              1.09,
+              1.093
+            ],
+            "2": [
+              1.112,
+              1.117,
+              1.25,
+              1.302,
+              1.433,
+              1.543,
+              1.636,
+              1.094,
+              1.117,
+              1.138,
+              1.042,
+              1.167,
+              1.156,
+              1.11
+            ],
+            "3": [
+              1.182,
+              1.15,
+              1.248,
+              1.321,
+              1.434,
+              1.55,
+              1.715,
+              1.096,
+              1.112,
+              1.137,
+              1.143,
+              1.104,
+              1.121,
+              1.104
+            ],
+            "4": [
+              1.163,
+              1.209,
+              1.28,
+              1.366,
+              1.568,
+              1.633,
+              1.707,
+              1.117,
+              1.123,
+              1.143,
+              1.156,
+              1.105,
+              1.169,
+              1.061
+            ]
+          },
+          "baseline": {
+            "mean": 1.145,
+            "sd": 0.043998075830371804,
+            "thresholds": {
+              "site_imbalance": 2.25,
+              "mean_drift_up": 2.909218132481194,
+              "mean_drift_down": 1.5341579995506245,
+              "spread_up": 3.4949013287444615,
+              "spread_down": 2.0978190267316648
+            }
+          },
+          "suggestion": "Check thermal settling and measurement reference stability.",
+          "family": "Main.subflow2",
+          "family_score_over_threshold": 2.383667924497254,
+          "family_persistence_scans": 1
+        },
+        {
+          "kind": "spread_down",
+          "score": 1.1136570240168635,
+          "test": "13260_Main.subflow2.Flow2_Suite135#CP",
+          "message": "13260_Main.subflow2.Flow2_Suite135#CP site 3: spread ratio 0.10",
+          "observed": 0.019425740011644314,
+          "reference": 0.2009085612909515,
+          "series": [
+            1.182,
+            1.15,
+            1.248,
+            1.321,
+            1.434,
+            1.55,
+            1.715,
+            1.096,
+            1.112,
+            1.137,
+            1.143,
+            1.104,
+            1.121,
+            1.104,
+            1.082,
+            1.094
+          ],
+          "site": "3",
+          "completed_devices": 64,
+          "site_series": {
+            "1": [
+              1.114,
+              1.111,
+              1.116,
+              1.249,
+              1.392,
+              1.521,
+              1.622,
+              1.121,
+              1.136,
+              1.121,
+              1.101,
+              1.123,
+              1.09,
+              1.093,
+              1.163,
+              1.082
+            ],
+            "2": [
+              1.112,
+              1.117,
+              1.25,
+              1.302,
+              1.433,
+              1.543,
+              1.636,
+              1.094,
+              1.117,
+              1.138,
+              1.042,
+              1.167,
+              1.156,
+              1.11,
+              1.099,
+              1.159
+            ],
+            "3": [
+              1.182,
+              1.15,
+              1.248,
+              1.321,
+              1.434,
+              1.55,
+              1.715,
+              1.096,
+              1.112,
+              1.137,
+              1.143,
+              1.104,
+              1.121,
+              1.104,
+              1.082,
+              1.094
+            ],
+            "4": [
+              1.163,
+              1.209,
+              1.28,
+              1.366,
+              1.568,
+              1.633,
+              1.707,
+              1.117,
+              1.123,
+              1.143,
+              1.156,
+              1.105,
+              1.169,
+              1.061,
+              1.109,
+              1.095
+            ]
+          },
+          "baseline": {
+            "mean": 1.145,
+            "sd": 0.043998075830371804,
+            "thresholds": {
+              "site_imbalance": 2.25,
+              "mean_drift_up": 2.909218132481194,
+              "mean_drift_down": 1.5341579995506245,
+              "spread_up": 3.4949013287444615,
+              "spread_down": 2.0978190267316648
+            }
+          },
+          "suggestion": "Check clipping, stale results, and range changes.",
+          "family": "Main.subflow2",
+          "family_score_over_threshold": 3.5199480314929716,
+          "family_persistence_scans": 2
+        }
+      ],
+      "alert_counts": {
+        "baseline": 3,
+        "candidate_additional": 0,
+        "combined": 3
+      },
+      "first_detection": {
+        "baseline_alerts": {
+          "site_imbalance": null,
+          "low_yield": null,
+          "mean_drift_up": 32,
+          "mean_drift_down": 56,
+          "spread_up": null,
+          "spread_down": 64
+        },
+        "combined_alerts": {
+          "site_imbalance": null,
+          "low_yield": null,
+          "mean_drift_up": 32,
+          "mean_drift_down": 56,
+          "spread_up": null,
+          "spread_down": 64
+        }
+      },
+      "candidate_strongest_scan": {
+        "completed_devices": 56,
+        "site": "3",
+        "family": "Main.subflow6",
+        "sample_count_per_test": 12,
+        "family_tests": 500,
+        "valid_tests": 500,
+        "hits": 66,
+        "hit_fraction": 0.132,
+        "threshold": 0.13999999999999999,
+        "fresh_site_samples": true,
+        "score": 0.942857142857143,
+        "passed": false,
+        "persistence_scans": 0,
+        "direction": "down"
+      }
+    },
+    {
+      "wafer": 15,
+      "devices": 80,
+      "yield": 0.925,
+      "expected": "normal",
+      "calibration_partition": "development_check_reused",
+      "baseline_alerts": [],
+      "candidate_additional_alerts": [],
+      "combined_alerts": [],
+      "alert_counts": {
+        "baseline": 0,
+        "candidate_additional": 0,
+        "combined": 0
+      },
+      "first_detection": {
+        "baseline_alerts": {
+          "site_imbalance": null,
+          "low_yield": null,
+          "mean_drift_up": null,
+          "mean_drift_down": null,
+          "spread_up": null,
+          "spread_down": null
+        },
+        "combined_alerts": {
+          "site_imbalance": null,
+          "low_yield": null,
+          "mean_drift_up": null,
+          "mean_drift_down": null,
+          "spread_up": null,
+          "spread_down": null
+        }
+      },
+      "candidate_strongest_scan": {
+        "completed_devices": 48,
+        "site": "3",
+        "family": "Main",
+        "sample_count_per_test": 12,
+        "family_tests": 24,
+        "valid_tests": 24,
+        "hits": 3,
+        "hit_fraction": 0.125,
+        "threshold": 0.22833333333333333,
+        "fresh_site_samples": true,
+        "score": 0.5474452554744526,
+        "passed": false,
+        "persistence_scans": 0,
+        "direction": "down"
+      }
+    },
+    {
+      "wafer": 16,
+      "devices": 80,
+      "yield": 0.9625,
+      "expected": "normal",
+      "calibration_partition": "normal_fit_reused",
+      "baseline_alerts": [],
+      "candidate_additional_alerts": [],
+      "combined_alerts": [],
+      "alert_counts": {
+        "baseline": 0,
+        "candidate_additional": 0,
+        "combined": 0
+      },
+      "first_detection": {
+        "baseline_alerts": {
+          "site_imbalance": null,
+          "low_yield": null,
+          "mean_drift_up": null,
+          "mean_drift_down": null,
+          "spread_up": null,
+          "spread_down": null
+        },
+        "combined_alerts": {
+          "site_imbalance": null,
+          "low_yield": null,
+          "mean_drift_up": null,
+          "mean_drift_down": null,
+          "spread_up": null,
+          "spread_down": null
+        }
+      },
+      "candidate_strongest_scan": {
+        "completed_devices": 48,
+        "site": "2",
+        "family": "Main",
+        "sample_count_per_test": 12,
+        "family_tests": 24,
+        "valid_tests": 24,
+        "hits": 3,
+        "hit_fraction": 0.125,
+        "threshold": 0.18666666666666665,
+        "fresh_site_samples": true,
+        "score": 0.6696428571428572,
+        "passed": false,
+        "persistence_scans": 0,
+        "direction": "down"
+      }
+    },
+    {
+      "wafer": 17,
+      "devices": 80,
+      "yield": 0.9375,
+      "expected": "normal",
+      "calibration_partition": "normal_fit_reused",
+      "baseline_alerts": [],
+      "candidate_additional_alerts": [],
+      "combined_alerts": [],
+      "alert_counts": {
+        "baseline": 0,
+        "candidate_additional": 0,
+        "combined": 0
+      },
+      "first_detection": {
+        "baseline_alerts": {
+          "site_imbalance": null,
+          "low_yield": null,
+          "mean_drift_up": null,
+          "mean_drift_down": null,
+          "spread_up": null,
+          "spread_down": null
+        },
+        "combined_alerts": {
+          "site_imbalance": null,
+          "low_yield": null,
+          "mean_drift_up": null,
+          "mean_drift_down": null,
+          "spread_up": null,
+          "spread_down": null
+        }
+      },
+      "candidate_strongest_scan": {
+        "completed_devices": 56,
+        "site": "2",
+        "family": "Main",
+        "sample_count_per_test": 12,
+        "family_tests": 24,
+        "valid_tests": 24,
+        "hits": 4,
+        "hit_fraction": 0.16666666666666666,
+        "threshold": 0.18666666666666665,
+        "fresh_site_samples": true,
+        "score": 0.8928571428571429,
+        "passed": false,
+        "persistence_scans": 0,
+        "direction": "down"
+      }
+    },
+    {
+      "wafer": 18,
+      "devices": 80,
+      "yield": 0.8625,
+      "expected": "mean_drift_down",
+      "calibration_partition": "development_check_reused",
+      "baseline_alerts": [
+        {
+          "kind": "mean_drift_down",
+          "score": 4.037128712871293,
+          "test": "27620_Main.subflow3.Flow3_Suite353#CP",
+          "message": "27620_Main.subflow3.Flow3_Suite353#CP site 4: mean changed -7.52 baseline SD",
+          "observed": 1.20725,
+          "reference": 1.615,
+          "series": [
+            1.688,
+            1.67,
+            1.683,
+            1.419,
+            1.168,
+            1.081,
+            0.896,
+            1.684
+          ],
+          "site": "4",
+          "completed_devices": 32,
+          "site_series": {
+            "1": [
+              1.676,
+              1.659,
+              1.677,
+              1.654,
+              1.455,
+              1.237,
+              0.961,
+              1.666
+            ],
+            "2": [
+              1.707,
+              1.687,
+              1.669,
+              1.649,
+              1.425,
+              1.089,
+              1.015,
+              1.64
+            ],
+            "3": [
+              1.655,
+              1.687,
+              1.723,
+              1.565,
+              1.356,
+              1.158,
+              0.896,
+              1.659
+            ],
+            "4": [
+              1.688,
+              1.67,
+              1.683,
+              1.419,
+              1.168,
+              1.081,
+              0.896,
+              1.684
+            ]
+          },
+          "baseline": {
+            "mean": 1.709,
+            "sd": 0.05422661481632308,
+            "thresholds": {
+              "site_imbalance": 2.25,
+              "mean_drift_up": 2.9229189492442527,
+              "mean_drift_down": 1.8625540307487025,
+              "spread_up": 2.9987920119978733,
+              "spread_down": 3.5805896428814
+            }
+          },
+          "suggestion": "Check thermal settling and measurement reference stability.",
+          "family": "Main.subflow3",
+          "family_score_over_threshold": 3.219977115312689,
+          "family_persistence_scans": 1
+        },
+        {
+          "kind": "mean_drift_up",
+          "score": 3.559934318555004,
+          "test": "26660_Main.subflow3.Flow3_Suite305#CP",
+          "message": "26660_Main.subflow3.Flow3_Suite305#CP site 4: mean changed +5.93 baseline SD",
+          "observed": 1.625142857142857,
+          "reference": 1.3154285714285714,
+          "series": [
+            1.61,
+            1.613,
+            1.523,
+            1.541,
+            1.213,
+            0.991,
+            0.717,
+            1.612,
+            1.564,
+            1.627,
+            1.564,
+            1.667,
+            1.706,
+            1.636
+          ],
+          "site": "4",
+          "completed_devices": 56,
+          "site_series": {
+            "1": [
+              1.639,
+              1.589,
+              1.629,
+              1.565,
+              1.293,
+              1.176,
+              0.932,
+              1.65,
+              1.642,
+              1.575,
+              1.563,
+              1.711,
+              1.637,
+              1.615
+            ],
+            "2": [
+              1.647,
+              1.607,
+              1.626,
+              1.541,
+              1.323,
+              1.136,
+              1.009,
+              1.635,
+              1.638,
+              1.606,
+              1.604,
+              1.666,
+              1.585,
+              1.616
+            ],
+            "3": [
+              1.636,
+              1.697,
+              1.637,
+              1.494,
+              1.339,
+              1.048,
+              0.841,
+              1.719,
+              1.67,
+              1.564,
+              1.65,
+              1.702,
+              1.609,
+              1.607
+            ],
+            "4": [
+              1.61,
+              1.613,
+              1.523,
+              1.541,
+              1.213,
+              0.991,
+              0.717,
+              1.612,
+              1.564,
+              1.627,
+              1.564,
+              1.667,
+              1.706,
+              1.636
+            ]
+          },
+          "baseline": {
+            "mean": 1.663,
+            "sd": 0.05225876521670649,
+            "thresholds": {
+              "site_imbalance": 2.25,
+              "mean_drift_up": 1.6647924924982198,
+              "mean_drift_down": 2.63113755998282,
+              "spread_up": 2.955821784507867,
+              "spread_down": 2.9979601636642004
+            }
+          },
+          "suggestion": "Check thermal settling and measurement reference stability.",
+          "family": "Main.subflow3",
+          "family_score_over_threshold": 2.1619944056172224,
+          "family_persistence_scans": 1
+        },
+        {
+          "kind": "spread_down",
+          "score": 1.130147296542395,
+          "test": "26840_Main.subflow3.Flow3_Suite314#CP",
+          "message": "26840_Main.subflow3.Flow3_Suite314#CP site 3: spread ratio 0.08",
+          "observed": 0.022945247329240095,
+          "reference": 0.2817818027747711,
+          "series": [
+            1.36,
+            1.352,
+            1.284,
+            1.181,
+            1.05,
+            0.798,
+            0.528,
+            1.308,
+            1.336,
+            1.342,
+            1.309,
+            1.316,
+            1.382,
+            1.327,
+            1.347,
+            1.366
+          ],
+          "site": "3",
+          "completed_devices": 64,
+          "site_series": {
+            "1": [
+              1.265,
+              1.382,
+              1.327,
+              1.297,
+              1.09,
+              0.942,
+              0.735,
+              1.332,
+              1.301,
+              1.372,
+              1.389,
+              1.386,
+              1.309,
+              1.358,
+              1.411,
+              1.256
+            ],
+            "2": [
+              1.249,
+              1.388,
+              1.398,
+              1.223,
+              1.074,
+              0.815,
+              0.657,
+              1.445,
+              1.256,
+              1.369,
+              1.353,
+              1.367,
+              1.323,
+              1.353,
+              1.353,
+              1.398
+            ],
+            "3": [
+              1.36,
+              1.352,
+              1.284,
+              1.181,
+              1.05,
+              0.798,
+              0.528,
+              1.308,
+              1.336,
+              1.342,
+              1.309,
+              1.316,
+              1.382,
+              1.327,
+              1.347,
+              1.366
+            ],
+            "4": [
+              1.373,
+              1.326,
+              1.373,
+              1.133,
+              0.933,
+              0.729,
+              0.582,
+              1.439,
+              1.317,
+              1.355,
+              1.364,
+              1.363,
+              1.335,
+              1.377,
+              1.378,
+              1.445
+            ]
+          },
+          "baseline": {
+            "mean": 1.3855,
+            "sd": 0.05782272629849129,
+            "thresholds": {
+              "site_imbalance": 2.25,
+              "mean_drift_up": 2.4449729206851436,
+              "mean_drift_down": 2.040720103560374,
+              "spread_up": 3.4711257543244645,
+              "spread_down": 2.2191993938108716
+            }
+          },
+          "suggestion": "Check clipping, stale results, and range changes.",
+          "family": "Main.subflow3",
+          "family_score_over_threshold": 3.3671630798620638,
+          "family_persistence_scans": 2
+        }
+      ],
+      "candidate_additional_alerts": [],
+      "combined_alerts": [
+        {
+          "kind": "mean_drift_down",
+          "score": 4.037128712871293,
+          "test": "27620_Main.subflow3.Flow3_Suite353#CP",
+          "message": "27620_Main.subflow3.Flow3_Suite353#CP site 4: mean changed -7.52 baseline SD",
+          "observed": 1.20725,
+          "reference": 1.615,
+          "series": [
+            1.688,
+            1.67,
+            1.683,
+            1.419,
+            1.168,
+            1.081,
+            0.896,
+            1.684
+          ],
+          "site": "4",
+          "completed_devices": 32,
+          "site_series": {
+            "1": [
+              1.676,
+              1.659,
+              1.677,
+              1.654,
+              1.455,
+              1.237,
+              0.961,
+              1.666
+            ],
+            "2": [
+              1.707,
+              1.687,
+              1.669,
+              1.649,
+              1.425,
+              1.089,
+              1.015,
+              1.64
+            ],
+            "3": [
+              1.655,
+              1.687,
+              1.723,
+              1.565,
+              1.356,
+              1.158,
+              0.896,
+              1.659
+            ],
+            "4": [
+              1.688,
+              1.67,
+              1.683,
+              1.419,
+              1.168,
+              1.081,
+              0.896,
+              1.684
+            ]
+          },
+          "baseline": {
+            "mean": 1.709,
+            "sd": 0.05422661481632308,
+            "thresholds": {
+              "site_imbalance": 2.25,
+              "mean_drift_up": 2.9229189492442527,
+              "mean_drift_down": 1.8625540307487025,
+              "spread_up": 2.9987920119978733,
+              "spread_down": 3.5805896428814
+            }
+          },
+          "suggestion": "Check thermal settling and measurement reference stability.",
+          "family": "Main.subflow3",
+          "family_score_over_threshold": 3.219977115312689,
+          "family_persistence_scans": 1
+        },
+        {
+          "kind": "mean_drift_up",
+          "score": 3.559934318555004,
+          "test": "26660_Main.subflow3.Flow3_Suite305#CP",
+          "message": "26660_Main.subflow3.Flow3_Suite305#CP site 4: mean changed +5.93 baseline SD",
+          "observed": 1.625142857142857,
+          "reference": 1.3154285714285714,
+          "series": [
+            1.61,
+            1.613,
+            1.523,
+            1.541,
+            1.213,
+            0.991,
+            0.717,
+            1.612,
+            1.564,
+            1.627,
+            1.564,
+            1.667,
+            1.706,
+            1.636
+          ],
+          "site": "4",
+          "completed_devices": 56,
+          "site_series": {
+            "1": [
+              1.639,
+              1.589,
+              1.629,
+              1.565,
+              1.293,
+              1.176,
+              0.932,
+              1.65,
+              1.642,
+              1.575,
+              1.563,
+              1.711,
+              1.637,
+              1.615
+            ],
+            "2": [
+              1.647,
+              1.607,
+              1.626,
+              1.541,
+              1.323,
+              1.136,
+              1.009,
+              1.635,
+              1.638,
+              1.606,
+              1.604,
+              1.666,
+              1.585,
+              1.616
+            ],
+            "3": [
+              1.636,
+              1.697,
+              1.637,
+              1.494,
+              1.339,
+              1.048,
+              0.841,
+              1.719,
+              1.67,
+              1.564,
+              1.65,
+              1.702,
+              1.609,
+              1.607
+            ],
+            "4": [
+              1.61,
+              1.613,
+              1.523,
+              1.541,
+              1.213,
+              0.991,
+              0.717,
+              1.612,
+              1.564,
+              1.627,
+              1.564,
+              1.667,
+              1.706,
+              1.636
+            ]
+          },
+          "baseline": {
+            "mean": 1.663,
+            "sd": 0.05225876521670649,
+            "thresholds": {
+              "site_imbalance": 2.25,
+              "mean_drift_up": 1.6647924924982198,
+              "mean_drift_down": 2.63113755998282,
+              "spread_up": 2.955821784507867,
+              "spread_down": 2.9979601636642004
+            }
+          },
+          "suggestion": "Check thermal settling and measurement reference stability.",
+          "family": "Main.subflow3",
+          "family_score_over_threshold": 2.1619944056172224,
+          "family_persistence_scans": 1
+        },
+        {
+          "kind": "spread_down",
+          "score": 1.130147296542395,
+          "test": "26840_Main.subflow3.Flow3_Suite314#CP",
+          "message": "26840_Main.subflow3.Flow3_Suite314#CP site 3: spread ratio 0.08",
+          "observed": 0.022945247329240095,
+          "reference": 0.2817818027747711,
+          "series": [
+            1.36,
+            1.352,
+            1.284,
+            1.181,
+            1.05,
+            0.798,
+            0.528,
+            1.308,
+            1.336,
+            1.342,
+            1.309,
+            1.316,
+            1.382,
+            1.327,
+            1.347,
+            1.366
+          ],
+          "site": "3",
+          "completed_devices": 64,
+          "site_series": {
+            "1": [
+              1.265,
+              1.382,
+              1.327,
+              1.297,
+              1.09,
+              0.942,
+              0.735,
+              1.332,
+              1.301,
+              1.372,
+              1.389,
+              1.386,
+              1.309,
+              1.358,
+              1.411,
+              1.256
+            ],
+            "2": [
+              1.249,
+              1.388,
+              1.398,
+              1.223,
+              1.074,
+              0.815,
+              0.657,
+              1.445,
+              1.256,
+              1.369,
+              1.353,
+              1.367,
+              1.323,
+              1.353,
+              1.353,
+              1.398
+            ],
+            "3": [
+              1.36,
+              1.352,
+              1.284,
+              1.181,
+              1.05,
+              0.798,
+              0.528,
+              1.308,
+              1.336,
+              1.342,
+              1.309,
+              1.316,
+              1.382,
+              1.327,
+              1.347,
+              1.366
+            ],
+            "4": [
+              1.373,
+              1.326,
+              1.373,
+              1.133,
+              0.933,
+              0.729,
+              0.582,
+              1.439,
+              1.317,
+              1.355,
+              1.364,
+              1.363,
+              1.335,
+              1.377,
+              1.378,
+              1.445
+            ]
+          },
+          "baseline": {
+            "mean": 1.3855,
+            "sd": 0.05782272629849129,
+            "thresholds": {
+              "site_imbalance": 2.25,
+              "mean_drift_up": 2.4449729206851436,
+              "mean_drift_down": 2.040720103560374,
+              "spread_up": 3.4711257543244645,
+              "spread_down": 2.2191993938108716
+            }
+          },
+          "suggestion": "Check clipping, stale results, and range changes.",
+          "family": "Main.subflow3",
+          "family_score_over_threshold": 3.3671630798620638,
+          "family_persistence_scans": 2
+        }
+      ],
+      "alert_counts": {
+        "baseline": 3,
+        "candidate_additional": 0,
+        "combined": 3
+      },
+      "first_detection": {
+        "baseline_alerts": {
+          "site_imbalance": null,
+          "low_yield": null,
+          "mean_drift_up": 56,
+          "mean_drift_down": 32,
+          "spread_up": null,
+          "spread_down": 64
+        },
+        "combined_alerts": {
+          "site_imbalance": null,
+          "low_yield": null,
+          "mean_drift_up": 56,
+          "mean_drift_down": 32,
+          "spread_up": null,
+          "spread_down": 64
+        }
+      },
+      "candidate_strongest_scan": {
+        "completed_devices": 80,
+        "site": "1",
+        "family": "Main",
+        "sample_count_per_test": 12,
+        "family_tests": 24,
+        "valid_tests": 24,
+        "hits": 5,
+        "hit_fraction": 0.20833333333333334,
+        "threshold": 0.22833333333333333,
+        "fresh_site_samples": true,
+        "score": 0.9124087591240876,
+        "passed": false,
+        "persistence_scans": 0,
+        "direction": "down"
+      }
+    },
+    {
+      "wafer": 19,
+      "devices": 80,
+      "yield": 0.9125,
+      "expected": "normal",
+      "calibration_partition": "normal_fit_reused",
+      "baseline_alerts": [],
+      "candidate_additional_alerts": [],
+      "combined_alerts": [],
+      "alert_counts": {
+        "baseline": 0,
+        "candidate_additional": 0,
+        "combined": 0
+      },
+      "first_detection": {
+        "baseline_alerts": {
+          "site_imbalance": null,
+          "low_yield": null,
+          "mean_drift_up": null,
+          "mean_drift_down": null,
+          "spread_up": null,
+          "spread_down": null
+        },
+        "combined_alerts": {
+          "site_imbalance": null,
+          "low_yield": null,
+          "mean_drift_up": null,
+          "mean_drift_down": null,
+          "spread_up": null,
+          "spread_down": null
+        }
+      },
+      "candidate_strongest_scan": {
+        "completed_devices": 56,
+        "site": "4",
+        "family": "Main",
+        "sample_count_per_test": 12,
+        "family_tests": 24,
+        "valid_tests": 24,
+        "hits": 7,
+        "hit_fraction": 0.2916666666666667,
+        "threshold": 0.3116666666666667,
+        "fresh_site_samples": true,
+        "score": 0.9358288770053476,
+        "passed": false,
+        "persistence_scans": 0,
+        "direction": "down"
+      }
+    },
+    {
+      "wafer": 20,
+      "devices": 80,
+      "yield": 0.9875,
+      "expected": "normal",
+      "calibration_partition": "normal_fit_reused",
+      "baseline_alerts": [],
+      "candidate_additional_alerts": [],
+      "combined_alerts": [],
+      "alert_counts": {
+        "baseline": 0,
+        "candidate_additional": 0,
+        "combined": 0
+      },
+      "first_detection": {
+        "baseline_alerts": {
+          "site_imbalance": null,
+          "low_yield": null,
+          "mean_drift_up": null,
+          "mean_drift_down": null,
+          "spread_up": null,
+          "spread_down": null
+        },
+        "combined_alerts": {
+          "site_imbalance": null,
+          "low_yield": null,
+          "mean_drift_up": null,
+          "mean_drift_down": null,
+          "spread_up": null,
+          "spread_down": null
+        }
+      },
+      "candidate_strongest_scan": {
+        "completed_devices": 64,
+        "site": "2",
+        "family": "Main",
+        "sample_count_per_test": 12,
+        "family_tests": 24,
+        "valid_tests": 24,
+        "hits": 4,
+        "hit_fraction": 0.16666666666666666,
+        "threshold": 0.18666666666666665,
+        "fresh_site_samples": true,
+        "score": 0.8928571428571429,
+        "passed": false,
+        "persistence_scans": 0,
+        "direction": "down"
+      }
+    },
+    {
+      "wafer": 21,
+      "devices": 80,
+      "yield": 0.9625,
+      "expected": "normal",
+      "calibration_partition": "development_check_reused",
+      "baseline_alerts": [],
+      "candidate_additional_alerts": [],
+      "combined_alerts": [],
+      "alert_counts": {
+        "baseline": 0,
+        "candidate_additional": 0,
+        "combined": 0
+      },
+      "first_detection": {
+        "baseline_alerts": {
+          "site_imbalance": null,
+          "low_yield": null,
+          "mean_drift_up": null,
+          "mean_drift_down": null,
+          "spread_up": null,
+          "spread_down": null
+        },
+        "combined_alerts": {
+          "site_imbalance": null,
+          "low_yield": null,
+          "mean_drift_up": null,
+          "mean_drift_down": null,
+          "spread_up": null,
+          "spread_down": null
+        }
+      },
+      "candidate_strongest_scan": {
+        "completed_devices": 48,
+        "site": "2",
+        "family": "Main",
+        "sample_count_per_test": 12,
+        "family_tests": 24,
+        "valid_tests": 24,
+        "hits": 5,
+        "hit_fraction": 0.20833333333333334,
+        "threshold": 0.18666666666666665,
+        "fresh_site_samples": true,
+        "score": 1.1160714285714288,
+        "passed": true,
+        "persistence_scans": 1,
+        "direction": "down"
+      }
+    },
+    {
+      "wafer": 22,
+      "devices": 80,
+      "yield": 0.9375,
+      "expected": "normal",
+      "calibration_partition": "normal_fit_reused",
+      "baseline_alerts": [],
+      "candidate_additional_alerts": [],
+      "combined_alerts": [],
+      "alert_counts": {
+        "baseline": 0,
+        "candidate_additional": 0,
+        "combined": 0
+      },
+      "first_detection": {
+        "baseline_alerts": {
+          "site_imbalance": null,
+          "low_yield": null,
+          "mean_drift_up": null,
+          "mean_drift_down": null,
+          "spread_up": null,
+          "spread_down": null
+        },
+        "combined_alerts": {
+          "site_imbalance": null,
+          "low_yield": null,
+          "mean_drift_up": null,
+          "mean_drift_down": null,
+          "spread_up": null,
+          "spread_down": null
+        }
+      },
+      "candidate_strongest_scan": {
+        "completed_devices": 80,
+        "site": "2",
+        "family": "Main",
+        "sample_count_per_test": 12,
+        "family_tests": 24,
+        "valid_tests": 24,
+        "hits": 2,
+        "hit_fraction": 0.08333333333333333,
+        "threshold": 0.18666666666666665,
+        "fresh_site_samples": true,
+        "score": 0.44642857142857145,
+        "passed": false,
+        "persistence_scans": 0,
+        "direction": "down"
+      }
+    },
+    {
+      "wafer": 23,
+      "devices": 80,
+      "yield": 0.8375,
+      "expected": "spread_up",
+      "calibration_partition": "development_check_reused",
+      "baseline_alerts": [
+        {
+          "kind": "mean_drift_up",
+          "score": 2.235294117647059,
+          "test": "51380_Main.subflow6.Flow6_Suite41#CP",
+          "message": "51380_Main.subflow6.Flow6_Suite41#CP site 1: mean changed +4.85 baseline SD",
+          "observed": 1.91175,
+          "reference": 1.51275,
+          "series": [
+            1.477,
+            1.409,
+            1.487,
+            1.678,
+            1.677,
+            2.202,
+            2.22,
+            1.548
+          ],
+          "site": "1",
+          "completed_devices": 32,
+          "site_series": {
+            "1": [
+              1.477,
+              1.409,
+              1.487,
+              1.678,
+              1.677,
+              2.202,
+              2.22,
+              1.548
+            ],
+            "2": [
+              1.648,
+              1.522,
+              1.506,
+              1.553,
+              1.434,
+              1.37,
+              1.3,
+              1.489
+            ],
+            "3": [
+              1.575,
+              1.494,
+              1.447,
+              1.145,
+              1.361,
+              1.691,
+              1.519,
+              1.597
+            ],
+            "4": [
+              1.586,
+              1.583,
+              1.523,
+              1.613,
+              1.59,
+              1.039,
+              1.773,
+              1.535
+            ]
+          },
+          "baseline": {
+            "mean": 1.521,
+            "sd": 0.08227677546027513,
+            "thresholds": {
+              "site_imbalance": 2.394357324991621,
+              "mean_drift_up": 2.1695065102081372,
+              "mean_drift_down": 2.2849704421239796,
+              "spread_up": 2.9860199580790754,
+              "spread_down": 2.2636189020658968
+            }
+          },
+          "suggestion": "Check thermal settling and measurement reference stability.",
+          "family": "Main.subflow6",
+          "family_score_over_threshold": 1.0081148312947417,
+          "family_persistence_scans": 1
+        },
+        {
+          "kind": "mean_drift_down",
+          "score": 2.2117437722419893,
+          "test": "60160_Main.subflow6.Flow6_Suite480#CP",
+          "message": "60160_Main.subflow6.Flow6_Suite480#CP site 3: mean changed -4.50 baseline SD",
+          "observed": 1.3467500000000001,
+          "reference": 1.6575,
+          "series": [
+            1.573,
+            1.577,
+            1.625,
+            1.855,
+            1.308,
+            1.296,
+            1.268,
+            1.515
+          ],
+          "site": "3",
+          "completed_devices": 32,
+          "site_series": {
+            "1": [
+              1.48,
+              1.471,
+              1.524,
+              1.376,
+              1.411,
+              1.556,
+              2.148,
+              1.582
+            ],
+            "2": [
+              1.456,
+              1.552,
+              1.528,
+              1.556,
+              1.449,
+              1.154,
+              1.233,
+              1.646
+            ],
+            "3": [
+              1.573,
+              1.577,
+              1.625,
+              1.855,
+              1.308,
+              1.296,
+              1.268,
+              1.515
+            ],
+            "4": [
+              1.565,
+              1.564,
+              1.537,
+              1.349,
+              1.513,
+              1.854,
+              1.565,
+              1.599
+            ]
+          },
+          "baseline": {
+            "mean": 1.536,
+            "sd": 0.06902709031594195,
+            "thresholds": {
+              "site_imbalance": 2.25,
+              "mean_drift_up": 2.549723582356371,
+              "mean_drift_down": 2.035432746142443,
+              "spread_up": 2.81266937779409,
+              "spread_down": 3.1707731102549515
+            }
+          },
+          "suggestion": "Check thermal settling and measurement reference stability.",
+          "family": "Main.subflow6",
+          "family_score_over_threshold": 1.0081148312947417,
+          "family_persistence_scans": 1
+        },
+        {
+          "kind": "spread_up",
+          "score": 1.0908231052976056,
+          "test": "59840_Main.subflow6.Flow6_Suite464#CP",
+          "message": "59840_Main.subflow6.Flow6_Suite464#CP site 1: spread ratio 9.70",
+          "observed": 0.33886481080218406,
+          "reference": 0.034930788711393275,
+          "series": [
+            1.793,
+            1.814,
+            1.87,
+            1.846,
+            1.888,
+            2.239,
+            1.18,
+            1.799,
+            1.768,
+            1.843
+          ],
+          "site": "1",
+          "completed_devices": 40,
+          "site_series": {
+            "1": [
+              1.793,
+              1.814,
+              1.87,
+              1.846,
+              1.888,
+              2.239,
+              1.18,
+              1.799,
+              1.768,
+              1.843
+            ],
+            "2": [
+              1.83,
+              1.752,
+              1.891,
+              1.921,
+              2.049,
+              1.857,
+              1.894,
+              1.782,
+              1.786,
+              1.84
+            ],
+            "3": [
+              1.851,
+              1.841,
+              1.814,
+              1.997,
+              2.097,
+              1.272,
+              1.261,
+              1.829,
+              1.747,
+              1.816
+            ],
+            "4": [
+              1.803,
+              1.813,
+              1.884,
+              1.648,
+              2.085,
+              1.335,
+              1.954,
+              1.844,
+              1.818,
+              1.889
+            ]
+          },
+          "baseline": {
+            "mean": 1.808,
+            "sd": 0.06147642711622343,
+            "thresholds": {
+              "site_imbalance": 2.25,
+              "mean_drift_up": 2.1349646711229164,
+              "mean_drift_down": 3.2695458963482382,
+              "spread_up": 2.0830440703716295,
+              "spread_down": 2.2500530063644413
+            }
+          },
+          "suggestion": "Check intermittent contact and noise sources.",
+          "family": "Main.subflow6",
+          "family_score_over_threshold": 1.089102811082606,
+          "family_persistence_scans": 2
+        },
+        {
+          "kind": "spread_down",
+          "score": 1.032147725189539,
+          "test": "59840_Main.subflow6.Flow6_Suite464#CP",
+          "message": "59840_Main.subflow6.Flow6_Suite464#CP site 4: spread ratio 0.10",
+          "observed": 0.019436506316150997,
+          "reference": 0.19825223987961385,
+          "series": [
+            1.803,
+            1.813,
+            1.884,
+            1.648,
+            2.085,
+            1.335,
+            1.954,
+            1.844,
+            1.818,
+            1.889,
+            1.83,
+            1.822,
+            1.855,
+            1.854,
+            1.848,
+            1.825,
+            1.845,
+            1.834
+          ],
+          "site": "4",
+          "completed_devices": 72,
+          "site_series": {
+            "1": [
+              1.793,
+              1.814,
+              1.87,
+              1.846,
+              1.888,
+              2.239,
+              1.18,
+              1.799,
+              1.768,
+              1.843,
+              1.789,
+              1.853,
+              1.768,
+              1.813,
+              1.764,
+              1.866,
+              1.838,
+              1.836
+            ],
+            "2": [
+              1.83,
+              1.752,
+              1.891,
+              1.921,
+              2.049,
+              1.857,
+              1.894,
+              1.782,
+              1.786,
+              1.84,
+              1.856,
+              1.792,
+              1.805,
+              1.752,
+              1.808,
+              1.851,
+              1.81,
+              1.809
+            ],
+            "3": [
+              1.851,
+              1.841,
+              1.814,
+              1.997,
+              2.097,
+              1.272,
+              1.261,
+              1.829,
+              1.747,
+              1.816,
+              1.731,
+              1.802,
+              1.817,
+              1.739,
+              1.863,
+              1.791,
+              1.834,
+              1.779
+            ],
+            "4": [
+              1.803,
+              1.813,
+              1.884,
+              1.648,
+              2.085,
+              1.335,
+              1.954,
+              1.844,
+              1.818,
+              1.889,
+              1.83,
+              1.822,
+              1.855,
+              1.854,
+              1.848,
+              1.825,
+              1.845,
+              1.834
+            ]
+          },
+          "baseline": {
+            "mean": 1.808,
+            "sd": 0.06147642711622343,
+            "thresholds": {
+              "site_imbalance": 2.25,
+              "mean_drift_up": 2.1349646711229164,
+              "mean_drift_down": 3.2695458963482382,
+              "spread_up": 2.0830440703716295,
+              "spread_down": 2.2500530063644413
+            }
+          },
+          "suggestion": "Check clipping, stale results, and range changes.",
+          "family": "Main.subflow6",
+          "family_score_over_threshold": 1.3754451331394126,
+          "family_persistence_scans": 3
+        }
+      ],
+      "candidate_additional_alerts": [
+        {
+          "completed_devices": 80,
+          "site": "3",
+          "family": "Main.subflow2",
+          "sample_count_per_test": 12,
+          "family_tests": 500,
+          "valid_tests": 500,
+          "hits": 75,
+          "hit_fraction": 0.15,
+          "threshold": 0.122,
+          "fresh_site_samples": true,
+          "score": 1.2295081967213115,
+          "passed": true,
+          "persistence_scans": 2,
+          "direction": "down",
+          "kind": "spread_down",
+          "test": "11040_Main.subflow2.Flow2_Suite24#CP",
+          "detector": "normal_reference_site_window_v1",
+          "message": "Main.subflow2 site 3: 75/500 tests have SD at most 70% of normal reference",
+          "observed": 0.023865799565254208,
+          "reference": 0.051613951602255737,
+          "series": [
+            0.943,
+            0.981,
+            0.947,
+            0.966,
+            0.906,
+            0.948,
+            0.938,
+            0.956,
+            0.96,
+            0.908,
+            0.908,
+            0.966
+          ],
+          "series_device_order": [
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20
+          ],
+          "site_series": {
+            "1": [
+              0.997,
+              0.995,
+              0.962,
+              0.961,
+              0.999,
+              0.924,
+              0.9,
+              1.03,
+              0.96,
+              0.942,
+              0.89,
+              0.968
+            ],
+            "2": [
+              0.949,
+              1.06,
+              0.954,
+              0.903,
+              1.014,
+              0.924,
+              1.051,
+              0.981,
+              0.929,
+              0.963,
+              0.985,
+              0.912
+            ],
+            "3": [
+              0.943,
+              0.981,
+              0.947,
+              0.966,
+              0.906,
+              0.948,
+              0.938,
+              0.956,
+              0.96,
+              0.908,
+              0.908,
+              0.966
+            ],
+            "4": [
+              1.042,
+              0.975,
+              0.978,
+              0.977,
+              0.995,
+              1.006,
+              0.977,
+              0.928,
+              0.906,
+              0.974,
+              0.922,
+              0.979
+            ]
+          },
+          "site_series_device_order": {
+            "1": [
+              9,
+              10,
+              11,
+              12,
+              13,
+              14,
+              15,
+              16,
+              17,
+              18,
+              19,
+              20
+            ],
+            "2": [
+              9,
+              10,
+              11,
+              12,
+              13,
+              14,
+              15,
+              16,
+              17,
+              18,
+              19,
+              20
+            ],
+            "3": [
+              9,
+              10,
+              11,
+              12,
+              13,
+              14,
+              15,
+              16,
+              17,
+              18,
+              19,
+              20
+            ],
+            "4": [
+              9,
+              10,
+              11,
+              12,
+              13,
+              14,
+              15,
+              16,
+              17,
+              18,
+              19,
+              20
+            ]
+          },
+          "baseline": {
+            "sd": 0.051613951602255737,
+            "statistic": "median normal per-site window population SD",
+            "calibration_sha256": "da3a2b139cfaf1e4b7f9faae218f206f402901f9a81e22b4d458621e51dd64ee",
+            "thresholds": {
+              "sd_ratio_limit": 0.7,
+              "family_hit_fraction": 0.122
+            }
+          },
+          "units": "source CSV units; physical units unverified",
+          "axis": "completed-device order within site",
+          "score_semantics": "family hit fraction / threshold; not a probability",
+          "suggestion": "Check clipping, stale results, and measurement range changes; compare raw per-site values."
+        }
+      ],
+      "combined_alerts": [
+        {
+          "kind": "mean_drift_up",
+          "score": 2.235294117647059,
+          "test": "51380_Main.subflow6.Flow6_Suite41#CP",
+          "message": "51380_Main.subflow6.Flow6_Suite41#CP site 1: mean changed +4.85 baseline SD",
+          "observed": 1.91175,
+          "reference": 1.51275,
+          "series": [
+            1.477,
+            1.409,
+            1.487,
+            1.678,
+            1.677,
+            2.202,
+            2.22,
+            1.548
+          ],
+          "site": "1",
+          "completed_devices": 32,
+          "site_series": {
+            "1": [
+              1.477,
+              1.409,
+              1.487,
+              1.678,
+              1.677,
+              2.202,
+              2.22,
+              1.548
+            ],
+            "2": [
+              1.648,
+              1.522,
+              1.506,
+              1.553,
+              1.434,
+              1.37,
+              1.3,
+              1.489
+            ],
+            "3": [
+              1.575,
+              1.494,
+              1.447,
+              1.145,
+              1.361,
+              1.691,
+              1.519,
+              1.597
+            ],
+            "4": [
+              1.586,
+              1.583,
+              1.523,
+              1.613,
+              1.59,
+              1.039,
+              1.773,
+              1.535
+            ]
+          },
+          "baseline": {
+            "mean": 1.521,
+            "sd": 0.08227677546027513,
+            "thresholds": {
+              "site_imbalance": 2.394357324991621,
+              "mean_drift_up": 2.1695065102081372,
+              "mean_drift_down": 2.2849704421239796,
+              "spread_up": 2.9860199580790754,
+              "spread_down": 2.2636189020658968
+            }
+          },
+          "suggestion": "Check thermal settling and measurement reference stability.",
+          "family": "Main.subflow6",
+          "family_score_over_threshold": 1.0081148312947417,
+          "family_persistence_scans": 1
+        },
+        {
+          "kind": "mean_drift_down",
+          "score": 2.2117437722419893,
+          "test": "60160_Main.subflow6.Flow6_Suite480#CP",
+          "message": "60160_Main.subflow6.Flow6_Suite480#CP site 3: mean changed -4.50 baseline SD",
+          "observed": 1.3467500000000001,
+          "reference": 1.6575,
+          "series": [
+            1.573,
+            1.577,
+            1.625,
+            1.855,
+            1.308,
+            1.296,
+            1.268,
+            1.515
+          ],
+          "site": "3",
+          "completed_devices": 32,
+          "site_series": {
+            "1": [
+              1.48,
+              1.471,
+              1.524,
+              1.376,
+              1.411,
+              1.556,
+              2.148,
+              1.582
+            ],
+            "2": [
+              1.456,
+              1.552,
+              1.528,
+              1.556,
+              1.449,
+              1.154,
+              1.233,
+              1.646
+            ],
+            "3": [
+              1.573,
+              1.577,
+              1.625,
+              1.855,
+              1.308,
+              1.296,
+              1.268,
+              1.515
+            ],
+            "4": [
+              1.565,
+              1.564,
+              1.537,
+              1.349,
+              1.513,
+              1.854,
+              1.565,
+              1.599
+            ]
+          },
+          "baseline": {
+            "mean": 1.536,
+            "sd": 0.06902709031594195,
+            "thresholds": {
+              "site_imbalance": 2.25,
+              "mean_drift_up": 2.549723582356371,
+              "mean_drift_down": 2.035432746142443,
+              "spread_up": 2.81266937779409,
+              "spread_down": 3.1707731102549515
+            }
+          },
+          "suggestion": "Check thermal settling and measurement reference stability.",
+          "family": "Main.subflow6",
+          "family_score_over_threshold": 1.0081148312947417,
+          "family_persistence_scans": 1
+        },
+        {
+          "kind": "spread_up",
+          "score": 1.0908231052976056,
+          "test": "59840_Main.subflow6.Flow6_Suite464#CP",
+          "message": "59840_Main.subflow6.Flow6_Suite464#CP site 1: spread ratio 9.70",
+          "observed": 0.33886481080218406,
+          "reference": 0.034930788711393275,
+          "series": [
+            1.793,
+            1.814,
+            1.87,
+            1.846,
+            1.888,
+            2.239,
+            1.18,
+            1.799,
+            1.768,
+            1.843
+          ],
+          "site": "1",
+          "completed_devices": 40,
+          "site_series": {
+            "1": [
+              1.793,
+              1.814,
+              1.87,
+              1.846,
+              1.888,
+              2.239,
+              1.18,
+              1.799,
+              1.768,
+              1.843
+            ],
+            "2": [
+              1.83,
+              1.752,
+              1.891,
+              1.921,
+              2.049,
+              1.857,
+              1.894,
+              1.782,
+              1.786,
+              1.84
+            ],
+            "3": [
+              1.851,
+              1.841,
+              1.814,
+              1.997,
+              2.097,
+              1.272,
+              1.261,
+              1.829,
+              1.747,
+              1.816
+            ],
+            "4": [
+              1.803,
+              1.813,
+              1.884,
+              1.648,
+              2.085,
+              1.335,
+              1.954,
+              1.844,
+              1.818,
+              1.889
+            ]
+          },
+          "baseline": {
+            "mean": 1.808,
+            "sd": 0.06147642711622343,
+            "thresholds": {
+              "site_imbalance": 2.25,
+              "mean_drift_up": 2.1349646711229164,
+              "mean_drift_down": 3.2695458963482382,
+              "spread_up": 2.0830440703716295,
+              "spread_down": 2.2500530063644413
+            }
+          },
+          "suggestion": "Check intermittent contact and noise sources.",
+          "family": "Main.subflow6",
+          "family_score_over_threshold": 1.089102811082606,
+          "family_persistence_scans": 2
+        },
+        {
+          "kind": "spread_down",
+          "score": 1.032147725189539,
+          "test": "59840_Main.subflow6.Flow6_Suite464#CP",
+          "message": "59840_Main.subflow6.Flow6_Suite464#CP site 4: spread ratio 0.10",
+          "observed": 0.019436506316150997,
+          "reference": 0.19825223987961385,
+          "series": [
+            1.803,
+            1.813,
+            1.884,
+            1.648,
+            2.085,
+            1.335,
+            1.954,
+            1.844,
+            1.818,
+            1.889,
+            1.83,
+            1.822,
+            1.855,
+            1.854,
+            1.848,
+            1.825,
+            1.845,
+            1.834
+          ],
+          "site": "4",
+          "completed_devices": 72,
+          "site_series": {
+            "1": [
+              1.793,
+              1.814,
+              1.87,
+              1.846,
+              1.888,
+              2.239,
+              1.18,
+              1.799,
+              1.768,
+              1.843,
+              1.789,
+              1.853,
+              1.768,
+              1.813,
+              1.764,
+              1.866,
+              1.838,
+              1.836
+            ],
+            "2": [
+              1.83,
+              1.752,
+              1.891,
+              1.921,
+              2.049,
+              1.857,
+              1.894,
+              1.782,
+              1.786,
+              1.84,
+              1.856,
+              1.792,
+              1.805,
+              1.752,
+              1.808,
+              1.851,
+              1.81,
+              1.809
+            ],
+            "3": [
+              1.851,
+              1.841,
+              1.814,
+              1.997,
+              2.097,
+              1.272,
+              1.261,
+              1.829,
+              1.747,
+              1.816,
+              1.731,
+              1.802,
+              1.817,
+              1.739,
+              1.863,
+              1.791,
+              1.834,
+              1.779
+            ],
+            "4": [
+              1.803,
+              1.813,
+              1.884,
+              1.648,
+              2.085,
+              1.335,
+              1.954,
+              1.844,
+              1.818,
+              1.889,
+              1.83,
+              1.822,
+              1.855,
+              1.854,
+              1.848,
+              1.825,
+              1.845,
+              1.834
+            ]
+          },
+          "baseline": {
+            "mean": 1.808,
+            "sd": 0.06147642711622343,
+            "thresholds": {
+              "site_imbalance": 2.25,
+              "mean_drift_up": 2.1349646711229164,
+              "mean_drift_down": 3.2695458963482382,
+              "spread_up": 2.0830440703716295,
+              "spread_down": 2.2500530063644413
+            }
+          },
+          "suggestion": "Check clipping, stale results, and range changes.",
+          "family": "Main.subflow6",
+          "family_score_over_threshold": 1.3754451331394126,
+          "family_persistence_scans": 3
+        },
+        {
+          "completed_devices": 80,
+          "site": "3",
+          "family": "Main.subflow2",
+          "sample_count_per_test": 12,
+          "family_tests": 500,
+          "valid_tests": 500,
+          "hits": 75,
+          "hit_fraction": 0.15,
+          "threshold": 0.122,
+          "fresh_site_samples": true,
+          "score": 1.2295081967213115,
+          "passed": true,
+          "persistence_scans": 2,
+          "direction": "down",
+          "kind": "spread_down",
+          "test": "11040_Main.subflow2.Flow2_Suite24#CP",
+          "detector": "normal_reference_site_window_v1",
+          "message": "Main.subflow2 site 3: 75/500 tests have SD at most 70% of normal reference",
+          "observed": 0.023865799565254208,
+          "reference": 0.051613951602255737,
+          "series": [
+            0.943,
+            0.981,
+            0.947,
+            0.966,
+            0.906,
+            0.948,
+            0.938,
+            0.956,
+            0.96,
+            0.908,
+            0.908,
+            0.966
+          ],
+          "series_device_order": [
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20
+          ],
+          "site_series": {
+            "1": [
+              0.997,
+              0.995,
+              0.962,
+              0.961,
+              0.999,
+              0.924,
+              0.9,
+              1.03,
+              0.96,
+              0.942,
+              0.89,
+              0.968
+            ],
+            "2": [
+              0.949,
+              1.06,
+              0.954,
+              0.903,
+              1.014,
+              0.924,
+              1.051,
+              0.981,
+              0.929,
+              0.963,
+              0.985,
+              0.912
+            ],
+            "3": [
+              0.943,
+              0.981,
+              0.947,
+              0.966,
+              0.906,
+              0.948,
+              0.938,
+              0.956,
+              0.96,
+              0.908,
+              0.908,
+              0.966
+            ],
+            "4": [
+              1.042,
+              0.975,
+              0.978,
+              0.977,
+              0.995,
+              1.006,
+              0.977,
+              0.928,
+              0.906,
+              0.974,
+              0.922,
+              0.979
+            ]
+          },
+          "site_series_device_order": {
+            "1": [
+              9,
+              10,
+              11,
+              12,
+              13,
+              14,
+              15,
+              16,
+              17,
+              18,
+              19,
+              20
+            ],
+            "2": [
+              9,
+              10,
+              11,
+              12,
+              13,
+              14,
+              15,
+              16,
+              17,
+              18,
+              19,
+              20
+            ],
+            "3": [
+              9,
+              10,
+              11,
+              12,
+              13,
+              14,
+              15,
+              16,
+              17,
+              18,
+              19,
+              20
+            ],
+            "4": [
+              9,
+              10,
+              11,
+              12,
+              13,
+              14,
+              15,
+              16,
+              17,
+              18,
+              19,
+              20
+            ]
+          },
+          "baseline": {
+            "sd": 0.051613951602255737,
+            "statistic": "median normal per-site window population SD",
+            "calibration_sha256": "da3a2b139cfaf1e4b7f9faae218f206f402901f9a81e22b4d458621e51dd64ee",
+            "thresholds": {
+              "sd_ratio_limit": 0.7,
+              "family_hit_fraction": 0.122
+            }
+          },
+          "units": "source CSV units; physical units unverified",
+          "axis": "completed-device order within site",
+          "score_semantics": "family hit fraction / threshold; not a probability",
+          "suggestion": "Check clipping, stale results, and measurement range changes; compare raw per-site values."
+        }
+      ],
+      "alert_counts": {
+        "baseline": 4,
+        "candidate_additional": 1,
+        "combined": 5
+      },
+      "first_detection": {
+        "baseline_alerts": {
+          "site_imbalance": null,
+          "low_yield": null,
+          "mean_drift_up": 32,
+          "mean_drift_down": 32,
+          "spread_up": 40,
+          "spread_down": 72
+        },
+        "combined_alerts": {
+          "site_imbalance": null,
+          "low_yield": null,
+          "mean_drift_up": 32,
+          "mean_drift_down": 32,
+          "spread_up": 40,
+          "spread_down": 72
+        }
+      },
+      "candidate_strongest_scan": {
+        "completed_devices": 80,
+        "site": "3",
+        "family": "Main.subflow2",
+        "sample_count_per_test": 12,
+        "family_tests": 500,
+        "valid_tests": 500,
+        "hits": 75,
+        "hit_fraction": 0.15,
+        "threshold": 0.122,
+        "fresh_site_samples": true,
+        "score": 1.2295081967213115,
+        "passed": true,
+        "persistence_scans": 2,
+        "direction": "down"
+      }
+    },
+    {
+      "wafer": 24,
+      "devices": 80,
+      "yield": 0.8125,
+      "expected": "normal",
+      "calibration_partition": "development_check_reused",
+      "baseline_alerts": [],
+      "candidate_additional_alerts": [],
+      "combined_alerts": [],
+      "alert_counts": {
+        "baseline": 0,
+        "candidate_additional": 0,
+        "combined": 0
+      },
+      "first_detection": {
+        "baseline_alerts": {
+          "site_imbalance": null,
+          "low_yield": null,
+          "mean_drift_up": null,
+          "mean_drift_down": null,
+          "spread_up": null,
+          "spread_down": null
+        },
+        "combined_alerts": {
+          "site_imbalance": null,
+          "low_yield": null,
+          "mean_drift_up": null,
+          "mean_drift_down": null,
+          "spread_up": null,
+          "spread_down": null
+        }
+      },
+      "candidate_strongest_scan": {
+        "completed_devices": 80,
+        "site": "3",
+        "family": "Main",
+        "sample_count_per_test": 12,
+        "family_tests": 24,
+        "valid_tests": 24,
+        "hits": 4,
+        "hit_fraction": 0.16666666666666666,
+        "threshold": 0.22833333333333333,
+        "fresh_site_samples": true,
+        "score": 0.7299270072992701,
+        "passed": false,
+        "persistence_scans": 0,
+        "direction": "down"
+      }
+    },
+    {
+      "wafer": 25,
+      "devices": 80,
+      "yield": 0.9,
+      "expected": "spread_down",
+      "calibration_partition": "development_check_reused",
+      "baseline_alerts": [],
+      "candidate_additional_alerts": [],
+      "combined_alerts": [],
+      "alert_counts": {
+        "baseline": 0,
+        "candidate_additional": 0,
+        "combined": 0
+      },
+      "first_detection": {
+        "baseline_alerts": {
+          "site_imbalance": null,
+          "low_yield": null,
+          "mean_drift_up": null,
+          "mean_drift_down": null,
+          "spread_up": null,
+          "spread_down": null
+        },
+        "combined_alerts": {
+          "site_imbalance": null,
+          "low_yield": null,
+          "mean_drift_up": null,
+          "mean_drift_down": null,
+          "spread_up": null,
+          "spread_down": null
+        }
+      },
+      "candidate_strongest_scan": {
+        "completed_devices": 56,
+        "site": "2",
+        "family": "Main",
+        "sample_count_per_test": 12,
+        "family_tests": 24,
+        "valid_tests": 24,
+        "hits": 3,
+        "hit_fraction": 0.125,
+        "threshold": 0.18666666666666665,
+        "fresh_site_samples": true,
+        "score": 0.6696428571428572,
+        "passed": false,
+        "persistence_scans": 0,
+        "direction": "down"
+      }
+    }
+  ],
+  "latency": {
+    "baseline_scan": {
+      "n": 200,
+      "median_ms": 86.2569,
+      "p95_ms": 112.95555999999995,
+      "max_ms": 194.6605
+    },
+    "candidate_scan": {
+      "n": 125,
+      "median_ms": 94.5043,
+      "p95_ms": 109.3305,
+      "max_ms": 159.5524
+    },
+    "candidate_add": {
+      "n": 2000,
+      "median_ms": 1.31285,
+      "p95_ms": 1.93401,
+      "max_ms": 4.4195
+    },
+    "combined_scan": {
+      "n": 200,
+      "median_ms": 179.25029999999998,
+      "p95_ms": 222.00785499999998,
+      "max_ms": 329.0952
+    }
+  },
+  "latency_limits": "Single local replay; candidate scan timings include full configured windows, baseline includes scans from 24 devices. Combined is serial analyze cost; parsing, baseline add, I/O and SDK callbacks excluded. No live deadline acceptance.",
+  "limitations": [
+    "Expected labels are evaluation metadata only; candidate receives site plus current completed-device measurements.",
+    "All 25 wafers were previously inspected; normal-check wafers 6/12/15/21/24 are not independent holdouts.",
+    "Exploratory W25 site-window SD/minimum-normal ratios at lengths 8 and 12 were inspected before this final candidate. No generalization claim.",
+    "Exact anomaly onset is unknown; first detection is completed-device position, not delay from onset.",
+    "Population SD and series retain source CSV units; no confirmed physical units or probability interpretation.",
+    "Requires trusted scope lifecycle and one add per completed device. Retest/head/missing-device semantics and machine latency remain untested."
+  ]
+}
