@@ -23,38 +23,38 @@ let recent: number[] = [];
 
 export async function handleChat(request: Request, forcedRunId?: string): Promise<Response> {
   const config = serverConfig();
-  if (!sameOrigin(request, config.publicOrigin)) return json({ error: "請從此網站發送請求。" }, 403);
+  if (!sameOrigin(request, config.publicOrigin)) return json({ error: "Send requests from this website." }, 403);
   let body: z.infer<typeof requestSchema>;
   try { body = requestSchema.parse(await readJsonBody(request, 65_536)); }
   catch (error) {
     if (error instanceof HttpInputError) return json({ error: error.message }, error.status);
-    return json({ error: "事件格式不完整或請求過大，請檢查輸入。" }, 400);
+    return json({ error: "Invalid or oversized investigation request. Check the input." }, 400);
   }
-  if (!forcedRunId && body.context === undefined && body.run_id === undefined) return json({ error: "context 或 run_id 至少需要一項。" }, 400);
-  if (forcedRunId && body.run_id && body.run_id !== forcedRunId) return json({ error: "run_id 與網址範圍不一致。" }, 409);
+  if (!forcedRunId && body.context === undefined && body.run_id === undefined) return json({ error: "Provide context or run_id." }, 400);
+  if (forcedRunId && body.run_id && body.run_id !== forcedRunId) return json({ error: "run_id does not match the requested route." }, 409);
 
   const queryTester = forcedRunId ? new URL(request.url).searchParams.get("tester_id") : null;
-  if (queryTester !== null && !id.safeParse(queryTester).success) return json({ error: "tester_id 格式不完整。" }, 400);
-  if (queryTester && body.tester_id && queryTester !== body.tester_id) return json({ error: "tester_id 與網址範圍不一致。" }, 409);
+  if (queryTester !== null && !id.safeParse(queryTester).success) return json({ error: "Invalid tester_id." }, 400);
+  if (queryTester && body.tester_id && queryTester !== body.tester_id) return json({ error: "tester_id does not match the requested route." }, 409);
 
   const view = body.context === undefined ? null : (() => {
     try { return validatedView(body.context); }
     catch { return null; }
   })();
-  if (body.context !== undefined && !view) return json({ error: "事件 context 格式不完整。" }, 400);
+  if (body.context !== undefined && !view) return json({ error: "Invalid event context." }, 400);
   if (body.mode === "demo") {
-    if (!view) return json({ error: "示範解讀需要目前畫面事件。" }, 400);
+    if (!view) return json({ error: "Rule-based analysis requires the selected event." }, 400);
     return json({ mode: "demo", answer: demoAnswer(view, body.question), model: null, evidence_ids: view.evidence.map(item => item.evidence_id), investigation_id: null });
   }
 
   const { key, model } = config;
-  if (!key) return json({ error: "尚未設定伺服器端 OPENAI_API_KEY。可切換到示範解讀。", code: "missing_api_key" }, 503);
+  if (!key) return json({ error: "The investigation service is not configured. Rule-based analysis is available in the sandbox.", code: "missing_api_key" }, 503);
   recent = recent.filter(time => Date.now() - time < 60_000);
-  if (recent.length >= 6) return json({ error: "請稍候再試，每分鐘最多 6 次 AI 請求。", code: "rate_limited" }, 429);
+  if (recent.length >= 6) return json({ error: "Investigation rate limit reached (6 requests per minute). Try again later.", code: "rate_limited" }, 429);
   recent.push(Date.now());
 
   const runId = forcedRunId ?? body.run_id ?? view?.event.run_id;
-  if (!runId) return json({ error: "缺少 run_id。" }, 400);
+  if (!runId) return json({ error: "Missing run_id." }, 400);
   let testerId = queryTester ?? body.tester_id ?? view?.event.tester_id ?? null;
   const persisted = Boolean(forcedRunId || body.run_id);
   let investigationId: string | null = null;
@@ -62,10 +62,10 @@ export async function handleChat(request: Request, forcedRunId?: string): Promis
   try {
     if (persisted) {
       const snapshot = await getRunSnapshot(runId, testerId);
-      if (!snapshot) return json({ error: "找不到指定 run。", code: "run_not_found" }, 404);
+      if (!snapshot) return json({ error: "The requested run was not found.", code: "run_not_found" }, 404);
       testerId = snapshot.run.tester_id;
       if (body.incident_id && !snapshot.incidents.some(item => item.incident_id === body.incident_id)) {
-        return json({ error: "找不到指定範圍的 incident。", code: "incident_not_found" }, 404);
+        return json({ error: "The incident was not found in the requested scope.", code: "incident_not_found" }, 404);
       }
       investigationId = await startInvestigation({ run_id: runId, tester_id: snapshot.run.tester_id, incident_id: body.incident_id, question: body.question, model });
     }
@@ -89,13 +89,13 @@ export async function handleChat(request: Request, forcedRunId?: string): Promis
       }); }
       catch { /* Keep the original failure as the user-facing error. */ }
     }
-    if (error instanceof StorageUnavailableError) return json({ error: "後端資料庫尚未啟用。", code: "storage_unavailable" }, 503);
+    if (error instanceof StorageUnavailableError) return json({ error: "Investigation storage is unavailable.", code: "storage_unavailable" }, 503);
     if (error instanceof AmbiguousScopeError) return json({ error: error.message, code: "ambiguous_scope" }, 409);
     const status = (error as (Error & { status?: number }) | null)?.status;
-    if (status === 401) return json({ error: "OpenAI 認證失敗，請檢查伺服器 API key。", code: "upstream_error" }, 502);
-    if (status === 429) return json({ error: "OpenAI 用量或速率受限，請稍後再試。", code: "upstream_error" }, 502);
-    if (status === 403 || status === 404) return json({ error: "無法使用所設定的 OpenAI 模型，請檢查模型名稱與權限。", code: "upstream_error" }, 502);
-    if (error instanceof DOMException && error.name === "TimeoutError") return json({ error: "AI 調查逾時；Edge 預測不受影響。", code: "connection_error" }, 504);
-    return json({ error: "AI 調查失敗；Edge 預測與既有告警仍會繼續運作。", code: "investigation_failed" }, 502);
+    if (status === 401) return json({ error: "Model authentication failed. Check the server API key.", code: "upstream_error" }, 502);
+    if (status === 429) return json({ error: "Model quota or rate limit reached. Try again later.", code: "upstream_error" }, 502);
+    if (status === 403 || status === 404) return json({ error: "The configured model is unavailable. Check its name and access permissions.", code: "upstream_error" }, 502);
+    if (error instanceof DOMException && error.name === "TimeoutError") return json({ error: "Investigation timed out. Edge predictions are unaffected.", code: "connection_error" }, 504);
+    return json({ error: "Investigation failed. Edge predictions and existing alerts are unaffected.", code: "investigation_failed" }, 502);
   }
 }

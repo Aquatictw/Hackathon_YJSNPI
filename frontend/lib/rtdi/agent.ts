@@ -29,7 +29,7 @@ export async function runToolInvestigation(input: {
   const evidenceIds = new Set<string>();
   const conversation: unknown[] = [
     ...input.history,
-    { role: "user", content: `調查範圍：${JSON.stringify(input.scope)}\n問題：${input.question}` },
+    { role: "user", content: `Investigation scope: ${JSON.stringify(input.scope)}\nQuestion: ${input.question}` },
   ];
   let toolCalls = 0;
 
@@ -57,8 +57,9 @@ export async function runToolInvestigation(input: {
         signal: AbortSignal.timeout(Math.min(30_000, remainingMs)),
         body: JSON.stringify({
           model: input.model,
+          reasoning: { effort: "medium" },
           store: false,
-          instructions: `${instructions}\n每次調查第一步必須先呼叫工具確認 run 範圍。異常數值結論必須先取得 incident evidence；工具失敗或證據不足時不得補猜。工具調查回覆只引用工具已驗證的 evidence_id；沒有 evidence 時不要自行加入括號 ID。`,
+          instructions: `${instructions}\nFirst call a tool to verify the run scope. Retrieve incident evidence before making numerical anomaly claims. Never guess when tools fail or evidence is insufficient. Cite only evidence_id values verified by the tools; do not invent bracketed IDs when no evidence exists. Previous non-English answers do not change the English-only output requirement.`,
           input: conversation,
           tools: toolDefinitions,
           tool_choice: toolCalls === 0 ? "required" : "auto",
