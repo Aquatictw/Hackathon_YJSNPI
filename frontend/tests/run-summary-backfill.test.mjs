@@ -1,9 +1,9 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { DatabaseSync } from 'node:sqlite';
-import { mkdtempSync, readFileSync, rmSync, existsSync } from 'node:fs';
+import { mkdtempSync, readFileSync, rmSync, existsSync, symlinkSync } from 'node:fs';
 import { tmpdir } from 'node:os';
-import { join } from 'node:path';
+import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { spawnSync } from 'node:child_process';
 import { normalizeExporterBatch } from '../lib/rtdi/exporter-wire.ts';
@@ -125,6 +125,44 @@ test('CLI default dry-run is read-only; apply is additive, scoped, idempotent an
   const stable = dump(dbPath);
   assert.equal((await backfillRunSummaries({ dbPath, apply: true })).updated, 0);
   assert.deepEqual(dump(dbPath), stable);
+});
+
+test('CLI runs through a current directory symlink and keeps dry-run read-only', async t => {
+  const dbPath = await fixture(t);
+  const bytes = readFileSync(dbPath);
+  const current = join(dirname(dbPath), 'current');
+  try {
+    symlinkSync(fileURLToPath(new URL('../../', import.meta.url)), current, 'dir');
+  } catch (error) {
+    if (!['EPERM', 'EACCES', 'ENOSYS', 'ENOTSUP'].includes(error.code)) throw error;
+    t.skip(`Directory symlinks unavailable: ${error.code}`);
+    return;
+  }
+  const script = join(current, 'deploy', 'vps-preview', 'backfill-run-summaries.mjs');
+  const cli = spawnSync(process.execPath, [script, '--db', dbPath], { encoding: 'utf8' });
+  assert.equal(cli.status, 0, cli.stderr);
+  const report = JSON.parse(cli.stdout);
+  assert.equal(report.mode, 'dry-run');
+  assert.equal(report.scanned, 2);
+  assert.equal(report.eligible, 2);
+  assert.equal(report.updated, 0);
+  assert.deepEqual(readFileSync(dbPath), bytes);
+});
+
+test('import-only use never runs the CLI, including absent or nonexistent argv entrypoints', async t => {
+  const dbPath = await fixture(t);
+  const bytes = readFileSync(dbPath);
+  const moduleUrl = new URL('../../deploy/vps-preview/backfill-run-summaries.mjs', import.meta.url).href;
+  for (const args of [[], [join(dirname(dbPath), 'missing.mjs')], [fileURLToPath(import.meta.url)]]) {
+    const cli = spawnSync(process.execPath, [
+      '--input-type=module', '--eval', `await import(${JSON.stringify(moduleUrl)});`,
+      ...args, ...(args.length ? ['--db', dbPath, '--apply'] : []),
+    ], { encoding: 'utf8' });
+    assert.equal(cli.status, 0, cli.stderr);
+    assert.equal(cli.stdout, '');
+    assert.doesNotMatch(cli.stderr, /Run-summary repair failed/);
+    assert.deepEqual(readFileSync(dbPath), bytes);
+  }
 });
 
 test('repair preserves zero and does not derive missing yield from valid counts', async t => {

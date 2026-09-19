@@ -5,7 +5,7 @@
 import { DatabaseSync } from 'node:sqlite';
 import { realpathSync, statSync } from 'node:fs';
 import { resolve } from 'node:path';
-import { pathToFileURL } from 'node:url';
+import { fileURLToPath } from 'node:url';
 import { normalizeExporterBatch } from '../../frontend/lib/rtdi/exporter-wire.ts';
 import { canonicalJson, contentHash, edgeRecordSchema } from '../../frontend/lib/rtdi/wire.ts';
 import { decodeUtf8Base64Chunks } from '../../frontend/lib/rtdi/raw-payload.ts';
@@ -124,7 +124,18 @@ export function parseArgs(args) {
   return { dbPath, apply: mode === '--apply' };
 }
 
-if (process.argv[1] && pathToFileURL(resolve(process.argv[1])).href === import.meta.url) {
+function isMainModule() {
+  if (!process.argv[1]) return false;
+  try {
+    // Deployment's current directory may be a symlink to the real release.
+    return realpathSync(process.argv[1]) === realpathSync(fileURLToPath(import.meta.url));
+  } catch {
+    // Importers (including --eval) need not provide an existing entrypoint.
+    return false;
+  }
+}
+
+if (isMainModule()) {
   try {
     console.log(JSON.stringify(await backfillRunSummaries(parseArgs(process.argv.slice(2))), null, 2));
   } catch (error) {

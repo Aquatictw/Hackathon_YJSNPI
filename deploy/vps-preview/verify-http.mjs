@@ -9,10 +9,17 @@ async function read(path) {
   return response;
 }
 const assets = new Set();
-for (const path of ['/', '/replay']) {
+for (const path of ['/', '/workspace', '/replay', '/sandbox']) {
   const html = await (await read(path)).text();
   assert.match(html, /RTDI/);
-  assert.match(html, /theme-selector/, `${path}: deployed theme control`);
+  // Workspace restores the browser-tab source before rendering its controls.
+  // Check that intentional SSR shell here; hydrated controls need a browser check.
+  if (path === '/' || path === '/workspace') {
+    assert.match(html, /aria-busy="true"/, `${path}: source-restoration shell`);
+    assert.match(html, /Restoring selected source/, `${path}: source-restoration status`);
+  } else {
+    assert.match(html, /theme-selector/, `${path}: deployed theme control`);
+  }
   for (const match of html.matchAll(/(?:src|href)="([^"]+\.(?:js|css))"/g)) {
     if (match[1].startsWith('/')) assets.add(match[1]);
   }

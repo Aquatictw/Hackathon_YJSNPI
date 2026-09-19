@@ -1,0 +1,268 @@
+{
+  "verified_at": "2026-09-19T19:45:54.613Z",
+  "application_revision": "de8ff5c776d49fd032e4398d1c23353fef73c451",
+  "scope": "Public preview acceptance after activation of the application revision; subsequent helper/docs/test publication retains identical application source.",
+  "public_http": {
+    "origin": "https://hackathon.aquatictw.com",
+    "homepage": 200,
+    "replay": 200,
+    "assets": 18,
+    "events": 114,
+    "predictions": 24,
+    "joined_actuals": 24,
+    "measurement_count": 134,
+    "mode": "replay",
+    "sse": "ready",
+    "ai": true,
+    "commands": false,
+    "origin_checks": [
+      {
+        "path": "/api/assistant",
+        "request_origin": "https://hackathon.aquatictw.com",
+        "status": 400
+      },
+      {
+        "path": "/api/assistant",
+        "request_origin": "https://untrusted.invalid",
+        "status": 403
+      },
+      {
+        "path": "/api/v1/runs/grp6-replay-demo/chat",
+        "request_origin": "https://hackathon.aquatictw.com",
+        "status": 400
+      },
+      {
+        "path": "/api/v1/runs/grp6-replay-demo/chat",
+        "request_origin": "https://untrusted.invalid",
+        "status": 403
+      }
+    ],
+    "paid_ai_calls": 0
+  },
+  "fresh_run": {
+    "observed_at": "2026-09-19T19:44:04.398Z",
+    "application_revision": "de8ff5c776d49fd032e4398d1c23353fef73c451",
+    "origin": "https://hackathon.aquatictw.com",
+    "run": {
+      "run_id": "04dcb07358ee4f3da41e5cbc12cb9850",
+      "tester_id": "group-6",
+      "edge_id": "grp6-hc-relay",
+      "mode": "live",
+      "lot_id": "B13456",
+      "wafer_id": "02",
+      "data_quality": "partial",
+      "last_event_at": "2026-09-19T19:11:38.946Z"
+    },
+    "events": 1723,
+    "predictions": 480,
+    "joined_actuals": 480,
+    "incidents": 3,
+    "evidence": 3,
+    "yield_records": 20,
+    "completed_devices": 80,
+    "yield_fraction": 0.925,
+    "sse": {
+      "ready": true,
+      "heartbeat": true,
+      "edge_events": 1723
+    },
+    "catalog": {
+      "runs": [
+        {
+          "run_id": "d132133657be459e8e97b6fd442142e2",
+          "tester_id": "group-6",
+          "edge_id": "grp6-recorded-capture",
+          "mode": "replay",
+          "last_event_at": "2026-09-19T07:07:51.743Z",
+          "updated_at": "2026-09-19 19:37:37"
+        },
+        {
+          "run_id": "ae20cd5ae29d47af87163265205ffced",
+          "tester_id": "group-6",
+          "edge_id": "grp6-recorded-capture",
+          "mode": "replay",
+          "last_event_at": "2026-09-19T06:32:48.037Z",
+          "updated_at": "2026-09-19 19:37:31"
+        },
+        {
+          "run_id": "04dcb07358ee4f3da41e5cbc12cb9850",
+          "tester_id": "group-6",
+          "edge_id": "grp6-hc-relay",
+          "mode": "live",
+          "last_event_at": "2026-09-19T19:11:38.946Z",
+          "updated_at": "2026-09-19 19:11:44"
+        },
+        {
+          "run_id": "3f46468325ac47de894e6a13d3c672e0",
+          "tester_id": "group-6",
+          "edge_id": "grp6-hc-relay",
+          "mode": "live",
+          "last_event_at": "2026-09-19T18:10:59.496Z",
+          "updated_at": "2026-09-19 19:02:43"
+        },
+        {
+          "run_id": "grp6-replay-demo",
+          "tester_id": "grp6-replay",
+          "edge_id": "grp6-replay-exporter",
+          "mode": "replay",
+          "last_event_at": "2026-09-19T02:47:32.000Z",
+          "updated_at": "2026-09-19 10:31:19"
+        }
+      ],
+      "next_offset": null
+    },
+    "paid_ai_calls": 0
+  },
+  "recorded_runs": {
+    "origin": "https://hackathon.aquatictw.com",
+    "runs": [
+      {
+        "run_id": "ae20cd5ae29d47af87163265205ffced",
+        "tester_id": "group-6",
+        "events": 99,
+        "predictions": 24,
+        "joined_actuals": 24,
+        "incidents": 0,
+        "last_event_at": "2026-09-19T06:32:48.037Z",
+        "sse": "ready",
+        "mode": "recorded/replay"
+      },
+      {
+        "run_id": "d132133657be459e8e97b6fd442142e2",
+        "tester_id": "group-6",
+        "events": 1723,
+        "predictions": 480,
+        "joined_actuals": 480,
+        "incidents": 3,
+        "last_event_at": "2026-09-19T07:07:51.743Z",
+        "sse": "ready",
+        "mode": "recorded/replay"
+      }
+    ],
+    "paid_ai_calls": 0,
+    "first_import": {
+      "accepted": 814,
+      "duplicates": 0
+    },
+    "retry": {
+      "accepted": 0,
+      "duplicates": 814
+    }
+  },
+  "yield_repair": {
+    "backup": {
+      "backup": "/opt/grp6-preview/backups/yield-repair-20260919T194144Z/database.sqlite",
+      "integrity": "ok",
+      "events": 3874
+    },
+    "dry_run": {
+      "scanned": 44,
+      "eligible": 23,
+      "updated": 0
+    },
+    "applied": {
+      "scanned": 44,
+      "eligible": 23,
+      "updated": 23
+    },
+    "repeat": {
+      "scanned": 44,
+      "eligible": 0,
+      "updated": 0
+    },
+    "identity_preservation": "Helper validates raw hashes, scoped identity, timestamps and normalized projection before adding missing fields; no raw records or SSE row cursors rewritten."
+  },
+  "browser": {
+    "method": "Public in-app Chromium, direct UI interactions and visible DOM/screenshot checks",
+    "workspace": {
+      "metrics": [
+        3,
+        3,
+        480
+      ],
+      "source": "Gemini host log relay",
+      "original_timestamp": "2026-09-19T19:11:38.946Z",
+      "source_age_distinct_from_sse": true,
+      "stored_runs": 5
+    },
+    "analysis": {
+      "same_run_navigation": true,
+      "sse_connected": true,
+      "evidence_charts": true,
+      "predicted_actual_values": true,
+      "yield_percent": 92.5,
+      "offline_archive_separate": true,
+      "recorded_engineering": {
+        "events": 99,
+        "predictions": 24,
+        "joined_actuals": 24
+      }
+    },
+    "sandbox": {
+      "four_named_examples": true,
+      "missing_stage3": {
+        "coverage_percent": 75,
+        "prediction_unavailable": true
+      },
+      "late_stage6": {
+        "prediction": 26.05,
+        "actual_after_receive": 26.02
+      },
+      "tester_confirmation_unclaimed": true,
+      "paid_ai_calls": 0
+    },
+    "guide": {
+      "chapter_order": [
+        "Workspace",
+        "Analysis",
+        "Sandbox"
+      ],
+      "public_chinese_welcome": true,
+      "public_mobile_chinese_welcome": true,
+      "english_navigation": true
+    },
+    "responsive": {
+      "viewport_width": 390,
+      "document_width": 375,
+      "horizontal_page_overflow": false,
+      "temporary_override_restored": true
+    }
+  },
+  "local_validation": {
+    "frontend_suite": {
+      "passed": 238,
+      "failed": 0,
+      "skipped": 0,
+      "revision": "de8ff5c776d49fd032e4398d1c23353fef73c451"
+    },
+    "typescript": "pass",
+    "production_build": "pass",
+    "deployment_tests": {
+      "passed": 39,
+      "skipped": 1
+    },
+    "recorded_import_tests": {
+      "passed": 10
+    },
+    "followup_backfill_tests": {
+      "passed": 21,
+      "skipped": 0,
+      "symlink_cli_regression": true,
+      "import_only_preserved": true
+    }
+  },
+  "release_notes": [
+    "HTTP verification now checks the intentional source-restoration SSR shell on / and /workspace; hydrated controls were checked in the browser.",
+    "Backfill CLI entrypoint resolves symlinks; application used the real release path for the recorded repair.",
+    "SQLite backup is consistent and has integrity ok; 3874 events were present before additive repair."
+  ],
+  "remaining_limits": [
+    "Supplied deterministic ORE input is not independent physical validation.",
+    "Prior 119/120 request gap cause; effective prediction deadline and units/scaling remain unresolved.",
+    "Final-boundary later-poll receipt and actual Edge image digest remain unverified.",
+    "Host idle restart verified; live network-outage and automatic reboot recovery not demonstrated.",
+    "Native Edge exporter disabled; host relay samples logs and does not provide full native measurement coverage.",
+    "Public user authentication/durable quota and command execution remain open; no paid model requests were made.",
+    "W2/W25 deferred; no detector candidate promotion or full-score guarantee."
+  ]
+}
