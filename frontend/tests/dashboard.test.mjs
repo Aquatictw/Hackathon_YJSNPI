@@ -17,3 +17,7 @@ test('unknown provenance is not inferred as live and absent evidence remains abs
 test('run URL encodes identifiers without permitting route or query injection',()=>{
  assert.equal(runUrl('a/b','x&other=1','/events'),'/api/v1/runs/a%2Fb/events?tester_id=x%26other%3D1');
 });
+test('snapshot rejects same event ID with changed content across projections',()=>{
+ assert.throws(()=>parseSnapshot({...snapshot,evidence:[{...event,source_mode:'live'}]},'r1','t1'));
+ assert.equal(parseSnapshot({...snapshot,evidence:[event]},'r1','t1').evidence.length,1);
+});

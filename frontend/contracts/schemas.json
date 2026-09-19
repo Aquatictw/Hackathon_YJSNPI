@@ -11,7 +11,7 @@
         "event_id": {
           "type": "string",
           "minLength": 1,
-          "maxLength": 120
+          "maxLength": 8192
         },
         "occurred_at": {
           "type": "string",
@@ -86,7 +86,7 @@
             {
               "type": "string",
               "minLength": 1,
-              "maxLength": 120
+              "maxLength": 8192
             },
             {
               "type": "null"
@@ -98,7 +98,7 @@
           "items": {
             "type": "string",
             "minLength": 1,
-            "maxLength": 120
+            "maxLength": 8192
           },
           "maxItems": 20
         },
@@ -137,12 +137,12 @@
         "evidence_id": {
           "type": "string",
           "minLength": 1,
-          "maxLength": 120
+          "maxLength": 8192
         },
         "event_id": {
           "type": "string",
           "minLength": 1,
-          "maxLength": 120
+          "maxLength": 8192
         },
         "run_id": {
           "type": "string",
@@ -247,7 +247,7 @@
             ],
             "additionalProperties": false
           },
-          "maxItems": 160
+          "maxItems": 320
         },
         "missing_fields": {
           "type": "array",
@@ -256,6 +256,44 @@
             "maxLength": 120
           },
           "maxItems": 32
+        },
+        "site_series": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            },
+            "maxItems": 320
+          }
+        },
+        "score": {
+          "type": "number"
+        },
+        "suggestion": {
+          "type": "string",
+          "maxLength": 1000
+        },
+        "response_status": {
+          "enum": [
+            "not_requested",
+            "insufficient_data",
+            "response_queued",
+            "tester_confirmed",
+            "unknown"
+          ]
+        },
+        "tester_receipt_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 120
+            },
+            {
+              "type": "null"
+            }
+          ]
         }
       },
       "required": [
@@ -277,7 +315,33 @@
         "series",
         "missing_fields"
       ],
-      "additionalProperties": false
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "required": [
+              "response_status"
+            ],
+            "properties": {
+              "response_status": {
+                "const": "tester_confirmed"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "tester_receipt_id"
+            ],
+            "properties": {
+              "tester_receipt_id": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 120
+              }
+            }
+          }
+        }
+      ]
     },
     "prediction": {
       "type": "object",
@@ -288,12 +352,12 @@
         "prediction_id": {
           "type": "string",
           "minLength": 1,
-          "maxLength": 120
+          "maxLength": 8192
         },
         "event_id": {
           "type": "string",
           "minLength": 1,
-          "maxLength": 120
+          "maxLength": 8192
         },
         "run_id": {
           "type": "string",
@@ -413,6 +477,22 @@
               "type": "null"
             }
           ]
+        },
+        "request_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "source_mode": {
+          "enum": [
+            "simulation",
+            "replay",
+            "live"
+          ]
+        },
+        "attempt": {
+          "type": "integer",
+          "minimum": 1
         }
       },
       "required": [
@@ -467,7 +547,7 @@
         "incident_id": {
           "type": "string",
           "minLength": 1,
-          "maxLength": 120
+          "maxLength": 8192
         },
         "run_id": {
           "type": "string",
@@ -524,7 +604,7 @@
           "items": {
             "type": "string",
             "minLength": 1,
-            "maxLength": 120
+            "maxLength": 8192
           },
           "minItems": 1,
           "maxItems": 40
@@ -534,7 +614,7 @@
           "items": {
             "type": "string",
             "minLength": 1,
-            "maxLength": 120
+            "maxLength": 8192
           },
           "maxItems": 40
         },
@@ -584,7 +664,7 @@
         "incident_id": {
           "type": "string",
           "minLength": 1,
-          "maxLength": 120
+          "maxLength": 8192
         },
         "message": {
           "type": "string",
@@ -641,9 +721,10 @@
         },
         "status": {
           "enum": [
-            "edge_received",
-            "edge_executed",
+            "received",
+            "queued_to_tester",
             "tester_confirmed",
+            "rejected",
             "failed",
             "expired"
           ]
@@ -711,7 +792,7 @@
         "batch_id": {
           "type": "string",
           "minLength": 1,
-          "maxLength": 120
+          "maxLength": 8192
         },
         "sent_at": {
           "type": "string",
@@ -739,7 +820,11 @@
             ]
           },
           "minItems": 1,
-          "maxItems": 100
+          "maxItems": 200
+        },
+        "source_batch": {
+          "$ref": "edge-v1.schema.json",
+          "description": "Original normalized wire batch; retained for identity conflicts and provenance, including actual events."
         }
       },
       "required": [
