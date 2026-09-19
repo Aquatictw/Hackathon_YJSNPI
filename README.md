@@ -225,3 +225,62 @@ Replay needs no SDK connection or NumPy. Present connection/data freshness and l
 Available role evidence supports A (machine integration/deployment), with substantial B contributions (data/models/detection), using architecture §13.1 roles. A's full live acceptance remains open and B has the W25 gap. External backend/transport, LLM agent, and interactive website are not established by this implementation; HTML report is a starting artifact for the website role. Align with teammates before treating the architecture and grp6_app as one implementation. External services must not block local predictions, basic alerts, or core rehearsal.
 
 References: `Question_20260919.pdf` (requirements/scoring), `WorkShop_Material.pdf` (transfer p11, development/deployment pp19–26, data/anomalies pp28–29), `ONEAPI_Manual.pdf` (Monitor, NexusData, ActionManager, lifecycle), `py-app.dockerfile`, `requirements.txt`. Extracted texts are in tmp/pdfs. Supplied py-app.log is reference output only, never evidence of our live run.
+
+## Frontend prototype and integration
+
+The merged E prototype in frontend/ is local-only: React/Vinext/TypeScript dashboard, six-stage prediction/actual table, evidence charts, JSON validation/deduplication, synthetic normal/anomaly/missing/duplicate scenarios, and separated demo/OpenAI chat modes. It does not read competition CSVs, change machine behavior, send commands, or establish live integration. Models/detectors remain on Edge; exporter/backend integration is pending.
+
+### Setup and recorded verification
+
+Node >=22.18 is required (teammate used 24.15); dependencies are locked. From repository root:
+
+~~~bash
+cd frontend
+npm ci
+npm run dev -- --host 127.0.0.1
+# Verification:
+npm test
+npx tsc --noEmit
+npm run build
+~~~
+
+Preview defaults to http://localhost:5173. Browser state keeps at most 100 recent batches and clears on refresh, not durable storage/deduplication. Teammate checkpoint: 11 contract tests, TypeScript and build passed; browser receive → evidence → demo-answer and explicit missing-key 503 checked. Config exposes no key. Optional WebMCP receive_rtdi_demo_batch loads synthetic examples only; one valid anomaly call was tested, not complete WebMCP acceptance. Real OpenAI and live frontend acceptance remain unverified.
+
+The implemented local proxy uses frontend/.dev.vars copied from .dev.vars.example, with server-only OPENAI_API_KEY / OPENAI_MODEL; restart and refresh after configuring. Process environment also works; .env.example is a Node-backend migration reference. Never place keys in frontend code, messages, or NEXT_PUBLIC_/VITE_ variables. /api/config returns configuration status only. /api/assistant explicitly separates rule-based demo mode from model mode, keeps histories separate, and never silently substitutes demo answers after errors. Model mode uses a fixed Responses endpoint, store:false, 30-second timeout, selected event/evidence/incident/predictions, and latest 10 event/mode-specific chat messages. No machine tools or multi-step investigation implemented. This describes repository code, not production acceptance.
+
+Same-origin checks, input bounds, and per-process rate limits are local safeguards, not public auth. D owns user/team scope, durable rate/cost controls, formal AI tools and commands/ACKs. Confirm permitted export before sending competition data. AI text never establishes tester receipt.
+
+### Team boundaries and files
+
+| Owner | Integration responsibility |
+| --- | --- |
+| A / B | Actual SDK transport, predictions, verified units/scope and tester receipts. |
+| C | Actual anomaly evidence/incident fixtures: kind/direction, sites, baseline/current, counts, sequence/time, units, series and method version. |
+| D | Final v1 schema; durable ingest/snapshot/SSE, auth, LLM tools, commands/results and validated receipts. |
+| E | Adapt D's event stream and C's evidence into UI; prototype milestone complete, further features await integration. |
+
+frontend/app/page.tsx is UI; lib/rtdi/contracts.ts validates/deduplicates; lib/rtdi/edge-adapter.ts adapts v1; app/api/assistant/route.ts is a thin proxy D can port without adopting this framework. frontend/contracts/schemas.json defines Draft 2020-12 event/prediction/evidence/incident/command/command_ack/batch schemas. Normal/anomaly/missing/duplicate fixtures are synthetic; duplicate reuses anomaly IDs. Sample a.u./demo °C units do not establish SDK units; observed example means equal series means. Third-party notice frontend/vendor/shadcn-tailwind-4.13.0.LICENSE.md is retained separately.
+
+### View model and proposed backend contract
+
+The supplied message.txt was an architecture example, not a final API. 0.1-draft is an internal UI view model, not an Edge requirement. The limited adapter accepts {schema_version:1,edge_id,batch_id,events} with measurement, prediction, prediction_actual, evidence, heartbeat, run_summary; maps site_id/source_mode/timestamp/prediction/current_value. Try frontend/contracts/examples/edge-v1-batch.json. Unknown lot/wafer/unit stays unknown; no series means no chart; absent coverage/ACK never implies complete delivery. Multi-site evidence stays descriptive pending site-level summaries.
+
+prediction_actual requires event_id/timestamp/run_id/tester_id/request_id and one uniquely matching prior prediction (site_id/device_id recommended); request_id alone cannot join across runs. UI IDs must be globally unique and same-ID/different-content is rejected. Backend scoped keys need unique UI conversion. Preserve run/tester and applicable lot/wafer/site; never merge across scopes. View-model timestamps are timezone-qualified ISO 8601.
+
+Local-only input (browser memory, not HTTPS ingestion):
+
+~~~js
+window.dispatchEvent(new CustomEvent('rtdi:batch', {detail: batch}));
+~~~
+
+D must finalize these proposed, unimplemented routes:
+
+| Route | Draft behavior |
+| --- | --- |
+| POST /api/v1/events/batch | Up to 100 records / 256 KiB; scoped bearer auth; validate whole batch, durably store before 200. Dedup (run_id,tester_id,record_id), batch_id retry key; identical duplicate allowed, changed content 409. accepted/duplicates draft counts mean records. |
+| GET /api/v1/edge/commands?edge_id=...&after=... | Auth binds tester/run; return commands, next_cursor, poll_after_ms (example 3000). Edge dedups command_id, checks run/tester/expiry and saves state before execution; reject expired/wrong-scope/unsupported commands. |
+| POST /api/v1/commands/{command_id}/result | Persist/dedup ack_id before 200. edge_received → edge_executed → tester_confirmed are distinct; failed/expired retain reasons. confirmed requires independently verified tester_receipt_id plus command linkage, not just a valid string. |
+
+400/422 isolate bad outbox data; 401/403 fix auth before retry; 409 resolve ID conflict; 413 split batch; 429/5xx/network errors honor Retry-After or exponential backoff+jitter, retaining IDs/outbox. message.txt instead uses accepted ID arrays and queued/fetched/applied/confirmed; D must settle differences. Prefer accepted/duplicates/rejected ID arrays for precise outbox clearance. fetched=Edge received, applied=executed, confirmed=verified receipt. set_message success, AI text, and unverified ACK fixtures never establish confirmation.
+
+Still needed: base URL, token issuance, exact limits/errors/backoff, polling cursor, ACK endpoint and website aggregation (suggested run_id/mode/last_event_at/data_quality/device_count/yield/incidents/predictions/commands). Unknown values stay unknown. Test HTTPS POST from actual deployed container; if blocked jointly choose HC relay or internal backend. Frontend changed no machine network and supplies no production DB/ingest/SSE/auth/command path.
