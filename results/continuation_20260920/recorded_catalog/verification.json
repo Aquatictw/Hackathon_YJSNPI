@@ -1,0 +1,187 @@
+{
+  "schema_version": 1,
+  "status": "verified_offline_only",
+  "mode": "recorded",
+  "backend_mode": "replay",
+  "edge_id": "grp6-recorded-capture",
+  "source_label": "Recorded Gemini",
+  "invocation": {
+    "working_directory": "C:/Users/USER/Documents/hackathon2026",
+    "offline": "node frontend/scripts/import-recorded-captures.mjs",
+    "import": "node frontend/scripts/import-recorded-captures.mjs --endpoint http://127.0.0.1:5173/api/v1/events/batch",
+    "prerequisite": "A supplies INGEST_TOKEN in the process environment and runs the existing migrated backend. Explicit endpoint is the only network opt-in; it was not executed by this worker.",
+    "tests": "node --test frontend/scripts/import-recorded-captures.test.mjs",
+    "lint": "cd frontend; node node_modules/eslint/bin/eslint.js scripts/import-recorded-captures.mjs scripts/import-recorded-captures.test.mjs",
+    "regenerate_catalog": "node frontend/scripts/import-recorded-captures.mjs --manifest results/continuation_20260920/recorded_catalog/catalog.json",
+    "export_batches": "node frontend/scripts/import-recorded-captures.mjs --output <new-local-batches.json>"
+  },
+  "verification": {
+    "tests_passed": 10,
+    "tests_failed": 0,
+    "scoped_eslint": "passed",
+    "storage": "Actual repository SQL against isolated in-memory SQLite; injected fetch makes zero network calls.",
+    "first_ingest": {
+      "accepted": 814,
+      "duplicates": 0
+    },
+    "retry": {
+      "accepted": 0,
+      "duplicates": 814
+    },
+    "stored_runs": 2,
+    "stored_source_events": 814,
+    "stored_total_events": 1822,
+    "joined_predictions": 504,
+    "incidents": 3,
+    "original_records_recovered": 814,
+    "commands_on_recorded_runs": "rejected by actual repository",
+    "source_sha256_before_after": "unchanged",
+    "remote_access": false,
+    "paid_ai_calls": 0,
+    "batch_order_and_overlap": "Reversed file/line ordering and duplicate/overlapping captures produce identical ingestion batches.",
+    "output_safety": "New-or-identical only; differing existing output files are not overwritten."
+  },
+  "raw_to_exporter_mapping": {
+    "event_id": "unchanged original event_id",
+    "run_id": "unchanged original run_id",
+    "tester_id": "original tester; no inferred tester",
+    "sequence": "unchanged process-local sequence, including visible gaps",
+    "event_type": "original kind",
+    "original_kind": "original kind",
+    "timestamp": "original time (Unix seconds); never current wall clock or synthetic ordering time",
+    "mode": "replay",
+    "source_mode": "replay",
+    "original_source_mode": "original source_mode (live for these captures)",
+    "lot_id": "original lot, empty/absent -> null",
+    "wafer_id": "original wafer, empty/absent -> null",
+    "capture_record": "Complete unmodified parsed original JSON object, including original ISO timestamp/source_mode.",
+    "recorded_import": "version=1, mode=recorded, live_integration=false, original_source_mode, original_timestamp, canonical record SHA256.",
+    "predictions": "Original request_id, prediction_ids, device_ids, values, coverage, units and response status feed existing backend projection.",
+    "provenance": "File hashes and 1-based JSONL line references are catalog-only so duplicate copies do not alter backend event identity.",
+    "batch_id": "recorded- plus SHA256 of canonical [edge_id, events]; no random UUID or date override."
+  },
+  "run_catalog": [
+    {
+      "run_id": "ae20cd5ae29d47af87163265205ffced",
+      "tester_id": "group-6",
+      "label": "Engineering check",
+      "first_timestamp": "2026-09-19T06:32:37.975787+00:00",
+      "last_timestamp": "2026-09-19T06:32:48.037841+00:00",
+      "counts": {
+        "source_events": 51,
+        "source_kinds": {
+          "boundary_end": 1,
+          "device_end": 4,
+          "lot_start": 1,
+          "measurement": 12,
+          "metadata_scope": 1,
+          "prediction_actual": 24,
+          "prediction_request": 6,
+          "run_summary": 1,
+          "test_start": 1
+        },
+        "batches": 1,
+        "projected_predictions": 24,
+        "projected_actuals": 24,
+        "joined_predictions": 24,
+        "evidence": 0,
+        "backend_events": 99
+      }
+    },
+    {
+      "run_id": "d132133657be459e8e97b6fd442142e2",
+      "tester_id": "group-6",
+      "label": "Production run 3",
+      "first_timestamp": "2026-09-19T07:04:45.401530+00:00",
+      "last_timestamp": "2026-09-19T07:07:51.743604+00:00",
+      "counts": {
+        "source_events": 763,
+        "source_kinds": {
+          "action_message": 3,
+          "alert": 3,
+          "boundary_end": 1,
+          "device_end": 80,
+          "lot_start": 1,
+          "measurement": 12,
+          "metadata_scope": 1,
+          "prediction_actual": 480,
+          "prediction_request": 120,
+          "production_action_response": 20,
+          "progress": 2,
+          "run_summary": 20,
+          "test_start": 20
+        },
+        "batches": 8,
+        "projected_predictions": 480,
+        "projected_actuals": 480,
+        "joined_predictions": 480,
+        "evidence": 3,
+        "backend_events": 1723
+      }
+    }
+  ],
+  "counts": {
+    "input_rows": 1583,
+    "unique_capture_records": 818,
+    "duplicate_capture_rows": 765,
+    "excluded_records": 4,
+    "runs": 2,
+    "source_events": 814,
+    "batches": 9,
+    "backend_events": 1822
+  },
+  "source_hashes": [
+    {
+      "path": "results/vm_engineering/grp6_core_eng_evidence.jsonl",
+      "sha256": "274c1892e177dc6834bfd6931b8924c560e53fb9a5f367766434591fbedb4da3"
+    },
+    {
+      "path": "results/vm_production/grp6_core_prod3_capture_all.jsonl",
+      "sha256": "a37b70d8829fc27a410907eca636092f2a7470b1505e86075962ed3b790c2bb7"
+    },
+    {
+      "path": "results/vm_production/grp6_core_prod3_evidence.jsonl",
+      "sha256": "dcd2fda6e8b09dd9fb51f9c713098c756abd1d24caece813a709af6bcd8fa4af"
+    }
+  ],
+  "files": [
+    {
+      "path": "frontend/scripts/import-recorded-captures.mjs",
+      "sha256": "13b44cacdcadd13f2abbd579a29093dc54c31c0e35e66a9dad918d13975338c8"
+    },
+    {
+      "path": "frontend/scripts/import-recorded-captures.test.mjs",
+      "sha256": "95398dc47d91e3708b771e97f638ed1d77e638a1a719a6222ac9f4b51f0a1275"
+    },
+    {
+      "path": "results/continuation_20260920/recorded_catalog/catalog.json",
+      "sha256": "3879ab458e7c976110347db38f2267f5e295ad9301eafc9166ee82de419480d2"
+    }
+  ],
+  "limitations": [
+    "Historical recorded captures; backend replay mode disables commands. This is not live transport acceptance.",
+    "Runs preserve original identities. Repeated supplied ORE inputs are not independent measurement data.",
+    "Only captured first-12 measurement samples, targets and alert windows exist; no full DeviceCompletedBundle is fabricated.",
+    "Exporter normalization exposes millisecond ISO times; exact original ISO timestamps and Unix seconds remain in capture_record and recorded_import.",
+    "Startup-only records without a tester-scoped lot_start are excluded with provenance; overlapping files do not create extra runs.",
+    "Queued or callback-returned actions remain unconfirmed. No tester receipt is inferred or synthesized.",
+    "Do not import into an existing live run scope. Identity conflicts require owner review, never ID rewriting."
+  ],
+  "owner_handoff": "A owns picker copy/friendly labels and canonical SYSTEM.md integration. Existing scripts/shared libraries remain untouched by this worker. HC live relay must use a separate explicit live conversion; this importer always maps historical captures to replay.",
+  "runtime_compatibility": {
+    "local_execution": "Node v24.3.0: full tests, native direct CLI imports and explicit --experimental-strip-types import pass.",
+    "target": "Node v22.18.0",
+    "exact_target_executed": false,
+    "reason": "No local Node 22.18 binary was found. No download or remote execution was performed.",
+    "import_chain": [
+      "frontend/scripts/import-recorded-captures.mjs",
+      "frontend/lib/rtdi/exporter-wire.ts",
+      "frontend/lib/rtdi/backend-projection.ts",
+      "frontend/lib/rtdi/wire.ts"
+    ],
+    "inspection": "All relative transitive imports use explicit .ts extensions. Only erasable TypeScript is present; no extensionless imports, aliases, enum, namespace or parameter properties in this importer chain. zod resolves from frontend/node_modules.",
+    "wrapper": "deploy/vps-preview/import-recorded.mjs signature and batches_sha256 calculation match ingestRecordedCatalog and sha256.",
+    "main_target_preflight": "/opt/grp6-preview/node/bin/node --input-type=module -e \"const m=await import('/opt/grp6-preview/current/frontend/scripts/import-recorded-captures.mjs');console.log(typeof m.ingestRecordedCatalog,typeof m.sha256)\"",
+    "test_harness": "Repository storage tests replace cloudflare:workers only within the isolated test process; production importer does not import repository.ts or its Cloudflare binding."
+  }
+}

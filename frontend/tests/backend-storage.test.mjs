@@ -76,6 +76,37 @@ const ingest = async (events, batchId) => { const value = normalizeExporterBatch
 const reset = () => { env.DB?.sql.close(); env.DB = new LocalD1(); env.INGEST_TOKEN = 'test-ingest-token'; };
 const request = value => new Request('https://example.test/api/v1/events/batch', { method: 'POST', headers: { Authorization: 'Bearer test-ingest-token', 'Content-Type': 'application/json' }, body: JSON.stringify(value) });
 
+test('measured run summary survives HTTP ingest, SQLite, snapshot/SSE and retries without rewriting raw identity', async () => {
+  reset();
+  const event = { ...base, event_id: 'summary', event_type: 'run_summary', completed_devices: 80, good_devices: 74, yield_fraction: 0.925 };
+  const body = bundle([event], 'summary-batch');
+  assert.equal((await ingestRoute.POST(request(body))).status, 200);
+  const snapshot = parseSnapshot(await repo.getRunSnapshot('run', 'tester'), 'run', 'tester');
+  const record = snapshot.events.find(item => item.event_id === 'summary');
+  assert.equal(record.yield, 0.925);
+  assert.equal(record.completed_devices, 80);
+  assert.equal(record.timestamp, new Date(event.timestamp * 1000).toISOString());
+  assert.equal(record.wafer_id, '14');
+  const { summarizeRunAnalysis } = await import('../lib/rtdi/run-analysis.ts');
+  assert.deepEqual(summarizeRunAnalysis(snapshot).yields, [record]);
+  const updates = await repo.getRunEventUpdates('run', 'tester', 0, 100);
+  assert.equal(updates.updates[0].event.yield, 0.925);
+  assert.equal((await ingestRoute.POST(request(body))).status, 200);
+  assert.deepEqual((await ingest([event], 'summary-retry')).duplicates, ['summary']);
+  assert.equal((await repo.getRunSnapshot('run', 'tester')).events.length, 1);
+  const chunks = env.DB.sql.prepare('SELECT payload_base64 FROM raw_event_chunks ORDER BY chunk_index').all();
+  assert.equal(decodeUtf8Base64Chunks(chunks.map(chunk => chunk.payload_base64)), canonicalJson(event));
+});
+
+test('invalid measured summary rejects the whole HTTP batch before any storage write', async () => {
+  reset();
+  const invalid = { ...base, event_id: 'invalid-summary', event_type: 'run_summary', completed_devices: 80, good_devices: 74, yield_fraction: 0.5 };
+  assert.equal((await ingestRoute.POST(request(bundle([prediction(), invalid])))).status, 422);
+  for (const table of ['events', 'raw_events', 'raw_event_chunks', 'runs', 'batches']) {
+    assert.equal(env.DB.sql.prepare(`SELECT COUNT(*) AS count FROM ${table}`).get().count, 0);
+  }
+});
+
 test('multi-site projections commit with source IDs, raw recovery, retry and conflicting identity guards', async () => {
   reset();
   assert.deepEqual((await ingest([prediction()], 'first')).accepted, ['request-event']);

@@ -1,0 +1,19 @@
+{
+  "archive": "C:\\Users\\USER\\Downloads\\grp6_host_relay_20260920.zip",
+  "bytes": 18118,
+  "sha256": "6738ac241a6cbc450e5bc1800a69fa67ec2171a49ef8f69c6c7123c80f102c1a",
+  "files": {
+    "deploy/host_relay.py": "50783bb9fe4e22902044fe47cfea21b719b06f807276e0d4809ad097c3d01b7d",
+    "deploy/tests/test_host_relay.py": "607ff21053181b88d5b31f0e608704f0d803e83b15f29264aac4bf0d5647ad0b",
+    "deploy/host-relay-README.md": "6d5b12ebb020b693ffa686f696d7f52e6962eb0f82557db80b4d455286be95db"
+  },
+  "contains_credentials": false,
+  "activation": "not activated; user VM transfer pending",
+  "local_tests": {
+    "total": 40,
+    "passed": 39,
+    "skipped": 1,
+    "skip": "POSIX permission check on Windows"
+  },
+  "worker_linux_relay_tests_passed": 28
+}

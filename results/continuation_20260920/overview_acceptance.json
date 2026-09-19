@@ -1,0 +1,65 @@
+{
+  "date": "2026-09-20",
+  "scope": "Local working tree; not deployed",
+  "base_revision": "63d5d1d61f926563953e0dabbe5423dda8c6265f",
+  "checks": {
+    "frontend_tests": 178,
+    "typescript": "pass (UI worker)",
+    "production_build": "pass",
+    "scoped_lint": "No new findings; workspace page retains 3 existing errors and 3 warnings",
+    "browser": {
+      "origin": "http://localhost:5173",
+      "data": "Existing seeded replay: grp6-replay / grp6-replay-demo",
+      "viewports": [
+        {
+          "width": 1440,
+          "height": 1000
+        },
+        {
+          "width": 390,
+          "height": 844
+        }
+      ],
+      "languages": [
+        "en",
+        "zh-TW"
+      ],
+      "themes": [
+        "light",
+        "dark"
+      ],
+      "checks": [
+        "Selection alone leaves snapshot unloaded until Load",
+        "Counts 14 incidents / 14 evidence / 24 predictions; 114 source events / 24 matched actuals",
+        "Loaded identity remains separate from picker selection",
+        "Refresh retains loaded scope and counts",
+        "Manual run/tester entry and explicit Load work",
+        "Selection details shows mode, edge, IDs and both timestamp kinds",
+        "Timestamps include seconds and timezone; database UTC interpreted correctly",
+        "Space toggles native details disclosure",
+        "No document horizontal overflow at 390px",
+        "Desktop 56px and mobile 40px metric figures"
+      ],
+      "paid_model_calls": 0
+    }
+  },
+  "screenshots": [
+    "overview-desktop-zh.png",
+    "overview-desktop-dark-zh.png",
+    "overview-desktop-dark-en.png",
+    "overview-mobile-dark-en.png",
+    "overview-mobile-light-zh.png"
+  ],
+  "limits": [
+    "Seeded replay only; no new machine ingestion",
+    "Shared existing development server retained",
+    "Public site remains revision 63d5d1d without this redesign"
+  ],
+  "source_sha256": {
+    "frontend/app/workspace/page.tsx": "8183498fd58fa660c1104536e196cad65b6a0d435a30569a34970ab192260530",
+    "frontend/app/dashboard.css": "45080e889ed6640367d95a386c171a5a3c02815396564efbfc0adde0d4ce1d13",
+    "frontend/components/stored-run-picker.tsx": "1e0c07b3d71ba35841930c39247387a8a4c5e9dbada86101bfe800652846d689",
+    "frontend/components/stored-run-picker.css": "e561bac9bdfa44f13d13f380713ec9c66ce541f51c1c94295baa1a915f6ec923",
+    "frontend/lib/rtdi/locale-zh-TW.ts": "8d14d87bc9051b4cb2d552576fa3ce6ffc058f7c67a3da2925cea3b6d5a478b0"
+  }
+}

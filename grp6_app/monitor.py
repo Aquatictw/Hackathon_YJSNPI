@@ -409,6 +409,55 @@ class MonitorCore:
             return json.dumps(parsed, allow_nan=False)
         return response
 
+    @staticmethod
+    def adapt_tcct_message_response(response):
+        """Encode msg reasons for the observed TCCT raw FIFO interpolation.
+
+        Input is normalized get_prod JSON, not an already adapted response.
+        Apply once: TCCT decodes the outer JSON, interpolates the resulting
+        fragment into value, and MessUI's JSON parser recovers the original
+        text. This is a transport workaround, not a native writer repair.
+        """
+        duplicate_keys = False
+
+        def object_from_pairs(pairs):
+            nonlocal duplicate_keys
+            result = dict(pairs)
+            duplicate_keys |= len(result) != len(pairs)
+            return result
+
+        parsed = json.loads(response, object_pairs_hook=object_from_pairs)
+        # Do not collapse ambiguous fields while reserializing valid native JSON.
+        if duplicate_keys or not isinstance(parsed, dict):
+            return response
+        groups = parsed.get('mtesterAction')
+        if not isinstance(groups, list):
+            return response
+        changed = False
+        for group in groups:
+            if not isinstance(group, dict) or group.get('name') != 'acs_prod_var':
+                continue
+            pools = group.get('pool')
+            if not isinstance(pools, list):
+                continue
+            for pool in pools:
+                if not isinstance(pool, dict) or pool.get('act_typ') != 'msg':
+                    continue
+                actions = pool.get('mactions')
+                if not isinstance(actions, list):
+                    continue
+                for action in actions:
+                    if not isinstance(action, dict) or action.get('param') != 'msg':
+                        continue
+                    reason = action.get('reason')
+                    if not isinstance(reason, str):
+                        continue
+                    fragment = json.dumps(reason, ensure_ascii=False)[1:-1]
+                    if fragment != reason:
+                        action['reason'] = fragment
+                        changed = True
+        return json.dumps(parsed, ensure_ascii=False, allow_nan=False) if changed else response
+
     def consumeTPRequest(self, tc, request):
         started = time.perf_counter()
         with self.lock:
@@ -495,7 +544,8 @@ class MonitorCore:
                     raw_response = self.actions.get_prod(tester)
                     candidate_ids = self.pending_messages.pop(str(tester), [])
                     try:
-                        response = self.normalize_production_response(raw_response)
+                        normalized_response = self.normalize_production_response(raw_response)
+                        response = self.adapt_tcct_message_response(normalized_response)
                     except (ValueError, TypeError) as exc:
                         # get_prod may already have drained the native queue. Keep
                         # its candidates in failure evidence, not a later response.
@@ -504,8 +554,12 @@ class MonitorCore:
                                  candidate_message_ids=candidate_ids, status='rejected_invalid_json')
                         return ''
                     normalization = {}
-                    if response != raw_response:
+                    if normalized_response != raw_response:
                         normalization = dict(normalization='escaped_control_characters',
+                                             raw_response=raw_response)
+                    if response != normalized_response:
+                        normalization.update(transport_adaptation='tcct_msg_reason_json_fragment',
+                                             normalized_response=normalized_response,
                                              raw_response=raw_response)
                     self.log('production_action_response',tester=str(tester),response=str(response),
                              candidate_message_ids=candidate_ids,

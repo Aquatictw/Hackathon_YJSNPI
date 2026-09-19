@@ -14,6 +14,18 @@ export const runChoiceKey = (run: Pick<StoredRun, 'run_id' | 'tester_id'>) => JS
 export const runModeLabel = (mode: StoredRun['mode']) => ({
   live: 'LIVE · SOURCE-REPORTED', replay: 'REPLAY · IMPORTED RECORDS', simulation: 'SIMULATION',
 })[mode];
+export const isRecordedCapture = (run: Pick<StoredRun, 'edge_id' | 'mode'>) =>
+  run.edge_id === 'grp6-recorded-capture' && run.mode === 'replay';
+export const storedRunSourceLabel = (run: Pick<StoredRun, 'edge_id' | 'mode'>) =>
+  isRecordedCapture(run) ? 'RECORDED · GEMINI CAPTURE' : runModeLabel(run.mode);
+export const storedRunName = (run: StoredRun): string | null => {
+  if (isRecordedCapture(run) && run.tester_id === 'group-6') {
+    if (run.run_id === 'ae20cd5ae29d47af87163265205ffced') return 'Engineering check';
+    if (run.run_id === 'd132133657be459e8e97b6fd442142e2') return 'Production run 3';
+  }
+  if (run.edge_id === 'grp6-replay-exporter' && run.tester_id === 'grp6-replay' && run.run_id === 'grp6-replay-demo') return 'Training-data replay';
+  return null;
+};
 export type RunDiscoveryState = {
   runs: StoredRun[]; selected: string; loading: boolean; loaded: boolean; error: boolean; nextOffset: number | null;
 };

@@ -102,11 +102,20 @@ class ProtocolTests(unittest.TestCase):
             {'name': 'acs_prod_var', 'pool': [{'act_typ': 'msg', 'mactions': [
                 {'testsuite': '', 'param': 'msg', 'val': '', 'reason': reason}]}]}]})
 
+    def fifo_message(self, response):
+        # TCCT parses the outer API JSON, then inserts the reason verbatim
+        # into a second JSON string. MessUI strictly parses those FIFO bytes.
+        reason = json.loads(response)['mtesterAction'][0]['pool'][0]['mactions'][0]['reason']
+        fifo = '{"action":"text","value":"' + reason + '"}'
+        return json.loads(fifo)
+
     def test_production_native_multiline_response_preserves_reasons_and_ids(self):
+        # Exact joined reason text from historical production sequence 319.
+        # Inline so packaged tests need no external retained-evidence files.
         messages = [
-            'grp6 [bbe24a7975e6] wafer 02: site imbalance',
-            'grp6 [7d9bfbbb7dd9] wafer 02: mean changed +4.67 baseline SD',
-            'grp6 [60d64c90b080] wafer 02: mean changed -2.14 baseline SD',
+            'grp6 [bbe24a7975e6] wafer 02: 21340_Main.subflow3.Flow3_Suite39#CP: site 1 vs 3 differs by 10.04 baseline SD',
+            'grp6 [7d9bfbbb7dd9] wafer 02: 28380_Main.subflow3.Flow3_Suite391#CP site 3: mean changed +4.67 baseline SD',
+            'grp6 [60d64c90b080] wafer 02: 28900_Main.subflow3.Flow3_Suite417#CP site 4: mean changed -2.14 baseline SD',
         ]
         for message in messages:
             self.core.send_message(self.tc.testerId, message)
@@ -117,12 +126,14 @@ class ProtocolTests(unittest.TestCase):
             json.loads(raw)
         self.actions.get_prod = lambda tester: raw
         response = self.core.consumeTPRequest(self.tc, '{"key":"prod_action"}')
-        self.assertEqual(json.loads(response), json.loads(valid))
+        self.assertEqual(self.fifo_message(response), {'action': 'text', 'value': '\n'.join(messages)})
         record = self.records()[-1]
         self.assertEqual(record['kind'], 'production_action_response')
         self.assertEqual(record['response'], response)
         self.assertEqual(record['raw_response'], raw)
         self.assertEqual(record['normalization'], 'escaped_control_characters')
+        self.assertEqual(record['normalized_response'], valid)
+        self.assertEqual(record['transport_adaptation'], 'tcct_msg_reason_json_fragment')
         self.assertEqual(record['candidate_message_ids'], candidate_ids)
         self.assertEqual(record['status'], 'returned_to_callback_unconfirmed')
         self.assertNotIn(self.tc.testerId, self.core.pending_messages)
@@ -130,6 +141,8 @@ class ProtocolTests(unittest.TestCase):
         self.assertEqual(exported['response'], response)
         self.assertEqual(exported['event_id'], record['event_id'])
         self.assertEqual(exported['status'], record['status'])
+        self.assertEqual(exported['normalized_response'], valid)
+        self.assertEqual(exported['transport_adaptation'], record['transport_adaptation'])
 
     def test_production_json_controls_are_escaped_without_changing_text(self):
         reason = 'quoted "text", backslash \\, Unicode \u6eab\u5ea6: ' + ''.join(map(chr, range(32)))
@@ -138,8 +151,7 @@ class ProtocolTests(unittest.TestCase):
         raw = valid
         for character in map(chr, range(32)):
             raw = raw.replace(json.dumps(character)[1:-1], character)
-        self.actions.get_prod = lambda tester: raw
-        response = self.core.consumeTPRequest(self.tc, '{"key":"prod_action"}')
+        response = self.core.normalize_production_response(raw)
         self.assertEqual(json.loads(response), json.loads(valid))
         self.assertFalse(any(ord(c) < 32 for c in response))
 
@@ -150,13 +162,99 @@ class ProtocolTests(unittest.TestCase):
         ]
         for raw in responses:
             with self.subTest(raw=raw):
+                self.assertEqual(self.core.normalize_production_response(raw), raw)
+
+    def test_tcct_message_fragment_round_trips_special_text_once(self):
+        reasons = [
+            'first\nsecond\nthird',
+            'quote "value", backslash \\, literal escapes \\n \\u6eab',
+            'Unicode \u6eab\u5ea6 \U0001f321: ' + ''.join(map(chr, range(32))),
+            'end with backslash \\',
+            '","action":"other","value":"injected',
+        ]
+        for reason in reasons:
+            with self.subTest(reason=repr(reason)):
+                raw = self.production_action(reason)
+                self.assertEqual(self.core.normalize_production_response(raw), raw)
+                self.actions.get_prod = lambda tester: raw
+                response = self.core.consumeTPRequest(self.tc, '{"key":"prod_action"}')
+                self.assertEqual(self.fifo_message(response), {'action': 'text', 'value': reason})
+                record = self.records()[-1]
+                self.assertEqual(record['normalized_response'], raw)
+                self.assertEqual(record['raw_response'], raw)
+                self.assertEqual(record['response'], response)
+                self.assertEqual(record['transport_adaptation'], 'tcct_msg_reason_json_fragment')
+                self.assertNotIn('normalization', record)
+                self.assertEqual(record['status'], 'returned_to_callback_unconfirmed')
+
+    def test_tcct_plain_messages_remain_byte_for_byte(self):
+        for reason in ('', 'ordinary message', 'Unicode \u6eab\u5ea6 \U0001f321'):
+            with self.subTest(reason=reason):
+                raw = ' \n' + self.production_action(reason) + '\n'
                 self.actions.get_prod = lambda tester: raw
                 response = self.core.consumeTPRequest(self.tc, '{"key":"prod_action"}')
                 self.assertEqual(response, raw)
-                record = self.records()[-1]
-                self.assertEqual(record['response'], raw)
-                self.assertNotIn('normalization', record)
-                self.assertEqual(record['status'], 'returned_to_callback_unconfirmed')
+                self.assertEqual(self.fifo_message(response)['value'], reason)
+                self.assertNotIn('transport_adaptation', self.records()[-1])
+                self.assertNotIn('normalization', self.records()[-1])
+
+    def test_tcct_adaptation_changes_only_known_msg_reasons(self):
+        from copy import deepcopy
+        original = json.loads(self.production_action('alert\nsecond'))
+        group = original['mtesterAction'][0]
+        pool = group['pool'][0]
+        action = pool['mactions'][0]
+        action.update(extra='other\ntext', testsuite='suite\nname', val='keep\\value')
+        pool['mactions'].extend([
+            dict(action, param='wait'), {'param': 'msg', 'reason': 42},
+            {'param': 'msg'}, None, 'not an action',
+            dict(action, reason='plain'), dict(action, reason='third "message"'),
+        ])
+        group['pool'].extend([dict(deepcopy(pool), act_typ='wait'), None, {'act_typ': 'msg', 'mactions': {}}])
+        original['mtesterAction'].extend([
+            dict(deepcopy(group), name='other'), None,
+            {'name': 'acs_prod_var', 'pool': {}},
+        ])
+        original['reason'] = 'root\nreason'
+        expected = deepcopy(original)
+        for index in (0, 7):
+            target = expected['mtesterAction'][0]['pool'][0]['mactions'][index]
+            target['reason'] = json.dumps(target['reason'], ensure_ascii=False)[1:-1]
+        raw = json.dumps(original)
+        result = self.core.adapt_tcct_message_response(raw)
+        self.assertEqual(json.loads(result), expected)
+        self.assertEqual(self.fifo_message(result)['value'], action['reason'])
+
+    def test_tcct_unrelated_or_ambiguous_envelopes_remain_byte_for_byte(self):
+        responses = ['[]', 'null', '42', '{"mtesterAction": {}}',
+                     ' { "tester": "grp6-test", "mtesterAction": [] }\n']
+        for level, field, value in [('group', 'name', 'other'), ('pool', 'act_typ', 'wait'),
+                                    ('action', 'param', 'wait'), ('action', 'reason', None)]:
+            obj = json.loads(self.production_action('one\ntwo'))
+            group = obj['mtesterAction'][0]
+            pool = group['pool'][0]
+            {'group': group, 'pool': pool, 'action': pool['mactions'][0]}[level][field] = value
+            responses.append(json.dumps(obj, indent=2))
+        responses.append(self.production_action('one\ntwo').replace(
+            '"param": "msg"', '"param": "wait", "param": "msg"'))
+        for raw in responses:
+            with self.subTest(raw=raw):
+                self.actions.get_prod = lambda tester: raw
+                self.assertEqual(self.core.consumeTPRequest(self.tc, '{"key":"prod_action"}'), raw)
+                self.assertNotIn('transport_adaptation', self.records()[-1])
+
+    def test_tcct_adaptation_never_touches_prediction_or_list_responses(self):
+        # Even an envelope eligible for production adaptation must be unchanged
+        # when returned by get() on prediction/list paths.
+        raw = self.production_action('one\ntwo "quoted" \\ path')
+        self.actions.get = lambda tester: raw
+        model = self.core.models.models['1']
+        for site in ['1', '2']:
+            for name, value in zip(model['features'], model['mean']):
+                self.core.state.record(self.tc.testerId, site, name, value)
+        self.assertEqual(self.core.consumeTPRequest(self.tc, '{"key":"predict","data":1}'), raw)
+        self.assertEqual(self.core.consumeTPRequest(self.tc, '{"action":"list"}'), raw)
+        self.assertFalse(any('transport_adaptation' in r for r in self.records()))
 
     def test_other_invalid_production_json_fails_closed_with_evidence(self):
         multiline = self.production_action('one\ntwo').replace('\\n', '\n')

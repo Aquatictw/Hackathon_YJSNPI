@@ -7,6 +7,7 @@
 .app-nav a{display:flex;align-items:center;justify-content:center;gap:8px;padding:20px 14px;border-bottom:2px solid transparent;font-size:14px;line-height:1.5;white-space:nowrap;color:var(--muted-foreground);text-decoration:none;transition:background-color .16s ease,color .16s ease,border-color .16s ease}
 .app-nav a:hover{background:var(--muted);color:var(--foreground)}
 .app-nav a[aria-current=page]{border-bottom-color:var(--primary);color:var(--foreground);font-weight:600}
+.app-nav a.app-nav-primary{color:var(--primary);font-weight:700}
 .app-header-tools{display:flex;align-items:center;gap:18px;margin-left:auto}
 .app-header .theme-selector{font-size:14px}
 .app-header .theme-selector select{min-height:40px}

@@ -1,0 +1,100 @@
+{
+  "date": "2026-09-20",
+  "evidence_type": "Browser SSH transcribed remote audit and receipts, plus independently queried public backend; remote raw files retained",
+  "host": "group-6",
+  "run_id": "04dcb07358ee4f3da41e5cbc12cb9850",
+  "tester_id": "group-6",
+  "edge_id": "grp6-hc-relay",
+  "source": "Supplied ORE production recipe; deterministic simulated tester input through real Gemini runtime",
+  "recipe": "/home/user/Case_Event/SmarTest/recipe/acs_tcct_4site_ft.xml",
+  "remote_evidence": {
+    "directory": "/home/user/grp6-host-relay-state",
+    "jsonl": "fresh-complete.jsonl",
+    "jsonl_sha256": "ffac0c5985b43f59032111f25dad1ea3df4a60d0c30ec6a2f3deee68b5ba683f",
+    "audit": "fresh-audit.json",
+    "prediction_receipts": "fresh-receipts.json",
+    "tester_edl": "/tmp/STDF/datalog_TestCase1.TestCase1_4site_ft_lot1_4site_finaltest_group-6_20260920030816.edl",
+    "tester_edl_sha256": "7d29913212ad3d5280b9a483f704f5c2430ef8f5f69af47635078fd52150404f",
+    "receiver": "/tmp/acs_tcct/ProdMessage_20260920.log",
+    "receiver_sha256_at_inspection": "267be29746813292bea07464d4c2aef318070b2d8c1f3a8608d94ba1a8e79fda"
+  },
+  "capture": {
+    "records": 764,
+    "scoped_records": 763,
+    "sequence_first": 1,
+    "sequence_last": 764,
+    "missing_sequences": [],
+    "complete_production_capture": true,
+    "monitor_start_retained_in_capture_not_ingested": true,
+    "devices": 80,
+    "pass": 74,
+    "fail": 6,
+    "yield": 0.925,
+    "prediction_requests": 120,
+    "prediction_actual_joins": 480,
+    "valid_production_replies": 20,
+    "alerts": 3,
+    "action_messages": 3,
+    "errors": 0
+  },
+  "tester_receipts": {
+    "prediction_matches": 120,
+    "method": "Each response JSON equals exactly one distinct tester EDL Actions JSON, followed by Exec Pass: 1 Exec Fail: 0",
+    "alert_insert_lines": [
+      858,
+      859,
+      860
+    ],
+    "receiver_local_time": "2026-09-20 03:09:39",
+    "message_utc_time": "2026-09-19T19:09:39Z",
+    "alert_ids": [
+      "2f1c7f20cc724782b5f5f70d285cf337",
+      "4be0b88fa43447ce90b8f0f2418dcc62",
+      "2bfe358db17948a19d96f06cb8b6b353"
+    ],
+    "short_ids": [
+      "2f1c7f20cc72",
+      "4be0b88fa434",
+      "2bfe358db179"
+    ],
+    "result": "All three IDs are in a successful multiline MessUI Insert text entry; GUI scrollback not independently inspected"
+  },
+  "public_progress": "fresh_relay_public_progress.json",
+  "public_final_expected": {
+    "events": 1723,
+    "predictions": 480,
+    "joined_actuals": 480,
+    "incidents": 3,
+    "evidence": 3,
+    "last_source_time": "2026-09-19T19:11:38.946Z"
+  },
+  "relay_before_restart": {
+    "delivered_records": 863,
+    "delivered_batches": 58,
+    "pending_records": 0
+  },
+  "limits": [
+    "Real Gemini transport with supplied ORE data is not independent physical validation",
+    "Source clock was about 22 seconds ahead of browser clock during progression; preserve source timestamps and flag future freshness",
+    "Host polling samples retained EdgeLog; it does not establish full measurement bundles or direct browser tester health",
+    "Prior run 119/120 request gap remains unexplained; this complete run does not prove it cannot recur",
+    "Final-boundary later-poll delivery, actual Edge image digest, physical units and prediction timeout semantics remain unverified"
+  ],
+  "nexus_restarted": false,
+  "paid_ai_calls": 0,
+  "public_final": "fresh_relay_public_final.json",
+  "relay_restart": {
+    "previous_pid": 29112,
+    "new_pid": 1029,
+    "backup_directory": "/home/user/grp6-host-relay-state/restart-backup-20260920",
+    "delivered_records_before": 863,
+    "delivered_records_after": 863,
+    "delivered_batches_before": 58,
+    "delivered_batches_after": 58,
+    "sqlite_integrity": "ok",
+    "polling_resumed": true,
+    "issues": 7,
+    "issue_meaning": "Repeated observations of one unscoped monitor_start retained in captures",
+    "limit": "Idle process restart, not a live network-outage exercise"
+  }
+}

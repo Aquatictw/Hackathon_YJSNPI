@@ -1,0 +1,85 @@
+{
+  "observed_local_date": "2026-09-20",
+  "evidence_type": "Coordinating-agent browser SSH/VNC observations; raw VM files were not downloaded",
+  "host": "group-6",
+  "dashboard": {"grp6_acs_host_controller": "180.3.13.36", "grp6_acs_edge_server": "180.3.13.209", "both_power": "Up"},
+  "release_directory": "/home/user/Case_Event/grp6_transport_release_20260920_UlZCXF",
+  "archive": {"name": "grp6_export_transport_20260920.zip", "bytes": 368583, "sha256": "6c30d89bcddf568cc47a7d0c6adbe2572e65723f367b82c8cd6f33c48a8d2b8b", "crc": "pass"},
+  "deployment": {
+    "image": "unifiedserver.local/grp6/py-app:20260919T175744779996Z",
+    "host_image_id": "sha256:a51c91493c49ec8fa59aa7ddb1175dd83d208cddcd2d42e53724e3c260ddc4b0",
+    "registry_digest": "sha256:0968f8c95401cb8066be1388c13bf80f47c4db4513336b6babb82d879b37c039",
+    "actual_edge_digest_verified": false,
+    "packaged_container_tests": 56,
+    "real_sdk_monitor_construction": "pass",
+    "appdeployer_stop_exit": 0,
+    "appdeployer_start_exit": 0,
+    "descriptor_paths": ["/home/user/Case_Event/SmarTest/app_descriptor.json", "/opt/acs/nexus/conf/app_descriptor.json"],
+    "descriptors": "Both strict-JSON validated and pinned to the versioned image",
+    "monitor_start_utc": "2026-09-19T18:03:06.071827+00:00",
+    "recipe_redeployment_monitor_start_utc": "2026-09-19T18:07:30.319928+00:00",
+    "model_sha256": "752e7c6c52b0c6e50a2c7ab37b7705ad21ec43ec18df968866832d07ba09afe9",
+    "monitor_sha256": "0f1cda18807c37ec07bf3c3bae2257f7ccd2122ab9c9401dcda5d4c7d49fa586",
+    "exporter_sha256": "98ec179227496ccd27f18f9ea629077e9fa1cec966d62f0cced4ae10c0797657",
+    "sparse_burst": "calibration_missing; disabled",
+    "export": "disabled; no production persistence mechanism established",
+    "nexus_restarted": false,
+    "installer_record": "/home/user/Case_Event/grp6_deployment_latest.json retains build/push results and deployed=false; subsequent activation is observed separately here",
+    "backups": ["deployment_before.json", "descriptor_recipe_before.json", "descriptor_live_before.json", "workspace_before.tgz", "ProdMessage_before.log", "edge_before.log"]
+  },
+  "run": {
+    "run_id": "3f46468325ac47de894e6a13d3c672e0",
+    "lot": "B13456", "wafer": "02",
+    "recipe": "/home/user/Case_Event/SmarTest/recipe/acs_tcct_4site_ft.xml",
+    "input": "Supplied deterministic ORE program; not independent validation",
+    "tested": 80, "pass": 74, "fail": 6, "yield_percent": 92.5,
+    "touchdowns": 20, "sequence": [1, 759], "missing_sequence_ranges": [],
+    "prediction_requests": 119, "expected_requests": 120,
+    "strict_actual_joins": 476, "expected_actual_joins": 480,
+    "prediction_tester_matches_and_adjacent_execution": 119,
+    "matching_method": "Unique exact parsed response plus adjacent Exec Pass: 1 Exec Fail: 0; tester EDL does not embed core request IDs",
+    "mae_observed_476_pairs": 0.2159887506431982,
+    "max_callback_latency_ms": 12.240973000189115,
+    "malformed_lines": 0, "callback_audit_errors": 0,
+    "strict_production_replies": 20, "invalid_production_replies": 0,
+    "recorded_callback_gate": true, "complete_production_capture": false,
+    "coverage_gap": {
+      "touchdown": 9, "stage": 1,
+      "observation": "No prediction_request event in a continuous capture. Tester EDL line 524331 contains empty Actions =>; next lines report Nexus Process Action Time 3 ms and Adaptive Test Execution Time 3 ms without execution. Stage 2 begins at sequence 320, 18:09:03.196224 UTC. Root cause is not established."
+    },
+    "final_order": [
+      {"sequence": 757, "kind": "run_summary", "utc": "2026-09-19T18:10:57.462949+00:00"},
+      {"sequence": 758, "kind": "production_action_response", "utc": "2026-09-19T18:10:57.463149+00:00", "candidate_message_ids": []},
+      {"sequence": 759, "kind": "boundary_end", "utc": "2026-09-19T18:10:59.496540+00:00"}
+    ],
+    "final_boundary_delivery": "Not established: final poll precedes boundary by approximately two seconds; no later poll recorded",
+    "left_state": "TESTPROGRAM_BOUND, recipe IDLE, SmarTest attached; 80 tested / 74 pass / 6 fail visible in VNC",
+    "collectors": "Bounded collectors ended; pgrep for extended_/EdgeLog log returned no process"
+  },
+  "actual_anomaly_receipt": {
+    "short_ids": ["46468155985a", "cc42f5324282", "f370ac476ab4"],
+    "action_message_ids": ["d0db143eeeb8458daf05e66fe63e483c", "2cfe7e7b749843008aa87e312663f8fc", "ecaca13f4c4e4bc2b8d1dbc9eca9a201"],
+    "production_action_sequence": 318,
+    "production_action_utc": "2026-09-19T18:09:01.143573+00:00",
+    "transport_adaptation": "tcct_msg_reason_json_fragment",
+    "receiver_local_time": "2026-09-20 02:09:01",
+    "receiver_lines": {"receive": 609, "insert_text": [610, 611, 612]},
+    "result": "All three original short IDs and multiline text are present in successful MessUI Insert text through the fresh runtime/TCCT path",
+    "callback_status": "returned_to_callback_unconfirmed remains correct locally; this separate receiver evidence confirms downstream insertion",
+    "limit": "Receiver insertion is confirmed; anomaly text was not separately located in the visible Message Center scrollback"
+  },
+  "remote_raw_evidence": {
+    "directory": "/home/user/Case_Event/grp6_transport_release_20260920_UlZCXF/receipt_run",
+    "current.jsonl": {"bytes": 722571, "sha256": "3b72f561cb038fa5b2f91a1f4069686761869d47b06385ebb92baa4d74474420"},
+    "tester.edl": {"bytes": 42738102, "sha256": "39d4aa1844d2c54c44576df3277439b03d6c17e1be22743677ec599066b7af86"},
+    "ProdMessage_after.log": {"bytes": 129073, "sha256": "0643c60ee408f7f60f40b206338af94ac3315607134c01c1310140e8a97cb463"},
+    "audit.json": {"bytes": 1993, "sha256": "65b172f4d3717ba577d3c237f743dc70fe0fdc85ac5457637ad76d161827d35b"},
+    "prediction_receipts.json": {"bytes": 15621, "sha256": "6f0c1f00ba9f5f0ad12e8a0815b3f00ab5de486dbac42968f775343a858e7df2"}
+  },
+  "remaining_gates": [
+    "Investigate touchdown-9 stage-1 missing request",
+    "Final-boundary message generation and later tester poll/receipt",
+    "Actual running Edge image digest",
+    "Verified production outbox persistence, actual-container HTTPS/auth/ACK and original-ID backend/snapshot/SSE correlation"
+  ]
+}

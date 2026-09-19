@@ -1,0 +1,46 @@
+{
+  "observed_local_date": "2026-09-20",
+  "source_revision": "63d5d1d61f926563953e0dabbe5423dda8c6265f",
+  "previous_revision": "14ff55bfd31694e49ff324564b13c0535d16fe9a",
+  "origin": "https://hackathon.aquatictw.com",
+  "deployment": {
+    "command": "./deploy/vps-preview/publish.ps1 -Ref 63d5d1d -SkipFetch",
+    "result": "passed",
+    "production_build": "passed",
+    "database": "preserved; no pending migrations; existing seeds duplicate",
+    "backup": "/opt/grp6-preview/backups/before-63d5d1d61f926563953e0dabbe5423dda8c6265f-gq0BRHiI",
+    "previous_release": "/opt/grp6-preview/releases/14ff55bfd31694e49ff324564b13c0535d16fe9a-kf9MlWRL",
+    "service": "grp6-preview.service",
+    "upstream": "http://172.23.0.1:5173"
+  },
+  "http_verification": {
+    "command": "node deploy/vps-preview/verify-http.mjs https://hackathon.aquatictw.com --expect-ai --public-origin=https://hackathon.aquatictw.com",
+    "result": "passed",
+    "home_status": 200,
+    "replay_status": 200,
+    "assets": 13,
+    "events": 114,
+    "predictions_joined_to_actuals": 24,
+    "measurements": 134,
+    "sse_ready": true,
+    "ai_configured": true,
+    "commands_enabled": false,
+    "trusted_invalid_chat_status": 400,
+    "foreign_origin_chat_status": 403,
+    "paid_model_calls": 0
+  },
+  "public_browser_observations": [
+    "Stored picker discovers grp6-replay / grp6-replay-demo with REPLAY / IMPORTED RECORDS provenance.",
+    "Selection alone leaves No run loaded; explicit Load retrieves the selected run.",
+    "Loaded snapshot shows 14 incidents, 114 source events, 24 predictions and 24 actuals.",
+    "Refresh preserves the loaded source.",
+    "Traditional Chinese picker labels and source provenance render correctly.",
+    "Temperature tab shows all 24 joined rows, stage/site, prediction, actual, signed difference and unknown-unit caveat."
+  ],
+  "limits": [
+    "Browser results are coordinating-agent observations, not a retained automated browser trace.",
+    "This revision deploys the dropdown, before the separately requested minimal overview redesign.",
+    "The database remains replay-only; no fresh competition-machine event ingestion is established.",
+    "No paid model call or command execution was performed."
+  ]
+}

@@ -1,12 +1,20 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { createRunDiscovery, initialRunDiscovery, runChoiceKey, runModeLabel, selectedStoredRun } from '../lib/rtdi/run-discovery.ts';
+import { createRunDiscovery, initialRunDiscovery, isRecordedCapture, runChoiceKey, runModeLabel, storedRunSourceLabel, selectedStoredRun } from '../lib/rtdi/run-discovery.ts';
 import { readSourceSession, writeSourceSession, selectBackendSource } from '../lib/rtdi/source-session.ts';
 import { zhTW } from '../lib/rtdi/locale-zh-TW.ts';
 
 const run = (tester = 'a', id = 'shared', mode = 'live') => ({ tester_id: tester, run_id: id, mode, edge_id: 'edge', last_event_at: '2026-09-20T02:00:00Z', updated_at: '2026-09-20 02:00:01' });
 const response = (runs, next_offset = null) => Response.json({ runs, next_offset });
+test('recorded capture labels require both the capture source and replay mode', () => {
+  const capture = { ...run(), edge_id: 'grp6-recorded-capture', mode: 'replay' };
+  assert.equal(isRecordedCapture(capture), true);
+  assert.equal(storedRunSourceLabel(capture), 'RECORDED · GEMINI CAPTURE');
+  assert.equal(isRecordedCapture({ ...capture, mode: 'live' }), false);
+  assert.equal(isRecordedCapture(run('a', 'b', 'replay')), false);
+  assert.ok(zhTW[storedRunSourceLabel(capture)]);
+});
 function harness(fetcher) {
   let state = initialRunDiscovery();
   const updates = [];

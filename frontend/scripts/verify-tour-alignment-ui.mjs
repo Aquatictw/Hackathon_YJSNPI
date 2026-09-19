@@ -1,6 +1,7 @@
 // Isolated loopback UI checks. No mutation requests or external traffic.
 import assert from 'node:assert/strict';
 import {createRequire} from 'node:module';
+import {readFile} from 'node:fs/promises';
 
 const base = new URL(process.argv[2] || 'http://localhost:5173').origin;
 assert.ok(['localhost', '127.0.0.1', '[::1]'].includes(new URL(base).hostname));
@@ -9,9 +10,13 @@ const browser = await chromium.launch({headless:true, ...(process.env.PLAYWRIGHT
 const checks = [];
 const measurements = [];
 const failures = [];
+const summary = JSON.parse(await readFile(new URL('../public/replay/summary.json', import.meta.url), 'utf8'));
 try {
   for (const width of [1770, 1440, 390, 320]) {
     const context = await browser.newContext({viewport:{width, height:900}, reducedMotion:'reduce'});
+    await context.addInitScript(summary => {
+      sessionStorage.setItem('rtdi.source-session.v1', JSON.stringify({version:1, mode:'summary', replay:{data:summary, filename:'guide-test.json', selection:{waferId:String(summary.wafers.find(wafer => wafer.alerts.length).wafer), alertIndex:0, filter:'all', tab:'analysis', detailOpen:true}}}));
+    }, summary);
     await context.route('**/*', route => {
       const request = route.request();
       return ['GET', 'HEAD'].includes(request.method()) && new URL(request.url()).origin === base ? route.continue() : route.abort();
@@ -71,15 +76,15 @@ try {
       if (Object.values(result.errors).some(error => Math.abs(error) > 1)) failures.push({width,label,errors:result.errors});
     }
     try {
-      await page.goto(base);
+      await page.goto(base + '/replay');
       await page.locator('.app-guide:not(:disabled)').waitFor();
       await page.locator('.alert-selector button').first().waitFor();
       await page.locator('[data-step=chapters]').waitFor();
       await language('zh-TW','chapters');
       await language('en','chapters');
       checks.push(`${width}px welcome language, touch target, fit and focus trap`);
-      await card.locator('.rtdi-tour-next').click();
-      for (let i=0; i<5; i++) await card.locator('.rtdi-tour-next').click();
+      await card.locator('.rtdi-tour-chapters a[href="/replay"]').click();
+      for (let i=0; i<20 && await card.getAttribute('data-step') !== 'alerts'; i++) await card.locator('.rtdi-tour-next').click();
       await page.locator('[data-step=alerts]').waitFor();
       await page.locator('.rtdi-tour-spotlight').waitFor();
       await language('en','alerts');

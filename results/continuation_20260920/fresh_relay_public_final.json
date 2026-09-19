@@ -1,0 +1,24 @@
+{
+  "observed_at": "2026-09-19T19:32:02.515Z",
+  "run": {
+    "run_id": "04dcb07358ee4f3da41e5cbc12cb9850",
+    "tester_id": "group-6",
+    "edge_id": "grp6-hc-relay",
+    "mode": "live",
+    "lot_id": "B13456",
+    "wafer_id": "02",
+    "data_quality": "partial",
+    "last_event_at": "2026-09-19T19:11:38.946Z"
+  },
+  "events": 1723,
+  "predictions": 480,
+  "joined_actuals": 480,
+  "incidents": 3,
+  "evidence": 3,
+  "source_event_ids": [
+    "2f1c7f20cc724782b5f5f70d285cf337",
+    "4be0b88fa43447ce90b8f0f2418dcc62",
+    "2bfe358db17948a19d96f06cb8b6b353"
+  ],
+  "paid_ai_calls": 0
+}

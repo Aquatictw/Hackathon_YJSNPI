@@ -1,0 +1,15 @@
+{
+  "observed_at": "2026-09-19T19:09:28.697Z",
+  "run_id": "04dcb07358ee4f3da41e5cbc12cb9850",
+  "edge_id": "grp6-hc-relay",
+  "source_last": "2026-09-19T19:09:51.120Z",
+  "before_events": 530,
+  "after_events": 797,
+  "sse_ready": true,
+  "sse_edge_events": 722,
+  "sse_heartbeat": true,
+  "predictions": 224,
+  "actuals": 216,
+  "incidents": 3,
+  "evidence": 3
+}

@@ -1,0 +1,50 @@
+{
+  "date": "2026-09-20",
+  "evidence_type": "browser-SSH-transcribed observation; remote raw ledger retained",
+  "host": "group-6",
+  "archive": {
+    "path": "/home/user/Case_Event/grp6_host_relay_20260920.zip",
+    "bytes": 18118,
+    "sha256": "6738ac241a6cbc450e5bc1800a69fa67ec2171a49ef8f69c6c7123c80f102c1a",
+    "crc": "pass"
+  },
+  "release": "/home/user/Case_Event/grp6_host_relay_release_20260920_GlNvAM",
+  "python": "3.6.8",
+  "tests": {
+    "total": 28,
+    "passed": 27,
+    "skipped": 1,
+    "skip_reason": "feature_version parser unavailable; actual Python 3.6 runtime checks syntax"
+  },
+  "offline_poll": {
+    "state_directory": "/home/user/grp6-host-relay-state",
+    "edge_id": "grp6-hc-relay",
+    "records_pending": 100,
+    "issues": 0,
+    "command_status": "ok",
+    "run_id": "3f46468325ac47de894e6a13d3c672e0",
+    "tester_id": "group-6",
+    "source_time_first": "2026-09-20T02:10:37.551053+08:00",
+    "source_time_last": "2026-09-20T02:10:59.49654+08:00",
+    "freshness": "Retained history from earlier run; not fresh telemetry"
+  },
+  "https_delivery": {
+    "status": "verified",
+    "records_delivered": 100,
+    "batches_delivered": 4,
+    "issues": 0,
+    "endpoint": "https://hackathon.aquatictw.com/api/v1/events/batch",
+    "backend_events": 215,
+    "predictions": 48,
+    "joined_actuals": 48,
+    "evidence_records": 0,
+    "last_event_at": "2026-09-19T18:10:59.496Z",
+    "original_ids_verified": [
+      "cfbb8ee568df4fe497e07f283cf893f1",
+      "0d422f28d8584cc3ba16f0e2195b4e80"
+    ],
+    "freshness": "Retained earlier-run tail; fresh-run acceptance pending"
+  },
+  "paid_ai_calls": 0,
+  "nexus_restarted": false
+}

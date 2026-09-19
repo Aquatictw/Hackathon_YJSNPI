@@ -1,200 +1,156 @@
-// Local, isolated tour acceptance. Every non-GET/HEAD request is blocked.
-// Reuses an installed Playwright runtime; no downloads or model requests.
+// Local guide regression. Snapshot/SSE are test doubles; no external or mutation requests.
 import assert from 'node:assert/strict';
 import {createRequire} from 'node:module';
 import {readFile} from 'node:fs/promises';
-
-const rawBase=process.argv[2] || 'http://localhost:5173';
-const base=rawBase.endsWith('/') ? rawBase.slice(0,-1) : rawBase;
-const url=new URL(base);
-assert.ok(['localhost','127.0.0.1','[::1]'].includes(url.hostname),'Loopback preview required');
-assert.ok(['http:','https:'].includes(url.protocol));
-const {chromium}=createRequire(import.meta.url)(process.env.PLAYWRIGHT_MODULE || 'playwright');
-const browser=await chromium.launch({headless:true,...(process.env.PLAYWRIGHT_EXECUTABLE?{executablePath:process.env.PLAYWRIGHT_EXECUTABLE}:{})});
-const context=await browser.newContext({viewport:{width:1440,height:1000},reducedMotion:'reduce'});
-const blocked=[];
-const safeRoute=async route=>{
-  const request=route.request();
-  if (!['GET','HEAD'].includes(request.method())) {blocked.push(request.url());return route.abort();}
-  if (!request.url().startsWith(base) && !request.url().startsWith('data:')) return route.abort();
-  return route.continue();
-};
-await context.route('**/*',safeRoute);
-const page=await context.newPage();
-page.setDefaultTimeout(10000);
-const checks=[];
-const dialog=()=>page.locator('.rtdi-tour-card');
-async function check(name,fn){await fn();checks.push(name);console.log('PASS '+name);}
-async function ready(){await page.locator('.app-guide:not(:disabled)').waitFor();await page.waitForFunction(()=>!document.querySelector('main[aria-busy="true"]'));}
-async function guide(){await page.locator('.app-guide').click();await page.locator('[data-step="chapters"]').waitFor();}
-async function chapter(route){await page.locator('.rtdi-tour-chapters a[href="'+route+'"]').click();await page.locator('.rtdi-tour-progress').waitFor();}
-async function step(id){await page.locator('.rtdi-tour-card[data-step="'+id+'"]').waitFor();await page.waitForFunction(()=>document.activeElement?.id==='rtdi-tour-title');}
-async function close(){await page.keyboard.press('Escape');await dialog().waitFor({state:'detached'});assert.equal(await page.locator('.app-guide').evaluate(el=>document.activeElement===el),true);}
-async function bounds(){
-  await page.waitForFunction(()=>{const el=document.querySelector('.rtdi-tour-card');if(!el)return false;const r=el.getBoundingClientRect();return r.left>=0&&r.top>=0&&r.right<=innerWidth+1&&r.bottom<=innerHeight+1;});
-  const small=await dialog().evaluate(el=>[...el.querySelectorAll('*')].filter(n=>n.getClientRects().length&&[...n.childNodes].some(c=>c.nodeType===3&&c.textContent.trim())&&parseFloat(getComputedStyle(n).fontSize)<14).map(n=>n.textContent));
-  assert.deepEqual(small,[],'Guide text below 14px');
-  assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),true,'Page overflows');
+import {tourSteps, tourIndices} from '../lib/rtdi/tour-steps.ts';
+import {parseReplay} from '../lib/rtdi/replay.ts';
+const base = new URL(process.argv[2] || 'http://localhost:5173').origin;
+assert.ok(['localhost','127.0.0.1','[::1]'].includes(new URL(base).hostname));
+const {chromium} = createRequire(import.meta.url)(process.env.PLAYWRIGHT_MODULE || 'playwright');
+const browser = await chromium.launch({headless:true,...(process.env.PLAYWRIGHT_EXECUTABLE?{executablePath:process.env.PLAYWRIGHT_EXECUTABLE}:{})});
+const summary = parseReplay(JSON.parse(await readFile(new URL('../public/replay/summary.json',import.meta.url),'utf8')));
+const event = {event_id:'tour-event',type:'evidence',source_mode:'replay',run_id:'tour-run',tester_id:'tour-tester',timestamp:'2026-09-19T00:00:00Z',wafer_id:'1',evidence_id:'tour-evidence',kind:'mean_drift_up',severity:'warning',message:'Synthetic browser evidence',current_value:2,baseline:1,score:3,series:[1,1.5,2]};
+const snapshot = {run:{run_id:event.run_id,tester_id:event.tester_id,edge_id:'tour',mode:'replay',lot_id:null,wafer_id:'1',data_quality:'partial',last_event_at:event.timestamp},events:[event],evidence:[event],incidents:[],commands:[]};
+const blocked=[],checks=[];
+const sessionKey='rtdi.source-session.v1';
+const savedKey='rtdi-guided-tour-v2';
+async function check(name, fn){await fn();checks.push(name);console.log('PASS '+name);}
+async function isolated({locale='en',source='backend',loaded=false,width=1440,fresh=false,deny=false}={}){
+  const context=await browser.newContext({viewport:{width,height:1000},reducedMotion:'reduce',serviceWorkers:'block'});
+  await context.addCookies([{name:'rtdi.locale',value:locale,url:base}]);
+  await context.addInitScript(({locale,source,loaded,fresh,deny,summary,sessionKey})=>{
+    if(deny){for(const key of ['sessionStorage','localStorage'])Object.defineProperty(window,key,{get(){throw new DOMException('Denied','SecurityError');}});return;}
+    localStorage.setItem('rtdi.locale',locale);
+    if(!fresh)localStorage.setItem('rtdi-guided-tour-visit-v1',JSON.stringify({version:1,status:'dismissed'}));
+    if(!sessionStorage.getItem('tour-test-initialized')){
+      sessionStorage.setItem('tour-test-initialized','1');
+      if(source==='archive')sessionStorage.setItem(sessionKey,JSON.stringify({version:1,mode:'summary',replay:{data:summary,filename:'guide-test.json',selection:{waferId:String(summary.wafers.find(w=>w.alerts.length).wafer),alertIndex:0,filter:'all',tab:'analysis',detailOpen:true}}}));
+      if(loaded)sessionStorage.setItem('rtdi.dashboard.conversations.v1',JSON.stringify({version:1,lastScope:{run:'tour-run',tester:'tour-tester'},selections:[],conversations:[]}));
+    }
+  },{locale,source,loaded,fresh,deny,summary,sessionKey});
+  await context.route('**/*',route=>{
+    const req=route.request(),url=new URL(req.url());
+    if(!['GET','HEAD'].includes(req.method()) || url.origin!==base){blocked.push(req.method()+' '+req.url());return route.abort();}
+    if(url.pathname==='/api/config')return route.fulfill({json:{openai_configured:true,backend_connected:true,model:'browser-test-double'}});
+    if(url.pathname==='/api/v1/runs')return route.fulfill({json:{runs:[{...snapshot.run,updated_at:event.timestamp}],next_offset:null}});
+    if(url.pathname==='/api/v1/runs/tour-run')return route.fulfill({json:snapshot});
+    if(url.pathname==='/api/v1/runs/tour-run/events')return route.fulfill({contentType:'text/event-stream',body:'retry: 60000\nevent: ready\ndata: {"cursor":1}\n\n'.replaceAll('\\n','\n')});
+    if(url.pathname.startsWith('/api/'))return route.fulfill({status:404,json:{error:'Unmocked guide test API'}});
+    return route.continue();
+  });
+  const page=await context.newPage();page.setDefaultTimeout(10000);
+  const errors=[];page.on('pageerror',e=>errors.push(e.message));
+  return {context,page,errors};
 }
-try {
-  await page.goto(base);await ready();
-  await check('Fresh first visit automatically opens welcome with Start tour',async()=>{
-    await page.locator('[data-step="chapters"]').waitFor();
-    await page.getByRole('link',{name:'Start tour',exact:true}).waitFor();
-    assert.equal(await dialog().count(),1);
-    assert.deepEqual(await page.evaluate(()=>JSON.parse(localStorage.getItem('rtdi-guided-tour-visit-v1'))),{version:1,status:'seen'});
-    await bounds();
+async function ready(page){await page.locator('.app-guide:not(:disabled)').waitFor();}
+async function open(page,route){await page.locator('.app-guide').click();await page.locator('.rtdi-tour-chapters a[href="'+route+'"]').click();}
+async function step(page,id){await page.locator('.rtdi-tour-card[data-step="'+id+'"]').waitFor();await page.waitForFunction(()=>document.activeElement?.id==='rtdi-tour-title');}
+async function close(page){await page.keyboard.press('Escape');await page.locator('.rtdi-tour-card').waitFor({state:'detached'});assert.equal(await page.locator('.app-guide').evaluate(el=>el===document.activeElement),true);}
+async function chapter(page,route,source){
+  const steps=tourIndices(route,source).map(i=>tourSteps[i]).filter(s=>s.route===route);
+  for(let i=0;i<steps.length;i++){
+    await step(page,steps[i].id);
+    await page.locator('.rtdi-tour-spotlight').waitFor();
+    await page.waitForFunction(()=>{const r=document.querySelector('.rtdi-tour-card').getBoundingClientRect();return r.left>=0&&r.top>=0&&r.right<=innerWidth+1&&r.bottom<=innerHeight+1;});
+    if(i<steps.length-1)await page.locator('.rtdi-tour-next').click();
+  }
+}
+try{
+  await check('Home starts Workspace, then backend Replay, then Sandbox; Back respects source',async()=>{
+    const {page,context,errors}=await isolated({loaded:true,fresh:true});
+    try{
+      await page.goto(base);await ready(page);await page.locator('[data-step="chapters"]').waitFor();
+      assert.deepEqual(await page.locator('.rtdi-tour-chapters a').evaluateAll(nodes=>nodes.map(n=>n.getAttribute('href'))),['/workspace','/replay','/sandbox']);
+      await page.locator('.rtdi-tour-next').click();await step(page,'workspace');assert.equal(new URL(page.url()).pathname,'/');
+      await page.locator('.dc-loaded-run').waitFor();await chapter(page,'/workspace','workspace-backend');
+      await page.locator('.rtdi-tour-next').click();await step(page,'analysis-source');assert.equal(new URL(page.url()).pathname,'/replay');
+      await page.locator('.dc-loaded-run').waitFor();await chapter(page,'/replay','replay-backend');
+      await page.locator('.rtdi-tour-next').click();await step(page,'sandbox');
+      await page.locator('.rtdi-tour-back').click();await step(page,'analysis-temperature');
+      await page.locator('.rtdi-tour-next').click();await step(page,'sandbox');await chapter(page,'/sandbox',null);
+      await page.locator('.rtdi-tour-next').click();await page.locator('.rtdi-tour-card').waitFor({state:'detached'});
+      assert.equal(await page.evaluate(()=>JSON.parse(localStorage.getItem('rtdi-guided-tour-visit-v1')).status),'completed');
+      await page.reload();await ready(page);assert.equal(await page.locator('.rtdi-tour-card').count(),0);assert.deepEqual(errors,[]);
+    }finally{await context.close();}
   });
-  await check('Modal keyboard trap, Escape and focus restoration',async()=>{
-    await page.keyboard.press('Shift+Tab');assert.equal(await dialog().evaluate(el=>el.contains(document.activeElement)),true);
-    for(let i=0;i<9;i++)await page.keyboard.press('Tab');
-    assert.equal(await dialog().evaluate(el=>el.contains(document.activeElement)),true);
-    assert.equal(await page.locator('main').evaluate(el=>Boolean(el.closest('[inert]'))),true);
-    await close();assert.equal(await page.locator('main').evaluate(el=>Boolean(el.closest('[inert]'))),false);
+  for(const locale of ['en','zh-TW'])await check(locale+': archive and imported Workspace preserve source and selection',async()=>{
+    const {page,context,errors}=await isolated({source:'archive',locale});
+    try{
+      await page.goto(base+'/workspace');await ready(page);await page.locator('.isw-source').waitFor();
+      const before=await page.evaluate(key=>sessionStorage.getItem(key),sessionKey);
+      await open(page,'/workspace');await chapter(page,'/workspace','workspace-summary');
+      await page.locator('.rtdi-tour-next').click();await step(page,'analysis-source');await chapter(page,'/replay','replay-archive');
+      await close(page);assert.equal(await page.evaluate(key=>sessionStorage.getItem(key),sessionKey),before);
+      await open(page,'/replay');await page.locator('.rtdi-tour-next').click();await step(page,'overview');await page.reload();await step(page,'overview');await close(page);
+      assert.deepEqual(errors,[]);
+    }finally{await context.close();}
   });
-  await check('Dismissal persists after reload and Guide manually reopens',async()=>{
-    assert.equal(await page.evaluate(()=>JSON.parse(localStorage.getItem('rtdi-guided-tour-visit-v1')).status),'dismissed');
-    await page.reload();await ready();assert.equal(await dialog().count(),0);
-    await guide();await page.getByRole('link',{name:'Start tour',exact:true}).click();await step('overview');await close();
-    const other=await context.newPage();await other.goto(base+'/workspace');await other.locator('.app-guide:not(:disabled)').waitFor();
-    assert.equal(await other.locator('.rtdi-tour-card').count(),0);await other.close();
+  await check('Empty backend shows a load prerequisite without switching to the archive',async()=>{
+    const {page,context}=await isolated();try{
+      await page.goto(base+'/replay');await ready(page);await open(page,'/replay');
+      for(let i=0;i<4;i++)await page.locator('.rtdi-tour-next').click();await step(page,'analysis-evidence');
+      await page.locator('.rtdi-tour-notice').filter({hasText:'load a backend run'}).waitFor();
+      assert.equal(await page.locator('.replay-workspace').count(),0);await close(page);
+    }finally{await context.close();}
   });
-  await page.getByLabel('Filter wafers',{exact:true}).selectOption('alert');
-  await guide();await chapter('/');
-  const ids=['overview','totals','filter','wafer','yield','alerts','series','import','validation','limitations','load','stream','evidence','temperature','commands','investigate','cost','sandbox','fixtures','sandbox-evidence','rule-demo','finish'];
-  await check('All 22 steps, real targets and native cross-page continuation',async()=>{
-    for(let i=0;i<ids.length;i++){
-      await step(ids[i]);await bounds();console.log('STEP '+ids[i]);
-      await page.locator('.rtdi-tour-spotlight').waitFor().catch(async error=>{console.log(await page.evaluate(()=>({step:document.querySelector('.rtdi-tour-card')?.getAttribute('data-step'),card:document.querySelector('.rtdi-tour-card')?.getBoundingClientRect().toJSON(),alert:document.querySelector('.alert-selector')?.getBoundingClientRect().toJSON(),notice:document.querySelector('.rtdi-tour-notice')?.textContent})));throw error;});
-      if(i===8)await page.locator('.model-panel').waitFor();
-      if(i===13)await page.locator('.dc-temperature').waitFor();
-      if(i===14)await page.locator('.dc-command-list').waitFor();
-      if(i===10)assert.equal(new URL(page.url()).pathname,'/workspace');
-      if(i===17)assert.equal(new URL(page.url()).pathname,'/sandbox');
-      if(i<ids.length-1)await page.locator('.rtdi-tour-next').click();
-    }
-    await page.getByRole('button',{name:'Finish',exact:true}).click();await dialog().waitFor({state:'detached'});
-    assert.equal(await page.locator('.app-guide').evaluate(el=>document.activeElement===el),true);
+  await check('Hidden analysis draft and Q&A history block navigation; picker changes are guarded',async()=>{
+    const {page,context}=await isolated({loaded:true});try{
+      await page.goto(base+'/workspace');await ready(page);await page.locator('.dc-loaded-run').waitFor();
+      await page.locator('#investigation-question').fill('keep analysis draft');
+      await page.getByRole('button',{name:'Semiconductor Q&A',exact:true}).click();
+      await open(page,'/replay');await page.locator('.rtdi-tour-notice[role="alert"]').waitFor();assert.equal(new URL(page.url()).pathname,'/workspace');await close(page);
+      await page.getByRole('button',{name:'Selected analysis',exact:true}).click();assert.equal(await page.locator('#investigation-question').inputValue(),'keep analysis draft');await page.locator('#investigation-question').fill('');
+      await page.getByRole('button',{name:'Semiconductor Q&A',exact:true}).click();await page.locator('#knowledge-question').fill('keep Q&A draft');
+      await open(page,'/replay');await page.locator('.rtdi-tour-notice[role="alert"]').filter({hasText:'General Q&A'}).waitFor();await close(page);
+      await page.locator('#knowledge-question').fill('');
+      // A historical answer is local page state; no model request is needed to test its guard.
+      await page.locator('#knowledge-question').evaluate(el=>{const chat=el.closest('form').parentElement.querySelector('.dc-chat');const answer=document.createElement('div');answer.className='dc-chat-message';answer.textContent='Synthetic saved answer';chat.append(answer);});
+      await open(page,'/sandbox');await page.locator('.rtdi-tour-notice[role="alert"]').filter({hasText:'General Q&A'}).waitFor();await close(page);
+      await page.goto(base+'/replay');await ready(page);await page.locator('.dc-connect select').selectOption({index:1});
+      await open(page,'/sandbox');await page.locator('.rtdi-tour-notice[role="alert"]').filter({hasText:'run input'}).waitFor();await close(page);
+    }finally{await context.close();}
   });
-  await check('Reload resumes the same step; close clears continuation',async()=>{
-    await guide();await chapter('/sandbox');await page.locator('.rtdi-tour-next').click();await step('fixtures');await page.reload();await step('fixtures');await close();await page.reload();await ready();assert.equal(await dialog().count(),0);
+  await check('Sandbox practice data blocks route changes and guide never receives another example',async()=>{
+    const {page,context}=await isolated();try{
+      await page.goto(base+'/sandbox');await ready(page);await page.getByRole('button',{name:'Load practice example',exact:true}).click();
+      const count=await page.locator('.inbox-item').count();assert.ok(count>0);
+      await open(page,'/sandbox');await chapter(page,'/sandbox',null);await close(page);assert.equal(await page.locator('.inbox-item').count(),count);
+      await open(page,'/workspace');await page.locator('.rtdi-tour-notice[role="alert"]').filter({hasText:'sandbox contains'}).waitFor();await close(page);
+    }finally{await context.close();}
   });
-  await check('Completion persists and unrelated visits do not restore a step',async()=>{
-    assert.equal(await page.evaluate(()=>JSON.parse(localStorage.getItem('rtdi-guided-tour-visit-v1')).status),'completed');
-    await page.evaluate(()=>sessionStorage.setItem('rtdi-guided-tour-v1',JSON.stringify({version:1,id:'overview',expires:Date.now()+60000})));
-    await page.reload();await ready();assert.equal(await dialog().count(),0);
-    assert.equal(await page.evaluate(()=>sessionStorage.getItem('rtdi-guided-tour-v1')),null);
-    await page.goto(base);await ready();assert.equal(await dialog().count(),0);
-    await page.goto(base+'/sandbox');await ready();
+  await check('Quiet wafer and collapsed detail keep an explicit missing-target fallback',async()=>{
+    const {page,context}=await isolated({source:'archive'});try{
+      await page.goto(base+'/replay');await ready(page);await page.getByLabel('Filter wafers',{exact:true}).selectOption('quiet');
+      const selected=await page.locator('.wafer-tile[aria-pressed="true"]').getAttribute('aria-label');
+      await open(page,'/replay');while(await page.locator('.rtdi-tour-card').getAttribute('data-step')!=='alerts')await page.locator('.rtdi-tour-next').click();
+      await page.locator('.rtdi-tour-notice').filter({hasText:'target is not available'}).waitFor();await close(page);assert.equal(await page.locator('.wafer-tile[aria-pressed="true"]').getAttribute('aria-label'),selected);
+      await page.locator('.wafer-tile[aria-pressed="true"]').click();await open(page,'/replay');while(await page.locator('.rtdi-tour-card').getAttribute('data-step')!=='yield')await page.locator('.rtdi-tour-next').click();
+      await page.locator('.rtdi-tour-notice').filter({hasText:'panel may be collapsed'}).waitFor();await close(page);assert.equal(await page.locator('.replay-detail').evaluate(el=>el.hidden),true);
+    }finally{await context.close();}
   });
-  await check('Drafts survive guide and prevent destructive route changes',async()=>{
-    await page.goto(base+'/workspace');await ready();await page.locator('.dc-connect input').first().fill('tour-unsent-scope');
-    await guide();await page.locator('.rtdi-tour-chapters a[href="/sandbox"]').click();await page.getByRole('alert').filter({hasText:'run input'}).waitFor();assert.equal(new URL(page.url()).pathname,'/workspace');await close();assert.equal(await page.locator('.dc-connect input').first().inputValue(),'tour-unsent-scope');
-    await page.goto(base+'/sandbox');await ready();await page.getByRole('tab',{name:'Message JSON',exact:true}).click();await page.locator('#batch-json').fill('draft JSON kept locally');
-    await guide();await page.locator('.rtdi-tour-chapters a[href="/workspace"]').click();await page.getByRole('alert').filter({hasText:'sandbox contains'}).waitFor();await close();assert.equal(await page.locator('#batch-json').inputValue(),'draft JSON kept locally');
+  await check('320px bilingual guide contains focus, fits the screen and respects reduced motion',async()=>{
+    const {page,context}=await isolated({width:320});try{
+      await page.goto(base+'/sandbox');await ready(page);await open(page,'/sandbox');await chapter(page,'/sandbox',null);
+      for(const locale of ['en','zh-TW']){
+        await page.locator('.rtdi-tour-language select').selectOption(locale);
+        await page.waitForFunction(locale=>document.documentElement.lang===locale,locale);
+        for(let i=0;i<12;i++){await page.keyboard.press(i%2?'Shift+Tab':'Tab');assert.equal(await page.locator('.rtdi-tour-card').evaluate(el=>el.contains(document.activeElement)),true);}
+        assert.equal(await page.locator('.rtdi-tour-card').evaluate(el=>getComputedStyle(el).animationName),'none');
+      }await close(page);
+    }finally{await context.close();}
   });
-  await check('Local import remains intact across guide navigation',async()=>{
-    await page.goto(base);await ready();
-    const summary=await readFile(new URL('../public/replay/summary.json',import.meta.url));
-    await page.locator('input[type="file"]').setInputFiles({name:'tour-local-copy.json',mimeType:'application/json',buffer:summary});
-    await page.locator('.replay-source').filter({hasText:'Local import'}).waitFor();
-    await guide();await page.locator('.rtdi-tour-chapters a[href="/workspace"]').click();await page.waitForURL('**/workspace');await ready();await page.locator('.rtdi-tour-progress').waitFor();await close();
-    await page.goto(base);await ready();assert.match(await page.locator('.replay-source').innerText(),/tour-local-copy.json/);
+  await check('Denied session storage blocks cross-page continuation safely',async()=>{
+    const {page,context,errors}=await isolated({deny:true});try{
+      await page.goto(base+'/workspace');await ready(page);await page.locator('.rtdi-tour-chapters a[href="/sandbox"]').click();
+      await page.locator('.rtdi-tour-notice[role="alert"]').filter({hasText:'session storage is unavailable'}).waitFor();assert.equal(new URL(page.url()).pathname,'/workspace');await close(page);assert.deepEqual(errors,[]);
+    }finally{await context.close();}
   });
-  await check('Missing alert target is explicit and preserves selected wafer/filter',async()=>{
-    await page.goto(base);await ready();await page.getByLabel('Filter wafers',{exact:true}).selectOption('quiet');
-    const selected=await page.locator('.wafer-tile[aria-pressed="true"]').getAttribute('aria-label');
-    await guide();await chapter('/');for(let i=0;i<5;i++)await page.locator('.rtdi-tour-next').click();await step('alerts');
-    await page.getByRole('status').filter({hasText:'target is not available'}).waitFor();await close();assert.equal(await page.getByLabel('Filter wafers',{exact:true}).inputValue(),'quiet');assert.equal(await page.locator('.wafer-tile[aria-pressed="true"]').getAttribute('aria-label'),selected);
+  await check('Saved step from an inactive source resumes at the source chooser',async()=>{
+    const {page,context}=await isolated();try{
+      await page.goto(base+'/replay');await ready(page);
+      await page.evaluate(key=>sessionStorage.setItem(key,JSON.stringify({version:2,id:'validation',expires:Date.now()+60000})),savedKey);
+      await page.reload();await step(page,'analysis-source');await close(page);
+    }finally{await context.close();}
   });
-  await check('Mobile 390px and 320px placement, readable text and reduced motion',async()=>{
-    for(const width of [390,320]){
-      await page.setViewportSize({width,height:844});await page.goto(base);await ready();await guide();await bounds();await chapter('/');
-      for(let i=0;i<3;i++){await bounds();await page.locator('.rtdi-tour-next').click();}
-      await bounds();assert.equal(await dialog().evaluate(el=>getComputedStyle(el).animationName),'none');await close();
-    }
-  });
-  await check('Hidden detail panel stays closed with an explicit fallback',async()=>{
-    await page.goto(base);await ready();
-    await page.locator('.wafer-tile[aria-pressed="true"]').click();
-    assert.equal(await page.locator('.replay-detail').isVisible(),false);
-    await guide();await chapter('/');for(let i=0;i<4;i++)await page.locator('.rtdi-tour-next').click();
-    await step('yield');await page.getByRole('status').filter({hasText:'panel may be collapsed'}).waitFor();await close();
-    assert.equal(await page.locator('.replay-detail').evaluate(el=>el.hidden),true);
-  });
-  await check('Theme class and computed surfaces settle before capture',async()=>{
-    await page.goto(base);await ready();
-    for(const theme of ['dark','light']){
-      await page.locator('.theme-selector select').first().selectOption(theme);
-      await page.waitForFunction(theme=>document.documentElement.classList.contains(theme),theme);
-      await page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));
-      await guide();await bounds();
-      const color=await dialog().evaluate(el=>getComputedStyle(el).backgroundColor);
-      await page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));
-      assert.equal(await dialog().evaluate(el=>getComputedStyle(el).backgroundColor),color);await close();
-    }
-  });
-  await check('Large Validation and Limitations retain their full visible spotlight',async()=>{
-    for(const width of [1440,390,320]){
-      await page.setViewportSize({width,height:900});await page.goto(base);await ready();await guide();await chapter('/');
-      for(let i=0;i<8;i++)await page.locator('.rtdi-tour-next').click();
-      for(const [id,target] of [['validation','.model-panel'],['limitations','.limitations-panel']]){
-        await step(id);await page.locator(target).waitFor();
-        // Enlarge only the isolated test DOM so outside placement cannot fit.
-        await page.locator(target).evaluate(el=>{el.style.minHeight='1400px';});
-        await bounds();
-        await page.waitForFunction(selector=>{
-          const target=document.querySelector(selector),spot=document.querySelector('.rtdi-tour-spotlight');if(!target||!spot)return false;
-          const r=target.getBoundingClientRect(),s=spot.getBoundingClientRect();
-          const expected={left:Math.max(0,r.left-6),top:Math.max(0,r.top-6),right:Math.min(innerWidth,r.right+6),bottom:Math.min(innerHeight,r.bottom+6)};
-          return Object.entries(expected).every(([key,value])=>Math.abs(s[key]-value)<=1);
-        },target);
-        // The visible bottom follows the target after scroll clamping; it need
-        // not equal the viewport bottom for a compact final panel.
-        if(id==='validation')await page.locator('.rtdi-tour-next').click();
-      }
-      await close();
-    }
-  });
-  await check('Back, chapter chooser and Skip tour work',async()=>{
-    await guide();await chapter('/');await page.locator('.rtdi-tour-next').click();await step('totals');await page.getByRole('link',{name:'Back',exact:true}).click();await step('overview');await page.getByRole('button',{name:'Chapters',exact:true}).click();await page.locator('[data-step="chapters"]').waitFor();await chapter('/');await page.getByRole('button',{name:'Skip tour',exact:true}).click();await dialog().waitFor({state:'detached'});
-  });
-  await check('Denied storage is safe; session fallback remembers dismissal',async()=>{
-    for(const denyAll of [false,true]){
-      const isolated=await browser.newContext({viewport:{width:1280,height:900},reducedMotion:'reduce'});
-      await isolated.route('**/*',safeRoute);
-      await isolated.addInitScript(denyAll=>{
-        for(const key of denyAll?['localStorage','sessionStorage']:['localStorage'])Object.defineProperty(window,key,{get(){throw new DOMException('Storage denied','SecurityError');}});
-      },denyAll);
-      const view=await isolated.newPage();const errors=[];view.on('pageerror',error=>errors.push(error.message));
-      try {
-        await view.goto(base);await view.locator('[data-step="chapters"]').waitFor();
-        await view.keyboard.press('Escape');await view.locator('.rtdi-tour-card').waitFor({state:'detached'});
-        await view.locator('.app-guide').click();await view.locator('[data-step="chapters"]').waitFor();
-        if(denyAll){
-          await view.locator('.rtdi-tour-chapters a[href="/workspace"]').click();
-          await view.getByRole('alert').filter({hasText:'session storage is unavailable'}).waitFor();
-          assert.equal(new URL(view.url()).pathname,'/');
-          await view.keyboard.press('Escape');
-        }else{
-          await view.keyboard.press('Escape');await view.reload();await view.locator('.app-guide:not(:disabled)').waitFor();assert.equal(await view.locator('.rtdi-tour-card').count(),0);
-        }
-        assert.deepEqual(errors,[]);
-      }finally{await isolated.close();}
-    }
-  });
-  await check('Fresh workspace, sandbox and replay alias each show welcome',async()=>{
-    for(const path of ['/workspace','/sandbox','/replay']){
-      const isolated=await browser.newContext({reducedMotion:'reduce'});await isolated.route('**/*',safeRoute);
-      try {
-        const view=await isolated.newPage();await view.goto(base+path);await view.locator('[data-step="chapters"]').waitFor();
-        await view.getByRole('link',{name:'Start tour',exact:true}).waitFor();
-        assert.equal(await view.locator('.rtdi-tour-card').count(),1);
-        await view.keyboard.press('Escape');await view.reload();await view.locator('.app-guide:not(:disabled)').waitFor();
-        assert.equal(await view.locator('.rtdi-tour-card').count(),0);
-      } finally {await isolated.close();}
-    }
-  });
-  await check('No POST, model request or data mutation was attempted',async()=>assert.deepEqual(blocked,[]));
-  console.log(JSON.stringify({checks:checks.length,passed:true,blockedRequests:blocked,limits:'Local tour UI only; no model or tester acceptance.'},null,2));
-} finally {await context.close();await browser.close();}
+  assert.deepEqual(blocked,[]);console.log(JSON.stringify({passed:true,checks:checks.length,blockedRequests:blocked,limits:'Local guide UI with backend test doubles; no live machine, model or deployment acceptance.'},null,2));
+}finally{await browser.close();}

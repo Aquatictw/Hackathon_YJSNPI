@@ -4,10 +4,10 @@ import {useCallback, useEffect, useRef, useState, type MouseEvent} from 'react';
 import {LanguageSelector, useLocale} from '@/components/locale-provider';
 import {createPortal} from 'react-dom';
 import {ArrowLeft, ArrowRight, BookOpen, X} from 'lucide-react';
-import {tourRoute, tourSteps, type TourRoute} from '@/lib/rtdi/tour-steps';
+import {tourRoute, tourSteps, tourChapters, tourIndices, type TourRoute, type TourSource} from '@/lib/rtdi/tour-steps';
 import './guided-tour.css';
 
-const storageKey = 'rtdi-guided-tour-v1';
+const storageKey = 'rtdi-guided-tour-v2';
 const visitKey = 'rtdi-guided-tour-visit-v1';
 type VisitStatus = 'seen' | 'dismissed' | 'completed';
 function readVisit():VisitStatus|null {
@@ -26,18 +26,24 @@ function markVisit(status:VisitStatus) {
     try { window[storage].setItem(visitKey,value); } catch { /* Session fallback, then this document's mounted state. */ }
   }
 }
-const chapters = [
-  {route:'/' as const, name:'Replay analysis', description:'Wafer selection, alerts, imports and validation'},
-  {route:'/workspace' as const, name:'Run workspace', description:'Evidence, Temperature, commands and investigations'},
-  {route:'/sandbox' as const, name:'Sandbox', description:'Synthetic fixtures and rule-based analysis'},
-];
+function currentSource():TourSource|null {
+  if (document.querySelector('.isw-app')) return 'workspace-summary';
+  if (document.querySelector('.run-analysis')) return 'replay-backend';
+  if (document.querySelector('.replay-workspace')) return 'replay-archive';
+  return tourRoute(location.pathname) === '/workspace' ? 'workspace-backend' : null;
+}
+const scopeFields = '.dc-connect input, .dc-connect select';
+function scopeInputs() {
+  // Select defaults may hydrate asynchronously; user changes are tracked separately.
+  return JSON.stringify([...document.querySelectorAll<HTMLInputElement>('.dc-connect input')].map(el=>el.value));
+}
 type Box = {left:number; top:number; width:number; height:number};
 type Placement = {hole:Box|null; left:number; top:number; attached:boolean};
 const sameBox = (a:Placement, b:Placement) => JSON.stringify(a) === JSON.stringify(b);
 
-function saveStep(index:number):boolean {
+function saveStep(index:number, direction:'forward'|'back'='forward'):boolean {
   try {
-    sessionStorage.setItem(storageKey, JSON.stringify({version:1, id:tourSteps[index].id, expires:Date.now()+2*60*60*1000}));
+    sessionStorage.setItem(storageKey, JSON.stringify({version:2, id:tourSteps[index].id, direction, expires:Date.now()+2*60*60*1000}));
     return true;
   } catch { return false; }
 }
@@ -67,9 +73,10 @@ function activateTab(tab:HTMLElement) {
 function routeBlocker(route:TourRoute|null, initialInputs:string, dirtyInputs:boolean):string|null {
   if (document.querySelector('.dc-thinking,.thinking')) return 'An investigation is still running. Close the guide and wait for it before changing pages.';
   if (route === '/sandbox' && (document.querySelector('.inbox-item,.chat-message') || [...document.querySelectorAll<HTMLTextAreaElement>('main textarea')].some(el=>el.value.trim()))) return 'This sandbox contains local events, answers or a draft. Page navigation would discard them. Close the guide to keep working here; open another chapter after you have preserved your work.';
-  if (route === '/workspace') {
-    const inputs = JSON.stringify([...document.querySelectorAll<HTMLInputElement>('.dc-connect input')].map(el=>el.value));
-    if (dirtyInputs || inputs !== initialInputs || document.querySelector<HTMLTextAreaElement>('.dc-composer textarea')?.value.trim()) return 'A run input or investigation draft is present. Close the guide to keep working in this scope. The guide will not navigate away from an unfinished draft.';
+  if (route === '/workspace' || route === '/replay') {
+    const knowledge = document.querySelector<HTMLTextAreaElement>('#knowledge-question');
+    if (knowledge?.value.trim() || knowledge?.closest('form')?.parentElement?.querySelector('.dc-chat-message')) return 'General Q&A contains a draft, an answer or a request in progress. Page navigation would discard it. Close the guide to preserve this conversation.';
+    if (dirtyInputs || scopeInputs() !== initialInputs || [...document.querySelectorAll<HTMLTextAreaElement>('.dc-composer textarea')].some(el=>el.value.trim())) return 'A run input or investigation draft is present. Close the guide to keep working in this scope. The guide will not navigate away from an unfinished draft.';
   }
   return null;
 }
@@ -93,6 +100,11 @@ export function GuidedTour() { const {t}=useLocale();
   const originalScroll = useRef({x:0,y:0});
   const open = index !== null;
   const step = index !== null && index >= 0 ? tourSteps[index] : null;
+  const available = ready ? tourIndices(location.pathname,currentSource()) : tourSteps.map((_,i)=>i);
+  const position = index === null ? -1 : available.indexOf(index);
+  const previous = available[position-1];
+  const next = available[position+1];
+  const chapterSteps = step ? available.filter(i=>tourSteps[i].route===step.route) : [];
 
   const close = useCallback(() => {
     markVisit('dismissed');
@@ -104,9 +116,10 @@ export function GuidedTour() { const {t}=useLocale();
   },[]);
 
   useEffect(() => {
-    const input = (event:Event) => { if (event.target instanceof Element && event.target.matches('.dc-connect input')) dirtyInputs.current=true; };
+    const input = (event:Event) => { if (event.target instanceof Element && event.target.matches(scopeFields)) dirtyInputs.current=true; };
     const submit = (event:Event) => { if (event.target instanceof Element && event.target.matches('.dc-connect')) dirtyInputs.current=false; };
     document.addEventListener('input',input,true);
+    document.addEventListener('change',input,true);
     document.addEventListener('submit',submit,true);
     const timer = window.setTimeout(() => {
       if (initialized.current) return;
@@ -114,15 +127,20 @@ export function GuidedTour() { const {t}=useLocale();
       setReady(true);
       try {
         const saved = JSON.parse(sessionStorage.getItem(storageKey) ?? 'null');
-        if (saved?.version === 1 && typeof saved.expires === 'number' && saved.expires >= Date.now()) {
+        if (saved?.version === 2 && typeof saved.expires === 'number' && saved.expires >= Date.now()) {
           const restored = tourSteps.findIndex(item=>item.id===saved.id);
-          if (restored >= 0 && tourSteps[restored].route === tourRoute(location.pathname)) { markVisit('seen'); setIndex(restored); return; }
+          if (restored >= 0 && tourSteps[restored].route === tourRoute(location.pathname)) {
+            const applicable = tourIndices(location.pathname,currentSource()).filter(i=>tourSteps[i].route===tourRoute(location.pathname));
+            const valid = applicable.includes(restored);
+            const resumed = valid ? restored : saved.direction === 'back' ? applicable[applicable.length-1] : applicable[0];
+            markVisit('seen'); setIndex(resumed); saveStep(resumed); return;
+          }
         }
         clearStep();
       } catch { clearStep(); }
       if (!readVisit()) { markVisit('seen'); setIndex(-1); }
     },0);
-    return () => { clearTimeout(timer); document.removeEventListener('input',input,true); document.removeEventListener('submit',submit,true); };
+    return () => { clearTimeout(timer); document.removeEventListener('input',input,true); document.removeEventListener('change',input,true); document.removeEventListener('submit',submit,true); };
   },[]);
 
   // Keep the modal isolated from page controls, and restore their prior inert state exactly.
@@ -131,7 +149,7 @@ export function GuidedTour() { const {t}=useLocale();
     const trigger = triggerRef.current;
     const focus = originalFocus.current ?? trigger;
     originalScroll.current = {x:window.scrollX,y:window.scrollY};
-    initialInputs.current = JSON.stringify([...document.querySelectorAll<HTMLInputElement>('.dc-connect input')].map(el=>el.value));
+    initialInputs.current = scopeInputs();
     originalTab.current = document.querySelector<HTMLElement>('main [role="tab"][aria-selected="true"]');
     const previous = new Map<HTMLElement,boolean>();
     const isolate = () => {
@@ -236,14 +254,11 @@ export function GuidedTour() { const {t}=useLocale();
     if (tourSteps[next].route !== route) {
       const blocker = routeBlocker(route,initialInputs.current,dirtyInputs.current);
       if (blocker) { event.preventDefault(); setNotice(blocker); return; }
-      if (!saveStep(next)) { event.preventDefault(); setNotice('Browser session storage is unavailable. This chapter still works. Close the guide, navigate to another page, and reopen Guide there to continue.'); return; }
+      if (!saveStep(next,index !== null && index >= 0 && next < index ? 'back' : 'forward')) { event.preventDefault(); setNotice('Browser session storage is unavailable. This chapter still works. Close the guide, navigate to another page, and reopen Guide there to continue.'); return; }
       // The anchor performs a full document navigation; Vinext client routing is not used.
       return;
     }
     event.preventDefault(); saveStep(next); setNotice(''); setMissing(false); setIndex(next);
-  }
-  function navigation(next:number,label:string,className='') {
-    return <a className={className} href={tourSteps[next].route} onClick={event=>move(next,event)}>{t(label)}</a>;
   }
   const hole = placement.hole;
   return <>
@@ -261,23 +276,27 @@ export function GuidedTour() { const {t}=useLocale();
         <div className="rtdi-tour-language"><span>{t('Website language')}</span><LanguageSelector/></div>
         <div className="rtdi-tour-content">
           <h2 id="rtdi-tour-title" tabIndex={-1} ref={titleRef}>{t(step?.title ?? 'Explore the interface')}</h2>
-          <p id="rtdi-tour-description">{t(step?.body ?? 'Choose a chapter, or start with Replay analysis and continue through all three pages. The guide never submits model requests or changes your data.')}</p>
+          <p id="rtdi-tour-description">{t(step?.body ?? 'Choose a chapter, or start with Run workspace and continue through Replay analysis and Sandbox. Steps follow the current source without changing your data.')}</p>
           {step?.detail && <p className="rtdi-tour-detail">{t(step.detail)}</p>}
-          {!step && <nav aria-label={t("Guide chapters")} className="rtdi-tour-chapters">{chapters.map(chapter=>{
+          {!step && <nav aria-label={t("Guide chapters")} className="rtdi-tour-chapters">{tourChapters.map(chapter=>{
             const first=tourSteps.findIndex(item=>item.route===chapter.route);
             return <a key={chapter.route} href={chapter.route} onClick={event=>move(first,event)}><strong>{t(chapter.name)}<ArrowRight size={16} aria-hidden="true"/></strong><span>{t(chapter.description)}</span></a>;
           })}</nav>}
           {step?.preview && <aside className="rtdi-tour-preview" aria-label={t("Static synthetic tutorial example")}><strong>{t("Static synthetic example · tutorial only")}</strong><span>{t(step.preview.label)}</span><dl>{step.preview.rows.map(([label,value])=><div key={label}><dt>{t(label)}</dt><dd>{t(value)}</dd></div>)}</dl><p>{t("Not server data. No request is sent.")}</p></aside>}
-          {missing && <p className="rtdi-tour-notice" role="status">{t("This target is not available in the current page state. Its panel may be collapsed, or it may need a loaded snapshot or a selected alert. The guide has left your data unchanged; continue to the next step or close it to explore.")}</p>}
+          {missing && <p className="rtdi-tour-notice" role="status">{t(step?.source === 'replay-backend' && !document.querySelector('.dc-loaded-run') ? 'Close the guide and load a backend run to inspect this panel. No run is loaded by the guide.' : 'This target is not available in the current page state. Its panel may be collapsed, or it may need a loaded snapshot or a selected alert. The guide has left your data unchanged; continue to the next step or close it to explore.')}</p>}
           {notice && <p className="rtdi-tour-notice" role="alert">{t(notice)}</p>}
         </div>
         <div className="rtdi-tour-footer">
           {step && index !== null ? <>
-            <div className="rtdi-tour-progress"><button type="button" onClick={()=>{clearStep();setIndex(-1);setNotice('');}}>{t("Chapters")}</button><span>{t('Step {0} of {1}',index+1,tourSteps.length)}</span><button type="button" onClick={close}>{t("Skip tour")}</button></div>
-            <div className="rtdi-tour-actions">{index>0?navigation(index-1,'Back','rtdi-tour-back'):<button type="button" disabled><ArrowLeft size={16} aria-hidden="true"/>{t("Back")}</button>}{index<tourSteps.length-1?navigation(index+1,tourSteps[index+1].route!==step.route?t('Next: {0}',t(tourSteps[index+1].chapter)):'Next','rtdi-tour-next'):<button type="button" className="rtdi-tour-next" onClick={finish}>{t("Finish")}</button>}</div>
-          </>:<><div className="rtdi-tour-actions"><button type="button" onClick={close}>{t("Skip tour")}</button>{navigation(0,'Start tour','rtdi-tour-next')}</div><p>{t("Keyboard: Tab to move between controls. Escape closes the guide.")}</p></>}
+            <div className="rtdi-tour-progress"><button type="button" onClick={()=>{clearStep();setIndex(-1);setNotice('');}}>{t("Chapters")}</button><span>{t('Step {0} of {1} in this chapter',chapterSteps.indexOf(index)+1,chapterSteps.length)}</span><button type="button" onClick={close}>{t("Skip tour")}</button></div>
+            <div className="rtdi-tour-actions">{previous !== undefined?<TourNavigation index={previous} label={t('Back')} className="rtdi-tour-back" onMove={move}/>:<button type="button" disabled><ArrowLeft size={16} aria-hidden="true"/>{t("Back")}</button>}{next !== undefined?<TourNavigation index={next} label={tourSteps[next].route!==step.route?t('Next: {0}',t(tourSteps[next].chapter)):t('Next')} className="rtdi-tour-next" onMove={move}/>:<button type="button" className="rtdi-tour-next" onClick={finish}>{t("Finish")}</button>}</div>
+          </>:<><div className="rtdi-tour-actions"><button type="button" onClick={close}>{t("Skip tour")}</button>{<TourNavigation index={0} label={t('Start tour')} className="rtdi-tour-next" onMove={move}/>}</div><p>{t("Keyboard: Tab to move between controls. Escape closes the guide.")}</p></>}
         </div>
       </section>
     </div>,document.body)}
   </>;
+}
+
+function TourNavigation({index,label,className,onMove}:{index:number;label:string;className:string;onMove:(index:number,event:MouseEvent<HTMLAnchorElement>)=>void}) {
+  return <a className={className} href={tourSteps[index].route} onClick={event=>onMove(index,event)}>{label}</a>;
 }

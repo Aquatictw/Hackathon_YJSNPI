@@ -1,9 +1,9 @@
 'use client';
 
 import { useEffect, useId, useRef, useState, type ReactNode } from 'react';
-import { Database, Radio, RefreshCw } from 'lucide-react';
+import { Radio, RefreshCw } from 'lucide-react';
 import { useLocale } from '@/components/locale-provider';
-import { createRunDiscovery, initialRunDiscovery, runChoiceKey, runModeLabel, selectedStoredRun } from '@/lib/rtdi/run-discovery';
+import { createRunDiscovery, initialRunDiscovery, isRecordedCapture, runChoiceKey, storedRunName, storedRunSourceLabel, selectedStoredRun } from '@/lib/rtdi/run-discovery';
 import './stored-run-picker.css';
 
 type Props = {
@@ -29,7 +29,7 @@ export function StoredRunPicker({ onLoad, busy = false, imported = false, childr
   const time = (value: string, database = false) => {
     // SQLite CURRENT_TIMESTAMP is UTC, without an explicit timezone suffix.
     const date = new Date(database && !/Z|[+-]\d\d:\d\d$/.test(value) ? value.replace(' ', 'T') + 'Z' : value);
-    return Number.isNaN(date.getTime()) ? value : date.toLocaleString(locale);
+    return Number.isNaN(date.getTime()) ? value : <time dateTime={date.toISOString()}>{date.toLocaleString(locale, { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit', timeZoneName: 'short' })}</time>;
   };
   return <section className="dc-run-picker" aria-label={t('Run selection')}>
     <form id={imported ? 'load-backend-run' : undefined} className="dc-connect" aria-busy={busy} onSubmit={event => {
@@ -38,14 +38,13 @@ export function StoredRunPicker({ onLoad, busy = false, imported = false, childr
       if (manual) void onLoad(run.trim(), tester.trim());
       else if (selected) void onLoad(selected.run_id, selected.tester_id);
     }}>
-      <div className="dc-connect-title"><Database size={18}/><div><strong>{t(imported ? 'Load backend run' : 'Run selection')}</strong><small>{t('Run and tester scope')}</small></div></div>
       {manual ? <>
         <label htmlFor={id + '-run'}>{t('Run ID')}<input id={id + '-run'} value={run} onChange={event => setRun(event.target.value)} required maxLength={120}/></label>
         <label htmlFor={id + '-tester'}>{t('Tester ID')}<input id={id + '-tester'} value={tester} onChange={event => setTester(event.target.value)} placeholder={t('Optional tester filter')} maxLength={120}/></label>
       </> : <label className="dc-stored-run-label" htmlFor={id + '-stored'}>{t('Stored run · Tester ID / Run ID')}
         <select id={id + '-stored'} value={state.selected} aria-describedby={id + '-status ' + id + '-note'} disabled={state.loading || !state.runs.length} onChange={event => discovery.current?.select(event.target.value)}>
           <option value="">{t('Choose a stored run')}</option>
-          {state.runs.map(item => <option key={runChoiceKey(item)} value={runChoiceKey(item)}>{item.tester_id} / {item.run_id} · {t(runModeLabel(item.mode))}</option>)}
+          {state.runs.map(item => <option key={runChoiceKey(item)} value={runChoiceKey(item)}>{storedRunName(item) ? `${t(storedRunName(item)!)} · ` : ''}{t(storedRunSourceLabel(item))} · {item.tester_id} / {item.run_id}</option>)}
         </select>
       </label>}
       <button className="dc-primary" type="submit" disabled={!canLoad}><Radio size={16}/>{t(imported ? 'Load backend run' : 'Load run')}</button>
@@ -53,17 +52,29 @@ export function StoredRunPicker({ onLoad, busy = false, imported = false, childr
       {children}
     </form>
     <div className="dc-run-discovery">
-      <p id={id + '-status'} role="status" aria-live="polite">{state.loading ? t('Finding stored runs…') : state.error ? t('Could not refresh stored runs. Retry with Refresh runs.') : !state.loaded ? '' : !state.runs.length ? t('No stored runs found. Refresh after data is received, or enter a known ID.') : t('{0} stored runs shown · Most recently updated first', state.runs.length)}</p>
+      <p id={id + '-note'} className="dc-run-load-note">{t('Selection takes effect only after Load.')}</p>
+      <p id={id + '-status'} className="dc-run-discovery-status" role="status" aria-live="polite">{state.loading ? t('Finding stored runs…') : state.error ? t('Could not refresh stored runs. Retry with Refresh runs.') : state.loaded && !state.runs.length ? t('No stored runs found. Refresh after data is received, or enter a known ID.') : ''}</p>
       {state.error && state.runs.length > 0 && <p>{t('Showing the last fetched list; it may be out of date.')}</p>}
       {state.nextOffset !== null && <button className="dc-secondary" type="button" disabled={state.loading} onClick={() => void discovery.current?.more()}>{t('Show more runs')}</button>}
+      <div className="dc-run-options">
+      <details className="dc-run-details">
+        <summary>{t('Selection details')}</summary>
+        <div className="dc-run-details-content">
+        {state.loaded && <p>{t('{0} stored runs shown · Most recently updated first', state.runs.length)}</p>}
       {!manual && selected && <dl className="dc-run-metadata">
-        <div><dt>{t('Source mode')}</dt><dd>{t(runModeLabel(selected.mode))}</dd></div>
+        <div><dt>{t('Run ID')}</dt><dd>{selected.run_id}</dd></div>
+        <div><dt>{t('Tester ID')}</dt><dd>{selected.tester_id}</dd></div>
+        <div><dt>{t('Source mode')}</dt><dd>{t(storedRunSourceLabel(selected))}</dd></div>
         <div><dt>{t('Edge ID')}</dt><dd>{selected.edge_id}</dd></div>
         <div><dt>{t('Last source event')}</dt><dd>{time(selected.last_event_at)}</dd></div>
         <div><dt>{t('Last stored update')}</dt><dd>{time(selected.updated_at, true)}</dd></div>
       </dl>}
-      <p id={id + '-note'}>{t('Selection takes effect only after Load. Live is source-reported; stored records do not prove current tester connectivity.')}</p>
+        <p>{t('Selection takes effect only after Load. Live is source-reported; stored records do not prove current tester connectivity.')}</p>
+        {selected?.mode === 'replay' && !manual && <p>{t(isRecordedCapture(selected) ? 'Recorded Gemini capture. Timestamps are the original machine event times; this is not a current feed.' : 'Replay timestamps represent import ordering.')}</p>}
+        </div>
+      </details>
       <button className="dc-secondary" type="button" aria-pressed={manual} onClick={() => setManual(value => !value)}>{t(manual ? 'Choose from stored runs' : 'Enter IDs manually')}</button>
+      </div>
     </div>
   </section>;
 }

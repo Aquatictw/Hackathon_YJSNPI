@@ -4,6 +4,23 @@ import { edgeBatchSchema, type EdgeBatch, type EdgeRecord } from "./wire.ts";
 const id = z.string().min(1).max(120);
 const finite = z.number().finite();
 
+// Counts validate the supplied fraction; an absent fraction is never inferred.
+const runSummarySchema = z.object({
+  completed_devices: z.number().int().nonnegative().safe().optional(),
+  good_devices: z.number().int().nonnegative().safe().optional(),
+  yield_fraction: finite.min(0).max(1).optional(),
+}).superRefine((summary, ctx) => {
+  const { completed_devices: completed, good_devices: good, yield_fraction: fraction } = summary;
+  if (completed !== undefined && good !== undefined) {
+    if (good > completed) {
+      ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["good_devices"], message: "good_devices exceeds completed_devices" });
+    }
+    if (fraction !== undefined && Math.abs(fraction - good / Math.max(completed, 1)) > 1e-12) {
+      ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["yield_fraction"], message: "yield_fraction disagrees with supplied device counts" });
+    }
+  }
+});
+
 export const exporterEventSchema = z.object({
   schema_version: z.union([z.literal("1"), z.literal(1)]),
   event_id: id,
@@ -104,9 +121,12 @@ function normalizeEvent(event: z.infer<typeof exporterEventSchema>): EdgeRecord 
     };
   }
   const siteId = optionalSite(event.site);
+  const summary = event.event_type === "run_summary" ? runSummarySchema.parse(event) : {};
   return {
     ...base,
     type: "run_summary",
+    ...(summary.completed_devices !== undefined ? { completed_devices: summary.completed_devices } : {}),
+    ...(summary.yield_fraction !== undefined ? { yield: summary.yield_fraction } : {}),
     ...(optionalId(event.device_id) ? { device_id: optionalId(event.device_id) } : {}),
     ...(siteId ? { site_id: siteId } : {}),
     ...(typeof event.stage === "number" ? { stage: event.stage } : {}),
