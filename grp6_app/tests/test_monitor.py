@@ -68,9 +68,87 @@ class ProtocolTests(unittest.TestCase):
         response=self.core.consumeTPRequest(self.tc,'{"key":"prod_action"}')
         self.assertIn('Yield',response)
         self.assertIn('production_action_response',Path(self.tmp.name,'evidence.jsonl').read_text())
+    def test_hex_part_flags_complete_devices_and_clear_features(self):
+        from contextlib import redirect_stdout
+        from io import StringIO
+        output=StringIO()
+        with redirect_stdout(output):
+            self.core.consumeData(self.tc,Event('PRODUCTION_TESTEND',get_ResultCount=2,
+                query_HeadSite=[65537,65538],query_PartFlag=['0x0','0x8'],
+                query_SBinResult=[1,2],query_PartId=['p1','p2']))
+        self.assertEqual(self.core.counts['callback_errors'],0)
+        self.assertEqual(self.core.detectors[self.tc.testerId].completed,2)
+        self.assertEqual(self.core.detectors[self.tc.testerId].good,1)
+        self.assertEqual(self.core.state.snapshot(self.tc.testerId),{})
+        records=[json.loads(line) for line in Path(self.tmp.name,'evidence.jsonl').read_text().splitlines()]
+        ends=[r for r in records if r['kind']=='device_end']
+        self.assertEqual([r['part_flag'] for r in ends],['0x0','0x8'])
+        self.assertIn('GRP6_EVIDENCE ',output.getvalue())
     def test_bad_stage_and_invalid_payload_are_logged(self):
         for request in ['bad','{"key":"predict","data":7}','{"key":"predict","data":true}']:
             self.assertEqual(self.core.consumeTPRequest(self.tc,request),'')
         self.assertEqual(sum(c[0]=='wait' for c in self.actions.calls),0)
+    def test_delayed_measurements_can_finish_before_request_deadline(self):
+        from threading import Thread, Event as ThreadEvent
+        waiting = ThreadEvent()
+        original_wait = self.core.data_ready.wait
+        def observed_wait(timeout):
+            waiting.set()
+            return original_wait(timeout)
+        self.core.data_ready.wait = observed_wait
+        self.core.feature_wait_seconds = 1.0
+        result = []
+        worker = Thread(target=lambda: result.append(self.core.consumeTPRequest(
+            self.tc, '{"key":"predict","data":1}')))
+        worker.start()
+        self.assertTrue(waiting.wait(1))
+        with self.core.lock:
+            model = self.core.models.models['1']
+            for site in ['1','2']:
+                for name,value in zip(model['features'],model['mean']):
+                    self.core.state.record(self.tc.testerId,site,name,value)
+            self.core.data_ready.notify_all()
+        worker.join(2)
+        self.assertFalse(worker.is_alive())
+        self.assertIn('prediction 1:', result[0])
+        self.assertIn('"waited_for_measurements": true', Path(self.tmp.name,'evidence.jsonl').read_text())
+    def test_waiting_request_never_uses_next_touchdown(self):
+        from threading import Thread, Event as ThreadEvent
+        waiting = ThreadEvent()
+        original_wait = self.core.data_ready.wait
+        def observed_wait(timeout):
+            waiting.set()
+            return original_wait(timeout)
+        self.core.data_ready.wait = observed_wait
+        self.core.feature_wait_seconds = 1.0
+        result=[]
+        worker=Thread(target=lambda: result.append(self.core.consumeTPRequest(
+            self.tc, '{"key":"predict","data":1}')))
+        worker.start()
+        self.assertTrue(waiting.wait(1))
+        with self.core.lock:
+            self.start()
+            model=self.core.models.models['1']
+            for site in ['1','2']:
+                for name,value in zip(model['features'],model['mean']):
+                    self.core.state.record(self.tc.testerId,site,name,value)
+        worker.join(2)
+        self.assertFalse(worker.is_alive())
+        self.assertNotIn('prediction 1:',result[0])
+        self.assertIn('"lifecycle_changed": true',Path(self.tmp.name,'evidence.jsonl').read_text())
+    def test_future_measurements_cannot_change_earlier_predictions(self):
+        artifact=Path(__file__).parents[1]/'artifacts'
+        manifest=json.loads((artifact/'manifest.json').read_text())
+        for stage in range(1,7):
+            allowed=set(manifest['stages'][str(stage)])
+            model=self.core.models.models[str(stage)]
+            self.assertTrue(set(model['features']) <= allowed)
+            current=dict(zip(model['features'],model['mean']))
+            before=self.core.models.predict(stage,current)
+            future=set(self.core.models.artifact['columns'])-allowed
+            self.assertTrue(future)
+            for replacement in [1e12,-1e12,float('nan')]:
+                modified=dict(current,**dict.fromkeys(future,replacement))
+                self.assertEqual(self.core.models.predict(stage,modified),before)
 
 if __name__=='__main__':unittest.main()
