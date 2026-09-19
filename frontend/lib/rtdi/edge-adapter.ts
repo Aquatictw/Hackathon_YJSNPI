@@ -1,28 +1,15 @@
-import { z } from "zod";
 import {batchSchema,type Batch,type EventRecord,type EvidenceRecord,type PredictionRecord,type Workspace} from "./contracts.ts";
+import {edgeBatchSchema} from "./wire.ts";
 
 // Incoming v1 proposal from message.txt. This adapter is a UI boundary, not an ingest API.
-const text=z.string().min(1).max(120),number=z.number().finite();
-const wireRecord=z.object({
- event_id:text,type:z.enum(["measurement","prediction","prediction_actual","evidence","heartbeat","run_summary"]),
- source_mode:z.enum(["live","replay","simulation"]).optional(),run_id:text.optional(),tester_id:text,lot_id:text.optional(),wafer_id:text.optional(),device_id:text.optional(),
- site_id:z.number().int().min(1).max(256).optional(),site_ids:z.array(z.number().int().min(1).max(256)).max(256).optional(),
- timestamp:z.string().datetime({offset:true}),sequence:z.number().int().optional(),attempt:z.number().int().optional(),
- test_name:z.string().max(200).optional(),value:number.optional(),unit:z.string().max(32).nullable().optional(),quality:z.string().max(32).optional(),
- request_id:text.optional(),stage:z.number().int().min(1).max(6).optional(),prediction:number.nullable().optional(),actual:number.optional(),absolute_error:number.optional(),
- model_version:text.optional(),feature_cutoff:z.number().int().optional(),latency_ms:z.number().nonnegative().optional(),
- evidence_id:text.optional(),incident_id:text.optional(),kind:z.string().max(80).optional(),direction:z.string().max(32).optional(),sample_count:z.number().int().nonnegative().optional(),score:number.optional(),baseline:number.optional(),current_value:number.optional(),affected_tests:z.array(z.string().max(200)).max(40).optional(),
- completed_devices:z.number().int().nonnegative().optional(),yield:z.number().min(0).max(1).optional(),
-});
-const wireBatch=z.object({schema_version:z.literal(1),edge_id:text,batch_id:text,events:z.array(wireRecord).min(1).max(100)});
 export function adaptIncoming(input:unknown,state:Workspace):Batch{
  if(input&&typeof input==='object'&&'schema_version' in input&&input.schema_version==='0.1-draft')return batchSchema.parse(input);
- const parsed=wireBatch.safeParse(input);
- if(!parsed.success)throw Error("格式不符合前端 batch 或 Edge v1 草案。Edge events 至少需要 event_id、type、tester_id、timestamp；時間必須含時區。");
+ const parsed=edgeBatchSchema.safeParse(input);
+ if(!parsed.success)throw Error("格式不符合前端 batch 或 Edge v1。Edge events 至少需要 event_id、type、source_mode、run_id、tester_id、timestamp；時間必須含時區。");
  const packet=parsed.data;const records:Batch['records']=[];
  for(const r of packet.events){
-  const scope={run_id:r.run_id??"未提供",tester_id:r.tester_id,lot_id:r.lot_id??"未提供",wafer_id:r.wafer_id??"未提供",site:r.site_id??null};
-  const event:EventRecord={type:"event",event_id:r.event_id,occurred_at:r.timestamp,mode:r.source_mode??"replay",...scope,severity:r.type==='evidence'?"warning":"info",kind:r.type==='evidence'?"external_evidence":r.type==='prediction'||r.type==='prediction_actual'?"prediction":r.type==='measurement'?"measurement":r.type,
+  const scope={run_id:r.run_id,tester_id:r.tester_id,lot_id:r.lot_id??"未提供",wafer_id:r.wafer_id??"未提供",site:r.site_id??null};
+  const event:EventRecord={type:"event",event_id:r.event_id,occurred_at:r.timestamp,mode:r.source_mode,...scope,severity:r.severity??(r.type==='evidence'?"warning":"info"),kind:r.type==='evidence'?"external_evidence":r.type==='prediction'||r.type==='prediction_actual'?"prediction":r.type==='measurement'?"measurement":r.type,
     message:"",incident_id:r.incident_id??null,evidence_ids:[],data_quality:(!r.run_id||!r.wafer_id||!r.source_mode)?"partial":"complete"};
   if(r.type==='measurement'){
    if(r.value===undefined||!r.test_name)throw Error("measurement 需要 value 與 test_name。");

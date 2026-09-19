@@ -46,7 +46,7 @@ test('wire v1 measurement is displayed without pretending to be an anomaly',()=>
 test('wire actual joins only the matching run and never invents receipt or coverage',()=>{
  const base={schema_version:1,edge_id:'group-6',batch_id:'wire-pred',events:[{event_id:'pred-evt',type:'prediction',request_id:'req-1',source_mode:'simulation',run_id:'r',tester_id:'t',device_id:'d',wafer_id:'w',site_id:2,timestamp:time,stage:3,prediction:0}]};
  let s=receiveBatch(emptyWorkspace(),adaptIncoming(base,emptyWorkspace()));assert.equal(s.items[0].predictions[0].coverage,null);assert.equal(s.items[0].predictions[0].response_status,'unknown');
- const actual={...base,batch_id:'wire-actual',events:[{event_id:'actual-evt',type:'prediction_actual',request_id:'req-1',run_id:'r',tester_id:'t',timestamp:time,actual:0}]};
+ const actual={...base,batch_id:'wire-actual',events:[{event_id:'actual-evt',type:'prediction_actual',request_id:'req-1',source_mode:'simulation',run_id:'r',tester_id:'t',timestamp:time,actual:0}]};
  s=receiveBatch(s,adaptIncoming(actual,s));assert.equal(s.items[0].predictions[0].actual,0);assert.equal(s.items[0].predictions[0].predicted,0);
  assert.throws(()=>adaptIncoming({...actual,batch_id:'wrong-run',events:[{...actual.events[0],run_id:'other'}]},s));
 });

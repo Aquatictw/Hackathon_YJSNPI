@@ -27,12 +27,14 @@ These are recorded September 19 findings, not a fresh remote check. Local and VM
 | Callback evidence | Remote `grp6_livefix_edge.log`: 12,183 callbacks, 12,124 mapped measurements, 12 intentionally unmapped lot/wafer metadata values, no callback errors, four TestEnd records with raw flag `0x0`. |
 | Prediction coverage | Stages 2/3/4/6 had full coverage and prediction actions returned. Tester Message Center displayed stages 4/6; stage 6 action execution pass=1/fail=0. Stage 1: 24/25 features (0.96). Stage 5: 31/32 selected features (0.96875; 2,009 total values). Missing-data predictions safely withheld. |
 | Channel fix | Condition-based wait releases callback lock for up to 200 ms, rejects touchdown/site/wafer lifecycle changes, and logs missing features/wait status. 17 local tests passed. The latest recorded checkpoint records 12 runtime tests passing in the grp6 image and one four-site run with full six-stage coverage, no callback audit errors, and 0.57–1.05 ms latency (`grp6_channel_audit.json`, remote). Tester datalog grp6_channel_tester.edl records all six prediction actions with Exec Pass: 1 / Exec Fail: 0 each. This proves action handling for that run, not prediction accuracy or production robustness. The wait branch was not exercised; live delayed-data/timeout recovery remains unverified. |
+| D local backend | 23 Node behavior tests pass. The gzip exporter adapter normalizes alerts and chunks original payloads into a 10-table D1 schema; migration integrity passes. Snapshot/SSE, read-only LLM tools and guarded command/results routes exist locally. TypeScript build, deployed D1 route, OpenAI inference and grp6 container-to-backend delivery remain unverified. |
 
 - [x] Flow-derived feature manifest, six trained models, grouped validation, replay and report.
 - [x] grp6 image build/push, real SDK construction, live event delivery, corrected TestEnd processing.
 - [x] Channel-fix image passes 12 runtime tests and one live six-stage/four-site coverage audit, per the newer recorded checkpoint.
 - [ ] Channel-wait fix passes live delayed-measurement recovery and effective timeout checks.
 - [x] One engineering run: all six stages/four active sites have full selected-feature coverage and tester action execution receipts; accuracy and production robustness remain unproved.
+- [x] Local D adapter accepts bounded grp6 gzip envelopes in behavior tests and preserves original events in D1-safe chunks; no live network/deployment claim.
 - [ ] Real anomaly reaches tester via `set_message` and production action retrieval, with correlated receipt evidence.
 - [ ] Units/scaling, missing/unknown-request behavior, retest/multi-head/reconnect lifecycle verified live.
 - [ ] W25 cause resolved and reproducibly evaluated; independent normal-wafer false-alarm assessment remains outstanding.
@@ -222,13 +224,13 @@ Replay needs no SDK connection or NumPy. Present connection/data freshness and l
 
 `RTDI_LLM_ARCHITECTURE.md` was not edited by this consolidation. Concurrent updates to that file were preserved, including the newer channel-run checkpoint summarized above. It describes an independent proposed implementation; its old status sections and links to removed notes do not override this record. Its referenced HACKATHON_DELIVERY_PLAN.md is absent. Former CONTEST.md, TEAM_PROGRESS.md, HACKATHON_PREP.md, AGENTS.md, grp6_app/README.md, deploy/RUNBOOK.md, FRONTEND_HANDOFF.md, frontend/README.md, frontend/HANDOFF.md, and frontend/contracts/README.md content now lives here; old handoff/prep pointers also refer to this consolidated record.
 
-Available role evidence supports A (machine integration/deployment), with substantial B contributions (data/models/detection), using architecture §13.1 roles. A's full live acceptance remains open and B has the W25 gap. A local E frontend prototype now exists alongside the HTML report. External backend/transport, multi-step LLM agent, and live dashboard integration remain pending. Align with teammates before treating the architecture and grp6_app as one implementation. External services must not block local predictions, basic alerts, or core rehearsal.
+Available role evidence supports A (machine integration/deployment), with substantial B contributions (data/models/detection), using architecture §13.1 roles. A's full live acceptance remains open and B has the W25 gap. A local E frontend prototype now exists alongside the HTML report. D's durable ingest, snapshot/SSE, bounded multi-step LLM investigation, guarded command/result APIs, and a compatibility adapter for the merged gzip Edge exporter exist in the current local working tree but are not deployed. Per-measurement/prediction projection and live dashboard integration remain pending. External services must not block local predictions, basic alerts, or core rehearsal.
 
 References: `Question_20260919.pdf` (requirements/scoring), `WorkShop_Material.pdf` (transfer p11, development/deployment pp19–26, data/anomalies pp28–29), `ONEAPI_Manual.pdf` (Monitor, NexusData, ActionManager, lifecycle), `py-app.dockerfile`, `requirements.txt`. Extracted texts are in tmp/pdfs. Supplied py-app.log is reference output only, never evidence of our live run.
 
 ## Frontend prototype and integration
 
-The merged E prototype in frontend/ is local-only: React/Vinext/TypeScript dashboard, six-stage prediction/actual table, evidence charts, JSON validation/deduplication, synthetic normal/anomaly/missing/duplicate scenarios, and separated demo/OpenAI chat modes. It does not read competition CSVs, change machine behavior, send commands, or establish live integration. Models/detectors remain on Edge; exporter/backend integration is pending.
+The merged E prototype in frontend/ is local-only: React/Vinext/TypeScript dashboard, six-stage prediction/actual table, evidence charts, JSON validation/deduplication, synthetic normal/anomaly/missing/duplicate scenarios, and separated demo/OpenAI chat modes. D has added local backend routes and persistence code, but E still reads browser memory and has not switched to the snapshot/SSE APIs. It does not read competition CSVs or establish live integration. Models/detectors remain on Edge; exporter/backend integration is pending.
 
 ### Setup and recorded verification
 
@@ -244,9 +246,9 @@ npx tsc --noEmit
 npm run build
 ~~~
 
-Preview defaults to http://localhost:5173. Browser state keeps at most 100 recent batches and clears on refresh, not durable storage/deduplication. Teammate checkpoint: 11 contract tests, TypeScript and build passed; browser receive → evidence → demo-answer and explicit missing-key 503 checked. Config exposes no key. Optional WebMCP receive_rtdi_demo_batch loads synthetic examples only; one valid anomaly call was tested, not complete WebMCP acceptance. Real OpenAI and live frontend acceptance remain unverified.
+Preview defaults to http://localhost:5173. Browser state keeps at most 100 recent batches and clears on refresh, not durable storage/deduplication. The original E checkpoint had 11 contract tests plus successful TypeScript/build checks. After D's additions, 23 Node behavior tests pass, including deterministic conversion of all 14 replay alerts, bounded gzip decoding, grp6 exporter normalization, D1-safe raw payload chunking, SSE cursor framing, command confirmation/receipt guards, evidence citation validation and bounded tool calls. The current machine cannot reinstall the complete npm dependency set from its restricted network, so D's additions still require a fresh `tsc`, Vinext build and route integration test in a complete environment. Real OpenAI and live frontend acceptance remain unverified.
 
-The implemented local proxy uses frontend/.dev.vars copied from .dev.vars.example, with server-only OPENAI_API_KEY / OPENAI_MODEL; restart and refresh after configuring. Process environment also works; .env.example is a Node-backend migration reference. Never place keys in frontend code, messages, or NEXT_PUBLIC_/VITE_ variables. /api/config returns configuration status only. /api/assistant explicitly separates rule-based demo mode from model mode, keeps histories separate, and never silently substitutes demo answers after errors. Model mode uses a fixed Responses endpoint, store:false, 30-second timeout, selected event/evidence/incident/predictions, and latest 10 event/mode-specific chat messages. No machine tools or multi-step investigation implemented. This describes repository code, not production acceptance.
+The implemented local proxy uses frontend/.dev.vars copied from .dev.vars.example, with server-only OPENAI_API_KEY / OPENAI_MODEL, INGEST_TOKEN and a separate COMMAND_TOKEN; restart and refresh after configuring. Process environment also works. Never place keys or tokens in frontend code, messages, or NEXT_PUBLIC_/VITE_ variables. /api/config returns configuration status only. /api/assistant explicitly separates rule-based demo mode from model mode and never silently substitutes demo answers after errors. Persisted run chat uses a bounded Responses function-calling loop with read-only `get_run_summary`, `get_incident_evidence`, and `compare_sites` tools, at most six tool calls and a 20-second deadline. Answers may cite only evidence IDs returned by those tools. No AI tool can create a machine command. This describes local repository code, not production acceptance.
 
 Same-origin checks, input bounds, and per-process rate limits are local safeguards, not public auth. D owns user/team scope, durable rate/cost controls, formal AI tools and commands/ACKs. Confirm permitted export before sending competition data. AI text never establishes tester receipt.
 
@@ -259,7 +261,7 @@ Same-origin checks, input bounds, and per-process rate limits are local safeguar
 | D | Final v1 schema; durable ingest/snapshot/SSE, auth, LLM tools, commands/results and validated receipts. |
 | E | Adapt D's event stream and C's evidence into UI; prototype milestone complete, further features await integration. |
 
-frontend/app/page.tsx is UI; lib/rtdi/contracts.ts validates/deduplicates; lib/rtdi/edge-adapter.ts adapts v1; app/api/assistant/route.ts is a thin proxy D can port without adopting this framework. frontend/contracts/schemas.json defines Draft 2020-12 event/prediction/evidence/incident/command/command_ack/batch schemas. Normal/anomaly/missing/duplicate fixtures are synthetic; duplicate reuses anomaly IDs. Sample a.u./demo °C units do not establish SDK units; observed example means equal series means. Third-party notice frontend/vendor/shadcn-tailwind-4.13.0.LICENSE.md is retained separately.
+frontend/app/page.tsx is UI; lib/rtdi/contracts.ts validates/deduplicates the UI model; lib/rtdi/edge-adapter.ts adapts v1. D's formal wire validation is `frontend/lib/rtdi/wire.ts`, its JSON Schema is `frontend/contracts/edge-v1.schema.json`, and API routes live under `frontend/app/api/v1`. frontend/contracts/schemas.json remains the UI's Draft 2020-12 model. Normal/anomaly/missing/duplicate fixtures are synthetic; duplicate reuses anomaly IDs. Sample a.u./demo °C units do not establish SDK units; observed example means equal series means. Third-party notice frontend/vendor/shadcn-tailwind-4.13.0.LICENSE.md is retained separately.
 
 ### View model and proposed backend contract
 
@@ -273,17 +275,24 @@ Local-only input (browser memory, not HTTPS ingestion):
 window.dispatchEvent(new CustomEvent('rtdi:batch', {detail: batch}));
 ~~~
 
-D must finalize these proposed, unimplemented routes:
+D's current local implementation exposes these routes; none is deployed or proven reachable from grp6 Edge:
 
-| Route | Draft behavior |
+| Route | Current local behavior |
 | --- | --- |
-| POST /api/v1/events/batch | Up to 100 records / 256 KiB; scoped bearer auth; validate whole batch, durably store before 200. Dedup (run_id,tester_id,record_id), batch_id retry key; identical duplicate allowed, changed content 409. accepted/duplicates draft counts mean records. |
-| GET /api/v1/edge/commands?edge_id=...&after=... | Auth binds tester/run; return commands, next_cursor, poll_after_ms (example 3000). Edge dedups command_id, checks run/tester/expiry and saves state before execution; reject expired/wrong-scope/unsupported commands. |
-| POST /api/v1/commands/{command_id}/result | Persist/dedup ack_id before 200. edge_received → edge_executed → tester_confirmed are distinct; failed/expired retain reasons. confirmed requires independently verified tester_receipt_id plus command linkage, not just a valid string. |
+| POST /api/v1/events/batch | `INGEST_TOKEN`; accepts formal Edge v1 records up to 256 KiB, plus the merged grp6 exporter envelope as bounded gzip (4 MiB compressed / 8 MiB decompressed). Exporter alerts normalize to evidence/incidents; original exporter events are saved in D1-safe chunks. Whole-batch validation, scoped event/batch idempotency and accepted/duplicates/rejected ID arrays remain in force. |
+| GET /api/v1/runs/{run_id} | Snapshot containing run provenance, events, evidence, incidents and commands; ambiguous tester scope returns 409. |
+| GET /api/v1/runs/{run_id}/events | Resumable SSE with D1 row cursor, Last-Event-ID, `ready`, `edge_event`, heartbeat and bounded reconnect cycles. |
+| GET /api/v1/incidents/{incident_id} | Incident plus evidence constrained to one run/tester scope. |
+| POST /api/v1/runs/{run_id}/chat | Persisted, read-only multi-step investigation; stores answer, evidence IDs and tool trace. |
+| POST /api/v1/runs/{run_id}/commands | Same-origin explicit `user_confirmed:true`; only `show_message`, live runs and 30–300 second TTL. Stable request ID is idempotent. |
+| GET /api/v1/commands/pending | Separate `COMMAND_TOKEN`; returns unexpired queued commands for a tester/run. |
+| POST /api/v1/commands/{command_id}/results | Separate `COMMAND_TOKEN`; idempotent ack ID and forward-only status. `tester_confirmed` requires a receipt ID. |
 
 400/422 isolate bad outbox data; 401/403 fix auth before retry; 409 resolve ID conflict; 413 split batch; 429/5xx/network errors honor Retry-After or exponential backoff+jitter, retaining IDs/outbox. message.txt instead uses accepted ID arrays and queued/fetched/applied/confirmed; D must settle differences. Prefer accepted/duplicates/rejected ID arrays for precise outbox clearance. fetched=Edge received, applied=executed, confirmed=verified receipt. set_message success, AI text, and unverified ACK fixtures never establish confirmation.
 
-Still needed: base URL, token issuance, exact limits/errors/backoff, polling cursor, ACK endpoint and website aggregation (suggested run_id/mode/last_event_at/data_quality/device_count/yield/incidents/predictions/commands). Unknown values stay unknown. Test HTTPS POST from actual deployed container; if blocked jointly choose HC relay or internal backend. Frontend changed no machine network and supplies no production DB/ingest/SSE/auth/command path.
+`npm run replay:edge -- --run-id <id> --started-at <ISO time>` converts `results/replay/replay.jsonl` into deterministic formal Edge v1 evidence batches. Without `--endpoint` it validates only and performs no network request; all 14 current replay alerts pass.
+
+Still needed: deployable build, base URL, token issuance/rotation, user authentication, E snapshot/SSE consumption, and a query/display contract for raw `DeviceCompletedBundle` measurements and per-site prediction maps. Unknown values stay unknown. Test HTTPS POST from the actual deployed container only after deployment; if blocked jointly choose an approved host-controller relay or internal backend.
 
 ## Existing Edge payloads and exporter integration
 
@@ -410,7 +419,7 @@ interface DashboardEnvelope<T> {
 
 No deployed HTTP URL, SSE/WebSocket endpoint, ACK protocol, or user-to-tester command API exists in our current app. Agree those with the backend teammate; do not assume route names. LLM chat and user-triggered tester commands are separate planned capabilities.
 
-### Edge outbound HTTPS exporter (working tree implementation)
+### Edge outbound HTTPS exporter
 
 `grp6_app/exporter.py` implements an optional stdlib-only outbound exporter. When
 `GRP6_EXPORT_URL` is unset, existing Gemini behavior is unchanged. When configured,
@@ -455,12 +464,24 @@ HTTP is accepted only for localhost tests. The exporter belongs inside the Edge
 deployed container cannot reach the public HTTPS endpoint, use an approved host-controller
 relay rather than performing HTTP inside ONEAPI callbacks.
 
-Pending inputs from the external/backend team before live enablement:
+**Local D adapter status:** `/api/v1/events/batch` now accepts this gzip exporter
+envelope with a 4 MiB compressed and 8 MiB decompressed bound. It converts string
+schema version, Unix timestamps, `mode` and `event_type` into the formal run/event
+identity. Alerts become normal evidence/incidents. Every original exporter event is
+also retained losslessly as base64 chunks of at most 500,000 raw bytes across
+`raw_events` and `raw_event_chunks`; this avoids D1's 2 MB single-row/string limit.
+Lifecycle, baseline, prediction-request and device bundles currently surface as compact
+`run_summary` events while their complete payload remains in raw storage. Therefore
+ingestion compatibility is implemented locally, but per-measurement queries and E's
+per-site prediction display are not yet connected. Do not enable the exporter until
+the route is built, deployed, migrated and tested from the actual grp6 container.
 
-- staging and production HTTPS `POST /api/v1/events/batch` URLs;
+Remaining coordination before live enablement:
+
+- deployed HTTPS `POST /api/v1/events/batch` URL and completed D1 migration;
 - server-issued bearer-token delivery/rotation method (never commit the token);
-- confirmation of gzip request support and at least 4 MiB decompressed-body limit;
-- exact 2xx success body and event-level accepted/duplicate/rejected semantics;
-- durable `event_id` deduplication/retention policy and backend observability contact;
+- one container-to-backend gzip smoke test using a real device bundle near the size limit;
+- exporter handling of accepted/duplicate/rejected ID arrays and 409 identity conflicts;
+- raw-event retention/redaction policy and backend observability contact;
 - confirmation that exporting the competition fields is permitted, plus required redaction;
-- dashboard/LLM schema version owner and how unknown unit/retest fields should display.
+- C/D/E agreement on per-site prediction and raw measurement query/display fields, including unknown unit/retest semantics.
