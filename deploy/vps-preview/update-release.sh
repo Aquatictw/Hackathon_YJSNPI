@@ -18,9 +18,9 @@ printf '%s\n' "$revision" > "$release/REVISION"
 chown -R grp6-preview:grp6-preview "$release"
 chmod 0755 "$release"
 export PATH="$base/node/bin:/usr/sbin:/usr/bin:/sbin:/bin"
-export HOME="$base/shared/home"
+app_home="$base/shared/home"
 export CI=true CLOUDFLARE_CF_FETCH_ENABLED=false WRANGLER_SEND_METRICS=false WRANGLER_WRITE_LOGS=false
-run_app() { runuser -u grp6-preview -- env PATH="$PATH" HOME="$HOME" CI=true CLOUDFLARE_CF_FETCH_ENABLED=false WRANGLER_SEND_METRICS=false WRANGLER_WRITE_LOGS=false MINIFLARE_WORKERD_PATH="$base/bin/workerd-compat" GRP6_WORKERD_BINARY="$release/frontend/node_modules/@cloudflare/workerd-linux-64/bin/workerd" "$@"; }
+run_app() { runuser -u grp6-preview -- env PATH="$PATH" HOME="$app_home" CI=true CLOUDFLARE_CF_FETCH_ENABLED=false WRANGLER_SEND_METRICS=false WRANGLER_WRITE_LOGS=false MINIFLARE_WORKERD_PATH="$base/bin/workerd-compat" GRP6_WORKERD_BINARY="$release/frontend/node_modules/@cloudflare/workerd-linux-64/bin/workerd" "$@"; }
 cd "$release/frontend"
 # Build before touching the currently running service or its database.
 run_app npm ci --no-audit --no-fund

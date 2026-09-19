@@ -22,6 +22,8 @@ Polish dashboard and /replay at desktop and mobile widths: clear load/reconnect/
 
 ## Frozen inputs and dependencies
 
+A browser observation on the public R2 preview: the empty state says "載入 D 的資料"; replace internal teammate jargon. AI is unconfigured on this VPS, but the question composer enables after snapshot load; make this state clear and actionable without promising a model response. A is adding 24 stage/site predictions, actual joins and selected measurement samples to the default replay seed through the existing raw exporter projection. Keep source/units/receipt limits visible. The seed does not depend on a W25 promotion.
+
 Use core/artifacts, source data, historical machine receipts and API/UI contracts at the assigned base as read-only inputs. Preserve route/response shapes, seven command states and shared public signatures. Other roles work concurrently in separate checkouts: do not revert their changes. B/C produce offline evidence only. D/E need no new fields from one another. A owns exporter integration, preview deployment/shared contracts and VM work. No dependency on uncommitted R3 work from another role is required. Report required outside-scope edits by path/reason and continue independent work.
 
 Inventory every file in your workstream and its references. Retain prior reproducibility evidence, including unsuccessful results. No cleanup deletion is authorized this round. New B/C CLIs must document default inputs and reject output outside their workstream.

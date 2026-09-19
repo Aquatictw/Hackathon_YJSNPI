@@ -25,6 +25,14 @@ Open `/` and click **載入批次** with the prefilled `grp6-replay-demo` /
 `grp6-replay`; `/replay` also works. Data is explicitly labeled replay. No
 OpenAI or command token is installed. Public user authentication is not
 implemented by this app; nginx access controls remain the user's configuration.
+The public preview is https://hackathon.aquatictw.com/. The prediction seed
+contains the first device at each of four sites from W01, six stages each,
+with matching actuals and selected measurement samples. These are fitted-data
+replay examples, not accuracy validation or tester execution. Regenerate with
+`python -m grp6_app.preview_seed source_review/training/Data/A12345_W01_RawResult.csv`.
+Commit the JSONL and provenance together. IDs depend on source/model/manifest
+hashes; exact updates are idempotent. Existing alert IDs are immutable: changing
+the alert replay requires A to version its run identity before reseeding.
 
 ## Update from this Windows checkout
 

@@ -1,0 +1,21 @@
+{
+  "format": "grp6-preview-seed-v1",
+  "source_file": "A12345_W01_RawResult.csv",
+  "source_sha256": "de7eab2ec4a6cdd1883a3285699df3ece94e4baad3b2d05bd0d8504b01a6252a",
+  "model_sha256": "752e7c6c52b0c6e50a2c7ab37b7705ad21ec43ec18df968866832d07ba09afe9",
+  "manifest_sha256": "45f3d9ccb8138d8147c65cd9eeb9558d886f5fa4ec5499b2163b19c3a85ccc67",
+  "selection": "First device of each site, at most four sites, in CSV row order.",
+  "limitations": [
+    "Fitted-data replay, not held-out prediction accuracy or live evidence.",
+    "Timestamps are synthetic ordering aids; no tester action was requested.",
+    "Units and runtime flags remain unverified. Measurements are a selected subset."
+  ],
+  "seed_id": "e7164d0b9eab5994da77",
+  "sites": [
+    "1",
+    "2",
+    "3",
+    "4"
+  ],
+  "event_count": 52
+}

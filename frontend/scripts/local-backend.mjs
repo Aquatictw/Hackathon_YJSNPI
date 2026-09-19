@@ -5,6 +5,7 @@ import {join} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {spawnSync} from 'node:child_process';
 import {replayJsonlToEdgeBatches} from '../lib/rtdi/replay-adapter.ts';
+import {predictionSeedBatches,validateSeedAck} from './seed-support.mjs';
 const root=fileURLToPath(new URL('../',import.meta.url));
 const mode=process.argv[2];
 if(mode==='migrate'){
@@ -17,6 +18,7 @@ if(mode==='migrate'){
  if(!token)throw Error('Set INGEST_TOKEN in .dev.vars and restart the dev server first.');
  const lines=(await readFile(join(root,'../results/replay/replay.jsonl'),'utf8')).split(/\r?\n/);
  const batches=await replayJsonlToEdgeBatches(lines,{edgeId:'grp6-replay-exporter',runId:'grp6-replay-demo',testerId:'grp6-replay',startedAt:'2026-09-19T00:00:00Z'});
- for(const batch of batches){const r=await fetch('http://localhost:5173/api/v1/events/batch',{method:'POST',headers:{'Content-Type':'application/json',Authorization:`Bearer ${token}`},body:JSON.stringify(batch)});const body=await r.json();if(!r.ok)throw Error(`Local ingest failed (${r.status}): ${body.error??'unknown error'}`);console.log(`Replay: ${body.accepted.length} accepted, ${body.duplicates.length} duplicates.`);}
+ batches.push(...await predictionSeedBatches(await readFile(join(root,'../results/replay/predictions.jsonl'),'utf8')));
+ for(const batch of batches){const r=await fetch('http://localhost:5173/api/v1/events/batch',{method:'POST',headers:{'Content-Type':'application/json',Authorization:`Bearer ${token}`},body:JSON.stringify(batch),signal:AbortSignal.timeout(30000)});const body=await r.json();if(!r.ok)throw Error(`Local ingest failed (${r.status}): ${body.error??'unknown error'}`);validateSeedAck(batch,body);console.log(`Replay: ${body.accepted.length} accepted, ${body.duplicates.length} duplicates.`);}
  console.log('Open localhost:5173 and load run grp6-replay-demo / tester grp6-replay.');
 }else throw Error('Usage: node scripts/local-backend.mjs migrate|seed');
