@@ -1,0 +1,26 @@
+W01 yield 85.0%: site_imbalance@32
+W02 yield 53.8%: low_yield@32
+W03 yield 67.5%: low_yield@32
+W04 yield 96.2%: no alerts
+W05 yield 87.5%: no alerts
+W06 yield 92.5%: no alerts
+W07 yield 86.2%: no alerts
+W08 yield 96.2%: no alerts
+W09 yield 68.8%: low_yield@72
+W10 yield 95.0%: no alerts
+W11 yield 91.2%: no alerts
+W12 yield 97.5%: no alerts
+W13 yield 92.5%: no alerts
+W14 yield 83.8%: mean_drift_up@32, mean_drift_down@56, spread_down@64
+W15 yield 92.5%: no alerts
+W16 yield 96.2%: no alerts
+W17 yield 93.8%: no alerts
+W18 yield 86.2%: mean_drift_down@32, mean_drift_up@56, spread_down@64
+W19 yield 91.2%: no alerts
+W20 yield 98.8%: no alerts
+W21 yield 96.2%: no alerts
+W22 yield 93.8%: no alerts
+W23 yield 83.8%: mean_drift_up@32, mean_drift_down@32, spread_up@40, spread_down@72
+W24 yield 81.2%: no alerts
+W25 yield 90.0%: no alerts
+heldout alerted [] expected detected 6 max scan ms 88.2461000001058

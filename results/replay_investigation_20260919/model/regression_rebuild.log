@@ -1,0 +1,7 @@
+stage 1 allowlist 25 {'n': 2000, 'mae': 0.0034876686292073327, 'rmse': 0.0057267486570339015, 'worst_error': 0.07854941282344541, 'baseline_mae': 0.20368053500000013}
+stage 2 allowlist 525 {'n': 2000, 'mae': 0.026927169576919048, 'rmse': 0.0357211019320695, 'worst_error': 0.17341483380164036, 'baseline_mae': 0.1785479156250002}
+stage 3 allowlist 1025 {'n': 2000, 'mae': 0.0204175436080031, 'rmse': 0.03473076168110572, 'worst_error': 0.36622323388293054, 'baseline_mae': 0.4613137362500007}
+stage 4 allowlist 1525 {'n': 2000, 'mae': 0.024779170886022113, 'rmse': 0.0336547332557568, 'worst_error': 0.15599712839553348, 'baseline_mae': 0.21112479750000024}
+stage 5 allowlist 2025 {'n': 2000, 'mae': 0.06313188792215488, 'rmse': 0.07930330551045887, 'worst_error': 0.261968458137364, 'baseline_mae': 0.198029085}
+stage 6 allowlist 2525 {'n': 2000, 'mae': 0.0275883989305452, 'rmse': 0.03477368203160355, 'worst_error': 0.11869359610572516, 'baseline_mae': 0.19581104562500046}
+devices 2000 measurements (2000, 3036) artifacts results\replay_investigation_20260919\model\regression_rebuild

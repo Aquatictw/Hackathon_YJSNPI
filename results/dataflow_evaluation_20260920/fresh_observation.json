@@ -1,0 +1,60 @@
+{
+  "evidence_method": "Transcribed from authorized browser SSH observations; raw artifacts retained on competition VM, not downloaded",
+  "remote_directory": "/home/user/Case_Event/dataflow_evaluation_20260920_Ns5HDP",
+  "tester_id": "group-6",
+  "run_id": "b7deb9e5ff1641c6a16546eda090c121",
+  "lot_id": "B13456",
+  "wafer_id": "02",
+  "devices": 80,
+  "passed": 74,
+  "failed": 6,
+  "events": 764,
+  "continuous_sequence": [
+    1,
+    764
+  ],
+  "prediction_requests": 120,
+  "strict_actual_joins": 480,
+  "tester_prediction_action_matches": 120,
+  "adjacent_successful_executions": 120,
+  "valid_production_response_json": 20,
+  "error_events": 0,
+  "maximum_callback_ms": 18.96884300003876,
+  "overall_mae": 0.21634160538139474,
+  "stage_mae": [
+    0.37858555422346457,
+    0.09462751677758012,
+    0.09821410661139426,
+    0.06450667755009558,
+    0.5152935215710951,
+    0.146822255554738
+  ],
+  "model_sha256": "752e7c6c52b0c6e50a2c7ab37b7705ad21ec43ec18df968866832d07ba09afe9",
+  "fresh_jsonl_sha256": "3771ad091d104be7bc5d33244611ab71dc824ecf7819961f0489f2e952d1b1b1",
+  "ore_sha256": "71a05058c863191883f2b69c81aea1a980bc72239bdc0f1e9dea9d435edd9196",
+  "edl_sha256": "733cd0f07456058c9ef700da05d05e08c06539cdc123a793a3d14ac23a9c9e6b",
+  "exact_training_target_vector_matches": 0,
+  "anomaly_short_ids": [
+    "44f001f09873",
+    "badb1939dc8b",
+    "884172dbb757"
+  ],
+  "anomaly_receiver": "All three IDs reach TCCT and ProdMessage; ProdMessage warns does not support, with no corresponding Insert text",
+  "export_url_present_in_inspected_descriptor_or_host_image_env": false,
+  "pinned_host_image_has_exporter": true,
+  "pinned_host_image_has_later_ack_quarantine_hardening": false,
+  "actual_edge_image_identity_verified": false,
+  "hosted_database_after_both_runs": {
+    "runs": 1,
+    "run_id": "grp6-replay-demo",
+    "tester_id": "grp6-replay",
+    "mode": "replay",
+    "events": 114
+  },
+  "limitations": [
+    "Repeated ORE runs are the same data",
+    "ORE generation lineage and independent anomaly labels unavailable",
+    "Numeric units and acceptance tolerance unverified",
+    "No live backend ingestion or final-boundary anomaly display accepted"
+  ]
+}

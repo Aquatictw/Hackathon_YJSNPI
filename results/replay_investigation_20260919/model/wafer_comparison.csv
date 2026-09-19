@@ -1,0 +1,26 @@
+wafer,pdf_category,yield,baseline,candidate,baseline_extra,baseline_missing,baseline_exact,candidate_exact
+1,site_imbalance,0.85,"[{""kind"": ""site_imbalance"", ""device"": 32}]","[{""kind"": ""site_imbalance"", ""device"": 32}]",,,True,True
+2,normal,0.5375,"[{""kind"": ""low_yield"", ""device"": 32}]","[{""kind"": ""low_yield"", ""device"": 32}]",low_yield,,False,False
+3,low_yield,0.675,"[{""kind"": ""low_yield"", ""device"": 32}]","[{""kind"": ""low_yield"", ""device"": 32}]",,,True,True
+4,normal,0.9625,[],[],,,True,True
+5,normal,0.875,[],[],,,True,True
+6,normal,0.925,[],[],,,True,True
+7,normal,0.8625,[],[],,,True,True
+8,normal,0.9625,[],[],,,True,True
+9,low_yield,0.6875,"[{""kind"": ""low_yield"", ""device"": 72}]","[{""kind"": ""low_yield"", ""device"": 72}]",,,True,True
+10,normal,0.95,[],[],,,True,True
+11,normal,0.9125,[],[],,,True,True
+12,normal,0.975,[],[],,,True,True
+13,normal,0.925,[],[],,,True,True
+14,mean_drift_up,0.8375,"[{""kind"": ""mean_drift_up"", ""device"": 32}, {""kind"": ""mean_drift_down"", ""device"": 56}, {""kind"": ""spread_down"", ""device"": 64}]","[{""kind"": ""mean_drift_up"", ""device"": 32}, {""kind"": ""mean_drift_down"", ""device"": 56}, {""kind"": ""spread_down"", ""device"": 64}]","mean_drift_down,spread_down",,False,False
+15,normal,0.925,[],[],,,True,True
+16,normal,0.9625,[],[],,,True,True
+17,normal,0.9375,[],[],,,True,True
+18,mean_drift_down,0.8625,"[{""kind"": ""mean_drift_down"", ""device"": 32}, {""kind"": ""mean_drift_up"", ""device"": 56}, {""kind"": ""spread_down"", ""device"": 64}]","[{""kind"": ""mean_drift_down"", ""device"": 32}, {""kind"": ""mean_drift_up"", ""device"": 56}, {""kind"": ""spread_down"", ""device"": 64}]","mean_drift_up,spread_down",,False,False
+19,normal,0.9125,[],[],,,True,True
+20,normal,0.9875,[],[],,,True,True
+21,normal,0.9625,[],[],,,True,True
+22,normal,0.9375,[],[],,,True,True
+23,spread_up,0.8375,"[{""kind"": ""mean_drift_up"", ""device"": 32}, {""kind"": ""mean_drift_down"", ""device"": 32}, {""kind"": ""spread_up"", ""device"": 40}, {""kind"": ""spread_down"", ""device"": 72}]","[{""kind"": ""mean_drift_up"", ""device"": 32}, {""kind"": ""mean_drift_down"", ""device"": 32}, {""kind"": ""spread_up"", ""device"": 40}, {""kind"": ""spread_down"", ""device"": 72}]","mean_drift_down,mean_drift_up,spread_down",,False,False
+24,normal,0.8125,[],[],,,True,True
+25,spread_down,0.9,[],"[{""kind"": ""spread_down"", ""device"": 72}]",,spread_down,False,True

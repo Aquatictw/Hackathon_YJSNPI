@@ -1,0 +1,11 @@
+.dc-run-picker{min-width:0;margin-bottom:18px}
+.dc-run-picker .dc-connect{flex-wrap:wrap}
+.dc-run-picker .dc-stored-run-label{max-width:none;flex:1 1 320px}
+.dc-run-picker select{width:100%;min-width:0;height:44px;padding:0 12px;border:1px solid var(--input);border-radius:3px;background:var(--card);color:var(--foreground);font-size:16px;text-overflow:ellipsis}
+.dc-run-discovery{padding:12px 18px;border:1px solid var(--border);border-top:0;border-radius:0 0 8px 8px;background:var(--card);font-size:14px;color:var(--muted-foreground)}
+.dc-run-discovery p{margin:0 0 10px;overflow-wrap:anywhere}
+.dc-run-metadata{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 24px;margin:12px 0}
+.dc-run-metadata dt{font-size:14px;color:var(--muted-foreground)}
+.dc-run-metadata dd{margin:3px 0 0;color:var(--foreground);overflow-wrap:anywhere}
+.dc-run-picker button:disabled,.dc-run-picker select:disabled{opacity:.6;cursor:not-allowed}
+@media(max-width:540px){.dc-run-picker .dc-stored-run-label{flex-basis:100%}.dc-run-metadata{grid-template-columns:1fr}.dc-run-discovery{padding:12px 13px}}

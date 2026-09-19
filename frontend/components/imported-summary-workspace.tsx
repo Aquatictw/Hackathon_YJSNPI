@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from 'react';
-import { Database, FileJson2, Radio, TriangleAlert } from 'lucide-react';
+import { FileJson2, TriangleAlert } from 'lucide-react';
+import { StoredRunPicker } from '@/components/stored-run-picker';
 import { AppHeader } from '@/components/app-header';
 import { useLocale } from '@/components/locale-provider';
 import { alertNames, formatObservation, replayChart, replayTotals, waferState, type ReplayAlert } from '@/lib/rtdi/replay';
@@ -66,7 +67,6 @@ export function ImportedSummaryWorkspace({ replay, onLoadBackend }: { replay: Im
     const [selection, setSelection] = useState(() => normalizeSelection(replay));
     const [selectionError, setSelectionError] = useState(false);
     const [backendError, setBackendError] = useState(false);
-    const [run, setRun] = useState(''), [tester, setTester] = useState('');
     const total = replayTotals(data);
     const visible = data.wafers.filter(wafer => selection.filter === 'all' || waferState(wafer) === selection.filter);
     const wafer = data.wafers.find(wafer => wafer.wafer === selection.waferId);
@@ -86,12 +86,10 @@ export function ImportedSummaryWorkspace({ replay, onLoadBackend }: { replay: Im
         <div className="dc-heading"><div><div className="dc-eyebrow">{t('OPERATIONS / RUN WORKSPACE')}</div><h1>{t('Imported summary')}</h1><p>{t('Inspect recorded alerts, site measurements and model validation.')}</p></div><span className="dc-source-badge">{t('OFFLINE EVIDENCE')}</span></div>
         <div className="isw-source" data-tour-local-import="true"><FileJson2 size={20}/><strong>{filename}</strong><a href="/">{t('Open replay analysis')}</a></div>
         <p className="isw-note">{t('Summary source only. No backend run, event stream or model request is started.')}</p>
-        <form id="load-backend-run" className="dc-connect" onSubmit={event => { event.preventDefault(); if (!run.trim()) return; try { onLoadBackend(run.trim(), tester.trim()); } catch { setBackendError(true); } }}>
-            <div className="dc-connect-title"><Database size={18}/><div><strong>{t('Load backend run')}</strong><small>{t('Run and tester scope')}</small></div></div>
-            <label>{t('Run ID')}<input value={run} onChange={event => setRun(event.target.value)} required maxLength={120}/></label>
-            <label>{t('Tester ID')}<input value={tester} onChange={event => setTester(event.target.value)} placeholder={t('Optional tester filter')} maxLength={120}/></label>
-            <button className="dc-primary" type="submit"><Radio size={16}/>{t('Load backend run')}</button>
-        </form>
+        <StoredRunPicker imported onLoad={(run, tester) => {
+            setBackendError(false);
+            try { onLoadBackend(run, tester); } catch { setBackendError(true); }
+        }}/>
         {backendError && <p className="dc-error" role="alert">{t('Could not save the source choice. Allow browser session storage and retry.')}</p>}
         {selectionError && <p className="dc-error" role="alert">{t('Selection could not be saved. It remains available on this page, but may reset after navigation.')}</p>}
         <dl className="dc-stats" aria-label={t('Replay summary')}>

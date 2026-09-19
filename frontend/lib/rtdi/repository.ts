@@ -223,6 +223,25 @@ async function ingestEdgeBatchAttempt(batch: EdgeBatch, options: { identityPaylo
   return { batch_id: batch.batch_id, accepted: accepted.filter(item => originalKeys.has(item.key)).map(item => item.event.event_id), duplicates, rejected: [], status: "stored" };
 }
 
+/** Receipt freshness comes first: historical replay source times are not arrival
+ * times. Stable pair tie-breakers preserve distinct testers with the same run ID. */
+export async function listRuns({ limit = 100, offset = 0 }: { limit?: number; offset?: number } = {}) {
+  if (!Number.isInteger(limit) || limit < 1 || limit > 100 || !Number.isSafeInteger(offset) || offset < 0) {
+    throw new RangeError('Invalid run list pagination');
+  }
+  const result = await binding().prepare(`SELECT run_id, tester_id, edge_id, mode, last_event_at, updated_at
+    FROM runs ORDER BY julianday(updated_at) DESC, julianday(last_event_at) DESC, tester_id, run_id
+    LIMIT ? OFFSET ?`).bind(limit + 1, offset).all<Row>();
+  const matches = rows(result);
+  return {
+    runs: matches.slice(0, limit).map(row => ({
+      run_id: String(row.run_id), tester_id: String(row.tester_id), edge_id: String(row.edge_id),
+      mode: String(row.mode), last_event_at: String(row.last_event_at), updated_at: String(row.updated_at),
+    })),
+    next_offset: matches.length > limit ? offset + limit : null,
+  };
+}
+
 export async function getRunSnapshot(runId: string, testerId?: string | null): Promise<RunSnapshot | null> {
   const db = binding();
   const runResult = testerId

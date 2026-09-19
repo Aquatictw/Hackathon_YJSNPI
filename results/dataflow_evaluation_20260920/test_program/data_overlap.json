@@ -1,0 +1,22 @@
+{
+  "training_files": 25,
+  "training_rows": 2000,
+  "training_lots": [
+    "A12345"
+  ],
+  "target_headers": [
+    "100_Main.sensor1#CP",
+    "120_Main.sensor2#DS0",
+    "140_Main.sensor3#IO4",
+    "160_Main.sensor4#IO1",
+    "180_Main.sensor5#IO2",
+    "200_Main.sensor6#IO3"
+  ],
+  "comparison": "Six-target vectors ignoring lot/wafer/site identity; CSV converted to IEEE754 binary32; no fuzzy matching.",
+  "production_device_vectors": 80,
+  "exact_matching_vectors": 0,
+  "matching_device_ids": [],
+  "engineering_pairs_identical_to_first_production_touchdown": 24,
+  "engineering_pairs": 24,
+  "conclusion": "Exact six-target reuse can be tested, but absence of a match cannot establish independent generation, independence of features, or no transformed training-data reuse."
+}

@@ -1,0 +1,1785 @@
+[
+  {
+    "wafer": 1,
+    "file": "source_review/training/Data/A12345_W01_RawResult.csv",
+    "sha256": "de7eab2ec4a6cdd1883a3285699df3ece94e4baad3b2d05bd0d8504b01a6252a",
+    "rows": 80,
+    "columns": 3046,
+    "metadata_first_cells": [
+      "Pin",
+      "Test Num",
+      "High Limit",
+      "Low Limit"
+    ],
+    "counts": {
+      "Lot": {
+        "A12345": 80
+      },
+      "Wafer": {
+        "1": 80
+      },
+      "Site": {
+        "1": 20,
+        "2": 20,
+        "3": 20,
+        "4": 20
+      },
+      "PF": {
+        "0": 68,
+        "8": 12
+      },
+      "SBin": {
+        "1": 68,
+        "3": 6,
+        "6": 6
+      },
+      "HBin": {
+        "1": 68,
+        "3": 6,
+        "6": 6
+      }
+    },
+    "cross_PF_SBin_HBin": {
+      "0|1|1": 68,
+      "8|3|3": 6,
+      "8|6|6": 6
+    },
+    "unique_PID": 80,
+    "duplicate_PID_site": 0,
+    "wafer_identity_matches_filename": true,
+    "sbin_hbin_mismatches": 0,
+    "sbin_PF_disagreements": 0,
+    "pass": 68,
+    "sites": {
+      "1": {
+        "pass": 15,
+        "n": 20
+      },
+      "2": {
+        "pass": 17,
+        "n": 20
+      },
+      "3": {
+        "pass": 18,
+        "n": 20
+      },
+      "4": {
+        "pass": 18,
+        "n": 20
+      }
+    },
+    "yield": 0.85
+  },
+  {
+    "wafer": 2,
+    "file": "source_review/training/Data/A12345_W02_RawResult.csv",
+    "sha256": "d13f249574db322a2e9287e92a13816630eb4437276118cb4ace2a18339b8bd9",
+    "rows": 80,
+    "columns": 3046,
+    "metadata_first_cells": [
+      "Pin",
+      "Test Num",
+      "High Limit",
+      "Low Limit"
+    ],
+    "counts": {
+      "Lot": {
+        "A12345": 80
+      },
+      "Wafer": {
+        "2": 80
+      },
+      "Site": {
+        "1": 20,
+        "2": 20,
+        "3": 20,
+        "4": 20
+      },
+      "PF": {
+        "0": 43,
+        "8": 37
+      },
+      "SBin": {
+        "1": 43,
+        "3": 32,
+        "6": 5
+      },
+      "HBin": {
+        "1": 43,
+        "3": 32,
+        "6": 5
+      }
+    },
+    "cross_PF_SBin_HBin": {
+      "0|1|1": 43,
+      "8|3|3": 32,
+      "8|6|6": 5
+    },
+    "unique_PID": 80,
+    "duplicate_PID_site": 0,
+    "wafer_identity_matches_filename": true,
+    "sbin_hbin_mismatches": 0,
+    "sbin_PF_disagreements": 0,
+    "pass": 43,
+    "sites": {
+      "1": {
+        "pass": 11,
+        "n": 20
+      },
+      "2": {
+        "pass": 14,
+        "n": 20
+      },
+      "3": {
+        "pass": 8,
+        "n": 20
+      },
+      "4": {
+        "pass": 10,
+        "n": 20
+      }
+    },
+    "yield": 0.5375,
+    "prefixes": [
+      {
+        "completed": 8,
+        "pass": 6,
+        "yield": 0.75,
+        "wilson_upper": 0.9134929966207205
+      },
+      {
+        "completed": 16,
+        "pass": 11,
+        "yield": 0.6875,
+        "wilson_upper": 0.8387441037603467
+      },
+      {
+        "completed": 24,
+        "pass": 15,
+        "yield": 0.625,
+        "wilson_upper": 0.7669588898866931
+      },
+      {
+        "completed": 32,
+        "pass": 20,
+        "yield": 0.625,
+        "wilson_upper": 0.7507867205275426
+      },
+      {
+        "completed": 40,
+        "pass": 22,
+        "yield": 0.55,
+        "wilson_upper": 0.6721020273918376
+      },
+      {
+        "completed": 48,
+        "pass": 27,
+        "yield": 0.5625,
+        "wilson_upper": 0.6738135684509765
+      },
+      {
+        "completed": 56,
+        "pass": 31,
+        "yield": 0.5535714285714286,
+        "wilson_upper": 0.6578608584233663
+      },
+      {
+        "completed": 64,
+        "pass": 35,
+        "yield": 0.546875,
+        "wilson_upper": 0.6452534920969015
+      },
+      {
+        "completed": 72,
+        "pass": 40,
+        "yield": 0.5555555555555556,
+        "wilson_upper": 0.6481361775006387
+      },
+      {
+        "completed": 80,
+        "pass": 43,
+        "yield": 0.5375,
+        "wilson_upper": 0.6264680847712658
+      }
+    ]
+  },
+  {
+    "wafer": 3,
+    "file": "source_review/training/Data/A12345_W03_RawResult.csv",
+    "sha256": "8e9a661aa5d62bb8bc68bdc8589bf96c7bb7a57fd532f8ce07ccf105f22d9062",
+    "rows": 80,
+    "columns": 3046,
+    "metadata_first_cells": [
+      "Pin",
+      "Test Num",
+      "High Limit",
+      "Low Limit"
+    ],
+    "counts": {
+      "Lot": {
+        "A12345": 80
+      },
+      "Wafer": {
+        "3": 80
+      },
+      "Site": {
+        "1": 20,
+        "2": 20,
+        "3": 20,
+        "4": 20
+      },
+      "PF": {
+        "0": 54,
+        "8": 26
+      },
+      "SBin": {
+        "1": 54,
+        "6": 26
+      },
+      "HBin": {
+        "1": 54,
+        "6": 26
+      }
+    },
+    "cross_PF_SBin_HBin": {
+      "0|1|1": 54,
+      "8|6|6": 26
+    },
+    "unique_PID": 80,
+    "duplicate_PID_site": 0,
+    "wafer_identity_matches_filename": true,
+    "sbin_hbin_mismatches": 0,
+    "sbin_PF_disagreements": 0,
+    "pass": 54,
+    "sites": {
+      "1": {
+        "pass": 15,
+        "n": 20
+      },
+      "2": {
+        "pass": 9,
+        "n": 20
+      },
+      "3": {
+        "pass": 16,
+        "n": 20
+      },
+      "4": {
+        "pass": 14,
+        "n": 20
+      }
+    },
+    "yield": 0.675
+  },
+  {
+    "wafer": 4,
+    "file": "source_review/training/Data/A12345_W04_RawResult.csv",
+    "sha256": "62b17e83d1b85765d1237f1c9f421aac034e2dfab91891cf17f78ea955c4ce7e",
+    "rows": 80,
+    "columns": 3046,
+    "metadata_first_cells": [
+      "Pin",
+      "Test Num",
+      "High Limit",
+      "Low Limit"
+    ],
+    "counts": {
+      "Lot": {
+        "A12345": 80
+      },
+      "Wafer": {
+        "4": 80
+      },
+      "Site": {
+        "1": 20,
+        "2": 20,
+        "3": 20,
+        "4": 20
+      },
+      "PF": {
+        "0": 77,
+        "8": 3
+      },
+      "SBin": {
+        "1": 77,
+        "6": 3
+      },
+      "HBin": {
+        "1": 77,
+        "6": 3
+      }
+    },
+    "cross_PF_SBin_HBin": {
+      "0|1|1": 77,
+      "8|6|6": 3
+    },
+    "unique_PID": 80,
+    "duplicate_PID_site": 0,
+    "wafer_identity_matches_filename": true,
+    "sbin_hbin_mismatches": 0,
+    "sbin_PF_disagreements": 0,
+    "pass": 77,
+    "sites": {
+      "1": {
+        "pass": 18,
+        "n": 20
+      },
+      "2": {
+        "pass": 19,
+        "n": 20
+      },
+      "3": {
+        "pass": 20,
+        "n": 20
+      },
+      "4": {
+        "pass": 20,
+        "n": 20
+      }
+    },
+    "yield": 0.9625
+  },
+  {
+    "wafer": 5,
+    "file": "source_review/training/Data/A12345_W05_RawResult.csv",
+    "sha256": "9cc868a82bbefc6f1b600229e64718e327af3ba71e31837c95349375b9dbe93b",
+    "rows": 80,
+    "columns": 3046,
+    "metadata_first_cells": [
+      "Pin",
+      "Test Num",
+      "High Limit",
+      "Low Limit"
+    ],
+    "counts": {
+      "Lot": {
+        "A12345": 80
+      },
+      "Wafer": {
+        "5": 80
+      },
+      "Site": {
+        "1": 20,
+        "2": 20,
+        "3": 20,
+        "4": 20
+      },
+      "PF": {
+        "0": 70,
+        "8": 10
+      },
+      "SBin": {
+        "1": 70,
+        "6": 10
+      },
+      "HBin": {
+        "1": 70,
+        "6": 10
+      }
+    },
+    "cross_PF_SBin_HBin": {
+      "0|1|1": 70,
+      "8|6|6": 10
+    },
+    "unique_PID": 80,
+    "duplicate_PID_site": 0,
+    "wafer_identity_matches_filename": true,
+    "sbin_hbin_mismatches": 0,
+    "sbin_PF_disagreements": 0,
+    "pass": 70,
+    "sites": {
+      "1": {
+        "pass": 19,
+        "n": 20
+      },
+      "2": {
+        "pass": 18,
+        "n": 20
+      },
+      "3": {
+        "pass": 16,
+        "n": 20
+      },
+      "4": {
+        "pass": 17,
+        "n": 20
+      }
+    },
+    "yield": 0.875
+  },
+  {
+    "wafer": 6,
+    "file": "source_review/training/Data/A12345_W06_RawResult.csv",
+    "sha256": "1dbc9d2b1998215b2c40b303711380514a8d34757f635fbfe5739a6f26d398c6",
+    "rows": 80,
+    "columns": 3046,
+    "metadata_first_cells": [
+      "Pin",
+      "Test Num",
+      "High Limit",
+      "Low Limit"
+    ],
+    "counts": {
+      "Lot": {
+        "A12345": 80
+      },
+      "Wafer": {
+        "6": 80
+      },
+      "Site": {
+        "1": 20,
+        "2": 20,
+        "3": 20,
+        "4": 20
+      },
+      "PF": {
+        "0": 74,
+        "8": 6
+      },
+      "SBin": {
+        "1": 74,
+        "6": 6
+      },
+      "HBin": {
+        "1": 74,
+        "6": 6
+      }
+    },
+    "cross_PF_SBin_HBin": {
+      "0|1|1": 74,
+      "8|6|6": 6
+    },
+    "unique_PID": 80,
+    "duplicate_PID_site": 0,
+    "wafer_identity_matches_filename": true,
+    "sbin_hbin_mismatches": 0,
+    "sbin_PF_disagreements": 0,
+    "pass": 74,
+    "sites": {
+      "1": {
+        "pass": 18,
+        "n": 20
+      },
+      "2": {
+        "pass": 17,
+        "n": 20
+      },
+      "3": {
+        "pass": 19,
+        "n": 20
+      },
+      "4": {
+        "pass": 20,
+        "n": 20
+      }
+    },
+    "yield": 0.925
+  },
+  {
+    "wafer": 7,
+    "file": "source_review/training/Data/A12345_W07_RawResult.csv",
+    "sha256": "76f239541bdf9bda382bf87c9f95cf260725009b98c986e493e3b418d6cf1002",
+    "rows": 80,
+    "columns": 3046,
+    "metadata_first_cells": [
+      "Pin",
+      "Test Num",
+      "High Limit",
+      "Low Limit"
+    ],
+    "counts": {
+      "Lot": {
+        "A12345": 80
+      },
+      "Wafer": {
+        "7": 80
+      },
+      "Site": {
+        "1": 20,
+        "2": 20,
+        "3": 20,
+        "4": 20
+      },
+      "PF": {
+        "0": 69,
+        "8": 11
+      },
+      "SBin": {
+        "1": 69,
+        "6": 11
+      },
+      "HBin": {
+        "1": 69,
+        "6": 11
+      }
+    },
+    "cross_PF_SBin_HBin": {
+      "0|1|1": 69,
+      "8|6|6": 11
+    },
+    "unique_PID": 80,
+    "duplicate_PID_site": 0,
+    "wafer_identity_matches_filename": true,
+    "sbin_hbin_mismatches": 0,
+    "sbin_PF_disagreements": 0,
+    "pass": 69,
+    "sites": {
+      "1": {
+        "pass": 18,
+        "n": 20
+      },
+      "2": {
+        "pass": 19,
+        "n": 20
+      },
+      "3": {
+        "pass": 17,
+        "n": 20
+      },
+      "4": {
+        "pass": 15,
+        "n": 20
+      }
+    },
+    "yield": 0.8625
+  },
+  {
+    "wafer": 8,
+    "file": "source_review/training/Data/A12345_W08_RawResult.csv",
+    "sha256": "5c8a6993baf023dc7505ddb93c26110248ed2d7abae3baaf10235de55ce8bf0c",
+    "rows": 80,
+    "columns": 3046,
+    "metadata_first_cells": [
+      "Pin",
+      "Test Num",
+      "High Limit",
+      "Low Limit"
+    ],
+    "counts": {
+      "Lot": {
+        "A12345": 80
+      },
+      "Wafer": {
+        "8": 80
+      },
+      "Site": {
+        "1": 20,
+        "2": 20,
+        "3": 20,
+        "4": 20
+      },
+      "PF": {
+        "0": 77,
+        "8": 3
+      },
+      "SBin": {
+        "1": 77,
+        "6": 3
+      },
+      "HBin": {
+        "1": 77,
+        "6": 3
+      }
+    },
+    "cross_PF_SBin_HBin": {
+      "0|1|1": 77,
+      "8|6|6": 3
+    },
+    "unique_PID": 80,
+    "duplicate_PID_site": 0,
+    "wafer_identity_matches_filename": true,
+    "sbin_hbin_mismatches": 0,
+    "sbin_PF_disagreements": 0,
+    "pass": 77,
+    "sites": {
+      "1": {
+        "pass": 20,
+        "n": 20
+      },
+      "2": {
+        "pass": 20,
+        "n": 20
+      },
+      "3": {
+        "pass": 19,
+        "n": 20
+      },
+      "4": {
+        "pass": 18,
+        "n": 20
+      }
+    },
+    "yield": 0.9625
+  },
+  {
+    "wafer": 9,
+    "file": "source_review/training/Data/A12345_W09_RawResult.csv",
+    "sha256": "8b9f3343a72e073133a19351dcdda30f22af4d4451eb4d103f7a24f3db9fa72e",
+    "rows": 80,
+    "columns": 3046,
+    "metadata_first_cells": [
+      "Pin",
+      "Test Num",
+      "High Limit",
+      "Low Limit"
+    ],
+    "counts": {
+      "Lot": {
+        "A12345": 80
+      },
+      "Wafer": {
+        "9": 80
+      },
+      "Site": {
+        "1": 20,
+        "2": 20,
+        "3": 20,
+        "4": 20
+      },
+      "PF": {
+        "0": 55,
+        "8": 25
+      },
+      "SBin": {
+        "1": 55,
+        "6": 25
+      },
+      "HBin": {
+        "1": 55,
+        "6": 25
+      }
+    },
+    "cross_PF_SBin_HBin": {
+      "0|1|1": 55,
+      "8|6|6": 25
+    },
+    "unique_PID": 80,
+    "duplicate_PID_site": 0,
+    "wafer_identity_matches_filename": true,
+    "sbin_hbin_mismatches": 0,
+    "sbin_PF_disagreements": 0,
+    "pass": 55,
+    "sites": {
+      "1": {
+        "pass": 14,
+        "n": 20
+      },
+      "2": {
+        "pass": 17,
+        "n": 20
+      },
+      "3": {
+        "pass": 11,
+        "n": 20
+      },
+      "4": {
+        "pass": 13,
+        "n": 20
+      }
+    },
+    "yield": 0.6875
+  },
+  {
+    "wafer": 10,
+    "file": "source_review/training/Data/A12345_W10_RawResult.csv",
+    "sha256": "cc875c1efd9db84bea53102f51b473a3d5cc5acf95452d02c0bc4dda768e976a",
+    "rows": 80,
+    "columns": 3046,
+    "metadata_first_cells": [
+      "Pin",
+      "Test Num",
+      "High Limit",
+      "Low Limit"
+    ],
+    "counts": {
+      "Lot": {
+        "A12345": 80
+      },
+      "Wafer": {
+        "10": 80
+      },
+      "Site": {
+        "1": 20,
+        "2": 20,
+        "3": 20,
+        "4": 20
+      },
+      "PF": {
+        "0": 76,
+        "8": 4
+      },
+      "SBin": {
+        "1": 76,
+        "6": 4
+      },
+      "HBin": {
+        "1": 76,
+        "6": 4
+      }
+    },
+    "cross_PF_SBin_HBin": {
+      "0|1|1": 76,
+      "8|6|6": 4
+    },
+    "unique_PID": 80,
+    "duplicate_PID_site": 0,
+    "wafer_identity_matches_filename": true,
+    "sbin_hbin_mismatches": 0,
+    "sbin_PF_disagreements": 0,
+    "pass": 76,
+    "sites": {
+      "1": {
+        "pass": 19,
+        "n": 20
+      },
+      "2": {
+        "pass": 18,
+        "n": 20
+      },
+      "3": {
+        "pass": 20,
+        "n": 20
+      },
+      "4": {
+        "pass": 19,
+        "n": 20
+      }
+    },
+    "yield": 0.95
+  },
+  {
+    "wafer": 11,
+    "file": "source_review/training/Data/A12345_W11_RawResult.csv",
+    "sha256": "457f03693f57cd66414a5bca33a1e463bd1b8a4e10515e82b4d364e88f7903ec",
+    "rows": 80,
+    "columns": 3046,
+    "metadata_first_cells": [
+      "Pin",
+      "Test Num",
+      "High Limit",
+      "Low Limit"
+    ],
+    "counts": {
+      "Lot": {
+        "A12345": 80
+      },
+      "Wafer": {
+        "11": 80
+      },
+      "Site": {
+        "1": 20,
+        "2": 20,
+        "3": 20,
+        "4": 20
+      },
+      "PF": {
+        "0": 73,
+        "8": 7
+      },
+      "SBin": {
+        "1": 73,
+        "6": 7
+      },
+      "HBin": {
+        "1": 73,
+        "6": 7
+      }
+    },
+    "cross_PF_SBin_HBin": {
+      "0|1|1": 73,
+      "8|6|6": 7
+    },
+    "unique_PID": 80,
+    "duplicate_PID_site": 0,
+    "wafer_identity_matches_filename": true,
+    "sbin_hbin_mismatches": 0,
+    "sbin_PF_disagreements": 0,
+    "pass": 73,
+    "sites": {
+      "1": {
+        "pass": 18,
+        "n": 20
+      },
+      "2": {
+        "pass": 17,
+        "n": 20
+      },
+      "3": {
+        "pass": 19,
+        "n": 20
+      },
+      "4": {
+        "pass": 19,
+        "n": 20
+      }
+    },
+    "yield": 0.9125
+  },
+  {
+    "wafer": 12,
+    "file": "source_review/training/Data/A12345_W12_RawResult.csv",
+    "sha256": "f59df33fc197d1df8b375560349a854eebc38c6f8a18ad07bf44d62da360c3c0",
+    "rows": 80,
+    "columns": 3046,
+    "metadata_first_cells": [
+      "Pin",
+      "Test Num",
+      "High Limit",
+      "Low Limit"
+    ],
+    "counts": {
+      "Lot": {
+        "A12345": 80
+      },
+      "Wafer": {
+        "12": 80
+      },
+      "Site": {
+        "1": 20,
+        "2": 20,
+        "3": 20,
+        "4": 20
+      },
+      "PF": {
+        "0": 78,
+        "8": 2
+      },
+      "SBin": {
+        "1": 78,
+        "6": 2
+      },
+      "HBin": {
+        "1": 78,
+        "6": 2
+      }
+    },
+    "cross_PF_SBin_HBin": {
+      "0|1|1": 78,
+      "8|6|6": 2
+    },
+    "unique_PID": 80,
+    "duplicate_PID_site": 0,
+    "wafer_identity_matches_filename": true,
+    "sbin_hbin_mismatches": 0,
+    "sbin_PF_disagreements": 0,
+    "pass": 78,
+    "sites": {
+      "1": {
+        "pass": 20,
+        "n": 20
+      },
+      "2": {
+        "pass": 18,
+        "n": 20
+      },
+      "3": {
+        "pass": 20,
+        "n": 20
+      },
+      "4": {
+        "pass": 20,
+        "n": 20
+      }
+    },
+    "yield": 0.975
+  },
+  {
+    "wafer": 13,
+    "file": "source_review/training/Data/A12345_W13_RawResult.csv",
+    "sha256": "3b6f7c97fa4787bec43f18cdbdfad1886fc7cb77ad496bf2283b3eca8aa66c30",
+    "rows": 80,
+    "columns": 3046,
+    "metadata_first_cells": [
+      "Pin",
+      "Test Num",
+      "High Limit",
+      "Low Limit"
+    ],
+    "counts": {
+      "Lot": {
+        "A12345": 80
+      },
+      "Wafer": {
+        "13": 80
+      },
+      "Site": {
+        "1": 20,
+        "2": 20,
+        "3": 20,
+        "4": 20
+      },
+      "PF": {
+        "0": 74,
+        "8": 6
+      },
+      "SBin": {
+        "1": 74,
+        "6": 6
+      },
+      "HBin": {
+        "1": 74,
+        "6": 6
+      }
+    },
+    "cross_PF_SBin_HBin": {
+      "0|1|1": 74,
+      "8|6|6": 6
+    },
+    "unique_PID": 80,
+    "duplicate_PID_site": 0,
+    "wafer_identity_matches_filename": true,
+    "sbin_hbin_mismatches": 0,
+    "sbin_PF_disagreements": 0,
+    "pass": 74,
+    "sites": {
+      "1": {
+        "pass": 19,
+        "n": 20
+      },
+      "2": {
+        "pass": 17,
+        "n": 20
+      },
+      "3": {
+        "pass": 20,
+        "n": 20
+      },
+      "4": {
+        "pass": 18,
+        "n": 20
+      }
+    },
+    "yield": 0.925
+  },
+  {
+    "wafer": 14,
+    "file": "source_review/training/Data/A12345_W14_RawResult.csv",
+    "sha256": "078357bd644b17aa8a69413ccd8495bc103fd9fb3793f4386d98d6fd376f2f8f",
+    "rows": 80,
+    "columns": 3046,
+    "metadata_first_cells": [
+      "Pin",
+      "Test Num",
+      "High Limit",
+      "Low Limit"
+    ],
+    "counts": {
+      "Lot": {
+        "A12345": 80
+      },
+      "Wafer": {
+        "14": 80
+      },
+      "Site": {
+        "1": 20,
+        "2": 20,
+        "3": 20,
+        "4": 20
+      },
+      "PF": {
+        "0": 67,
+        "8": 13
+      },
+      "SBin": {
+        "1": 67,
+        "6": 5,
+        "8": 4,
+        "9": 4
+      },
+      "HBin": {
+        "1": 67,
+        "6": 5,
+        "8": 4,
+        "9": 4
+      }
+    },
+    "cross_PF_SBin_HBin": {
+      "0|1|1": 67,
+      "8|6|6": 5,
+      "8|8|8": 4,
+      "8|9|9": 4
+    },
+    "unique_PID": 80,
+    "duplicate_PID_site": 0,
+    "wafer_identity_matches_filename": true,
+    "sbin_hbin_mismatches": 0,
+    "sbin_PF_disagreements": 0,
+    "pass": 67,
+    "sites": {
+      "1": {
+        "pass": 17,
+        "n": 20
+      },
+      "2": {
+        "pass": 16,
+        "n": 20
+      },
+      "3": {
+        "pass": 17,
+        "n": 20
+      },
+      "4": {
+        "pass": 17,
+        "n": 20
+      }
+    },
+    "yield": 0.8375
+  },
+  {
+    "wafer": 15,
+    "file": "source_review/training/Data/A12345_W15_RawResult.csv",
+    "sha256": "ed6490ce66956f3e09628d12e2173ea890b90441647a434138047e41152ae18d",
+    "rows": 80,
+    "columns": 3046,
+    "metadata_first_cells": [
+      "Pin",
+      "Test Num",
+      "High Limit",
+      "Low Limit"
+    ],
+    "counts": {
+      "Lot": {
+        "A12345": 80
+      },
+      "Wafer": {
+        "15": 80
+      },
+      "Site": {
+        "1": 20,
+        "2": 20,
+        "3": 20,
+        "4": 20
+      },
+      "PF": {
+        "0": 74,
+        "8": 6
+      },
+      "SBin": {
+        "1": 74,
+        "6": 6
+      },
+      "HBin": {
+        "1": 74,
+        "6": 6
+      }
+    },
+    "cross_PF_SBin_HBin": {
+      "0|1|1": 74,
+      "8|6|6": 6
+    },
+    "unique_PID": 80,
+    "duplicate_PID_site": 0,
+    "wafer_identity_matches_filename": true,
+    "sbin_hbin_mismatches": 0,
+    "sbin_PF_disagreements": 0,
+    "pass": 74,
+    "sites": {
+      "1": {
+        "pass": 18,
+        "n": 20
+      },
+      "2": {
+        "pass": 19,
+        "n": 20
+      },
+      "3": {
+        "pass": 18,
+        "n": 20
+      },
+      "4": {
+        "pass": 19,
+        "n": 20
+      }
+    },
+    "yield": 0.925
+  },
+  {
+    "wafer": 16,
+    "file": "source_review/training/Data/A12345_W16_RawResult.csv",
+    "sha256": "d282c7ac242980ec70589d40f1fc56d0f426af09f27b115603081703511ed24c",
+    "rows": 80,
+    "columns": 3046,
+    "metadata_first_cells": [
+      "Pin",
+      "Test Num",
+      "High Limit",
+      "Low Limit"
+    ],
+    "counts": {
+      "Lot": {
+        "A12345": 80
+      },
+      "Wafer": {
+        "16": 80
+      },
+      "Site": {
+        "1": 20,
+        "2": 20,
+        "3": 20,
+        "4": 20
+      },
+      "PF": {
+        "0": 77,
+        "8": 3
+      },
+      "SBin": {
+        "1": 77,
+        "6": 3
+      },
+      "HBin": {
+        "1": 77,
+        "6": 3
+      }
+    },
+    "cross_PF_SBin_HBin": {
+      "0|1|1": 77,
+      "8|6|6": 3
+    },
+    "unique_PID": 80,
+    "duplicate_PID_site": 0,
+    "wafer_identity_matches_filename": true,
+    "sbin_hbin_mismatches": 0,
+    "sbin_PF_disagreements": 0,
+    "pass": 77,
+    "sites": {
+      "1": {
+        "pass": 19,
+        "n": 20
+      },
+      "2": {
+        "pass": 19,
+        "n": 20
+      },
+      "3": {
+        "pass": 19,
+        "n": 20
+      },
+      "4": {
+        "pass": 20,
+        "n": 20
+      }
+    },
+    "yield": 0.9625
+  },
+  {
+    "wafer": 17,
+    "file": "source_review/training/Data/A12345_W17_RawResult.csv",
+    "sha256": "2b42b26762785bce2e4bc2f18de01220c7d6fe496ca4f55ba6bd016a829b582b",
+    "rows": 80,
+    "columns": 3046,
+    "metadata_first_cells": [
+      "Pin",
+      "Test Num",
+      "High Limit",
+      "Low Limit"
+    ],
+    "counts": {
+      "Lot": {
+        "A12345": 80
+      },
+      "Wafer": {
+        "17": 80
+      },
+      "Site": {
+        "1": 20,
+        "2": 20,
+        "3": 20,
+        "4": 20
+      },
+      "PF": {
+        "0": 75,
+        "8": 5
+      },
+      "SBin": {
+        "1": 75,
+        "6": 5
+      },
+      "HBin": {
+        "1": 75,
+        "6": 5
+      }
+    },
+    "cross_PF_SBin_HBin": {
+      "0|1|1": 75,
+      "8|6|6": 5
+    },
+    "unique_PID": 80,
+    "duplicate_PID_site": 0,
+    "wafer_identity_matches_filename": true,
+    "sbin_hbin_mismatches": 0,
+    "sbin_PF_disagreements": 0,
+    "pass": 75,
+    "sites": {
+      "1": {
+        "pass": 19,
+        "n": 20
+      },
+      "2": {
+        "pass": 18,
+        "n": 20
+      },
+      "3": {
+        "pass": 20,
+        "n": 20
+      },
+      "4": {
+        "pass": 18,
+        "n": 20
+      }
+    },
+    "yield": 0.9375
+  },
+  {
+    "wafer": 18,
+    "file": "source_review/training/Data/A12345_W18_RawResult.csv",
+    "sha256": "27733bfaa379c7a68ad78785488304fa941a599efe1be7efea68b624f33b33bb",
+    "rows": 80,
+    "columns": 3046,
+    "metadata_first_cells": [
+      "Pin",
+      "Test Num",
+      "High Limit",
+      "Low Limit"
+    ],
+    "counts": {
+      "Lot": {
+        "A12345": 80
+      },
+      "Wafer": {
+        "18": 80
+      },
+      "Site": {
+        "1": 20,
+        "2": 20,
+        "3": 20,
+        "4": 20
+      },
+      "PF": {
+        "0": 69,
+        "8": 11
+      },
+      "SBin": {
+        "1": 69,
+        "13": 3,
+        "17": 1,
+        "6": 7
+      },
+      "HBin": {
+        "1": 69,
+        "13": 3,
+        "17": 1,
+        "6": 7
+      }
+    },
+    "cross_PF_SBin_HBin": {
+      "0|1|1": 69,
+      "8|13|13": 3,
+      "8|17|17": 1,
+      "8|6|6": 7
+    },
+    "unique_PID": 80,
+    "duplicate_PID_site": 0,
+    "wafer_identity_matches_filename": true,
+    "sbin_hbin_mismatches": 0,
+    "sbin_PF_disagreements": 0,
+    "pass": 69,
+    "sites": {
+      "1": {
+        "pass": 18,
+        "n": 20
+      },
+      "2": {
+        "pass": 19,
+        "n": 20
+      },
+      "3": {
+        "pass": 16,
+        "n": 20
+      },
+      "4": {
+        "pass": 16,
+        "n": 20
+      }
+    },
+    "yield": 0.8625
+  },
+  {
+    "wafer": 19,
+    "file": "source_review/training/Data/A12345_W19_RawResult.csv",
+    "sha256": "e1fed9d9376bb23689bb2cadb015cb536ad329652d3521db6f3b85b3d9fbe674",
+    "rows": 80,
+    "columns": 3046,
+    "metadata_first_cells": [
+      "Pin",
+      "Test Num",
+      "High Limit",
+      "Low Limit"
+    ],
+    "counts": {
+      "Lot": {
+        "A12345": 80
+      },
+      "Wafer": {
+        "19": 80
+      },
+      "Site": {
+        "1": 20,
+        "2": 20,
+        "3": 20,
+        "4": 20
+      },
+      "PF": {
+        "0": 73,
+        "8": 7
+      },
+      "SBin": {
+        "1": 73,
+        "6": 7
+      },
+      "HBin": {
+        "1": 73,
+        "6": 7
+      }
+    },
+    "cross_PF_SBin_HBin": {
+      "0|1|1": 73,
+      "8|6|6": 7
+    },
+    "unique_PID": 80,
+    "duplicate_PID_site": 0,
+    "wafer_identity_matches_filename": true,
+    "sbin_hbin_mismatches": 0,
+    "sbin_PF_disagreements": 0,
+    "pass": 73,
+    "sites": {
+      "1": {
+        "pass": 20,
+        "n": 20
+      },
+      "2": {
+        "pass": 18,
+        "n": 20
+      },
+      "3": {
+        "pass": 17,
+        "n": 20
+      },
+      "4": {
+        "pass": 18,
+        "n": 20
+      }
+    },
+    "yield": 0.9125
+  },
+  {
+    "wafer": 20,
+    "file": "source_review/training/Data/A12345_W20_RawResult.csv",
+    "sha256": "64c4d63ac176977b445bf915dc535930f9389565f3c99ec82e754204e46049e7",
+    "rows": 80,
+    "columns": 3046,
+    "metadata_first_cells": [
+      "Pin",
+      "Test Num",
+      "High Limit",
+      "Low Limit"
+    ],
+    "counts": {
+      "Lot": {
+        "A12345": 80
+      },
+      "Wafer": {
+        "20": 80
+      },
+      "Site": {
+        "1": 20,
+        "2": 20,
+        "3": 20,
+        "4": 20
+      },
+      "PF": {
+        "0": 79,
+        "8": 1
+      },
+      "SBin": {
+        "1": 79,
+        "6": 1
+      },
+      "HBin": {
+        "1": 79,
+        "6": 1
+      }
+    },
+    "cross_PF_SBin_HBin": {
+      "0|1|1": 79,
+      "8|6|6": 1
+    },
+    "unique_PID": 80,
+    "duplicate_PID_site": 0,
+    "wafer_identity_matches_filename": true,
+    "sbin_hbin_mismatches": 0,
+    "sbin_PF_disagreements": 0,
+    "pass": 79,
+    "sites": {
+      "1": {
+        "pass": 20,
+        "n": 20
+      },
+      "2": {
+        "pass": 20,
+        "n": 20
+      },
+      "3": {
+        "pass": 19,
+        "n": 20
+      },
+      "4": {
+        "pass": 20,
+        "n": 20
+      }
+    },
+    "yield": 0.9875
+  },
+  {
+    "wafer": 21,
+    "file": "source_review/training/Data/A12345_W21_RawResult.csv",
+    "sha256": "4a8745c287d1008e84348ac65d7cce3b3f509769f2467cb9cc768c07e3e889de",
+    "rows": 80,
+    "columns": 3046,
+    "metadata_first_cells": [
+      "Pin",
+      "Test Num",
+      "High Limit",
+      "Low Limit"
+    ],
+    "counts": {
+      "Lot": {
+        "A12345": 80
+      },
+      "Wafer": {
+        "21": 80
+      },
+      "Site": {
+        "1": 20,
+        "2": 20,
+        "3": 20,
+        "4": 20
+      },
+      "PF": {
+        "0": 77,
+        "8": 3
+      },
+      "SBin": {
+        "1": 77,
+        "6": 3
+      },
+      "HBin": {
+        "1": 77,
+        "6": 3
+      }
+    },
+    "cross_PF_SBin_HBin": {
+      "0|1|1": 77,
+      "8|6|6": 3
+    },
+    "unique_PID": 80,
+    "duplicate_PID_site": 0,
+    "wafer_identity_matches_filename": true,
+    "sbin_hbin_mismatches": 0,
+    "sbin_PF_disagreements": 0,
+    "pass": 77,
+    "sites": {
+      "1": {
+        "pass": 19,
+        "n": 20
+      },
+      "2": {
+        "pass": 18,
+        "n": 20
+      },
+      "3": {
+        "pass": 20,
+        "n": 20
+      },
+      "4": {
+        "pass": 20,
+        "n": 20
+      }
+    },
+    "yield": 0.9625
+  },
+  {
+    "wafer": 22,
+    "file": "source_review/training/Data/A12345_W22_RawResult.csv",
+    "sha256": "79ef9405f973f01445a15d1ab3e47a15f5b14cf289cdfece9ace6cd783ce40af",
+    "rows": 80,
+    "columns": 3046,
+    "metadata_first_cells": [
+      "Pin",
+      "Test Num",
+      "High Limit",
+      "Low Limit"
+    ],
+    "counts": {
+      "Lot": {
+        "A12345": 80
+      },
+      "Wafer": {
+        "22": 80
+      },
+      "Site": {
+        "1": 20,
+        "2": 20,
+        "3": 20,
+        "4": 20
+      },
+      "PF": {
+        "0": 75,
+        "8": 5
+      },
+      "SBin": {
+        "1": 75,
+        "6": 5
+      },
+      "HBin": {
+        "1": 75,
+        "6": 5
+      }
+    },
+    "cross_PF_SBin_HBin": {
+      "0|1|1": 75,
+      "8|6|6": 5
+    },
+    "unique_PID": 80,
+    "duplicate_PID_site": 0,
+    "wafer_identity_matches_filename": true,
+    "sbin_hbin_mismatches": 0,
+    "sbin_PF_disagreements": 0,
+    "pass": 75,
+    "sites": {
+      "1": {
+        "pass": 18,
+        "n": 20
+      },
+      "2": {
+        "pass": 19,
+        "n": 20
+      },
+      "3": {
+        "pass": 19,
+        "n": 20
+      },
+      "4": {
+        "pass": 19,
+        "n": 20
+      }
+    },
+    "yield": 0.9375
+  },
+  {
+    "wafer": 23,
+    "file": "source_review/training/Data/A12345_W23_RawResult.csv",
+    "sha256": "2c868e9d5c54bb151236378c599b2a7d90fc683d1859184ed514c8f2da02ed3a",
+    "rows": 80,
+    "columns": 3046,
+    "metadata_first_cells": [
+      "Pin",
+      "Test Num",
+      "High Limit",
+      "Low Limit"
+    ],
+    "counts": {
+      "Lot": {
+        "A12345": 80
+      },
+      "Wafer": {
+        "23": 80
+      },
+      "Site": {
+        "1": 20,
+        "2": 20,
+        "3": 20,
+        "4": 20
+      },
+      "PF": {
+        "0": 67,
+        "8": 13
+      },
+      "SBin": {
+        "1": 67,
+        "30": 2,
+        "6": 11
+      },
+      "HBin": {
+        "1": 67,
+        "30": 2,
+        "6": 11
+      }
+    },
+    "cross_PF_SBin_HBin": {
+      "0|1|1": 67,
+      "8|30|30": 2,
+      "8|6|6": 11
+    },
+    "unique_PID": 80,
+    "duplicate_PID_site": 0,
+    "wafer_identity_matches_filename": true,
+    "sbin_hbin_mismatches": 0,
+    "sbin_PF_disagreements": 0,
+    "pass": 67,
+    "sites": {
+      "1": {
+        "pass": 17,
+        "n": 20
+      },
+      "2": {
+        "pass": 18,
+        "n": 20
+      },
+      "3": {
+        "pass": 19,
+        "n": 20
+      },
+      "4": {
+        "pass": 13,
+        "n": 20
+      }
+    },
+    "yield": 0.8375
+  },
+  {
+    "wafer": 24,
+    "file": "source_review/training/Data/A12345_W24_RawResult.csv",
+    "sha256": "c22f9593b90d12fb62edae4b2dabcc557eb51085e322df735aca277b0a22678f",
+    "rows": 80,
+    "columns": 3046,
+    "metadata_first_cells": [
+      "Pin",
+      "Test Num",
+      "High Limit",
+      "Low Limit"
+    ],
+    "counts": {
+      "Lot": {
+        "A12345": 80
+      },
+      "Wafer": {
+        "24": 80
+      },
+      "Site": {
+        "1": 20,
+        "2": 20,
+        "3": 20,
+        "4": 20
+      },
+      "PF": {
+        "0": 65,
+        "8": 15
+      },
+      "SBin": {
+        "1": 65,
+        "6": 15
+      },
+      "HBin": {
+        "1": 65,
+        "6": 15
+      }
+    },
+    "cross_PF_SBin_HBin": {
+      "0|1|1": 65,
+      "8|6|6": 15
+    },
+    "unique_PID": 80,
+    "duplicate_PID_site": 0,
+    "wafer_identity_matches_filename": true,
+    "sbin_hbin_mismatches": 0,
+    "sbin_PF_disagreements": 0,
+    "pass": 65,
+    "sites": {
+      "1": {
+        "pass": 14,
+        "n": 20
+      },
+      "2": {
+        "pass": 17,
+        "n": 20
+      },
+      "3": {
+        "pass": 16,
+        "n": 20
+      },
+      "4": {
+        "pass": 18,
+        "n": 20
+      }
+    },
+    "yield": 0.8125
+  },
+  {
+    "wafer": 25,
+    "file": "source_review/training/Data/A12345_W25_RawResult.csv",
+    "sha256": "dd6a0be74f035dba30e6dd541fe79343251442250703a3ed576e84e4a536be78",
+    "rows": 80,
+    "columns": 3046,
+    "metadata_first_cells": [
+      "Pin",
+      "Test Num",
+      "High Limit",
+      "Low Limit"
+    ],
+    "counts": {
+      "Lot": {
+        "A12345": 80
+      },
+      "Wafer": {
+        "25": 80
+      },
+      "Site": {
+        "1": 20,
+        "2": 20,
+        "3": 20,
+        "4": 20
+      },
+      "PF": {
+        "0": 72,
+        "8": 8
+      },
+      "SBin": {
+        "1": 72,
+        "6": 8
+      },
+      "HBin": {
+        "1": 72,
+        "6": 8
+      }
+    },
+    "cross_PF_SBin_HBin": {
+      "0|1|1": 72,
+      "8|6|6": 8
+    },
+    "unique_PID": 80,
+    "duplicate_PID_site": 0,
+    "wafer_identity_matches_filename": true,
+    "sbin_hbin_mismatches": 0,
+    "sbin_PF_disagreements": 0,
+    "pass": 72,
+    "sites": {
+      "1": {
+        "pass": 18,
+        "n": 20
+      },
+      "2": {
+        "pass": 16,
+        "n": 20
+      },
+      "3": {
+        "pass": 18,
+        "n": 20
+      },
+      "4": {
+        "pass": 20,
+        "n": 20
+      }
+    },
+    "yield": 0.9
+  }
+]

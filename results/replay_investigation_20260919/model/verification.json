@@ -1,0 +1,9 @@
+{
+  "protected_input_files": 71,
+  "all_protected_hashes_unchanged": true,
+  "other_input_changes_by_concurrent_workers": [],
+  "head_start": "1c63398ee833bdda322f50cc3c8195adc07bd96c",
+  "head_finish": "14ff55bfd31694e49ff324564b13c0535d16fe9a",
+  "checks": "all 25 wafer comparisons, 14 accepted payloads, preserved candidate core payloads, flow causality, reproduced model features/parameters",
+  "scope": "local CSV investigation only; no remote/browser/runtime promotion"
+}

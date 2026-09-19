@@ -838,3 +838,53 @@ test('prediction tool retains scope, units and event citations and rejects a dif
   await assert.rejects(execute('get_prediction_records', { ...args, run_id: 'other' }), /outside/);
   await assert.rejects(execute('get_prediction_records', { ...args, stage: 7 }));
 });
+
+const runListRoute = await import('../app/api/v1/runs/route.ts');
+const listRequest = (query = '') => new Request('https://example.test/api/v1/runs' + query);
+
+test('run discovery is empty on an empty database and returns no-store metadata only', async () => {
+  reset();
+  const response = await runListRoute.GET(listRequest());
+  assert.equal(response.status, 200);
+  assert.equal(response.headers.get('cache-control'), 'no-store');
+  assert.deepEqual(await response.json(), { runs: [], next_offset: null });
+  await ingest([prediction()]);
+  const { runs } = await (await runListRoute.GET(listRequest())).json();
+  assert.equal(runs.length, 1);
+  assert.deepEqual(Object.keys(runs[0]).sort(), ['edge_id', 'last_event_at', 'mode', 'run_id', 'tester_id', 'updated_at']);
+  assert.equal(runs[0].mode, 'live');
+  assert.equal(runs[0].edge_id, 'edge');
+});
+
+test('run discovery keeps tester/run pairs distinct and pages by receipt then true source time', async () => {
+  reset();
+  const insert = env.DB.sql.prepare('INSERT INTO runs (key, run_id, tester_id, edge_id, mode, last_event_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?)');
+  const row = (tester, run, mode, source, receipt) => insert.run(JSON.stringify([run, tester]), run, tester, 'edge-' + tester, mode, source, receipt);
+  row('a', 'shared', 'live', '2026-09-20T10:00:00+08:00', '2026-09-20 02:00:00');
+  row('b', 'shared', 'replay', '2026-09-20T03:00:00Z', '2026-09-20 02:00:00');
+  row('c', 'old-source', 'simulation', '2025-01-01T00:00:00Z', '2026-09-20 04:00:00');
+  row('d', 'tie', 'live', '2026-09-20T03:00:00Z', '2026-09-20 02:00:00');
+  const first = await (await runListRoute.GET(listRequest('?limit=2'))).json();
+  const second = await repo.listRuns({ limit: 2, offset: first.next_offset });
+  assert.deepEqual(first.runs.map(r => [r.tester_id, r.run_id]), [['c', 'old-source'], ['b', 'shared']]);
+  assert.deepEqual(second.runs.map(r => [r.tester_id, r.run_id]), [['d', 'tie'], ['a', 'shared']]);
+  assert.equal(second.next_offset, null);
+  await assert.rejects(() => repo.getRunSnapshot('shared'), repo.AmbiguousScopeError);
+  assert.equal((await repo.getRunSnapshot('shared', 'b')).run.mode, 'replay');
+});
+
+test('run list rejects malformed pagination and distinguishes database errors from empty storage', async () => {
+  reset();
+  for (const query of ['?limit=0', '?limit=101', '?limit=x', '?offset=-1', '?offset=1.5', '?offset=', '?offset=9007199254740992']) {
+    assert.equal((await runListRoute.GET(listRequest(query))).status, 422, query);
+  }
+  await assert.rejects(() => repo.listRuns({ limit: 101 }), RangeError);
+  const db = env.DB;
+  delete env.DB;
+  assert.equal((await runListRoute.GET(listRequest())).status, 503);
+  env.DB = db;
+  db.beforeExecute = () => { throw Error('private storage detail'); };
+  const failed = await runListRoute.GET(listRequest());
+  assert.equal(failed.status, 503);
+  assert.doesNotMatch(await failed.text(), /private storage detail/);
+});

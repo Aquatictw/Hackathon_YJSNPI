@@ -3,13 +3,14 @@ import {useLocale} from "@/components/locale-provider";
 import { SemiconductorChat, ReferenceSources, type ResponseLanguage } from "@/components/semiconductor-chat";
 import { z } from "zod";
 import { useEffect, useRef, useState } from 'react';
-import { Activity, ArrowRight, Database, Radio, Search, Layers3, NotebookPen, Send, RefreshCw, TriangleAlert, ChevronRight, Unplug, ClipboardList, Clock3 } from 'lucide-react';
+import { Activity, ArrowRight, Database, Search, Layers3, NotebookPen, Send, RefreshCw, TriangleAlert, ChevronRight, Unplug, ClipboardList, Clock3 } from 'lucide-react';
 import { createDashboardLifecycle, initialDashboardState, dashboardEvidence } from '@/lib/rtdi/ui-lifecycle';
 import { predictionRows } from '@/lib/rtdi/ui-predictions';
 import type { UiEdgeRecord as EdgeRecord } from '@/lib/rtdi/ui-wire';
 import type { CommandStatus } from '@/lib/rtdi/command-contract';
 import '../dashboard.css';
 import { AppHeader } from '@/components/app-header';
+import { StoredRunPicker } from '@/components/stored-run-picker';
 import { TemperatureRecords } from '@/components/temperature-records';
 import { investigationAvailability } from '@/lib/rtdi/ui-presentation';
 import { ImportedSummaryWorkspace } from '@/components/imported-summary-workspace';
@@ -76,7 +77,7 @@ function BackendWorkspace({ initialScope }: { initialScope?: BackendScope }) {
  const {t, locale} = useLocale();
 
     const [chatTopic, setChatTopic] = useState<"analysis" | "knowledge">("analysis");
-    const {locale:language,setLocale:changeLanguage}=useLocale();    const [run, setRun] = useState(initialScope?.run ?? 'grp6-replay-demo'), [tester, setTester] = useState(initialScope?.tester ?? 'grp6-replay');
+    const {locale:language,setLocale:changeLanguage}=useLocale();
     const [state, setState] = useState(initialDashboardState), [tab, setTab] = useState('evidence');
     const { scope, data, status, error, search, question, busy, chatError, messages } = state;
     const [config, setConfig] = useState<{
@@ -104,11 +105,7 @@ function BackendWorkspace({ initialScope }: { initialScope?: BackendScope }) {
             setConfigError(true); });
         return () => { active = false; ctrl.abort(); };
     }, [configAttempt]);
-    useEffect(() => { if (scope) {
-        setRun(scope.run);
-        setTester(scope.tester);
-    } }, [scope?.run, scope?.tester]);
-    const connect = () => {
+    const connect = (run: string, tester: string) => {
         const selectedSource = readSourceSession();
         try { selectBackendSource(); }
         catch {
@@ -130,7 +127,7 @@ function BackendWorkspace({ initialScope }: { initialScope?: BackendScope }) {
  <div className="dc-main"><main id="main-content">
  <div className="dc-heading"><div><div className="dc-eyebrow">{t("OPERATIONS / RUN WORKSPACE")}</div><h1>{t("Run overview")}</h1><p>{t("Inspect source records, compare site behavior, and document findings.")}</p></div><span className="dc-stream-status" role="status" aria-live="polite"><span className={'dc-dot ' + (status === 'Event stream connected' ? 'connected' : '')}/>{t(status)}</span></div>
  {data && <p className="dc-message">{t('Backend run · {0}', data.run.run_id)}</p>}
- <form className="dc-connect" aria-busy={status === 'Connecting'} onSubmit={e => { e.preventDefault(); void connect(); }}><div className="dc-connect-title"><Database size={18}/><div><strong>{t("Run selection")}</strong><small>{t("Run and tester scope")}</small></div></div><label>{t("Run ID")}<input value={run} onChange={e => setRun(e.target.value)} required maxLength={120}/></label><label>{t("Tester ID")}<input value={tester} onChange={e => setTester(e.target.value)} placeholder={t("Optional tester filter")} maxLength={120}/></label><button className="dc-primary" type="submit"><Radio size={16}/>{t("Load run")}</button>{scope && <button className="dc-icon" type="button" aria-label={t("Disconnect event stream")} onClick={disconnect}><Unplug size={18}/></button>}</form>
+ <StoredRunPicker onLoad={connect} busy={status === 'Connecting'}>{scope && <button className="dc-icon" type="button" aria-label={t("Disconnect event stream")} onClick={disconnect}><Unplug size={18}/></button>}</StoredRunPicker>
  {error && <div className="dc-error" role="alert"><TriangleAlert size={18}/>{t(error)}<span>{t("Check the run ID and backend configuration, then retry.")}</span></div>}
  <dl className="dc-stats" aria-label={t("Run summary")}>
   <div><dt>{t("Source mode")}</dt><dd>{data?.run.mode.toUpperCase() ?? '—'}</dd><small>{data?.run.tester_id ?? t("No tester loaded")}</small></div>

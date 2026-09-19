@@ -1,0 +1,82 @@
+--- PAGE 1 ---
+1 CONFIDENTIALAll Rights Reserved - ADVANTEST CORPORATION
+題目
+利用Advantest ACS RTDI, 開發能協助使用者實時監測半
+導體測試量產, 利用AI/ML 發現問題或是預測IC效能, 使用
+RTDI佈署至生產線, 進行實時監控, 發現問題時提供問題的即
+時通知/詢問或與測試機台的軟體互動,以提昇使用者的生產力
+及生產的品質
+--- PAGE 2 ---
+2 CONFIDENTIALAll Rights Reserved - ADVANTEST CORPORATION
+半導體測試資料的智慧洞察助理
+隨著IC的複雜度的增加, 負責的人員往往需要在測試完成後, 花費更多的時間做測試資料處理與分析來
+決定測試過程是否有任何異常◦
+愛德萬身為半導體測試方案的先驅, 提供ACS RTDI( Real Time Data Infrastructure) 給使用者可
+以自行開發 即時線上監控/分析系統, 來縮短處理與分析的時間, 並發現異常◦
+ACS RTDI包括了 Edge server(本地的算力資源), Nexus (即時測試資料收集軟體) , AUS (測試區
+中央伺服器) ◦
+在本次競賽中, 參賽者會利用RTDI模擬環境 針對以下場景, 創造可以協助自動分析及偵測的方案
+場景一: 在模擬量產的情景下, 可以即時偵測異常, 並將異常整理報告後,通知特定人員或供特定人員查
+詢
+場景二: 在模擬量產的情景下, 可以預測IC的溫度, 並將結果通知機台的軟體
+題目說明
+--- PAGE 3 ---
+3 CONFIDENTIALAll Rights Reserved - ADVANTEST CORPORATION
+Data for Training/Learning
+• 25 wafers
+• 80 device/wafer
+• ~3000 test items/device
+• Temperature sensor test prediction
+• Target test
+– 100_Main.sensor1_CP
+– 120_Main.sensor2_DS0
+– 140_Main.sensor3_IO4
+– 160_Main.sensor4_IO1
+– 180_Main.sensor5_IO2
+– 200_Main.sensor6_IO3
+Wafer production status
+
+--- PAGE 4 ---
+4 CONFIDENTIALAll Rights Reserved - ADVANTEST CORPORATION
+• 右圖是測試的流程
+• 在訓練Model 時, 不能使用還沒執行的測試項的結果, 例如 訓練預測sensor 1的Model, 不能使用subflow1之後的資料
+重要事項 (1) -- Training
+
+--- PAGE 5 ---
+5 CONFIDENTIALAll Rights Reserved - ADVANTEST CORPORATION
+• 測試程式會將需要預測的測試的編號發送給container
+• container 給依據收到的編號進行預測, 並回傳給測試程式
+重要事項 (2)
+number item
+1 100_Main.sensor1_CP
+2 120_Main.sensor2_DS0
+3 140_Main.sensor3_IO4
+4 160_Main.sensor4_IO1
+5 180_Main.sensor5_IO2
+6 200_Main.sensor6_IO3
+
+--- PAGE 6 ---
+6 CONFIDENTIALAll Rights Reserved - ADVANTEST CORPORATION
+• container分析資料發現異常後, 需使用ActionManager.set_message設定回傳回測試程式端的訊
+息
+– Ex: ActionManager.set_message("testerA","Message Abcdee")
+▪ 第一個參數是機台的名稱, 可以利用ONEAPI每個event的tc.testerId 取得機台名稱 
+重要事項(3)
+--- PAGE 7 ---
+7 CONFIDENTIALAll Rights Reserved - ADVANTEST CORPORATION
+半導體測試資料的智慧洞察助理
+❑ 完成度 (60%):
+❖ 符合場景需求 (10%)
+❖ 作品可以順利在ACS Gemini運行 (25%)
+❖ 正確的時機偵測問題或是預測結果 (25%)
+❑ 創新 (40%):
+❖ 資料分析方法 (15%)
+❖ 異常報告的呈現是否有新穎 (25%)
+評分方向
+資源
+❑ ACS Gemini – 93K/RTDI 模擬環境
+❑ ONEAPI 手冊 –實時測試資料 取得指引
+❑ Docker file example – SOP to build image for RTDI
+❑ Dataset – csv format
+❖ 25 data log files for training
+❖ Test program for result evaluation.

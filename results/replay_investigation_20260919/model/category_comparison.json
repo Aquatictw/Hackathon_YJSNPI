@@ -1,0 +1,807 @@
+{
+  "metrics": {
+    "baseline": {
+      "expected_category_hits": 6,
+      "expected_categories": 7,
+      "extra_categories": 8,
+      "missing_categories": 1,
+      "category_precision": 0.42857142857142855,
+      "category_recall": 0.8571428571428571,
+      "category_f1": 0.5714285714285714,
+      "exact_wafer_category_set_matches": 20,
+      "wafer_count": 25,
+      "normal_wafers_with_alerts": [
+        2
+      ],
+      "normal_wafers": 18,
+      "alerted_wafers": 7
+    },
+    "candidate": {
+      "expected_category_hits": 7,
+      "expected_categories": 7,
+      "extra_categories": 8,
+      "missing_categories": 0,
+      "category_precision": 0.4666666666666667,
+      "category_recall": 1.0,
+      "category_f1": 0.6363636363636364,
+      "exact_wafer_category_set_matches": 21,
+      "wafer_count": 25,
+      "normal_wafers_with_alerts": [
+        2
+      ],
+      "normal_wafers": 18,
+      "alerted_wafers": 8
+    }
+  },
+  "wafer_comparison": [
+    {
+      "wafer": 1,
+      "pdf": "site_imbalance",
+      "yield": 0.85,
+      "baseline": {
+        "categories": [
+          "site_imbalance"
+        ],
+        "alerts": [
+          {
+            "kind": "site_imbalance",
+            "device": 32
+          }
+        ],
+        "matched": [
+          "site_imbalance"
+        ],
+        "extra": [],
+        "missing": [],
+        "exact": true
+      },
+      "candidate": {
+        "categories": [
+          "site_imbalance"
+        ],
+        "alerts": [
+          {
+            "kind": "site_imbalance",
+            "device": 32
+          }
+        ],
+        "matched": [
+          "site_imbalance"
+        ],
+        "extra": [],
+        "missing": [],
+        "exact": true
+      }
+    },
+    {
+      "wafer": 2,
+      "pdf": "normal",
+      "yield": 0.5375,
+      "baseline": {
+        "categories": [
+          "low_yield"
+        ],
+        "alerts": [
+          {
+            "kind": "low_yield",
+            "device": 32
+          }
+        ],
+        "matched": [],
+        "extra": [
+          "low_yield"
+        ],
+        "missing": [],
+        "exact": false
+      },
+      "candidate": {
+        "categories": [
+          "low_yield"
+        ],
+        "alerts": [
+          {
+            "kind": "low_yield",
+            "device": 32
+          }
+        ],
+        "matched": [],
+        "extra": [
+          "low_yield"
+        ],
+        "missing": [],
+        "exact": false
+      }
+    },
+    {
+      "wafer": 3,
+      "pdf": "low_yield",
+      "yield": 0.675,
+      "baseline": {
+        "categories": [
+          "low_yield"
+        ],
+        "alerts": [
+          {
+            "kind": "low_yield",
+            "device": 32
+          }
+        ],
+        "matched": [
+          "low_yield"
+        ],
+        "extra": [],
+        "missing": [],
+        "exact": true
+      },
+      "candidate": {
+        "categories": [
+          "low_yield"
+        ],
+        "alerts": [
+          {
+            "kind": "low_yield",
+            "device": 32
+          }
+        ],
+        "matched": [
+          "low_yield"
+        ],
+        "extra": [],
+        "missing": [],
+        "exact": true
+      }
+    },
+    {
+      "wafer": 4,
+      "pdf": "normal",
+      "yield": 0.9625,
+      "baseline": {
+        "categories": [],
+        "alerts": [],
+        "matched": [],
+        "extra": [],
+        "missing": [],
+        "exact": true
+      },
+      "candidate": {
+        "categories": [],
+        "alerts": [],
+        "matched": [],
+        "extra": [],
+        "missing": [],
+        "exact": true
+      }
+    },
+    {
+      "wafer": 5,
+      "pdf": "normal",
+      "yield": 0.875,
+      "baseline": {
+        "categories": [],
+        "alerts": [],
+        "matched": [],
+        "extra": [],
+        "missing": [],
+        "exact": true
+      },
+      "candidate": {
+        "categories": [],
+        "alerts": [],
+        "matched": [],
+        "extra": [],
+        "missing": [],
+        "exact": true
+      }
+    },
+    {
+      "wafer": 6,
+      "pdf": "normal",
+      "yield": 0.925,
+      "baseline": {
+        "categories": [],
+        "alerts": [],
+        "matched": [],
+        "extra": [],
+        "missing": [],
+        "exact": true
+      },
+      "candidate": {
+        "categories": [],
+        "alerts": [],
+        "matched": [],
+        "extra": [],
+        "missing": [],
+        "exact": true
+      }
+    },
+    {
+      "wafer": 7,
+      "pdf": "normal",
+      "yield": 0.8625,
+      "baseline": {
+        "categories": [],
+        "alerts": [],
+        "matched": [],
+        "extra": [],
+        "missing": [],
+        "exact": true
+      },
+      "candidate": {
+        "categories": [],
+        "alerts": [],
+        "matched": [],
+        "extra": [],
+        "missing": [],
+        "exact": true
+      }
+    },
+    {
+      "wafer": 8,
+      "pdf": "normal",
+      "yield": 0.9625,
+      "baseline": {
+        "categories": [],
+        "alerts": [],
+        "matched": [],
+        "extra": [],
+        "missing": [],
+        "exact": true
+      },
+      "candidate": {
+        "categories": [],
+        "alerts": [],
+        "matched": [],
+        "extra": [],
+        "missing": [],
+        "exact": true
+      }
+    },
+    {
+      "wafer": 9,
+      "pdf": "low_yield",
+      "yield": 0.6875,
+      "baseline": {
+        "categories": [
+          "low_yield"
+        ],
+        "alerts": [
+          {
+            "kind": "low_yield",
+            "device": 72
+          }
+        ],
+        "matched": [
+          "low_yield"
+        ],
+        "extra": [],
+        "missing": [],
+        "exact": true
+      },
+      "candidate": {
+        "categories": [
+          "low_yield"
+        ],
+        "alerts": [
+          {
+            "kind": "low_yield",
+            "device": 72
+          }
+        ],
+        "matched": [
+          "low_yield"
+        ],
+        "extra": [],
+        "missing": [],
+        "exact": true
+      }
+    },
+    {
+      "wafer": 10,
+      "pdf": "normal",
+      "yield": 0.95,
+      "baseline": {
+        "categories": [],
+        "alerts": [],
+        "matched": [],
+        "extra": [],
+        "missing": [],
+        "exact": true
+      },
+      "candidate": {
+        "categories": [],
+        "alerts": [],
+        "matched": [],
+        "extra": [],
+        "missing": [],
+        "exact": true
+      }
+    },
+    {
+      "wafer": 11,
+      "pdf": "normal",
+      "yield": 0.9125,
+      "baseline": {
+        "categories": [],
+        "alerts": [],
+        "matched": [],
+        "extra": [],
+        "missing": [],
+        "exact": true
+      },
+      "candidate": {
+        "categories": [],
+        "alerts": [],
+        "matched": [],
+        "extra": [],
+        "missing": [],
+        "exact": true
+      }
+    },
+    {
+      "wafer": 12,
+      "pdf": "normal",
+      "yield": 0.975,
+      "baseline": {
+        "categories": [],
+        "alerts": [],
+        "matched": [],
+        "extra": [],
+        "missing": [],
+        "exact": true
+      },
+      "candidate": {
+        "categories": [],
+        "alerts": [],
+        "matched": [],
+        "extra": [],
+        "missing": [],
+        "exact": true
+      }
+    },
+    {
+      "wafer": 13,
+      "pdf": "normal",
+      "yield": 0.925,
+      "baseline": {
+        "categories": [],
+        "alerts": [],
+        "matched": [],
+        "extra": [],
+        "missing": [],
+        "exact": true
+      },
+      "candidate": {
+        "categories": [],
+        "alerts": [],
+        "matched": [],
+        "extra": [],
+        "missing": [],
+        "exact": true
+      }
+    },
+    {
+      "wafer": 14,
+      "pdf": "mean_drift_up",
+      "yield": 0.8375,
+      "baseline": {
+        "categories": [
+          "mean_drift_down",
+          "mean_drift_up",
+          "spread_down"
+        ],
+        "alerts": [
+          {
+            "kind": "mean_drift_up",
+            "device": 32
+          },
+          {
+            "kind": "mean_drift_down",
+            "device": 56
+          },
+          {
+            "kind": "spread_down",
+            "device": 64
+          }
+        ],
+        "matched": [
+          "mean_drift_up"
+        ],
+        "extra": [
+          "mean_drift_down",
+          "spread_down"
+        ],
+        "missing": [],
+        "exact": false
+      },
+      "candidate": {
+        "categories": [
+          "mean_drift_down",
+          "mean_drift_up",
+          "spread_down"
+        ],
+        "alerts": [
+          {
+            "kind": "mean_drift_up",
+            "device": 32
+          },
+          {
+            "kind": "mean_drift_down",
+            "device": 56
+          },
+          {
+            "kind": "spread_down",
+            "device": 64
+          }
+        ],
+        "matched": [
+          "mean_drift_up"
+        ],
+        "extra": [
+          "mean_drift_down",
+          "spread_down"
+        ],
+        "missing": [],
+        "exact": false
+      }
+    },
+    {
+      "wafer": 15,
+      "pdf": "normal",
+      "yield": 0.925,
+      "baseline": {
+        "categories": [],
+        "alerts": [],
+        "matched": [],
+        "extra": [],
+        "missing": [],
+        "exact": true
+      },
+      "candidate": {
+        "categories": [],
+        "alerts": [],
+        "matched": [],
+        "extra": [],
+        "missing": [],
+        "exact": true
+      }
+    },
+    {
+      "wafer": 16,
+      "pdf": "normal",
+      "yield": 0.9625,
+      "baseline": {
+        "categories": [],
+        "alerts": [],
+        "matched": [],
+        "extra": [],
+        "missing": [],
+        "exact": true
+      },
+      "candidate": {
+        "categories": [],
+        "alerts": [],
+        "matched": [],
+        "extra": [],
+        "missing": [],
+        "exact": true
+      }
+    },
+    {
+      "wafer": 17,
+      "pdf": "normal",
+      "yield": 0.9375,
+      "baseline": {
+        "categories": [],
+        "alerts": [],
+        "matched": [],
+        "extra": [],
+        "missing": [],
+        "exact": true
+      },
+      "candidate": {
+        "categories": [],
+        "alerts": [],
+        "matched": [],
+        "extra": [],
+        "missing": [],
+        "exact": true
+      }
+    },
+    {
+      "wafer": 18,
+      "pdf": "mean_drift_down",
+      "yield": 0.8625,
+      "baseline": {
+        "categories": [
+          "mean_drift_down",
+          "mean_drift_up",
+          "spread_down"
+        ],
+        "alerts": [
+          {
+            "kind": "mean_drift_down",
+            "device": 32
+          },
+          {
+            "kind": "mean_drift_up",
+            "device": 56
+          },
+          {
+            "kind": "spread_down",
+            "device": 64
+          }
+        ],
+        "matched": [
+          "mean_drift_down"
+        ],
+        "extra": [
+          "mean_drift_up",
+          "spread_down"
+        ],
+        "missing": [],
+        "exact": false
+      },
+      "candidate": {
+        "categories": [
+          "mean_drift_down",
+          "mean_drift_up",
+          "spread_down"
+        ],
+        "alerts": [
+          {
+            "kind": "mean_drift_down",
+            "device": 32
+          },
+          {
+            "kind": "mean_drift_up",
+            "device": 56
+          },
+          {
+            "kind": "spread_down",
+            "device": 64
+          }
+        ],
+        "matched": [
+          "mean_drift_down"
+        ],
+        "extra": [
+          "mean_drift_up",
+          "spread_down"
+        ],
+        "missing": [],
+        "exact": false
+      }
+    },
+    {
+      "wafer": 19,
+      "pdf": "normal",
+      "yield": 0.9125,
+      "baseline": {
+        "categories": [],
+        "alerts": [],
+        "matched": [],
+        "extra": [],
+        "missing": [],
+        "exact": true
+      },
+      "candidate": {
+        "categories": [],
+        "alerts": [],
+        "matched": [],
+        "extra": [],
+        "missing": [],
+        "exact": true
+      }
+    },
+    {
+      "wafer": 20,
+      "pdf": "normal",
+      "yield": 0.9875,
+      "baseline": {
+        "categories": [],
+        "alerts": [],
+        "matched": [],
+        "extra": [],
+        "missing": [],
+        "exact": true
+      },
+      "candidate": {
+        "categories": [],
+        "alerts": [],
+        "matched": [],
+        "extra": [],
+        "missing": [],
+        "exact": true
+      }
+    },
+    {
+      "wafer": 21,
+      "pdf": "normal",
+      "yield": 0.9625,
+      "baseline": {
+        "categories": [],
+        "alerts": [],
+        "matched": [],
+        "extra": [],
+        "missing": [],
+        "exact": true
+      },
+      "candidate": {
+        "categories": [],
+        "alerts": [],
+        "matched": [],
+        "extra": [],
+        "missing": [],
+        "exact": true
+      }
+    },
+    {
+      "wafer": 22,
+      "pdf": "normal",
+      "yield": 0.9375,
+      "baseline": {
+        "categories": [],
+        "alerts": [],
+        "matched": [],
+        "extra": [],
+        "missing": [],
+        "exact": true
+      },
+      "candidate": {
+        "categories": [],
+        "alerts": [],
+        "matched": [],
+        "extra": [],
+        "missing": [],
+        "exact": true
+      }
+    },
+    {
+      "wafer": 23,
+      "pdf": "spread_up",
+      "yield": 0.8375,
+      "baseline": {
+        "categories": [
+          "mean_drift_down",
+          "mean_drift_up",
+          "spread_down",
+          "spread_up"
+        ],
+        "alerts": [
+          {
+            "kind": "mean_drift_up",
+            "device": 32
+          },
+          {
+            "kind": "mean_drift_down",
+            "device": 32
+          },
+          {
+            "kind": "spread_up",
+            "device": 40
+          },
+          {
+            "kind": "spread_down",
+            "device": 72
+          }
+        ],
+        "matched": [
+          "spread_up"
+        ],
+        "extra": [
+          "mean_drift_down",
+          "mean_drift_up",
+          "spread_down"
+        ],
+        "missing": [],
+        "exact": false
+      },
+      "candidate": {
+        "categories": [
+          "mean_drift_down",
+          "mean_drift_up",
+          "spread_down",
+          "spread_up"
+        ],
+        "alerts": [
+          {
+            "kind": "mean_drift_up",
+            "device": 32
+          },
+          {
+            "kind": "mean_drift_down",
+            "device": 32
+          },
+          {
+            "kind": "spread_up",
+            "device": 40
+          },
+          {
+            "kind": "spread_down",
+            "device": 72
+          }
+        ],
+        "matched": [
+          "spread_up"
+        ],
+        "extra": [
+          "mean_drift_down",
+          "mean_drift_up",
+          "spread_down"
+        ],
+        "missing": [],
+        "exact": false
+      }
+    },
+    {
+      "wafer": 24,
+      "pdf": "normal",
+      "yield": 0.8125,
+      "baseline": {
+        "categories": [],
+        "alerts": [],
+        "matched": [],
+        "extra": [],
+        "missing": [],
+        "exact": true
+      },
+      "candidate": {
+        "categories": [],
+        "alerts": [],
+        "matched": [],
+        "extra": [],
+        "missing": [],
+        "exact": true
+      }
+    },
+    {
+      "wafer": 25,
+      "pdf": "spread_down",
+      "yield": 0.9,
+      "baseline": {
+        "categories": [],
+        "alerts": [],
+        "matched": [],
+        "extra": [],
+        "missing": [
+          "spread_down"
+        ],
+        "exact": false
+      },
+      "candidate": {
+        "categories": [
+          "spread_down"
+        ],
+        "alerts": [
+          {
+            "kind": "spread_down",
+            "device": 72
+          }
+        ],
+        "matched": [
+          "spread_down"
+        ],
+        "extra": [],
+        "missing": [],
+        "exact": true
+      }
+    }
+  ],
+  "preservation": {
+    "accepted_alert_payloads_identical": true,
+    "candidate_preserves_all_core_payloads": true,
+    "frontend_saved_summary": {
+      "path": "frontend/public/replay/summary.json",
+      "sha256": "f086d2c6887aef9fd34e7804c7e56de36f826d71b49e3927e7261913487d856c",
+      "equals_accepted_bytes": true,
+      "W25": {
+        "wafer": 25,
+        "devices": 80,
+        "yield": 0.9,
+        "expected": "spread_down",
+        "expected_first_device": null,
+        "alerts": []
+      }
+    }
+  }
+}
