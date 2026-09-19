@@ -1,0 +1,35 @@
+{
+  "round": "R2-20260919",
+  "base_sha": "a0d43172bbbdbde75fa1185d8037d4a35b787d4c",
+  "checks": [
+    {
+      "command": "python -B -m unittest discover -s workstreams/prediction -p test_*.py -v",
+      "exit_code": 0,
+      "log": "workstreams/prediction/round2/tests.log"
+    },
+    {
+      "command": "python -B -m workstreams.prediction.readiness_audit --output workstreams/prediction/round2/readiness.json",
+      "exit_code": 0,
+      "log": "workstreams/prediction/round2/readiness.log"
+    },
+    {
+      "command": "python -B -m workstreams.prediction.audit --results workstreams/prediction/results --report workstreams/prediction/round2/prior-audit.json",
+      "exit_code": 0,
+      "evidence": "workstreams/prediction/round2/prior-audit.json",
+      "note": "Already executed successfully on unchanged R1 implementation; not rerun."
+    },
+    {
+      "command": "git diff --check",
+      "exit_code": 0
+    }
+  ],
+  "sha256": {
+    "workstreams/prediction/readiness_audit.py": "6ab66b93ec600e9f5eaca11f5997a0f6458c7a273ed37457288ea05d5105767d",
+    "workstreams/prediction/test_readiness.py": "8190fcad018a60e2ba8b03ceb00fc51e5feb3b028fe9719550864af06d85f8da",
+    "workstreams/prediction/round2/prior-audit.json": "d161038b43d4065a7f43dde1e271257bad378c98f36f3aabab6ec6ccdfd3d208",
+    "workstreams/prediction/round2/readiness.json": "bafec93559456d0bc5af1dd387cf9f6890f113c707b0d47ecc5878bb57544b64",
+    "workstreams/prediction/round2/readiness.log": "29a3e115a2bde925dd1c460c3183741b9b9bf6894c910ec6800ff0dd84d250bf",
+    "workstreams/prediction/round2/tests.log": "773e1414e743eb5937dc8e6f14705b20e111103ec68962b984a931107405a66c"
+  },
+  "hash_policy": "Exact bytes at validation; source/log CRLF checkout changes are not raw-hash matches."
+}
