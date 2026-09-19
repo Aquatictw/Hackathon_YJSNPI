@@ -1,5 +1,7 @@
 # B — Prediction notes
 
+> A integration disposition, September 19: delivered work is integrated in main; retain the primary model. Below is the first-round historical handoff, including its original branch/base and checks. Future work uses the current SYSTEM publication protocol and A's next assignment; the old remote branch target is retired.
+
 ## Progress
 
 - Status: offline assignment implemented; full six-stage evaluation and independent evidence audit pass. Starting tree was clean.

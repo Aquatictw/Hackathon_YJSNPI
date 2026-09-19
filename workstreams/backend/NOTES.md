@@ -1,5 +1,7 @@
 # D — Backend notes
 
+> A integration disposition, September 19: D and E are integrated in main, including scoped joins, UI provenance and persisted command receipt projection. Original D history is retained by merge 28f5604; integration checks are in results/integration_20260919.json. Below is the first-round historical handoff; pending local integration requests are resolved, while machine/auth/transport gates remain open in SYSTEM. Future work uses SYSTEM's main-only publication protocol and A's next assignment.
+
 ## Progress
 
 - Local assignment implemented and verified on 2026-09-19; ready for A's integration review. The user subsequently explicitly requested publication onto remote `main`, overriding the earlier team-branch-only publication restriction. No deployment, remote migration, VM, shared config or dependency-manifest changes.

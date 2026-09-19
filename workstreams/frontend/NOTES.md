@@ -1,5 +1,7 @@
 # E — Frontend notes
 
+> A integration disposition, September 19: implementation and final handoff 06887ad are integrated in main (handoff merge 3b8262e). UI validation now aliases the canonical wire schema and command receipt projection is implemented. Combined checks: 58 frontend tests, TypeScript/build pass at ec1bafc; no runtime changes followed in this cleanup. Below is the historical pre-integration handoff/PR observation, not current status. Future work uses SYSTEM's main-only publication protocol and A's next assignment; live gates remain in SYSTEM.
+
 ## Progress
 - Draft review PR: https://github.com/Aquatictw/Hackathon_YJSNPI/pull/1 (`team/e-frontend` → `main`); open/draft confirmed through GitHub API. No merge or main push. Latest fetch still has main `508e44c`; E is not integrated.
 - E implementation plus D-projection compatibility verified locally on September 19, 2026: 46 standard tests, 7 explicit D-code contract checks, TypeScript and production build pass. No deployment or VM work.

@@ -1,5 +1,7 @@
 # C — Detection notes
 
+> A integration disposition, September 19: delivered work is integrated in main; candidate promotion is rejected. Below is the first-round historical handoff, including its original branch/base and checks. Future work uses the current SYSTEM publication protocol and A's next assignment; the old remote branch target is retired.
+
 ## Progress
 
 - Offline assignment complete, September 19, 2026: candidate, evaluator, all-wafer comparison, evidence and rejection recommendation in `PROPOSAL.md`.
