@@ -1,7 +1,7 @@
 # E — R2-20260919
 
 ## Progress
-- Status: BLOCKED on publication destination only; implementation and all required local checks passed.
+- Status: COMPLETE — all required local checks passed after synchronization; user explicitly authorized publication to main. [R2-20260919][E] COMPLETE
 - Base: `a0d43172bbbdbde75fa1185d8037d4a35b787d4c`; local branch `teammate-e-frontend`; isolated checkout `/private/tmp/grp6-e-r2`. Initial status clean; `git fetch origin` and `git merge-base --is-ancestor a0d43172bbbdbde75fa1185d8037d4a35b787d4c origin/main` succeeded at start. Prior E checkout/commits preserved.
 - Implementation: `9de41ecab26df751b8c59c4a6ceaa8ce35f30772`. Page consumes `frontend/lib/rtdi/ui-lifecycle.ts`; `frontend/tests/ui-lifecycle.test.mjs` contains 11 observable deferred-transport cases. Covers run/tester switches, late body/error/AI completion ignoring abort, unmount, disconnect/reconnect, ambiguous lookup, SSE bursts/recovery, commands/citations isolation and evidence selection changes.
 - Fixed baseline defects: same-scope reconnect discarded data; successful refresh retained stale errors; closed-stream callbacks could start old requests; implicit selection could change incident during AI requests.
@@ -21,10 +21,12 @@ Commands run from `frontend/` unless stated; evidence files are local `/private/
 - `npm run build`: exit 0; `/private/tmp/grp6-e-r2-build.log`; existing vinext route-classification warning remains.
 - Root `git diff --check`: exit 0. Audited `git diff --name-only`, `git diff --cached --name-only`, `git ls-files --others --exclude-standard`, and `git show --name-only 9de41ec`: only page/helper/test/this notes file, all allowlisted. Final notes commit is notes-only, identified by Git/final response.
 
+- Publication synchronization: `git fetch origin` exited 0; remote advanced to D completion `25d013baf5f527dea916e2f2dd32d1c8a28ea6b3`. `git merge --no-edit origin/main` exited 0 with no conflicts, merge `f6c214b4ed617ae21024f9d658f60afe97863200`. Preserved D repository/tests/notes changes; E authored no changes to those files. Incoming backend implementation affected tests/types/build, so reran `npm test` (81/81, exit 0), `npx tsc --noEmit` (exit 0), and `npm run build` (exit 0). Logs: `/private/tmp/grp6-e-r2-sync-test.log`, `/private/tmp/grp6-e-r2-sync-tsc.log`, `/private/tmp/grp6-e-r2-sync-build.log`. Existing build classification warning remains.
+
 ## Blockers
-- Earlier direct user instruction says “Never push main”; R2 `team/E_FRONTEND.md` / `prompts/TEAMMATE.md` requests `git push origin HEAD:refs/heads/main`. Asked user to resolve destination, no answer yet. No push attempted and no pre-publication fetch/merge performed. No COMPLETE marker while publication is blocked.
+- None for delivery. User resolved the publication destination and authorized the R2 main push. Earlier blocked state remains in `57934d1dda2656bdf38a10c613c7f0b8b266dd11:workstreams/frontend/NOTES.md`.
 - No implementation failure or outside-scope code edit needed. A owns SYSTEM updates/integration and live/auth/VM transport/units/deadline acceptance; those remain unverified here. No deployment/VM access.
 
 ## Handoff
-- Implementation SHA above; final notes SHA supplied in response. Deliverables are the page integration, lifecycle helper, 11 regression cases and this handoff. No remote delivery SHA yet.
-- Next: obtain destination clarification; if main authorized, perform R2 pre-publication fetch, preserve incoming commits, rerun only affected checks, finalize completion notes and push explicitly. A then reviews combined acceptance. Do not infer publication or integration approval from local passing checks.
+- Implementation SHA above; final completion/delivery SHA supplied in response after `git push origin HEAD:refs/heads/main`. Deliverables are the page integration, lifecycle helper, 11 regression cases and this handoff. Completion commit is notes-only; authored/staged/untracked path audit remains limited to E’s four allowed files.
+- Next owner: A reviews combined acceptance. Stop editing after confirmed push. Publication does not establish integration approval or deployment/live acceptance.
