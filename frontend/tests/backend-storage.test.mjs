@@ -42,17 +42,20 @@ const measurementRoute = await import('../app/api/v1/runs/[id]/measurements/rout
 class LocalD1 {
   sql = new DatabaseSync(':memory:');
   failCommit = false;
+  beforeExecute = null;
   constructor() { this.sql.exec(readFileSync(new URL('../drizzle/0000_grp6_backend.sql', import.meta.url), 'utf8')); }
   prepare(query) {
     const database = this.sql;
+    const owner = this;
     const statement = { query, args: [], bind(...args) { this.args = args; return this; },
-      async first() { return database.prepare(query).get(...this.args) ?? null; },
-      async all() { return { results: database.prepare(query).all(...this.args) }; },
-      async run() { return database.prepare(query).run(...this.args); },
+      async first() { await owner.beforeExecute?.([this]); return database.prepare(query).get(...this.args) ?? null; },
+      async all() { await owner.beforeExecute?.([this]); return { results: database.prepare(query).all(...this.args) }; },
+      async run() { await owner.beforeExecute?.([this]); return database.prepare(query).run(...this.args); },
     };
     return statement;
   }
   async batch(statements) {
+    await this.beforeExecute?.(statements);
     this.sql.exec('BEGIN');
     try {
       const results = statements.map(statement => ({ results: this.sql.prepare(statement.query).all(...statement.args) }));
@@ -270,4 +273,217 @@ test('large measurement pages stop at byte limit and reject corrupted raw chunks
   assert.ok(Buffer.byteLength(JSON.stringify(page)) < 262_144);
   env.DB.sql.prepare('DELETE FROM raw_event_chunks WHERE chunk_index = 1').run();
   await assert.rejects(repo.getDeviceMeasurements('run', 'tester', 'large-device'), /Incomplete raw payload/);
+});
+
+
+// R2 race barriers pause before the real SQL write/transaction, never inside it.
+// A competing request then commits through the same repository path before release.
+function pauseCommandWrite(table) {
+  const entered = Promise.withResolvers();
+  const release = Promise.withResolvers();
+  env.DB.beforeExecute = async statements => {
+    if (!statements.some(statement => statement.query.includes(`INSERT INTO ${table}`))) return;
+    env.DB.beforeExecute = null;
+    entered.resolve();
+    await release.promise;
+  };
+  return { entered: entered.promise, release: () => release.resolve() };
+}
+const commandInput = (overrides = {}) => createCommandSchema.parse({ request_id: 'r2-command', incident_id: 'r2-incident', kind: 'show_message', message: 'Inspect site 1', user_confirmed: true, ...overrides });
+const commandAck = (overrides = {}) => commandResultSchema.parse({ ack_id: crypto.randomUUID(), run_id: 'r2-run', tester_id: 'r2-tester', status: 'received', occurred_at: '2000-01-01T00:00:00.000Z', ...overrides });
+const commandRow = (id = 'r2-command') => env.DB.sql.prepare('SELECT * FROM commands WHERE command_id = ?').get(id);
+const ackRows = () => env.DB.sql.prepare('SELECT * FROM command_results ORDER BY rowid').all();
+async function seedCommandScopes() {
+  reset();
+  await repo.ingestEdgeBatch(edgeBatchSchema.parse({ schema_version: 1, edge_id: 'r2-edge', batch_id: 'r2-seed', events:
+    [['r2-run', 'r2-tester', 'live'], ['other-run', 'r2-tester', 'live'], ['r2-run', 'other-tester', 'live'], ['replay-run', 'r2-tester', 'replay']]
+      .map(([run_id, tester_id, source_mode]) => ({ event_id: 'r2-evidence', type: 'evidence', source_mode, run_id, tester_id,
+        timestamp: new Date().toISOString(), incident_id: 'r2-incident', evidence_id: 'r2-evidence' })) }));
+}
+const createR2 = (input = commandInput(), run = 'r2-run', tester = 'r2-tester') => repo.createRunCommand(run, tester, input);
+const isCode = code => error => error instanceof repo.InvalidCommandError && error.code === code;
+
+test('R2 concurrent command creation returns an identical duplicate or a typed conflict', { timeout: 5000 }, async () => {
+  for (const conflict of [false, true]) {
+    await seedCommandScopes();
+    const barrier = pauseCommandWrite('commands');
+    const delayed = createR2().then(value => ({ value }), error => ({ error }));
+    await barrier.entered;
+    const winner = await createR2(commandInput(conflict ? { message: 'Different content' } : {}));
+    barrier.release();
+    const outcome = await delayed;
+    assert.equal(winner.status, 'queued');
+    if (conflict) assert.ok(outcome.error instanceof repo.IdentityConflictError, String(outcome.error));
+    else { assert.equal(outcome.value?.status, 'duplicate'); assert.deepEqual(outcome.value.command, winner.command); }
+    assert.equal(env.DB.sql.prepare('SELECT COUNT(*) AS n FROM commands').get().n, 1);
+    assert.equal(commandRow().message, winner.command.message);
+  }
+});
+
+test('R2 concurrent command identity cannot cross run/tester scope', { timeout: 5000 }, async () => {
+  for (const [run, tester] of [['other-run', 'r2-tester'], ['r2-run', 'other-tester']]) {
+    await seedCommandScopes();
+    const barrier = pauseCommandWrite('commands');
+    const delayed = createR2().then(value => ({ value }), error => ({ error }));
+    await barrier.entered;
+    await createR2(commandInput(), run, tester);
+    barrier.release();
+    assert.ok((await delayed).error instanceof repo.IdentityConflictError);
+    assert.equal(commandRow().run_id, run); assert.equal(commandRow().tester_id, tester);
+  }
+});
+
+test('R2 command scope validation and duplicate creation preserve terminal records', async () => {
+  await seedCommandScopes();
+  await assert.rejects(createR2(commandInput(), 'r2-run', null), repo.AmbiguousScopeError);
+  await assert.rejects(createR2(commandInput(), 'missing'), isCode('run_not_found'));
+  await assert.rejects(createR2(commandInput(), 'replay-run'), isCode('non_live_run'));
+  await assert.rejects(createR2(commandInput({ incident_id: 'missing' })), isCode('incident_not_found'));
+  await createR2();
+  await repo.recordCommandResult('r2-command', commandAck({ status: 'failed' }));
+  const original = { ...commandRow() };
+  const duplicate = await createR2();
+  assert.equal(duplicate.status, 'duplicate'); assert.equal(duplicate.command.status, 'failed');
+  assert.deepEqual({ ...commandRow() }, original);
+});
+
+test('R2 server time rejects backdated/future/equal-deadline acceptance of expired queued commands', async () => {
+  await seedCommandScopes();
+  for (const occurred_at of ['2000-01-01T00:00:00.000Z', '2099-01-01T00:00:00.000Z']) {
+    for (const status of ['received', 'queued_to_tester', 'tester_confirmed', 'rejected', 'failed']) {
+      const id = crypto.randomUUID();
+      await createR2(commandInput({ request_id: id }));
+      env.DB.sql.prepare("UPDATE commands SET expires_at = strftime('%Y-%m-%dT%H:%M:%fZ', 'now') WHERE command_id = ?").run(id);
+      await assert.rejects(repo.recordCommandResult(id, commandAck({ occurred_at, status, ...(status === 'tester_confirmed' ? { tester_receipt_id: 'synthetic' } : {}) })), isCode('command_expired'));
+      assert.equal(commandRow(id).status, 'queued');
+    }
+  }
+  assert.equal(ackRows().length, 0);
+});
+
+test('R2 expiry is rechecked inside the ACK transaction after a request was delayed', { timeout: 5000 }, async () => {
+  await seedCommandScopes(); await createR2();
+  const barrier = pauseCommandWrite('command_results');
+  const delayed = repo.recordCommandResult('r2-command', commandAck()).then(value => ({ value }), error => ({ error }));
+  await barrier.entered;
+  env.DB.sql.prepare("UPDATE commands SET expires_at = '2001-01-01T00:00:00.000Z'").run();
+  barrier.release();
+  assert.ok(isCode('command_expired')((await delayed).error));
+  assert.equal(commandRow().status, 'queued'); assert.equal(ackRows().length, 0);
+});
+
+test('R2 already-received commands may finish after expiry and exact old ACK retries remain harmless', async () => {
+  await seedCommandScopes(); await createR2();
+  const received = commandAck();
+  await repo.recordCommandResult('r2-command', received);
+  env.DB.sql.prepare("UPDATE commands SET expires_at = '2001-01-01T00:00:00.000Z'").run();
+  const confirmed = commandAck({ status: 'tester_confirmed', tester_receipt_id: 'synthetic-r2-receipt', occurred_at: '2099-01-01T00:00:00.000Z' });
+  await repo.recordCommandResult('r2-command', confirmed);
+  assert.equal((await repo.recordCommandResult('r2-command', received)).duplicate, true);
+  assert.equal((await repo.recordCommandResult('r2-command', confirmed)).duplicate, true);
+  assert.equal(commandRow().status, 'tester_confirmed'); assert.equal(ackRows().length, 2);
+  const snapshot = await repo.getRunSnapshot('r2-run', 'r2-tester');
+  assert.equal(snapshot.commands[0].tester_receipt_id, 'synthetic-r2-receipt');
+});
+
+test('R2 stale ACKs cannot overwrite any terminal state or a newer queued-to-tester state', { timeout: 5000 }, async () => {
+  for (const status of ['tester_confirmed', 'failed', 'rejected', 'expired', 'queued_to_tester']) {
+    await seedCommandScopes(); await createR2();
+    const stale = commandAck();
+    const barrier = pauseCommandWrite('command_results');
+    const delayed = repo.recordCommandResult('r2-command', stale).then(value => ({ value }), error => ({ error }));
+    await barrier.entered;
+    const winner = commandAck({ status, ...(status === 'tester_confirmed' ? { tester_receipt_id: 'synthetic-winner' } : {}) });
+    await repo.recordCommandResult('r2-command', winner);
+    barrier.release();
+    assert.ok(isCode('invalid_transition')((await delayed).error), status);
+    assert.equal(commandRow().status, status); assert.deepEqual(ackRows().map(row => row.ack_id), [winner.ack_id]);
+  }
+});
+
+test('R2 concurrent identical/conflicting ACK IDs return duplicate/conflict without a stale status update', { timeout: 5000 }, async () => {
+  for (const conflict of [false, true]) {
+    await seedCommandScopes(); await createR2();
+    const loser = commandAck();
+    const barrier = pauseCommandWrite('command_results');
+    const delayed = repo.recordCommandResult('r2-command', loser).then(value => ({ value }), error => ({ error }));
+    await barrier.entered;
+    const winner = conflict ? { ...loser, status: 'tester_confirmed', tester_receipt_id: 'synthetic-winner' } : loser;
+    await repo.recordCommandResult('r2-command', winner);
+    barrier.release();
+    const outcome = await delayed;
+    if (conflict) assert.ok(outcome.error instanceof repo.IdentityConflictError, String(outcome.error));
+    else assert.equal(outcome.value?.duplicate, true);
+    assert.equal(commandRow().status, winner.status); assert.equal(ackRows().length, 1);
+  }
+});
+
+test('R2 ACK IDs cannot be reused on another command, run or tester', async () => {
+  await seedCommandScopes(); await createR2(); await createR2(commandInput({ request_id: 'second-command' }));
+  for (const scope of [{ run_id: 'other-run' }, { tester_id: 'other-tester' }]) {
+    await assert.rejects(repo.recordCommandResult('r2-command', commandAck(scope)), isCode('scope_mismatch'));
+  }
+  await assert.rejects(repo.recordCommandResult('missing', commandAck()), isCode('command_not_found'));
+  const ack = commandAck(); await repo.recordCommandResult('r2-command', ack);
+  await assert.rejects(repo.recordCommandResult('second-command', ack), repo.IdentityConflictError);
+  for (const scope of [{ run_id: 'other-run' }, { tester_id: 'other-tester' }]) {
+    await assert.rejects(repo.recordCommandResult('r2-command', { ...ack, ...scope }), repo.IdentityConflictError);
+  }
+  assert.equal(ackRows().length, 1); assert.equal(commandRow('second-command').status, 'queued');
+});
+
+test('R2 failed status write rolls back its ACK; a committed retry retains only supplied receipt provenance', async () => {
+  await seedCommandScopes(); await createR2();
+  const ack = commandAck({ status: 'tester_confirmed', tester_receipt_id: 'synthetic-transaction-receipt' });
+  env.DB.sql.exec("CREATE TRIGGER fail_command_update BEFORE UPDATE ON commands BEGIN SELECT RAISE(ABORT, 'injected status write failure'); END");
+  await assert.rejects(repo.recordCommandResult('r2-command', ack), /injected status write failure/);
+  assert.equal(ackRows().length, 0); assert.equal(commandRow().status, 'queued');
+  env.DB.sql.exec('DROP TRIGGER fail_command_update');
+  await repo.recordCommandResult('r2-command', ack);
+  assert.equal(ackRows()[0].tester_receipt_id, ack.tester_receipt_id);
+  assert.equal(commandRow().status, 'tester_confirmed');
+});
+
+test('R2 pending-command expiry changes only the requested run/tester and preserves received commands', async () => {
+  await seedCommandScopes();
+  await createR2(); await createR2(commandInput({ request_id: 'other-run-command' }), 'other-run');
+  await createR2(commandInput({ request_id: 'other-tester-command' }), 'r2-run', 'other-tester');
+  await createR2(commandInput({ request_id: 'received-command' }));
+  await repo.recordCommandResult('received-command', commandAck());
+  env.DB.sql.prepare("UPDATE commands SET expires_at = '2001-01-01T00:00:00.000Z'").run();
+  assert.deepEqual(await repo.getPendingCommands('r2-tester', 'r2-run'), []);
+  assert.equal(commandRow().status, 'expired'); assert.equal(commandRow('received-command').status, 'received');
+  assert.equal(commandRow('other-run-command').status, 'queued'); assert.equal(commandRow('other-tester-command').status, 'queued');
+  assert.deepEqual(await repo.getPendingCommands('r2-tester'), []);
+  assert.equal(commandRow('other-run-command').status, 'expired'); assert.equal(commandRow('other-tester-command').status, 'queued');
+});
+
+test('R2 command HTTP responses retain status codes, confirmation guards and scoped receipt provenance', async () => {
+  await seedCommandScopes();
+  env.COMMAND_TOKEN = 'test-command-token';
+  const createRoute = await import('../app/api/v1/runs/[id]/commands/route.ts');
+  const resultRoute = await import('../app/api/v1/commands/[id]/results/route.ts');
+  const create = body => createRoute.POST(new Request('https://example.test/api/v1/runs/r2-run/commands?tester_id=r2-tester', {
+    method: 'POST', headers: { Origin: 'https://example.test', 'Content-Type': 'application/json' }, body: JSON.stringify(body),
+  }), { params: Promise.resolve({ id: 'r2-run' }) });
+  const result = (body, id = 'r2-command') => resultRoute.POST(new Request(`https://example.test/api/v1/commands/${id}/results`, {
+    method: 'POST', headers: { Authorization: 'Bearer test-command-token', 'Content-Type': 'application/json' }, body: JSON.stringify(body),
+  }), { params: Promise.resolve({ id }) });
+  assert.equal((await create(commandInput())).status, 201);
+  assert.equal((await create(commandInput())).status, 200);
+  assert.equal((await create(commandInput({ message: 'conflicting' }))).status, 409);
+  assert.equal((await result(commandAck({ tester_id: 'wrong' }))).status, 409);
+  assert.equal((await result(commandAck(), 'missing')).status, 404);
+  const missingReceipt = { ...commandAck(), status: 'tester_confirmed' };
+  assert.equal((await result(missingReceipt)).status, 422);
+  await assert.rejects(repo.recordCommandResult('r2-command', missingReceipt), /tester_receipt_id/);
+  const confirmed = commandAck({ status: 'tester_confirmed', tester_receipt_id: 'synthetic-http-receipt' });
+  assert.equal((await result(confirmed)).status, 200);
+  const duplicate = await result(confirmed);
+  assert.equal(duplicate.status, 200);
+  assert.deepEqual(await duplicate.json(), { command_id: 'r2-command', status: 'tester_confirmed', duplicate: true });
+  assert.equal((await result({ ...confirmed, tester_receipt_id: 'conflicting' })).status, 409);
+  assert.equal((await result(commandAck())).status, 409);
+  assert.equal(ackRows().length, 1);
+  assert.equal((await repo.getRunSnapshot('r2-run', 'r2-tester')).commands[0].tester_receipt_id, 'synthetic-http-receipt');
 });
