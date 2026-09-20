@@ -3,6 +3,7 @@ import {useEffect, useMemo, useRef, useState} from 'react';
 import {ArrowRight, ChevronRight, Unplug} from 'lucide-react';
 import {useLocale} from '@/components/locale-provider';
 import {AppHeader} from '@/components/app-header';
+import {RunNotifications} from '@/components/run-notifications';
 import {StoredRunPicker} from '@/components/stored-run-picker';
 import WaferScene from '@/components/wafer-scene';
 import {analysisWafers, type AnalysisWafer} from '@/lib/rtdi/analysis-wafers';
@@ -104,5 +105,5 @@ export function RunAnalysis({initialScope, onSummary}: {initialScope?: {run: str
         <p>{t('{0} normalized measurement records. Full measurement coverage is not established by this snapshot.', overview.measurements)}</p>
       </section>
     </> : <div className="dc-empty"><h2>{t('No run loaded')}</h2><p>{t('Choose a stored run above to explore its wafers.')}</p></div>}
-  </main></div>;
+  </main><RunNotifications items={state.notifications} onDismiss={id => lifecycle.current?.dismissNotification(id)}/></div>;
 }

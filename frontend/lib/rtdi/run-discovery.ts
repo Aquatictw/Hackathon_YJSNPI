@@ -22,8 +22,6 @@ export const storedRunSourceLabel = (run: Pick<StoredRun, 'edge_id' | 'mode'>) =
   isRecordedCapture(run) ? 'RECORDED · GEMINI CAPTURE' : runModeLabel(run.mode);
 export const storedRunName = (run: StoredRun): string | null => {
   if (run.edge_id === 'grp6-hc-relay' && run.tester_id === 'group-6' && run.mode === 'live') {
-    if (run.run_id === '04dcb07358ee4f3da41e5cbc12cb9850') return 'Gemini run · complete capture';
-    if (run.run_id === '3f46468325ac47de894e6a13d3c672e0') return 'Gemini run · earlier capture';
     return 'Gemini run';
   }
   if (isRecordedCapture(run) && run.tester_id === 'group-6') {
@@ -34,7 +32,7 @@ export const storedRunName = (run: StoredRun): string | null => {
   return null;
 };
 // User-retired recovery probes: retain backend evidence but omit them from both pickers.
-const retiredRecoveryRuns = new Set(['4620bc260aef42329930bbf46d35b13f', '74c4e8ccd7f446d3bfcdf2ab7b668f6d']);
+const retiredRecoveryRuns = new Set(['4620bc260aef42329930bbf46d35b13f', '74c4e8ccd7f446d3bfcdf2ab7b668f6d', '80727b22581b44579471eebfb2ef4a5e']);
 export const isRetiredRecoveryRun = (run: StoredRun) => run.tester_id === 'group-6' && run.edge_id === 'grp6-hc-relay' && run.mode === 'live' && retiredRecoveryRuns.has(run.run_id);
 export type RunDiscoveryState = {
   runs: StoredRun[]; selected: string; loading: boolean; loaded: boolean; error: boolean; nextOffset: number | null;

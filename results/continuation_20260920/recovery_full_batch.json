@@ -1,0 +1,80 @@
+{
+  "observed_at": "2026-09-20T01:48:42.628Z",
+  "run": {
+    "run_id": "a1b8a0fab85241c2b8babd2f1062af23",
+    "tester_id": "group-6",
+    "edge_id": "grp6-hc-relay",
+    "mode": "live",
+    "lot_id": "B13456",
+    "wafer_id": "02",
+    "data_quality": "partial",
+    "last_event_at": "2026-09-20T01:43:41.057Z"
+  },
+  "event_count": 1710,
+  "predictions": 476,
+  "matched_actuals": 476,
+  "incidents": [
+    {
+      "incident_id": "61bb8566eace424f91c48fe1d4edfd3e",
+      "title": "28380_Main.subflow3.Flow3_Suite391#CP site 3: mean changed +4.67 baseline SD",
+      "status": "open",
+      "severity": "warning",
+      "first_seen": "2026-09-20T01:41:49.353Z",
+      "last_seen": "2026-09-20T01:41:49.353Z"
+    },
+    {
+      "incident_id": "5e7b33ae095249fdb4f03b5364d5fd35",
+      "title": "28900_Main.subflow3.Flow3_Suite417#CP site 4: mean changed -2.14 baseline SD",
+      "status": "open",
+      "severity": "warning",
+      "first_seen": "2026-09-20T01:41:49.353Z",
+      "last_seen": "2026-09-20T01:41:49.353Z"
+    },
+    {
+      "incident_id": "f8d72131cb954d2693846caf36264e30",
+      "title": "21340_Main.subflow3.Flow3_Suite39#CP: site 1 vs 3 differs by 10.04 baseline SD",
+      "status": "open",
+      "severity": "warning",
+      "first_seen": "2026-09-20T01:41:49.352Z",
+      "last_seen": "2026-09-20T01:41:49.352Z"
+    }
+  ],
+  "evidence_count": 3,
+  "final_wafer_summary": {
+    "completed_devices": 80,
+    "data_quality": "partial",
+    "event_id": "81007535574e4cacb8d14194c50ab203",
+    "lot_id": "B13456",
+    "message": "Edge exporter event: run_summary",
+    "run_id": "a1b8a0fab85241c2b8babd2f1062af23",
+    "sequence": 758,
+    "source_mode": "live",
+    "tester_id": "group-6",
+    "timestamp": "2026-09-20T01:43:39.023Z",
+    "type": "run_summary",
+    "wafer_id": "02",
+    "yield": 0.925
+  },
+  "expected_predictions": 480,
+  "missing_prediction_count": 4,
+  "missing_request": {
+    "stage": 1,
+    "touchdown": 3,
+    "device_ordinals": [9, 10, 11, 12],
+    "sites": [1, 2, 3, 4],
+    "test_id": "0624ee65bd3a4bc59c676af5ab68b4f4",
+    "observed_requests": 119,
+    "expected_requests": 120,
+    "source_sequences": "3–760 continuous",
+    "cause": "Unresolved; public continuity suggests omission before relay delivery but does not establish the source/native boundary"
+  },
+  "incremental_observation": {
+    "event_count": 607,
+    "predictions": 172,
+    "observation": "Public snapshot while VNC tester was executing"
+  },
+  "limits": [
+    "Supplied ORE input; one wafer, not new physical independent measurements",
+    "Four prediction records below expected count; cause under investigation"
+  ]
+}

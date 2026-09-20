@@ -10,6 +10,7 @@ import type { UiEdgeRecord as EdgeRecord } from '@/lib/rtdi/ui-wire';
 import type { CommandStatus } from '@/lib/rtdi/command-contract';
 import '../dashboard.css';
 import { AppHeader } from '@/components/app-header';
+import { RunNotifications } from '@/components/run-notifications';
 import { BackendConnectionStatus, StoredSourceNotice, SourceFreshness } from '@/components/connection-status';
 import { storedSourceStatus } from '@/lib/rtdi/connection-status';
 import { StoredRunPicker } from '@/components/stored-run-picker';
@@ -144,6 +145,7 @@ function BackendWorkspace({ initialScope, onLoadSummary, summaryLoading }: { ini
     const source = storedSourceStatus(data?.run ?? null, locale).label;
     const lastSourceEvent = data ? new Date(data.run.last_event_at) : null;
     return <div className="dc-app"><AppHeader active="workspace"/>
+ <RunNotifications items={state.notifications} onDismiss={id => lifecycle.current?.dismissNotification(id)}/>
  <div className="dc-main"><main id="main-content">
  <div className="dc-heading"><div><div className="dc-eyebrow">{t("OPERATIONS / RUN WORKSPACE")}</div><h1>{t("Run overview")}</h1><p>{t("Inspect source records, compare site behavior, and document findings.")}</p></div><BackendConnectionStatus status={status}/></div>
  <StoredRunPicker onLoadSummary={onLoadSummary} onLoad={connect} busy={summaryLoading || status === 'Connecting' || busy}>{scope && <button className="dc-icon" type="button" aria-label={t("Disconnect event stream")} onClick={disconnect}><Unplug size={18}/></button>}</StoredRunPicker>

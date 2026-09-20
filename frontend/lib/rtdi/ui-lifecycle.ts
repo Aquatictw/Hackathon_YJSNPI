@@ -1,4 +1,5 @@
 import {z} from 'zod';
+import {createRunNotifications, type RunNotification} from './ui-notifications.ts';
 import {parseSnapshot, runUrl, type Snapshot} from './dashboard.ts';
 import {conversationKey, createConversationCache, type ConversationContext, type ConversationMessage, type ConversationScope, type ConversationStorage} from './ui-conversations.ts';
 
@@ -9,10 +10,11 @@ export type DashboardState = {
   scope: Scope | null; data: Snapshot | null; status: string; error: string;
   selected: string; search: string; question: string; busy: boolean;
   chatError: string; messages: Message[];
+  notifications: RunNotification[];
 };
 export const initialDashboardState = (): DashboardState => ({
   scope: null, data: null, status: 'Not connected', error: '', selected: '', search: '',
-  question: '', busy: false, chatError: '', messages: [],
+  question: '', busy: false, chatError: '', messages: [], notifications: [],
 });
 export function dashboardEvidence(state: DashboardState) {
   const evidence = state.data?.evidence ?? [];
@@ -38,12 +40,13 @@ export function createDashboardLifecycle(transport: Transport, publish: (state: 
     state = {...state, ...update};
     publish(state);
   };
+  const notifications = createRunNotifications(items => patch({notifications: items}));
   const cancelChat = () => {
     chatGeneration++; chatCancel?.abort();
     state = {...state, busy: false, question: state.question || pendingQuestion};
     pendingQuestion = '';
   };
-  const stop = () => {generation++; cancel?.abort(); stream?.close(); stream = undefined; cancelChat();};
+  const stop = () => {generation++; cancel?.abort(); stream?.close(); stream = undefined; cancelChat(); notifications.reset();};
   const context = (value: DashboardState): ConversationContext => {
     const current = dashboardEvidence(value).current;
     return current?.incident_id ? ['incident', current.incident_id]
@@ -86,6 +89,8 @@ export function createDashboardLifecycle(transport: Transport, publish: (state: 
     patch({...(sameScope ? {} : initialDashboardState()), busy: false, chatError: '',
       error: '', status: sameScope ? 'Reconnecting · Showing last snapshot' : 'Connecting'});
     let refreshing = false, dirty = false, connected = false;
+    let notificationEpoch = 0;
+    const resetNotifications = () => {notificationEpoch++; notifications.reset();};
     async function refresh() {
       if (!active()) return false;
       if (refreshing) {dirty = true; return false;}
@@ -94,6 +99,7 @@ export function createDashboardLifecycle(transport: Transport, publish: (state: 
       try {
         do {
           dirty = false;
+          const epoch = notificationEpoch;
           try {
             const response = await transport.fetch(runUrl(chosen.run, chosen.tester), {signal: ctrl.signal, cache: 'no-store'});
             const payload = await response.json();
@@ -102,10 +108,12 @@ export function createDashboardLifecycle(transport: Transport, publish: (state: 
             const data = parseSnapshot(payload, chosen.run, chosen.tester);
             chosen.tester = data.run.tester_id;
             acceptSnapshot(data, {...chosen});
+            if (epoch === notificationEpoch) notifications.accept(data, connected);
             patch({error: '', status: connected ? 'Event stream connected' : stream ? 'Reconnecting · Showing last snapshot' : 'Snapshot loaded'});
             succeeded = true;
           } catch (error) {
             if (!active()) return false;
+            resetNotifications();
             patch({error: errorText(error), status: stream ? 'Snapshot refresh failed' : 'Connection failed'});
             succeeded = false;
           }
@@ -121,6 +129,7 @@ export function createDashboardLifecycle(transport: Transport, publish: (state: 
       es.addEventListener('ready', () => {
         if (!active()) return;
         connected = true;
+        resetNotifications();
         // A ready event proves transport recovery, not snapshot recovery.
         if (!state.error) patch({status: 'Event stream connected'});
         update();
@@ -129,11 +138,11 @@ export function createDashboardLifecycle(transport: Transport, publish: (state: 
       es.addEventListener('heartbeat', update);
       es.addEventListener('stream_error', () => {
         if (!active()) return;
-        connected = false; patch({status: 'Event stream interrupted · Waiting to reconnect'});
+        connected = false; resetNotifications(); patch({status: 'Event stream interrupted · Waiting to reconnect'});
       });
       es.onerror = () => {
         if (!active()) return;
-        connected = false; patch({status: 'Reconnecting · Showing last snapshot'});
+        connected = false; resetNotifications(); patch({status: 'Reconnecting · Showing last snapshot'});
       };
     } catch (error) {if (active()) patch({error: errorText(error), status: 'Connection failed'});}
   }
@@ -163,6 +172,7 @@ export function createDashboardLifecycle(transport: Transport, publish: (state: 
   }
   return {
     connect, ask,
+    dismissNotification: (id: number) => {if (!disposed) notifications.dismiss(id);},
     restoreSession: async () => {
       // A manual connection or an earlier restore takes precedence. Never
       // expose saved history until the backend validates the resolved scope.

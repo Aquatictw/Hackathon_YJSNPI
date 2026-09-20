@@ -17,8 +17,8 @@ test('recorded capture labels require both the capture source and replay mode', 
 });
 test('host capture names require the exact run, tester, live mode and relay source', () => {
   for (const [id, name] of [
-    ['04dcb07358ee4f3da41e5cbc12cb9850', 'Gemini run · complete capture'],
-    ['3f46468325ac47de894e6a13d3c672e0', 'Gemini run · earlier capture'],
+    ['04dcb07358ee4f3da41e5cbc12cb9850', 'Gemini run'],
+    ['3f46468325ac47de894e6a13d3c672e0', 'Gemini run'],
   ]) {
     const capture = { ...run('group-6', id), edge_id: 'grp6-hc-relay' };
     assert.equal(storedRunName(capture), name);
@@ -206,7 +206,7 @@ test('picker copy and every source-mode label have bundled Traditional Chinese t
  test('new host relay runs have a Gemini name and retired probes stay out of both pickers', async () => {
   const fresh = { ...run('group-6', 'fresh'), edge_id: 'grp6-hc-relay' };
   assert.equal(storedRunName(fresh), 'Gemini run');
-  const retired = ['4620bc260aef42329930bbf46d35b13f', '74c4e8ccd7f446d3bfcdf2ab7b668f6d'].map(run_id => ({ ...fresh, run_id }));
+  const retired = ['4620bc260aef42329930bbf46d35b13f', '74c4e8ccd7f446d3bfcdf2ab7b668f6d', '80727b22581b44579471eebfb2ef4a5e'].map(run_id => ({ ...fresh, run_id }));
   const otherTester = { ...retired[0], tester_id: 'other' };
   const h = harness(async () => response([...retired, fresh, otherTester]));
   await h.controller.refresh();
