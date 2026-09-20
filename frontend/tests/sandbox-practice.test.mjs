@@ -62,6 +62,46 @@ function loadPractice(app,kind){
 }
 const selectedView=app=>JSON.parse(app.find(node=>node.type==='pre').props.children);
 const mean=values=>values.reduce((total,value)=>total+value,0)/values.length;
+const eventMessage=app=>app.find(node=>node.props.className==='event-message').props.children;
+
+for(const kind of ['anomaly','normal','missing'])test(`built-in ${kind} fixture uses English source copy and follows global language`,async()=>{
+ const app=harness();await app.mount();
+ app.find(n=>n.props['aria-label']==='Fixture scenario').props.onChange({target:{value:kind}});app.receive();
+ const original=selectedView(app);contracts.validatedView(original);
+ assert.doesNotMatch(app.text(),/[\u3400-\u9fff]/);
+ assert.ok(original.predictions.every(p=>p.unit==='°C (demonstration)'));
+ app.setLocale('zh-TW');assert.match(eventMessage(app),/[\u3400-\u9fff]/);
+ assert.deepEqual(selectedView(app),original,'language changes must not rewrite received source');
+ app.setLocale('en');assert.equal(eventMessage(app),original.event.message);
+ app.find(n=>n.props['aria-label']==='Fixture scenario').props.onChange({target:{value:'duplicate'}});app.receive();
+ assert.match(app.text(),/Ignored 1 duplicate events/);assert.deepEqual(selectedView(app),original);
+});
+
+test('Chinese fixture switches presentation to English without rewriting copied source',async()=>{
+ let copied;const app=harness({locale:'zh-TW',writeText:async text=>{copied=text;}});await app.mount();
+ app.button(translate('zh-TW','Receive fixture')).props.onClick();const original=selectedView(app);
+ assert.match(original.event.message,/[\u3400-\u9fff]/);
+ app.setLocale('en');assert.doesNotMatch(eventMessage(app),/[\u3400-\u9fff]/);
+ assert.ok(app.find(n=>n.type==='h2'&&n.props.children==='Site 2 test mean continues to rise'));
+ assert.ok(app.find(n=>n.type==='small'&&n.props.children==='°C (demonstration)'));
+ await app.button('Copy source').props.onClick();assert.deepEqual(JSON.parse(copied),original);
+});
+
+test('JSON fixture editor uses current language while imported source text remains verbatim',async()=>{
+ const app=harness();await app.mount();app.button('Load fixture').props.onClick();
+ const draft=app.find(n=>n.props.id==='batch-json').props.value;assert.doesNotMatch(draft,/[\u3400-\u9fff]/);
+ app.button('Receive JSON').props.onClick();contracts.validatedView(selectedView(app));
+ const source=fixtures.createFixture('anomaly',900);
+ app.find(n=>n.props.id==='batch-json').props.onChange({target:{value:JSON.stringify(source)}});app.button('Receive JSON').props.onClick();
+ const original=selectedView(app);assert.equal(eventMessage(app),original.event.message);assert.match(eventMessage(app),/[\u3400-\u9fff]/);
+ app.setLocale('zh-TW');app.setLocale('en');assert.deepEqual(selectedView(app),original);assert.equal(eventMessage(app),original.event.message);
+});
+
+test('loaded practice narrative follows language switches without changing source',async()=>{
+ const app=harness();await app.mount();loadPractice(app,'drift');const original=selectedView(app);
+ app.setLocale('zh-TW');assert.match(eventMessage(app),/合成練習/);
+ app.setLocale('en');assert.equal(eventMessage(app),original.event.message);assert.deepEqual(selectedView(app),original);
+});
 
 for(const kind of ['healthy','site','drift','missing'])test(`practice ${kind} loads a validated synthetic context and answers locally`,async()=>{
  const app=harness();await app.mount();loadPractice(app,kind);

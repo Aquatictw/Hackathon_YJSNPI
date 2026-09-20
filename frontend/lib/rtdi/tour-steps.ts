@@ -6,12 +6,12 @@ export type TourStep = {
   preview?: {label: string; rows: [string, string][]};
 };
 
-export const tourWelcome = 'Choose a chapter, or start with Replay analysis and continue through Run workspace and Sandbox. Steps follow the current source without changing your data.';
+export const tourWelcome = 'Choose a chapter, or start with Wafer Analysis and continue through Run workspace and Sandbox. Steps follow the current source without changing your data.';
 
 export const tourChapters = [
   {
     "route": "/replay",
-    "name": "Replay analysis",
+    "name": "Wafer Analysis",
     "description": "Offline archive or stored Gemini run analysis"
   },
   {
@@ -30,15 +30,15 @@ export const tourSteps: TourStep[] = [
   {
     "id": "analysis-load",
     "route": "/replay",
-    "chapter": "Replay analysis",
+    "chapter": "Wafer Analysis",
     "target": ".dc-run-picker",
     "title": "Choose a summary or Gemini run, then Load",
-    "body": "Use this same picker to choose a source, then press Load. Replay groups recorded Gemini runs, imported replays including training, and bundled summary.json. Live groups the two stored live-source scopes; their labels do not prove current machine activity. The page defaults to the offline 25-wafer archive. The guide follows the loaded source and never changes the source or loads data.",
+    "body": "Use this same picker to choose a source, then press Load. Replay groups recorded Gemini runs, imported replays including training, and bundled summary.json. Live groups stored live-source scopes; their labels do not prove current machine activity. The page defaults to the offline 25-wafer archive. The guide follows the loaded source and never changes the source or loads data.",
   },
   {
     "id": "analysis-status",
     "route": "/replay",
-    "chapter": "Replay analysis",
+    "chapter": "Wafer Analysis",
     "target": ".dc-loaded-run",
     "title": "Check provenance before interpreting updates",
     "body": "Confirm the loaded run, tester and original last source event timestamp. Read the source mode and backend connection separately: a stored live label or connected SSE does not prove current machine activity. Recorded captures retain their historical timestamps.",
@@ -47,7 +47,7 @@ export const tourSteps: TourStep[] = [
   {
     "id": "analysis-wafers",
     "route": "/replay",
-    "chapter": "Replay analysis",
+    "chapter": "Wafer Analysis",
     "target": ".analysis-wafer-grid",
     "title": "Choose a wafer in the overview",
     "body": "Each wafer button represents a lot and wafer in the loaded run. Close the guide to select a wafer and update its summary and 3D yield view. Missing wafer identity stays unknown; no recorded alert does not establish normal operation.",
@@ -56,7 +56,7 @@ export const tourSteps: TourStep[] = [
   {
     "id": "analysis-wafer-detail",
     "route": "/replay",
-    "chapter": "Replay analysis",
+    "chapter": "Wafer Analysis",
     "target": ".analysis-wafer-detail",
     "title": "Read the selected wafer summary",
     "body": "Review the selected wafer’s alert, prediction and matched-actual counts with its original last source event timestamp. Yield and completed-device count appear only when supplied for that wafer; missing values remain unavailable and are not inferred from prediction counts.",
@@ -65,7 +65,7 @@ export const tourSteps: TourStep[] = [
   {
     "id": "analysis-wafer-scene",
     "route": "/replay",
-    "chapter": "Replay analysis",
+    "chapter": "Wafer Analysis",
     "target": ".wafer-scene",
     "title": "Interpret the 3D yield illustration",
     "body": "The 3D wafer illustrates the selected wafer’s supplied yield and fail share. Its die positions are illustrative, not measured defect coordinates. Missing yield remains unavailable; rotation and top-view controls change only the illustration.",
@@ -74,7 +74,7 @@ export const tourSteps: TourStep[] = [
   {
     "id": "analysis-coverage",
     "route": "/replay",
-    "chapter": "Replay analysis",
+    "chapter": "Wafer Analysis",
     "target": ".run-analysis-coverage",
     "title": "Keep yield and measurement coverage scoped",
     "body": "Yield is shown per supplied record; no combined run yield is inferred. Missing yield stays unavailable. Normalized measurement counts do not establish complete raw measurement coverage.",
@@ -83,7 +83,7 @@ export const tourSteps: TourStep[] = [
   {
     "id": "analysis-workspace",
     "route": "/replay",
-    "chapter": "Replay analysis",
+    "chapter": "Wafer Analysis",
     "title": "Open Workspace for individual records",
     "target": ".run-analysis-workspace-link",
     "body": "Close the guide, then choose Open this run in workspace to investigate individual evidence records, site series and temperature predictions with matched actuals. The link carries the loaded run and tester to Workspace; select the relevant record there.",
@@ -93,7 +93,7 @@ export const tourSteps: TourStep[] = [
   {
     "id": "archive-source",
     "route": "/replay",
-    "chapter": "Replay analysis",
+    "chapter": "Wafer Analysis",
     "target": ".replay-source",
     "title": "Read the offline archive source",
     "body": "The bundled summary.json contains 25 wafers from historical replay. Its results do not establish a live tester connection or tester receipt. To inspect a stored Gemini run, close the guide, select it in the same picker and press Load.",
@@ -102,7 +102,7 @@ export const tourSteps: TourStep[] = [
   {
     "id": "archive-wafers",
     "route": "/replay",
-    "chapter": "Replay analysis",
+    "chapter": "Wafer Analysis",
     "target": ".wafer-tiles",
     "tab": ".replay-tabs [role='tab'][id$='-trigger-analysis']",
     "title": "Explore the archive wafers",
@@ -112,7 +112,7 @@ export const tourSteps: TourStep[] = [
   {
     "id": "archive-detail",
     "route": "/replay",
-    "chapter": "Replay analysis",
+    "chapter": "Wafer Analysis",
     "target": ".replay-detail",
     "tab": ".replay-tabs [role='tab'][id$='-trigger-analysis']",
     "title": "Read archive alerts and site evidence",
@@ -122,7 +122,7 @@ export const tourSteps: TourStep[] = [
   {
     "id": "archive-validation",
     "route": "/replay",
-    "chapter": "Replay analysis",
+    "chapter": "Wafer Analysis",
     "target": ".model-panel",
     "tab": ".replay-tabs [role='tab'][id$='-trigger-validation']",
     "title": "Review model validation",
@@ -132,7 +132,7 @@ export const tourSteps: TourStep[] = [
   {
     "id": "archive-limitations",
     "route": "/replay",
-    "chapter": "Replay analysis",
+    "chapter": "Wafer Analysis",
     "target": ".limitations-panel",
     "tab": ".replay-tabs [role='tab'][id$='-trigger-limitations']",
     "title": "Read the archive limitations",
@@ -142,7 +142,7 @@ export const tourSteps: TourStep[] = [
   {
     "id": "archive-workspace",
     "route": "/replay",
-    "chapter": "Replay analysis",
+    "chapter": "Wafer Analysis",
     "target": ".replay-tabs",
     "title": "Continue to Run workspace",
     "body": "Next continues the guide in Run workspace, followed by Sandbox. Workspace follows its own saved source; this navigation does not load the archive or a Gemini run into it. To investigate a stored Gemini run, close the guide, select it in the picker, press Load and use Open this run in workspace.",
@@ -154,7 +154,7 @@ export const tourSteps: TourStep[] = [
     "chapter": "Run workspace",
     "target": ".dc-heading",
     "title": "Investigate records in Run workspace",
-    "body": "After the Replay analysis overview, use Run workspace for individual records and the assistant. Confirm the source and loaded run before investigating. Sandbox follows for synthetic practice.",
+    "body": "After the Wafer Analysis overview, use Run workspace for individual records and the assistant. Confirm the source and loaded run before investigating. Sandbox follows for synthetic practice.",
     "detail": "The guide changes display tabs only. It never loads runs, switches sources, imports files, loads practice examples or submits questions. Close it before using those controls."
   },
   {
@@ -268,7 +268,7 @@ export const tourSteps: TourStep[] = [
     "chapter": "Run workspace",
     "target": ".isw-tabs",
     "title": "Explore the summary views",
-    "body": "Wafers & alerts, Model validation and Limitations describe this imported report. Individual temperature records, backend commands, receipts and selected-run model analysis are unavailable from a summary alone.",
+    "body": "Wafers & alerts, Model validation and Limitations describe this imported report. Individual temperature records, backend commands, receipts and selected-run model analysis are unavailable from a summary alone. Semiconductor Q&A remains available for general questions without sending this archive to the model.",
     "source": "workspace-summary"
   },
   {

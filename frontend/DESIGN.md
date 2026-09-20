@@ -4,7 +4,7 @@ The dashboard is an engineering workspace. Its reading order is run scope, sourc
 
 ## Visual decisions
 
-- A shared horizontal header links Replay analysis (`/`), Run workspace (`/workspace`) and Sandbox (`/sandbox`) on every page. `/replay` remains compatible. There are no promotional slogans.
+- A shared horizontal header links Wafer Analysis (`/replay`), Run workspace (`/workspace`) and Sandbox (`/sandbox`) on every page. `/` opens Run workspace. There are no promotional slogans.
 - Neutral graphite surfaces and one steel-blue interaction color separate navigation from warning and chart colors. Light and dark modes use the existing semantic tokens. No new dependencies, remote fonts or downloaded skills are required.
 - Explanatory text and text inputs are 16px; operational labels, metadata and rendered chart axes are at least 14px. Monospace is reserved for identifiers and numeric context. Replay totals wrap with explicit gaps.
 - A large background silicon wafer rotates in CSS 3D, faces the mouse and rotates with document scrolling. Its 400 illustrative dies show the selected wafer's fail share, rounded to 0.25 percentage points. Positions are illustrative, not measured defect coordinates. Pause/resume and top-view controls are keyboard accessible; hidden tabs and reduced-motion preferences stop motion. A sparse dot pattern spans all three pages.

@@ -15,7 +15,7 @@ async function header(page, active) {
  await page.locator('.app-guide:not(:disabled)').waitFor();
  const nav=page.getByRole('navigation',{name:'Main navigation'});
  assert.deepEqual(await nav.locator('a').evaluateAll(nodes=>nodes.map(node=>({href:node.getAttribute('href'),text:node.textContent.trim()}))),[
-  {href:'/',text:'Replay analysis'},{href:'/workspace',text:'Run workspace'},{href:'/sandbox',text:'Sandbox'}]);
+  {href:'/',text:'Wafer Analysis'},{href:'/workspace',text:'Run workspace'},{href:'/sandbox',text:'Sandbox'}]);
  assert.equal(await nav.locator('a[aria-current="page"]').getAttribute('href'),active);
 }
 try {

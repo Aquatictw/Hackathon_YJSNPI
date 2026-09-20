@@ -7,7 +7,7 @@ import {GuidedTour} from '@/components/guided-tour';
 import './app-header.css';
 
 const pages = [
-  {id: 'replay', href: '/replay', label: 'Replay analysis', icon: Activity},
+  {id: 'replay', href: '/replay', label: 'Wafer Analysis', icon: Activity},
   {id: 'workspace', href: '/workspace', label: 'Run workspace', icon: Layers3},
   {id: 'sandbox', href: '/sandbox', label: 'Sandbox', icon: FlaskConical},
 ] as const;
@@ -18,7 +18,7 @@ export function AppHeader({active}: {active: typeof pages[number]['id']}) {
   return <>
     <a className="app-skip" href="#main-content">{t("Skip to main content")}</a>
     <header className="app-header">
-      <a className="app-brand" href="/replay" aria-label={`RTDI — ${t("Replay analysis")}`}>
+      <a className="app-brand" href="/replay" aria-label={`RTDI — ${t("Wafer Analysis")}`}>
         <Activity size={23} aria-hidden="true"/><strong>RTDI</strong>
       </a>
       <nav className="app-nav" aria-label={t("Main navigation")}>

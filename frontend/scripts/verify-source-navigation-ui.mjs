@@ -21,8 +21,8 @@ const browser = await chromium.launch({headless: true, ...(process.env.PLAYWRIGH
 const report = {base: base.origin, checkedAt: new Date().toISOString(), checks: [], blockedRequests: [], backendRequests: [], errors: [], modelCalls: 0, forwardedPosts: 0,
   limits: 'Local browser regression only. Snapshot/SSE are test doubles; no backend persistence, live tester, deployment or model acceptance.'};
 const labels = {
-  en: {nav: ['Replay analysis', 'Run workspace', 'Sandbox'], load: 'Load backend run', retained: /previous dataset is retained/i},
-  'zh-TW': {nav: ['重播分析', '批次工作區', '沙盒'], load: '載入後端批次', retained: /先前資料集.*保留/},
+  en: {nav: ['Wafer Analysis', 'Run workspace', 'Sandbox'], load: 'Load backend run', retained: /previous dataset is retained/i},
+  'zh-TW': {nav: ['晶圓分析', '批次工作區', '沙盒'], load: '載入後端批次', retained: /先前資料集.*保留/},
 };
 
 async function check(name, action) {

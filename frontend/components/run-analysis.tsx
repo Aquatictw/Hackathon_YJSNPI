@@ -5,7 +5,7 @@ import {useLocale} from '@/components/locale-provider';
 import {AppHeader} from '@/components/app-header';
 import {StoredRunPicker} from '@/components/stored-run-picker';
 import WaferScene from '@/components/wafer-scene';
-import {analysisWafers} from '@/lib/rtdi/analysis-wafers';
+import {analysisWafers, type AnalysisWafer} from '@/lib/rtdi/analysis-wafers';
 import {BackendConnectionStatus, SourceFreshness, StoredSourceNotice} from '@/components/connection-status';
 import {createDashboardLifecycle, initialDashboardState} from '@/lib/rtdi/ui-lifecycle';
 import {prepareAnalysisWorkspace, summarizeRunAnalysis} from '@/lib/rtdi/run-analysis';
@@ -16,6 +16,14 @@ function SourceTime({value}: {value: string}) {
   const {locale} = useLocale();
   const time = new Date(value);
   return Number.isNaN(time.getTime()) ? <>{value}</> : <time dateTime={time.toISOString()}>{time.toLocaleString(locale, {year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit', timeZoneName: 'short'})}</time>;
+}
+
+// Rank defaults only; source groups and explicit user choices retain their identity.
+function defaultWaferRank(wafer: AnalysisWafer) {
+  if (!wafer.lastEventAt) return 0; // Metadata alone is not source data.
+  if (wafer.waferId === null) return 1;
+  return wafer.yieldRatio !== undefined || wafer.devices !== undefined
+    || wafer.alerts > 0 || wafer.predictions > 0 || wafer.matchedActuals > 0 ? 3 : 2;
 }
 
 export function RunAnalysis({initialScope, onSummary}: {initialScope?: {run: string; tester: string}; onSummary?: () => void} = {}) {
@@ -34,23 +42,27 @@ export function RunAnalysis({initialScope, onSummary}: {initialScope?: {run: str
   const {data, status, error, scope} = state;
   const overview = useMemo(() => data ? summarizeRunAnalysis(data) : null, [data]);
   const wafers = useMemo(() => data ? analysisWafers(data) : [], [data]);
-  const [selection, setSelection] = useState({scope: '', key: '', open: true});
+  const [selection, setSelection] = useState({scope: '', key: '', open: true, explicit: false});
   const sourceKey = JSON.stringify([data?.run.tester_id, data?.run.run_id]);
-  const wafer = (selection.scope === sourceKey && wafers.find(item => item.key === selection.key)) || wafers[0];
+  const preferred = wafers.reduce<AnalysisWafer | undefined>((best, item) =>
+    !best || defaultWaferRank(item) > defaultWaferRank(best) ? item : best, undefined);
+  const selected = selection.scope === sourceKey ? wafers.find(item => item.key === selection.key) : undefined;
+  const wafer = selected && (selection.explicit || !preferred || defaultWaferRank(selected) >= defaultWaferRank(preferred))
+    ? selected : preferred;
   useEffect(() => {
-    if (wafer && (selection.scope !== sourceKey || !wafers.some(item => item.key === selection.key))) {
-      setSelection({scope: sourceKey, key: wafer.key, open: true});
+    if (wafer && (selection.scope !== sourceKey || selection.key !== wafer.key)) {
+      setSelection({scope: sourceKey, key: wafer.key, open: true, explicit: false});
     }
-  }, [sourceKey, wafer, wafers, selection.scope, selection.key]);
+  }, [sourceKey, wafer, selection.scope, selection.key]);
   const detailOpen = selection.scope !== sourceKey || selection.key !== wafer?.key || selection.open;
-  const chooseWafer = (key: string) => setSelection({scope: sourceKey, key, open: true});
+  const chooseWafer = (key: string) => setSelection({scope: sourceKey, key, open: true, explicit: true});
   const waferLabel = (id: string | null) => id === null ? t('Wafer not provided') : t('Wafer {0}', id);
   const load = async (run: string, tester: string) => {
     setNavigationError('');
     await lifecycle.current?.connect(run, tester);
   };
   return <div className="shell replay-shell"><AppHeader active="replay"/><main id="main-content" className="workspace replay-workspace run-analysis">
-    <div className="heading"><div><div className="eyebrow">{t('WAFER OVERVIEW / RUN ANALYSIS')}</div><h1>{t('Replay analysis')}</h1><p className="sub">{t('Explore each wafer as source updates arrive.')}</p></div>
+    <div className="heading"><div><div className="eyebrow">{t('WAFER OVERVIEW / RUN ANALYSIS')}</div><h1>{t('Wafer Analysis')}</h1><p className="sub">{t('Explore each wafer as source updates arrive.')}</p></div>
       <div className="replay-actions"><BackendConnectionStatus status={status}/><button type="button" className="analysis-next" disabled={wafers.length < 2} onClick={() => chooseWafer(wafers[(wafers.findIndex(item => item.key === wafer?.key) + 1) % wafers.length].key)}>{t('Next wafer')}<ChevronRight size={16}/></button></div>
     </div>
     <StoredRunPicker onLoadSummary={onSummary} onLoad={load} busy={status === 'Connecting'}>{scope && <button className="dc-icon" type="button" aria-label={t('Disconnect event stream')} onClick={() => lifecycle.current?.disconnect()}><Unplug size={18}/></button>}</StoredRunPicker>
@@ -68,7 +80,7 @@ export function RunAnalysis({initialScope, onSummary}: {initialScope?: {run: str
       <div className="analysis-wafer-layout">
         <section className="panel wafer-panel" aria-label={t('Select wafer')}>
           <p className="wafer-hint">{t('Grouped by lot and wafer. Select a wafer to explore its yield and activity.')}</p>
-          <div className="wafer-tiles analysis-wafer-grid">{wafers.map(item => <button type="button" key={item.key} className={'wafer-tile ' + (item.alerts ? 'alert ' : 'quiet ') + (item.key === wafer?.key ? 'active' : '')} aria-pressed={item.key === wafer?.key} aria-expanded={item.key === wafer?.key && detailOpen} aria-controls="analysis-wafer-detail" onClick={() => item.key === wafer?.key ? setSelection({scope: sourceKey, key: item.key, open: !detailOpen}) : chooseWafer(item.key)}>
+          <div className="wafer-tiles analysis-wafer-grid">{wafers.map(item => <button type="button" key={item.key} className={'wafer-tile ' + (item.alerts ? 'alert ' : 'quiet ') + (item.key === wafer?.key ? 'active' : '')} aria-pressed={item.key === wafer?.key} aria-expanded={item.key === wafer?.key && detailOpen} aria-controls="analysis-wafer-detail" onClick={() => item.key === wafer?.key ? setSelection({scope: sourceKey, key: item.key, open: !detailOpen, explicit: true}) : chooseWafer(item.key)}>
             <strong>{waferLabel(item.waferId)}</strong><span>{item.yieldRatio === undefined ? t('Yield unavailable') : (item.yieldRatio * 100).toFixed(2) + '%'}</span><small>{t('Lot')} {item.lotId ?? t('Not provided')}</small><small>{t('{0} alerts', item.alerts)}</small>
           </button>)}</div>
           {!wafers.length && <p className="wafer-hint">{t('No wafer records supplied.')}</p>}

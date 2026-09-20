@@ -12,7 +12,7 @@ test('home and workspace share a chapter; Replay has its own route', () => {
   assert.equal(tourRoute('/unknown'), null);
   assert.deepEqual(tourChapters.map(c => c.route), ['/replay', '/workspace', '/sandbox']);
   assert.deepEqual([...new Set(tourSteps.map(s => s.route))], tourChapters.map(c => c.route));
-  assert.equal(tourSteps[0].id, 'analysis-load', 'Start tour opens Replay analysis from any page');
+  assert.equal(tourSteps[0].id, 'analysis-load', 'Start tour opens Wafer Analysis from any page');
   assert.equal(new Set(tourSteps.map(s => s.id)).size, tourSteps.length);
   for (const c of tourChapters) assert.equal(tourSteps.find(s => s.route === c.route).source, undefined);
   for (const step of tourSteps) assert.equal(step.chapter, tourChapters.find(c => c.route === step.route).name);
@@ -39,7 +39,7 @@ test('archive chapter shares the picker and teaches source, wafers, validation a
   assert.deepEqual(archive.map(s => s.target), ['.dc-run-picker', '.replay-source', '.wafer-tiles', '.replay-detail', '.model-panel', '.limitations-panel', '.replay-tabs']);
   assert.match(archive[0].body, /choose a source, then press Load/);
   assert.match(archive[0].body, /Replay groups recorded Gemini runs, imported replays including training, and bundled summary.json/);
-  assert.match(archive[0].body, /Live groups the two stored live-source scopes/);
+  assert.match(archive[0].body, /Live groups stored live-source scopes/);
   assert.match(archive[0].body, /never changes the source or loads data/);
   assert.ok(archive.filter(s => s.tab).every(s => s.tab.startsWith('.replay-tabs [role=') && /-trigger-(analysis|validation|limitations)/.test(s.tab)));
   assert.match(archive.at(-1).body, /Workspace follows its own saved source/);

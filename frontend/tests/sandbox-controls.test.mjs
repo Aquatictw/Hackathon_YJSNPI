@@ -56,13 +56,13 @@ function harness({assistant=async()=>({ok:true,json:async()=>answer}),writeText=
  };
 }
 
-test('templates fill draft only; explicit submit sends once; source text is unchanged',async()=>{
+test('templates fill draft only; explicit submit sends once with English fixture context',async()=>{
  const app=harness();await app.mount();app.receive();
  for(const prompt of ['What does this alert indicate?','What should be checked next?','Is tester receipt confirmed (ACK)?']){
   const button=app.button(prompt);assert.equal(button.props.type,'button');button.props.onClick();assert.equal(app.question(),prompt);assert.equal(app.requests.length,0);
  }
  assert.match(app.text(),/Draft only/);assert.match(app.text(),/Investigation log/);assert.doesNotMatch(page,/Sparkles|ai-icon|ai-stat/);
- const original=fixtures.createFixture('anomaly',1).records.find(r=>r.type==='event').message;assert.ok(app.text().includes(original));
+ assert.match(app.text(),/The latest 32 test results at site 2 show an upward trend/);
  app.submit();assert.equal(app.requests.length,1);await settle();assert.match(app.text(),/Controlled investigation result/);assert.equal(app.busy(),false);
 });
 

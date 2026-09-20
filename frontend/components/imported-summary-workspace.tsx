@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { FileJson2, TriangleAlert } from 'lucide-react';
 import { StoredRunPicker } from '@/components/stored-run-picker';
 import { AppHeader } from '@/components/app-header';
+import { SummaryAssistant } from '@/components/summary-assistant';
 import { useLocale } from '@/components/locale-provider';
 import { alertNames, formatObservation, replayChart, replayTotals, waferState, type ReplayAlert } from '@/lib/rtdi/replay';
 import { updateReplaySelection, type ReplaySelection, type SourceSession } from '@/lib/rtdi/source-session';
@@ -84,7 +85,7 @@ export function ImportedSummaryWorkspace({ replay, onLoadBackend, onLoadSummary,
     }
     return <div className="dc-app isw-app"><AppHeader active="workspace"/><div className="dc-main"><main id="main-content">
         <div className="dc-heading"><div><div className="dc-eyebrow">{t('OPERATIONS / RUN WORKSPACE')}</div><h1>{t('Imported summary')}</h1><p>{t('Inspect recorded alerts, site measurements and model validation.')}</p></div><span className="dc-source-badge">{t('OFFLINE EVIDENCE')}</span></div>
-        <div className="isw-source" data-tour-local-import="true"><FileJson2 size={20}/><strong>{filename}</strong><a href="/replay">{t('Open replay analysis')}</a></div>
+        <div className="isw-source" data-tour-local-import="true"><FileJson2 size={20}/><strong>{filename}</strong><a href="/replay">{t('Open wafer analysis')}</a></div>
         <p className="isw-note">{t('Summary source only. No backend run, event stream or model request is started.')}</p>
         <StoredRunPicker imported onLoadSummary={onLoadSummary} summarySelected={filename === 'summary.json'} busy={summaryLoading} onLoad={(run, tester) => {
             setBackendError(false);
@@ -98,7 +99,7 @@ export function ImportedSummaryWorkspace({ replay, onLoadBackend, onLoadSummary,
             <div><dt>{t('Recorded alerts')}</dt><dd>{total.alerts}</dd><small>{t('Source-reported')}</small></div>
             <div><dt>{t('Tester receipt')}</dt><dd>{t('Not provided')}</dd><small>{t('No receipt in this summary')}</small></div>
         </dl>
-        <section className="dc-evidence-panel"><div className="dc-tabbar isw-tabs" role="tablist" aria-label={t('Run views')}>{tabs.map(([id, title], index) => <button key={id} id={`summary-tab-${id}`} role="tab" aria-controls="summary-panel" aria-selected={selection.tab === id} tabIndex={selection.tab === id ? 0 : -1} onClick={() => select({ tab: id })} onKeyDown={event => {
+        <div className="dc-board"><section className="dc-evidence-panel"><div className="dc-tabbar isw-tabs" role="tablist" aria-label={t('Run views')}>{tabs.map(([id, title], index) => <button key={id} id={`summary-tab-${id}`} role="tab" aria-controls="summary-panel" aria-selected={selection.tab === id} tabIndex={selection.tab === id ? 0 : -1} onClick={() => select({ tab: id })} onKeyDown={event => {
             const next = event.key === 'ArrowRight' ? (index + 1) % tabs.length : event.key === 'ArrowLeft' ? (index + tabs.length - 1) % tabs.length : event.key === 'Home' ? 0 : event.key === 'End' ? tabs.length - 1 : null;
             if (next !== null) { event.preventDefault(); select({ tab: tabs[next][0] }); document.getElementById(`summary-tab-${tabs[next][0]}`)?.focus(); }
         }}>{t(title)}</button>)}</div>
@@ -116,7 +117,7 @@ export function ImportedSummaryWorkspace({ replay, onLoadBackend, onLoadSummary,
                     </article>}</>}<SourceJson label={t('View source wafer fields')} value={wafer}/></section></> : <div className="dc-empty"><h3>{t('No wafer selected')}</h3><p>{t('Change the wafer filter to select evidence.')}</p></div>}</div></div>}
             {selection.tab === 'validation' && <section className="isw-section"><h2>{t('Model validation')}</h2><p>{data.validation.mode ?? t('Validation method not provided')}</p><p>{data.validation.units ?? t('Raw values · units unverified')}</p><p className="isw-note">{t('Dataset metrics do not establish live prediction accuracy, latency or tester receipt. Full feature coverage does not imply perfect accuracy.')}</p><div className="isw-table" tabIndex={0} role="region" aria-label={t('Model validation table; scroll horizontally')}><table><thead><tr>{['Stage', 'Samples', 'Model MAE', 'Baseline MAE', 'RMSE', 'Worst error'].map(title => <th key={title}>{t(title)}</th>)}</tr></thead><tbody>{Object.entries(data.validation.metrics).map(([stage, metrics]) => <tr key={stage}><th scope="row">{stage}</th><td>{metrics.n}</td><td>{metrics.mae.toFixed(5)}</td><td>{metrics.baseline_mae.toFixed(5)}</td><td>{metrics.rmse.toFixed(5)}</td><td>{metrics.worst_error.toFixed(5)}</td></tr>)}</tbody></table></div>{!Object.keys(data.validation.metrics).length && <p>{t('Not provided')}</p>}<SourceJson label={t('Source validation fields')} value={data.validation}/></section>}
             {selection.tab === 'limitations' && <section className="isw-section"><h2>{t('Evidence limitations')}</h2><div className="isw-callout"><TriangleAlert size={20}/><p>{t('This summary supplies no live provenance, complete event timestamps or tester receipts. A final-device alert does not prove delivery before wafer completion.')}</p></div><h3>{t('Source limitations')}</h3><p>{t('Source messages, suggestions and limitations are displayed verbatim.')}</p>{data.limitations.length ? <ul>{data.limitations.map((limitation, index) => <li key={index}>{limitation}</li>)}</ul> : <p>{t('No limitations supplied by this source. This does not establish acceptance.')}</p>}<p>{t('Source live_integration:')} <code>{data.live_integration}</code>{t('. This records the source file state, not the current remote status.')}</p></section>}
-        </div></section>
+        </div></section><SummaryAssistant/></div>
         <section className="isw-section isw-source-record"><h2>{t('Unavailable in this summary')}</h2><div className="isw-unavailable">{unavailableSections.map(([title, description]) => <article key={title}><h3>{t(title)}</h3><p>{t(description)}</p></article>)}</div><a className="dc-secondary" href="#load-backend-run">{t('Load backend run')}</a></section>
         <section className="isw-section isw-source-record"><h2>{t('Source evidence')}</h2><p className="isw-note">{t('Source messages, suggestions and limitations are displayed verbatim.')}</p><SourceJson label={t('View complete summary JSON')} value={data}/></section>
     </main></div></div>;

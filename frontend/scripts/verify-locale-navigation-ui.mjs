@@ -15,8 +15,8 @@ const {chromium} = createRequire(import.meta.url)(process.env.PLAYWRIGHT_MODULE 
 const browser = await chromium.launch({headless: true, ...(process.env.PLAYWRIGHT_EXECUTABLE ? {executablePath: process.env.PLAYWRIGHT_EXECUTABLE} : {})});
 const checks = [], blocked = [];
 const localeKey = 'rtdi.locale', visitKey = 'rtdi-guided-tour-visit-v1';
-const labels = {en: ['Replay analysis', 'Run workspace', 'Sandbox'], 'zh-TW': ['重播分析', '批次工作區', '沙盒']};
-const headings = {en: ['Replay analysis', 'Run overview', 'Event sandbox'], 'zh-TW': ['重播分析', '批次總覽', '事件沙盒']};
+const labels = {en: ['Wafer Analysis', 'Run workspace', 'Sandbox'], 'zh-TW': ['晶圓分析', '批次工作區', '沙盒']};
+const headings = {en: ['Wafer Analysis', 'Run overview', 'Event sandbox'], 'zh-TW': ['晶圓分析', '批次總覽', '事件沙盒']};
 
 async function check(name, fn) {
   try {

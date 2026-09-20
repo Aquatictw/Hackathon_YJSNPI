@@ -24,6 +24,7 @@ export const storedRunName = (run: StoredRun): string | null => {
   if (run.edge_id === 'grp6-hc-relay' && run.tester_id === 'group-6' && run.mode === 'live') {
     if (run.run_id === '04dcb07358ee4f3da41e5cbc12cb9850') return 'Gemini run · complete capture';
     if (run.run_id === '3f46468325ac47de894e6a13d3c672e0') return 'Gemini run · earlier capture';
+    return 'Gemini run';
   }
   if (isRecordedCapture(run) && run.tester_id === 'group-6') {
     if (run.run_id === 'ae20cd5ae29d47af87163265205ffced') return 'Engineering check';
@@ -32,6 +33,9 @@ export const storedRunName = (run: StoredRun): string | null => {
   if (isTrainingReplay(run)) return 'Training-data replay';
   return null;
 };
+// User-retired recovery probes: retain backend evidence but omit them from both pickers.
+const retiredRecoveryRuns = new Set(['4620bc260aef42329930bbf46d35b13f', '74c4e8ccd7f446d3bfcdf2ab7b668f6d']);
+export const isRetiredRecoveryRun = (run: StoredRun) => run.tester_id === 'group-6' && run.edge_id === 'grp6-hc-relay' && run.mode === 'live' && retiredRecoveryRuns.has(run.run_id);
 export type RunDiscoveryState = {
   runs: StoredRun[]; selected: string; loading: boolean; loaded: boolean; error: boolean; nextOffset: number | null;
 };
@@ -60,7 +64,7 @@ export function createRunDiscovery(fetcher: typeof fetch, publish: (state: RunDi
       if (disposed || generation !== current) return;
       if (payload.next_offset !== null && payload.next_offset <= offset) throw Error('Invalid pagination');
       // Pagination follows the server page even when every fetched entry is excluded.
-      const runs = [...new Map([...(append ? state.runs : []), ...payload.runs.filter(filter)].map(run => [runChoiceKey(run), run])).values()];
+      const runs = [...new Map([...(append ? state.runs : []), ...payload.runs.filter(run => !isRetiredRecoveryRun(run) && filter(run))].map(run => [runChoiceKey(run), run])).values()];
       patch({ runs, loaded: true, loading: false, nextOffset: payload.next_offset,
         selected: runs.some(run => runChoiceKey(run) === state.selected) ? state.selected : '' });
     } catch {

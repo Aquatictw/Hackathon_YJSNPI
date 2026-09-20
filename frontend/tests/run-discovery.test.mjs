@@ -23,7 +23,7 @@ test('host capture names require the exact run, tester, live mode and relay sour
     const capture = { ...run('group-6', id), edge_id: 'grp6-hc-relay' };
     assert.equal(storedRunName(capture), name);
     assert.equal(storedRunSourceLabel(capture), 'STORED · LIVE-SOURCE RECORDS');
-    for (const change of [{ tester_id: 'other' }, { edge_id: 'other' }, { mode: 'replay' }, { mode: 'simulation' }, { run_id: 'other' }]) {
+    for (const change of [{ tester_id: 'other' }, { edge_id: 'other' }, { mode: 'replay' }, { mode: 'simulation' }]) {
       assert.equal(storedRunName({ ...capture, ...change }), null);
     }
   }
@@ -202,3 +202,13 @@ test('picker copy and every source-mode label have bundled Traditional Chinese t
   for (const match of strings) assert.ok(zhTW[match[1]], match[1]);
   for (const mode of ['live', 'replay', 'simulation']) assert.ok(zhTW[runModeLabel(mode)], mode);
 });
+
+ test('new host relay runs have a Gemini name and retired probes stay out of both pickers', async () => {
+  const fresh = { ...run('group-6', 'fresh'), edge_id: 'grp6-hc-relay' };
+  assert.equal(storedRunName(fresh), 'Gemini run');
+  const retired = ['4620bc260aef42329930bbf46d35b13f', '74c4e8ccd7f446d3bfcdf2ab7b668f6d'].map(run_id => ({ ...fresh, run_id }));
+  const otherTester = { ...retired[0], tester_id: 'other' };
+  const h = harness(async () => response([...retired, fresh, otherTester]));
+  await h.controller.refresh();
+  assert.deepEqual(h.state.runs, [fresh, otherTester]);
+ });
