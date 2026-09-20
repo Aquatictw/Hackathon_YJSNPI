@@ -12,7 +12,6 @@ import {parseReplay,replayTotals,waferState,alertNames,formatObservation,replayC
 import '@/app/replay/replay.css';
 import {AppHeader} from '@/components/app-header';
 
-import {ReplayArchiveNotice} from '@/components/connection-status';
 
 import WaferScene from '@/components/wafer-scene';
 import {waferEvaluation,replaySelection} from '@/lib/rtdi/ui-presentation';
@@ -116,7 +115,6 @@ export function OfflineReplayAnalysis({sourceChooser,restoreImport=false,onSourc
  }
  return <div className="shell replay-shell"><AppHeader active="replay"/>
  <main id="main-content" className="workspace replay-workspace" aria-busy={loading}>{typeof sourceChooser==='function'?sourceChooser(()=>void loadProject(true)):sourceChooser}<div className="heading"><div><div className="eyebrow">{t("EVIDENCE REVIEW / REPLAY")}</div><h1>{t("Wafer Analysis")}</h1><p className="sub">{t("Inspect recorded alerts, site measurements and model validation.")}</p></div><div className="replay-actions"><Button variant="outline" onClick={()=>fileRef.current?.click()}><Upload size={16}/> {t("Import summary")}</Button><Button onClick={nextWafer} disabled={loading||displayed.length<2}><BookOpen size={16}/>{t("Next wafer")}<ChevronRight size={15}/></Button><Input ref={fileRef} type="file" accept=".json,application/json" className="hidden" aria-label={t("Import replay summary JSON")} onChange={e=>{const f=e.target.files?.[0];if(f)void importFile(f);e.target.value='';}}/></div></div>
- <ReplayArchiveNotice/>
  <WaferScene waferId={wafer?.wafer} yieldRatio={wafer?.yield} devices={wafer?.devices}/>
  <div className="simulation-banner replay-banner"><FlaskConical size={16}/><span><strong>{t("REPLAY")}</strong> {t("· Historical replay. Live operation and tester receipt are unverified.")}</span><span className="banner-end">{t("OFFLINE EVIDENCE")}</span></div>
  <div data-tour-local-import={source.startsWith('Local import')?'true':'false'} className="replay-source"><span><FileJson2 size={14}/>{source?(source.startsWith('Local import · ')?t('Local import · {0}',source.slice(15)):t(source)):t(loading?'Loading bundled snapshot…':'No summary loaded')}</span><Button variant="ghost" size="sm" onClick={()=>void loadProject(true)} disabled={loading}>{t("Use bundled example")}</Button></div>

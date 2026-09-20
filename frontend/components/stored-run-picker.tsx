@@ -64,7 +64,7 @@ export function StoredRunPicker({ onLoad, busy = false, imported = false, childr
         <label htmlFor={id + '-run'}>{t('Run ID')}<input id={id + '-run'} value={run} onChange={event => setRun(event.target.value)} required maxLength={120}/></label>
         <label htmlFor={id + '-tester'}>{t('Tester ID')}<input id={id + '-tester'} value={tester} onChange={event => setTester(event.target.value)} placeholder={t('Optional tester filter')} maxLength={120}/></label>
       </> : <label className="dc-stored-run-label" htmlFor={id + '-stored'}>{t('Stored run · Tester ID / Run ID')}
-        <select id={id + '-stored'} value={archive ? '__summary__' : state.selected} aria-describedby={id + '-status ' + id + '-note'} disabled={locked || (!onLoadSummary && (state.loading || !state.runs.length))} onChange={event => {setArchive(event.target.value === '__summary__'); discovery.current?.select(event.target.value);}}>
+        <select id={id + '-stored'} value={archive ? '__summary__' : state.selected} aria-describedby={id + '-status'} disabled={locked || (!onLoadSummary && (state.loading || !state.runs.length))} onChange={event => {setArchive(event.target.value === '__summary__'); discovery.current?.select(event.target.value);}}>
           <option value="">{t('Choose a stored run')}</option>
           {(['replay', 'live'] as const).map(category => <optgroup key={category} label={t(category === 'live' ? 'Live' : 'Replay')}>
             {category === 'replay' && onLoadSummary && <option value="__summary__">{t('summary.json · Offline wafer archive')}</option>}
@@ -77,14 +77,13 @@ export function StoredRunPicker({ onLoad, busy = false, imported = false, childr
       {children}
     </form>
     <div className="dc-run-discovery">
-      <p id={id + '-note'} className="dc-run-load-note">{t('Selection takes effect only after Load.')}</p>
       <p id={id + '-status'} className="dc-run-discovery-status" role="status" aria-live="polite">{state.loading ? t('Finding stored runs…') : state.error ? t('Could not refresh stored runs. Retry with Refresh runs.') : state.loaded && !state.runs.length ? t('No stored runs found. Refresh after data is received, or enter a known ID.') : ''}</p>
       {state.error && state.runs.length > 0 && <p>{t('Showing the last fetched list; it may be out of date.')}</p>}
       {state.managementError && <p className="dc-run-management-error" role="alert">{t(state.managementError)}</p>}
       <div className="dc-run-management" role="group" aria-label={t('Manage selected run')} aria-busy={state.managing}>
         <button className="dc-secondary dc-run-remove" type="button" disabled={!canManage} onClick={remove}><Trash2 size={16} aria-hidden="true"/>{t('Remove')}</button>
         <button className="dc-secondary" type="button" disabled={!canArchive} aria-describedby={id + '-manage-note'} onClick={() => {if (canArchive) void discovery.current?.manage('archive', forgetDeleted);}}><ArrowUp size={16} aria-hidden="true"/>{t('Move to Replay')}</button>
-        <span id={id + '-manage-note'} role="status">{state.managing ? t('Updating selected run…') : t('Move to Replay is available for finished Live runs only.')}</span>
+        <span id={id + '-manage-note'} role="status">{state.managing ? t('Updating selected run…') : ''}</span>
       </div>
       {state.nextOffset !== null && <button className="dc-secondary" type="button" disabled={locked || state.loading} onClick={() => void discovery.current?.more()}>{t('Show more runs')}</button>}
       <div className="dc-run-options">
