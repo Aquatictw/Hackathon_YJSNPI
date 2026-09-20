@@ -53,7 +53,7 @@ for (const locale of ['en', 'zh-TW']) for (const entry of renderers) {
     const render = data => renderToStaticMarkup(React.createElement(Component, {[entry[3]]: data}));
     const markup = render(evidence);
     assert.match(markup, /role="group" aria-labelledby=/);
-    assert.match(markup, locale === 'en' ? /Y axis.*Measurement value [(]unit unconfirmed[)]/ : /Y 軸.*量測值（單位未確認）/);
+    assert.match(markup, locale === 'en' ? /Y axis.*Measurement value/ : /Y 軸.*量測值/);
     assert.match(markup, locale === 'en' ? /X axis.*Completed-device order within each site [(]not time[)]/ : /X 軸.*各測試站內已完成元件順序（非時間）/);
     // Both titles are HTML outside the SVG; they can wrap without scaling down.
     assert.ok(markup.indexOf('plot-axis-title--y') < markup.indexOf('<svg'));
@@ -70,7 +70,7 @@ test('single-series measurement, untrusted unit labels and coverage keep truthfu
   const {PlotAxes} = compile(read('../components/plot-axes.tsx'), 'en');
   const render = props => renderToStaticMarkup(React.createElement(PlotAxes, props, React.createElement('svg')));
   const measurement = render({unit:'<b>°C</b>'});
-  assert.match(measurement, /Measurement value [(]unit unconfirmed[)]/);
+  assert.match(measurement, /Measurement value/);
   assert.ok(measurement.includes('Source unit label: &lt;b&gt;°C&lt;/b&gt;'));
   assert.match(measurement, /Completed-device order [(]not time[)]/);
   assert.match(render({metric:'coverage'}), /Feature coverage [(]ratio, 0–1[)]/);

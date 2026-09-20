@@ -22,7 +22,7 @@ export function PlotAxes({ children, perSite = false, metric = 'measurement', un
     ? (zh ? '累積良率（%）' : 'Cumulative yield (%)')
     : metric === 'coverage'
       ? (zh ? '特徵涵蓋率（比例，0–1）' : 'Feature coverage (ratio, 0–1)')
-      : (zh ? '量測值（單位未確認）' : 'Measurement value (unit unconfirmed)');
+      : (zh ? '量測值' : 'Measurement value');
   const suppliedUnit = metric === 'measurement' && unit?.trim();
   return <div className="plot-axes" role="group" aria-labelledby={`${id}-y ${id}-x`}>
     <p className="plot-axis-title plot-axis-title--y" id={`${id}-y`}>
