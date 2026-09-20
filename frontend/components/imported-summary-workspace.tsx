@@ -61,7 +61,7 @@ function SummaryPlot({ alert }: { alert: ReplayAlert }) {
     </svg></div><div className="dc-legend">{lines.map((line, index) => <span key={line.name}><i style={{ background: colors[index % colors.length] }}/>{label(line.name)}</span>)}</div><p className="isw-note">{yieldMode ? t('Completed-device order') : t('Sample order within each site')} {t('· no timestamps')} · {yieldMode ? t('Percent') : t('Raw values · units unverified')}</p></div>;
 }
 
-export function ImportedSummaryWorkspace({ replay, onLoadBackend }: { replay: ImportedReplay; onLoadBackend: (run: string, tester: string) => void }) {
+export function ImportedSummaryWorkspace({ replay, onLoadBackend, onLoadSummary, summaryLoading = false }: { replay: ImportedReplay; onLoadBackend: (run: string, tester: string) => void; onLoadSummary?: () => Promise<void>; summaryLoading?: boolean }) {
     const { t } = useLocale();
     const { data, filename } = replay;
     const [selection, setSelection] = useState(() => normalizeSelection(replay));
@@ -84,9 +84,9 @@ export function ImportedSummaryWorkspace({ replay, onLoadBackend }: { replay: Im
     }
     return <div className="dc-app isw-app"><AppHeader active="workspace"/><div className="dc-main"><main id="main-content">
         <div className="dc-heading"><div><div className="dc-eyebrow">{t('OPERATIONS / RUN WORKSPACE')}</div><h1>{t('Imported summary')}</h1><p>{t('Inspect recorded alerts, site measurements and model validation.')}</p></div><span className="dc-source-badge">{t('OFFLINE EVIDENCE')}</span></div>
-        <div className="isw-source" data-tour-local-import="true"><FileJson2 size={20}/><strong>{filename}</strong><a href="/">{t('Open replay analysis')}</a></div>
+        <div className="isw-source" data-tour-local-import="true"><FileJson2 size={20}/><strong>{filename}</strong><a href="/replay">{t('Open replay analysis')}</a></div>
         <p className="isw-note">{t('Summary source only. No backend run, event stream or model request is started.')}</p>
-        <StoredRunPicker imported onLoad={(run, tester) => {
+        <StoredRunPicker imported onLoadSummary={onLoadSummary} summarySelected={filename === 'summary.json'} busy={summaryLoading} onLoad={(run, tester) => {
             setBackendError(false);
             try { onLoadBackend(run, tester); } catch { setBackendError(true); }
         }}/>

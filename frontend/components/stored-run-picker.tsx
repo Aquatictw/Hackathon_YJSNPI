@@ -53,7 +53,7 @@ export function StoredRunPicker({ onLoad, busy = false, imported = false, childr
           </optgroup>)}
         </select>
       </label>}
-      <button className="dc-primary" type="submit" disabled={!canLoad}><Radio size={16}/>{t(imported ? 'Load backend run' : 'Load run')}</button>
+      <button className="dc-primary" type="submit" disabled={!canLoad}><Radio size={16}/>{t(imported && !archive ? 'Load backend run' : 'Load run')}</button>
       <button className="dc-secondary" type="button" disabled={state.loading} onClick={() => void discovery.current?.refresh()}><RefreshCw size={16}/>{t('Refresh runs')}</button>
       {children}
     </form>

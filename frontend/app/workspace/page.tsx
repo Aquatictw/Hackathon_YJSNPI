@@ -16,7 +16,8 @@ import { StoredRunPicker } from '@/components/stored-run-picker';
 import { TemperatureRecords } from '@/components/temperature-records';
 import { investigationAvailability } from '@/lib/rtdi/ui-presentation';
 import { ImportedSummaryWorkspace } from '@/components/imported-summary-workspace';
-import { readSourceSession, selectBackendSource, type SourceSession } from '@/lib/rtdi/source-session';
+import { readSourceSession, selectBackendSource, writeSourceSession, type SourceSession } from '@/lib/rtdi/source-session';
+import { parseReplay } from '@/lib/rtdi/replay';
 const names: Record<string, string> = { site_imbalance: 'Site imbalance', low_yield: 'Low yield', mean_drift_up: 'Mean drift · up', mean_drift_down: 'Mean drift · down', spread_up: 'Spread increase', spread_down: 'Spread decrease' };
 const predictionLabels: Record<NonNullable<EdgeRecord['response_status']>, string> = { not_requested: 'Not requested', insufficient_data: 'Insufficient data', response_queued: 'Response queued · tester unconfirmed', tester_confirmed: 'Source reports tester confirmation', unknown: 'Unknown' };
 const commandLabels: Record<CommandStatus, string> = {
@@ -59,6 +60,22 @@ type WorkspaceSource = { mode: 'loading' } | { mode: 'summary'; replay: NonNulla
 export default function Dashboard() {
     const { t } = useLocale();
     const [source, setSource] = useState<WorkspaceSource>({ mode: 'loading' });
+    const [summaryLoading, setSummaryLoading] = useState(false);
+    const [summaryError, setSummaryError] = useState('');
+    const [summaryVersion, setSummaryVersion] = useState(0);
+    async function loadSummary() {
+        setSummaryLoading(true); setSummaryError('');
+        try {
+            const response = await fetch('/replay/summary.json', { cache: 'no-store' });
+            if (!response.ok) throw Error('Snapshot unavailable');
+            const data = parseReplay(await response.json());
+            const replay = { data, filename: 'summary.json', selection: { waferId: data.wafers[0].wafer, alertIndex: 0, filter: 'all', tab: 'analysis', detailOpen: true } };
+            writeSourceSession({ version: 1, mode: 'summary', replay });
+            setSource({ mode: 'summary', replay });
+            setSummaryVersion(value => value + 1);
+        } catch { setSummaryError('Could not load a valid replay snapshot.'); }
+        finally { setSummaryLoading(false); }
+    }
     useEffect(() => {
         // Resolve the shared source before mounting anything that restores backend scope.
         const session = readSourceSession();
@@ -67,15 +84,15 @@ export default function Dashboard() {
             : { mode: 'backend' });
     }, []);
     if (source.mode === 'loading') return <div className="dc-app"><div className="dc-main"><main id="main-content" aria-busy="true"><p role="status">{t('Restoring selected source…')}</p></main></div></div>;
-    if (source.mode === 'summary') return <ImportedSummaryWorkspace replay={source.replay} onLoadBackend={(run, tester) => {
+    const content = source.mode === 'summary' ? <ImportedSummaryWorkspace key={summaryVersion} replay={source.replay} onLoadSummary={loadSummary} summaryLoading={summaryLoading} onLoadBackend={(run, tester) => {
         // A failed write keeps the summary visible and lets the form report the error.
         selectBackendSource();
         setSource({ mode: 'backend', initialScope: { run, tester } });
-    }}/>;
-    return <BackendWorkspace initialScope={source.initialScope}/>;
+    }}/> : <BackendWorkspace initialScope={source.initialScope} onLoadSummary={loadSummary} summaryLoading={summaryLoading}/>;
+    return <>{summaryError && <p className="dc-error" role="alert">{t(summaryError)}</p>}{content}</>;
 }
 
-function BackendWorkspace({ initialScope }: { initialScope?: BackendScope }) {
+function BackendWorkspace({ initialScope, onLoadSummary, summaryLoading }: { initialScope?: BackendScope; onLoadSummary: () => Promise<void>; summaryLoading: boolean }) {
  const {t, locale} = useLocale();
 
     const [chatTopic, setChatTopic] = useState<"analysis" | "knowledge">("analysis");
@@ -129,7 +146,7 @@ function BackendWorkspace({ initialScope }: { initialScope?: BackendScope }) {
     return <div className="dc-app"><AppHeader active="workspace"/>
  <div className="dc-main"><main id="main-content">
  <div className="dc-heading"><div><div className="dc-eyebrow">{t("OPERATIONS / RUN WORKSPACE")}</div><h1>{t("Run overview")}</h1><p>{t("Inspect source records, compare site behavior, and document findings.")}</p></div><BackendConnectionStatus status={status}/></div>
- <StoredRunPicker onLoad={connect} busy={status === 'Connecting'}>{scope && <button className="dc-icon" type="button" aria-label={t("Disconnect event stream")} onClick={disconnect}><Unplug size={18}/></button>}</StoredRunPicker>
+ <StoredRunPicker onLoadSummary={onLoadSummary} onLoad={connect} busy={summaryLoading || status === 'Connecting' || busy}>{scope && <button className="dc-icon" type="button" aria-label={t("Disconnect event stream")} onClick={disconnect}><Unplug size={18}/></button>}</StoredRunPicker>
  {error && <div className="dc-error" role="alert"><TriangleAlert size={18}/>{t(error)}<span>{t("Check the run ID and backend configuration, then retry.")}</span></div>}
  <StoredSourceNotice source={data?.run ?? null}/>
  {data && <dl className="dc-loaded-run">
