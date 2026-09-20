@@ -22,6 +22,9 @@ test('workspace teaches Load before status, records and assistant; summary skips
   const backend = chapter('/', 'workspace-backend').map(s => s.id);
   assert.deepEqual(backend, ['workspace', 'load', 'stream', 'workspace-summary', 'evidence', 'temperature', 'commands', 'investigate', 'cost']);
   assert.deepEqual(chapter('/workspace', 'workspace-summary').map(s => s.id), ['workspace', 'load', 'workspace-import', 'workspace-import-views']);
+  const load=tourSteps.find(step=>step.id==='load');
+  for(const text of ['summary.json','Replay','Live','training','does not prove current machine activity','selecting an option alone does not load it'])assert.ok(load.body.includes(text),text);
+  assert.ok(zhTW[load.body].includes('summary.json'));
 });
 
 test('Replay opens the stored picker and teaches the wafer overview before Workspace', () => {

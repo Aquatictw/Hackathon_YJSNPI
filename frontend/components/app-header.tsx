@@ -18,8 +18,8 @@ export function AppHeader({active}: {active: typeof pages[number]['id']}) {
   return <>
     <a className="app-skip" href="#main-content">{t("Skip to main content")}</a>
     <header className="app-header">
-      <a className="app-brand" href="/workspace" aria-label={t("Run workspace")}>
-        <Activity size={23} aria-hidden="true"/><strong>RTDI</strong><span>{t("TEST ANALYSIS")}</span>
+      <a className="app-brand" href="/replay" aria-label={`RTDI — ${t("Replay analysis")}`}>
+        <Activity size={23} aria-hidden="true"/><strong>RTDI</strong>
       </a>
       <nav className="app-nav" aria-label={t("Main navigation")}>
         {pages.map(({id, href, label, icon: Icon}) =>

@@ -15,7 +15,7 @@ import {ReplayArchiveNotice} from '@/components/connection-status';
 
 import WaferScene from '@/components/wafer-scene';
 import {waferEvaluation,replaySelection} from '@/lib/rtdi/ui-presentation';
-import {readSourceSession,writeSourceSession,updateReplaySelection,type ReplaySelection} from '@/lib/rtdi/source-session';
+import {readSourceSession,writeSourceSession,selectReplayView,updateReplaySelection,type ReplaySelection} from '@/lib/rtdi/source-session';
 const colors=['var(--chart-1)','var(--chart-2)','var(--chart-3)','var(--chart-4)','var(--chart-5)'];
 function EvidencePlot({alert}:{alert:ReplayAlert}){
  const {t} = useLocale();
@@ -32,7 +32,7 @@ function EvidencePlot({alert}:{alert:ReplayAlert}){
  {[0,Math.floor((count-1)/2),count-1].map((i,k)=><text key={k} x={x(i)} y="239" textAnchor="middle">{i+1}</text>)}
  </svg><div className="plot-legend">{lines.map((l,i)=><span key={l.name}><i style={{background:colors[i%colors.length]}}/>{t(l.name)}</span>)}<span className="axis-note">{yieldMode ? t("Completed-device order") : t("Sample order within each site")} {t("· no timestamps")}</span></div></div>;
 }
-export function OfflineReplayAnalysis({sourceChooser,restoreImport=false}:{sourceChooser:ReactNode;restoreImport?:boolean}){
+export function OfflineReplayAnalysis({sourceChooser,restoreImport=false,onSourceChange}:{sourceChooser:ReactNode|((loadBundled:()=>void)=>ReactNode);restoreImport?:boolean;onSourceChange?:(view:'bundled'|'imported')=>void}){
  const {t} = useLocale();
  const [saved]=useState(()=>{
   if(!restoreImport)return null;
@@ -65,16 +65,17 @@ export function OfflineReplayAnalysis({sourceChooser,restoreImport=false}:{sourc
    const r=await fetch('/replay/summary.json',{signal:controller.signal,cache:'no-store'});
    if(!r.ok)throw Error(`Snapshot request failed (HTTP ${r.status}).`);
    const value=parseReplay(await r.json());if(n===requestSeq.current){
-    if(replaceImport&&readSourceSession()?.replay){
-     try{writeSourceSession({version:1,mode:'backend'});}
+    if(replaceImport){
+     try{selectReplayView('bundled');}
      catch{setError('Browser storage is unavailable or full. The source could not be changed; your previous dataset is retained.');return;}
     }
-    accept(value,'Bundled snapshot · /replay/summary.json');
+     accept(value,'Bundled snapshot · /replay/summary.json');
+     onSourceChange?.('bundled');
    }
   }catch(err){
    if(n===requestSeq.current)setError(`${err instanceof Error&&err.message.startsWith('Snapshot request failed')?err.message:'Could not load a valid replay snapshot.'} Retry or import a replay summary. Any previous dataset is retained.`);
   }finally{if(n===requestSeq.current){request.current=null;setLoading(false);}}
- },[accept]);
+ },[accept,onSourceChange]);
  function loadProject(replaceImport=false){
   const n=beginRequest();const controller=new AbortController();request.current=controller;
   return requestProject(n,controller,replaceImport);
@@ -92,9 +93,10 @@ export function OfflineReplayAnalysis({sourceChooser,restoreImport=false}:{sourc
   try{
    if(file.size>5*1024*1024)throw Error('File exceeds 5 MiB. Import a summary, not raw measurements.');
    const value=parseReplay(JSON.parse(await file.text()));if(n===requestSeq.current){
-    try{writeSourceSession({version:1,mode:'summary',replay:{data:value,filename:file.name,selection:{waferId:value.wafers[0].wafer,alertIndex:0,filter:'all',tab:'analysis',detailOpen:true}}});}
+    try{writeSourceSession({version:1,mode:'summary',replayView:'imported',replay:{data:value,filename:file.name,selection:{waferId:value.wafers[0].wafer,alertIndex:0,filter:'all',tab:'analysis',detailOpen:true}}});}
     catch{setError('Browser storage is unavailable or full. The import was not applied; your previous dataset is retained.');return;}
     accept(value,`Local import · ${file.name}`);
+    onSourceChange?.('imported');
    }
   }catch(err){
    if(n===requestSeq.current)setError(`${err instanceof Error&&err.message.startsWith('File exceeds')?err.message:'Invalid summary. Supply valid replay JSON with unique wafer IDs, wafers, validation and limitations.'} Any previous dataset is retained.`);
@@ -112,7 +114,7 @@ export function OfflineReplayAnalysis({sourceChooser,restoreImport=false}:{sourc
   finally{if(n===copySeq.current)setCopyPending(false);}
  }
  return <div className="shell replay-shell"><AppHeader active="replay"/>
- <main id="main-content" className="workspace replay-workspace" aria-busy={loading}>{sourceChooser}<div className="heading"><div><div className="eyebrow">{t("EVIDENCE REVIEW / REPLAY")}</div><h1>{t("Replay analysis")}</h1><p className="sub">{t("Inspect recorded alerts, site measurements and model validation.")}</p></div><div className="replay-actions"><Button variant="outline" onClick={()=>fileRef.current?.click()}><Upload size={16}/> {t("Import summary")}</Button><Button onClick={nextWafer} disabled={loading||displayed.length<2}><BookOpen size={16}/>{t("Next wafer")}<ChevronRight size={15}/></Button><Input ref={fileRef} type="file" accept=".json,application/json" className="hidden" aria-label={t("Import replay summary JSON")} onChange={e=>{const f=e.target.files?.[0];if(f)void importFile(f);e.target.value='';}}/></div></div>
+ <main id="main-content" className="workspace replay-workspace" aria-busy={loading}>{typeof sourceChooser==='function'?sourceChooser(()=>void loadProject(true)):sourceChooser}<div className="heading"><div><div className="eyebrow">{t("EVIDENCE REVIEW / REPLAY")}</div><h1>{t("Replay analysis")}</h1><p className="sub">{t("Inspect recorded alerts, site measurements and model validation.")}</p></div><div className="replay-actions"><Button variant="outline" onClick={()=>fileRef.current?.click()}><Upload size={16}/> {t("Import summary")}</Button><Button onClick={nextWafer} disabled={loading||displayed.length<2}><BookOpen size={16}/>{t("Next wafer")}<ChevronRight size={15}/></Button><Input ref={fileRef} type="file" accept=".json,application/json" className="hidden" aria-label={t("Import replay summary JSON")} onChange={e=>{const f=e.target.files?.[0];if(f)void importFile(f);e.target.value='';}}/></div></div>
  <ReplayArchiveNotice/>
  <WaferScene waferId={wafer?.wafer} yieldRatio={wafer?.yield} devices={wafer?.devices}/>
  <div className="simulation-banner replay-banner"><FlaskConical size={16}/><span><strong>{t("REPLAY")}</strong> {t("· Historical replay. Live operation and tester receipt are unverified.")}</span><span className="banner-end">{t("OFFLINE EVIDENCE")}</span></div>

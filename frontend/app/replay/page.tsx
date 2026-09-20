@@ -5,6 +5,7 @@ import {AppHeader} from '@/components/app-header';
 import {RunAnalysis} from '@/components/run-analysis';
 import {OfflineReplayAnalysis} from '@/components/offline-replay-analysis';
 import {StoredRunPicker} from '@/components/stored-run-picker';
+import {readReplayView, selectReplayView} from '@/lib/rtdi/source-session';
 import './replay.css';
 
 const subscribeHydration=()=>()=>{};
@@ -17,8 +18,16 @@ export default function ReplayPage(){
  return hydrated?<ReplayClient/>:<div className="dc-app"><AppHeader active="replay"/><main id="main-content" aria-busy="true"><p role="status">{t('Restoring selected source…')}</p></main></div>;
 }
 function ReplayClient(){
- const [scope,setScope]=useState<{run:string;tester:string}|null>(null);
- const [archiveVersion,setArchiveVersion]=useState(0);
- return scope ? <RunAnalysis initialScope={scope} onSummary={()=>setScope(null)}/>
- : <OfflineReplayAnalysis key={archiveVersion} sourceChooser={<StoredRunPicker summarySelected onLoadSummary={()=>setArchiveVersion(value=>value+1)} onLoad={(run,tester)=>setScope({run,tester})}/>}/>;
+ const {t}=useLocale();
+ const [view,setView]=useState(readReplayView);
+ const [scope,setScope]=useState<{run:string;tester:string}>();
+ const [error,setError]=useState('');
+ function select(view:'bundled'|'backend',scope?:{run:string;tester:string}){
+  try{selectReplayView(view);}
+  catch{setError('Browser storage is unavailable or full. The source could not be changed; your previous dataset is retained.');return;}
+  setError('');setView(view);setScope(scope);
+ }
+ return <>{error&&<p role="alert">{t(error)}</p>}{view==='backend'
+  ? <RunAnalysis initialScope={scope} onSummary={()=>select('bundled')}/>
+  : <OfflineReplayAnalysis restoreImport={view==='imported'} onSourceChange={setView} sourceChooser={loadBundled=><StoredRunPicker key={view} summarySelected={view==='bundled'} onLoadSummary={loadBundled} onLoad={(run,tester)=>select('backend',{run,tester})}/>}/>}</>;
 }

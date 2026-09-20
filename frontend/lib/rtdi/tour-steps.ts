@@ -162,8 +162,8 @@ export const tourSteps: TourStep[] = [
     "route": "/workspace",
     "chapter": "Run workspace",
     "target": ".dc-run-picker",
-    "title": "Choose a stored run, then Load",
-    "body": "Choose a stored Tester ID / Run ID pair, refresh the list or enter IDs manually. Selection details describes the pending choice; the loaded run changes only after Load succeeds.",
+    "title": "Choose a source, then Load",
+    "body": "Choose bundled summary.json or a stored Tester ID / Run ID pair, then Load. Replay includes recorded Gemini captures and imported replay records, including training; Live groups stored live-source runs and does not prove current machine activity. You can refresh the list or enter IDs manually. Selection details describes the pending choice; selecting an option alone does not load it.",
     "detail": "An imported summary remains offline until you explicitly choose Load backend run. Switching to backend data retains the saved import in this browser tab."
   },
   {

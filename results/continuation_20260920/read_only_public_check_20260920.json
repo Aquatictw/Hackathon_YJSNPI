@@ -1,0 +1,74 @@
+{
+  "observed_at": "2026-09-20T00:54:02.513Z",
+  "application_revision": "e506baf3428a5aa7972e65f097471f852dfbd301",
+  "origin": "https://hackathon.aquatictw.com",
+  "run": {
+    "run_id": "04dcb07358ee4f3da41e5cbc12cb9850",
+    "tester_id": "group-6",
+    "edge_id": "grp6-hc-relay",
+    "mode": "live",
+    "lot_id": "B13456",
+    "wafer_id": "02",
+    "data_quality": "partial",
+    "last_event_at": "2026-09-19T19:11:38.946Z"
+  },
+  "events": 1723,
+  "predictions": 480,
+  "joined_actuals": 480,
+  "incidents": 3,
+  "evidence": 3,
+  "yield_records": 20,
+  "completed_devices": 80,
+  "yield_fraction": 0.925,
+  "sse": {
+    "ready": true,
+    "heartbeat": true,
+    "edge_events": 1723
+  },
+  "catalog": {
+    "runs": [
+      {
+        "run_id": "d132133657be459e8e97b6fd442142e2",
+        "tester_id": "group-6",
+        "edge_id": "grp6-recorded-capture",
+        "mode": "replay",
+        "last_event_at": "2026-09-19T07:07:51.743Z",
+        "updated_at": "2026-09-19 19:37:37"
+      },
+      {
+        "run_id": "ae20cd5ae29d47af87163265205ffced",
+        "tester_id": "group-6",
+        "edge_id": "grp6-recorded-capture",
+        "mode": "replay",
+        "last_event_at": "2026-09-19T06:32:48.037Z",
+        "updated_at": "2026-09-19 19:37:31"
+      },
+      {
+        "run_id": "04dcb07358ee4f3da41e5cbc12cb9850",
+        "tester_id": "group-6",
+        "edge_id": "grp6-hc-relay",
+        "mode": "live",
+        "last_event_at": "2026-09-19T19:11:38.946Z",
+        "updated_at": "2026-09-19 19:11:44"
+      },
+      {
+        "run_id": "3f46468325ac47de894e6a13d3c672e0",
+        "tester_id": "group-6",
+        "edge_id": "grp6-hc-relay",
+        "mode": "live",
+        "last_event_at": "2026-09-19T18:10:59.496Z",
+        "updated_at": "2026-09-19 19:02:43"
+      },
+      {
+        "run_id": "grp6-replay-demo",
+        "tester_id": "grp6-replay",
+        "edge_id": "grp6-replay-exporter",
+        "mode": "replay",
+        "last_event_at": "2026-09-19T02:47:32.000Z",
+        "updated_at": "2026-09-19 10:31:19"
+      }
+    ],
+    "next_offset": null
+  },
+  "paid_ai_calls": 0
+}
