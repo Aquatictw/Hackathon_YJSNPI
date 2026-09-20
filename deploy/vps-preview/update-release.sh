@@ -90,8 +90,8 @@ node -e 'const c=require(process.argv[1]);if(c.backend_connected!==true || c.ing
 run_app node scripts/local-backend.mjs seed
 curl --fail --silent --max-time 15 http://127.0.0.1:5173/ > "$backup/home.html"
 curl --fail --silent --max-time 15 http://127.0.0.1:5173/replay > "$backup/replay.html"
-curl --fail --silent --max-time 15 'http://127.0.0.1:5173/api/v1/runs/grp6-replay-demo?tester_id=grp6-replay' > "$backup/snapshot.json"
-node -e 'const s=require(process.argv[1]);if(s.run?.mode!=="replay" || !s.events?.length) process.exit(1); console.log("Replay snapshot: "+s.events.length+" events")' "$backup/snapshot.json"
+# Seed skips durable deletion tombstones; verify remaining scopes or explicit empty state.
+run_app node "$release/deploy/vps-preview/verify-http.mjs" http://127.0.0.1:5173 --backend-only > "$backup/stored-runs.json"
 resume_proxy
 if [[ -n $old && -d $old ]]; then ln -sfn "$old" "$base/previous"; fi
 trap - ERR

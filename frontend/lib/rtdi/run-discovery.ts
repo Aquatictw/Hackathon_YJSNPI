@@ -3,6 +3,7 @@ import { z } from 'zod';
 export const storedRunSchema = z.object({
   run_id: z.string().min(1), tester_id: z.string().min(1), edge_id: z.string(),
   mode: z.enum(['live', 'replay', 'simulation']),
+  archived: z.boolean().default(false), finished: z.boolean().default(false),
   last_event_at: z.string(), updated_at: z.string(),
 });
 export type StoredRun = z.infer<typeof storedRunSchema>;
@@ -11,6 +12,8 @@ export const runListSchema = z.object({
   next_offset: z.number().int().nonnegative().nullable(),
 });
 export const runChoiceKey = (run: Pick<StoredRun, 'run_id' | 'tester_id'>) => JSON.stringify([run.tester_id, run.run_id]);
+export const storedRunCategory = (run: Pick<StoredRun, 'mode' | 'archived'>) => run.mode === 'live' && !run.archived ? 'live' : 'replay';
+export type ManagedRunScope = {run: string; tester: string};
 export const runModeLabel = (mode: StoredRun['mode']) => ({
   live: 'STORED · LIVE-SOURCE RECORDS', replay: 'REPLAY · IMPORTED RECORDS', simulation: 'SIMULATION',
 })[mode];
@@ -36,8 +39,9 @@ const retiredRecoveryRuns = new Set(['4620bc260aef42329930bbf46d35b13f', '74c4e8
 export const isRetiredRecoveryRun = (run: StoredRun) => run.tester_id === 'group-6' && run.edge_id === 'grp6-hc-relay' && run.mode === 'live' && retiredRecoveryRuns.has(run.run_id);
 export type RunDiscoveryState = {
   runs: StoredRun[]; selected: string; loading: boolean; loaded: boolean; error: boolean; nextOffset: number | null;
+  managing: boolean; managementError: string;
 };
-export const initialRunDiscovery = (): RunDiscoveryState => ({ runs: [], selected: '', loading: false, loaded: false, error: false, nextOffset: null });
+export const initialRunDiscovery = (): RunDiscoveryState => ({ runs: [], selected: '', loading: false, loaded: false, error: false, nextOffset: null, managing: false, managementError: '' });
 export const selectedStoredRun = (state: RunDiscoveryState) => state.runs.find(run => runChoiceKey(run) === state.selected);
 
 /** Discovery only edits a draft choice. Loading snapshots and changing the saved
@@ -49,7 +53,7 @@ export function createRunDiscovery(fetcher: typeof fetch, publish: (state: RunDi
     if (!disposed) { state = { ...state, ...change }; publish(state); }
   };
   async function request(append: boolean) {
-    if (disposed || (append && (state.loading || state.nextOffset === null))) return;
+    if (disposed || state.managing || (append && (state.loading || state.nextOffset === null))) return;
     const offset = append ? state.nextOffset! : 0;
     cancel?.abort();
     const controller = new AbortController(); cancel = controller;
@@ -71,7 +75,35 @@ export function createRunDiscovery(fetcher: typeof fetch, publish: (state: RunDi
   }
   return {
     refresh: () => request(false), more: () => request(true),
-    select: (selected: string) => patch({ selected: state.runs.some(run => runChoiceKey(run) === selected) ? selected : '' }),
+    async manage(action: 'archive' | 'delete', onDeleted: (scope: ManagedRunScope) => void) {
+      const chosen = selectedStoredRun(state);
+      if (disposed || state.managing || state.loading || !chosen
+        || (action === 'archive' && (storedRunCategory(chosen) !== 'live' || !chosen.finished))) return false;
+      const key = runChoiceKey(chosen);
+      cancel?.abort(); generation++;
+      patch({managing: true, managementError: ''});
+      let succeeded = false;
+      try {
+        // A response abort cannot undo a server mutation. Finish deletion cleanup
+        // even when the picker unmounts while its POST is pending.
+        const response = await fetcher('/api/v1/runs/' + encodeURIComponent(chosen.run_id) + '/manage', {
+          method: 'POST', headers: {'Content-Type': 'application/json'}, credentials: 'same-origin',
+          body: JSON.stringify({tester_id: chosen.tester_id, action}),
+        });
+        if (!response.ok) throw Error('management failed');
+        z.object({ok: z.literal(true)}).parse(await response.json());
+        succeeded = true;
+        patch({runs: action === 'delete' ? state.runs.filter(run => runChoiceKey(run) !== key)
+          : state.runs.map(run => runChoiceKey(run) === key ? {...run, archived: true} : run),
+          selected: action === 'delete' && state.selected === key ? '' : state.selected});
+        if (action === 'delete') onDeleted({run: chosen.run_id, tester: chosen.tester_id});
+      } catch {
+        patch({managementError: succeeded ? 'Run removed, but the saved session could not be cleared.' : 'Could not manage this run. Refresh runs and try again.'});
+      } finally {patch({managing: false});}
+      if (succeeded && !disposed) await request(false);
+      return succeeded;
+    },
+    select: (selected: string) => {if (!state.managing) patch({ selected: state.runs.some(run => runChoiceKey(run) === selected) ? selected : '', managementError: '' });},
     dispose: () => { disposed = true; generation++; cancel?.abort(); },
   };
 }

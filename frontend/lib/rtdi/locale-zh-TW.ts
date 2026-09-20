@@ -1,6 +1,14 @@
 /** Taiwan Traditional Chinese application copy. Source records remain verbatim. */
 import { tourZhTW } from './tour-locale-zh-TW.ts';
 export const zhTW: Record<string, string> = {
+  'Remove': '移除',
+  'Move to Replay': '移至重播',
+  'Manage selected run': '管理所選批次',
+  'Updating selected run…': '正在更新所選批次…',
+  'Move to Replay is available for finished Live runs only.': '僅已完成的即時批次可移至重播。',
+  'Permanently delete this run and all its stored records? This cannot be undone.': '永久刪除此批次及其所有已儲存記錄？此操作無法復原。',
+  'Could not manage this run. Refresh runs and try again.': '無法更新此批次。請重新整理批次後再試。',
+  'Run removed, but the saved session could not be cleared.': '批次已移除，但無法清除已儲存的工作階段。',
   'Live': '即時',
   'STORED · LIVE-SOURCE RECORDS': '已儲存 · 即時來源記錄',
   'Gemini run': 'Gemini 批次',

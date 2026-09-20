@@ -5,7 +5,7 @@ import { createRunDiscovery, initialRunDiscovery, isRecordedCapture, isTrainingR
 import { readSourceSession, writeSourceSession, selectBackendSource } from '../lib/rtdi/source-session.ts';
 import { zhTW } from '../lib/rtdi/locale-zh-TW.ts';
 
-const run = (tester = 'a', id = 'shared', mode = 'live') => ({ tester_id: tester, run_id: id, mode, edge_id: 'edge', last_event_at: '2026-09-20T02:00:00Z', updated_at: '2026-09-20 02:00:01' });
+const run = (tester = 'a', id = 'shared', mode = 'live') => ({ tester_id: tester, run_id: id, mode, archived: false, finished: false, edge_id: 'edge', last_event_at: '2026-09-20T02:00:00Z', updated_at: '2026-09-20 02:00:01' });
 const response = (runs, next_offset = null) => Response.json({ runs, next_offset });
 test('recorded capture labels require both the capture source and replay mode', () => {
   const capture = { ...run(), edge_id: 'grp6-recorded-capture', mode: 'replay' };

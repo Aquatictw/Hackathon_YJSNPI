@@ -1,0 +1,7 @@
+.plot-axes{min-width:0;max-width:100%;margin-block:12px}
+.plot-axes .plot-axis-title{font-size:14px;line-height:1.6;color:var(--foreground);white-space:normal;overflow-wrap:anywhere;margin:0;padding:6px 0}
+.plot-axes .plot-axis-title--x{text-align:center}
+.plot-axes .plot-axis-title strong{font-weight:650}
+.plot-axes__viewport{max-width:100%;overflow-x:auto;overscroll-behavior-x:contain}
+.plot-axes .plot-axes__viewport svg{display:block;width:100%;min-width:500px;height:auto}
+.plot-axes__viewport:focus-visible{outline:2px solid var(--primary);outline-offset:-2px}

@@ -41,7 +41,35 @@ export function createConversationCache(storage?: ConversationStorage) {
       }
     }
   } catch { /* An unavailable or corrupt session must not prevent connection. */ }
+  const persist = () => {
+    if (!storage) return;
+    try {
+      const raw = JSON.stringify({version: 1, lastScope, selections: [...selections.values()], conversations: [...conversations.values()]});
+      if (raw.length <= MAX_SESSION_CHARS) storage.setItem(CONVERSATION_SESSION_KEY, raw);
+    } catch { /* Keep the current in-memory session when storage is denied/full. */ }
+  };
   return {
+    forget(scope: ConversationScope) {
+      const key = scopeKey(scope);
+      selections.delete(key);
+      for (const [id, entry] of conversations) if (scopeKey(entry.scope) === key) conversations.delete(id);
+      if (lastScope && scopeKey(lastScope) === key) lastScope = null;
+      // A deletion can finish after route unmount. Preserve newer conversations
+      // written by the destination controller rather than saving our stale cache.
+      try {
+        const raw = storage?.getItem(CONVERSATION_SESSION_KEY);
+        const parsed = raw && raw.length <= MAX_SESSION_CHARS ? sessionSchema.safeParse(JSON.parse(raw)) : null;
+        if (parsed?.success) {
+          const saved = parsed.data;
+          saved.selections = saved.selections.filter(entry => scopeKey(entry.scope) !== key);
+          saved.conversations = saved.conversations.filter(entry => scopeKey(entry.scope) !== key);
+          if (saved.lastScope && scopeKey(saved.lastScope) === key) saved.lastScope = null;
+          storage?.setItem(CONVERSATION_SESSION_KEY, JSON.stringify(saved));
+          return;
+        }
+      } catch { /* In-memory cleanup still succeeds when storage is unavailable. */ }
+      persist();
+    },
     lastScope: () => lastScope,
     selected: (scope: ConversationScope) => selections.get(scopeKey(scope))?.selected ?? '',
     read: (scope: ConversationScope, context: ConversationContext): Conversation =>
@@ -50,11 +78,7 @@ export function createConversationCache(storage?: ConversationStorage) {
       lastScope = scope;
       selections.set(scopeKey(scope), {scope, selected});
       conversations.set(conversationKey(scope, context), {scope, context, value});
-      if (!storage) return;
-      try {
-        const raw = JSON.stringify({version: 1, lastScope, selections: [...selections.values()], conversations: [...conversations.values()]});
-        if (raw.length <= MAX_SESSION_CHARS) storage.setItem(CONVERSATION_SESSION_KEY, raw);
-      } catch { /* Keep the current in-memory session when storage is denied/full. */ }
+      persist();
     },
   };
 }

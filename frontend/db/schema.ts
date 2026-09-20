@@ -1,5 +1,5 @@
 import { sql } from "drizzle-orm";
-import { index, integer, real, sqliteTable, text, uniqueIndex } from "drizzle-orm/sqlite-core";
+import { index, integer, primaryKey, real, sqliteTable, text, uniqueIndex } from "drizzle-orm/sqlite-core";
 
 const timestamps = {
   createdAt: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
@@ -20,6 +20,7 @@ export const runs = sqliteTable("runs", {
   testerId: text("tester_id").notNull(),
   edgeId: text("edge_id").notNull(),
   mode: text("mode").notNull(),
+  archived: integer("archived").notNull().default(0),
   lotId: text("lot_id"),
   waferId: text("wafer_id"),
   dataQuality: text("data_quality").notNull().default("partial"),
@@ -29,6 +30,12 @@ export const runs = sqliteTable("runs", {
   uniqueIndex("uq_runs_tester_run").on(table.testerId, table.runId),
   index("idx_runs_last_event_at").on(table.lastEventAt),
 ]);
+
+export const deletedRuns = sqliteTable("deleted_runs", {
+  runId: text("run_id").notNull(),
+  testerId: text("tester_id").notNull(),
+  deletedAt: text("deleted_at").notNull().default(sql`CURRENT_TIMESTAMP`),
+}, table => [primaryKey({ columns: [table.runId, table.testerId] })]);
 
 export const events = sqliteTable("events", {
   key: text("key").primaryKey(),

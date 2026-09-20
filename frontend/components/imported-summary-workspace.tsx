@@ -1,5 +1,6 @@
 "use client";
 
+import { PlotAxes } from '@/components/plot-axes';
 import { useState } from 'react';
 import { FileJson2, TriangleAlert } from 'lucide-react';
 import { StoredRunPicker } from '@/components/stored-run-picker';
@@ -52,14 +53,14 @@ function SummaryPlot({ alert }: { alert: ReplayAlert }) {
     const x = (index: number) => 80 + index / Math.max(count - 1, 1) * 540;
     const y = (value: number) => 210 - (value / scale - min) / (max - min) * 175;
     const label = (name: string) => name.startsWith('Site ') ? t('Site {0}', name.slice(5)) : t(name);
-    return <div className="isw-plot"><div className="isw-plot-scroll" role="region" tabIndex={0} aria-label={t('Measurement series')}><svg viewBox="0 0 650 250" role="img" aria-label={t('{0}; {1}; x-axis is sample order, not time.', t(alertNames[alert.kind]), lines.map(line => label(line.name)).join(', '))}>
+    return <div className="isw-plot"><PlotAxes perSite={!yieldMode && !!Object.values(alert.site_series ?? {}).some(values => values.length)} metric={yieldMode ? 'yield' : 'measurement'}><div className="isw-plot-scroll" role="region" tabIndex={0} aria-label={t('Measurement series')}><svg viewBox="0 0 650 250" role="img" aria-label={t('{0}; {1}; x-axis is sample order, not time.', t(alertNames[alert.kind]), lines.map(line => label(line.name)).join(', '))}>
         {[0, 1, 2, 3].map(index => {
             const ratio = index / 3, v = (min + (max - min) * ratio) * scale;
             return <g key={index}><path d={`M80 ${210 - ratio * 175}H620`} stroke="var(--border)"/><text x="70" y={214 - ratio * 175} textAnchor="end">{yieldMode ? `${(v * 100).toFixed(0)}%` : v.toPrecision(3)}</text></g>;
         })}
         {lines.map((line, index) => <g key={line.name}><path d={line.values.map((value, i) => `${i ? 'L' : 'M'}${x(i)} ${y(value)}`).join(' ')} fill="none" stroke={colors[index % colors.length]} strokeWidth="2.5"/>{line.values.length === 1 && <circle cx={x(0)} cy={y(line.values[0])} r="4" fill={colors[index % colors.length]}/>}</g>)}
         {[0, Math.floor((count - 1) / 2), count - 1].map((index, key) => <text key={key} x={x(index)} y="240" textAnchor="middle">{index + 1}</text>)}
-    </svg></div><div className="dc-legend">{lines.map((line, index) => <span key={line.name}><i style={{ background: colors[index % colors.length] }}/>{label(line.name)}</span>)}</div><p className="isw-note">{yieldMode ? t('Completed-device order') : t('Sample order within each site')} {t('· no timestamps')} · {yieldMode ? t('Percent') : t('Raw values · units unverified')}</p></div>;
+    </svg></div></PlotAxes><div className="dc-legend">{lines.map((line, index) => <span key={line.name}><i style={{ background: colors[index % colors.length] }}/>{label(line.name)}</span>)}</div><p className="isw-note">{yieldMode ? t('Completed-device order') : t('Sample order within each site')} {t('· no timestamps')} · {yieldMode ? t('Percent') : t('Raw values · units unverified')}</p></div>;
 }
 
 export function ImportedSummaryWorkspace({ replay, onLoadBackend, onLoadSummary, summaryLoading = false }: { replay: ImportedReplay; onLoadBackend: (run: string, tester: string) => void; onLoadSummary?: () => Promise<void>; summaryLoading?: boolean }) {

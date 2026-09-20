@@ -1,4 +1,5 @@
 "use client";
+import { PlotAxes } from '@/components/plot-axes';
 import {useLocale} from "@/components/locale-provider";
 import {AppHeader} from '@/components/app-header';
 import { z } from "zod";
@@ -109,12 +110,12 @@ function Trend({evidence:e}: {evidence:EvidenceRecord}){
  const y=(v:number)=>190-(v-min)/(max-min)*155;const x=(i:number)=>53+i/Math.max(count-1,1)*567;
  const colors=['var(--chart-1)','var(--chart-2)','var(--chart-3)','var(--chart-4)'];
  const valueLabel=(value:number)=>e.metric==='yield'?`${(value*100).toFixed(1)}%`:value.toFixed(2);
- return <div className="trend"><div className="chart-title"><span>{t("Measurement sequence")}<small>{e.metric==='yield' ? t("Yield %") : e.unit}</small></span><div className="legend">{lines.map((line,i)=><span key={line.label}><i style={{borderColor:colors[i%colors.length]}}/>{t(line.label)}</span>)}</div></div><svg viewBox="0 0 650 235" role="img" aria-label={t("Source sequence; x-axis is completed-device order, not time")}>
+ return <div className="trend"><div className="chart-title"><span>{t("Measurement sequence")}<small>{e.metric==='yield' ? t("Yield %") : e.unit}</small></span><div className="legend">{lines.map((line,i)=><span key={line.label}><i style={{borderColor:colors[i%colors.length]}}/>{t(line.label)}</span>)}</div></div><PlotAxes perSite={!!sites.length && e.metric !== 'yield'} metric={e.metric === 'yield' ? 'yield' : e.metric === 'coverage' ? 'coverage' : 'measurement'} unit={e.unit}><svg viewBox="0 0 650 235" role="img" aria-label={t("Source sequence; x-axis is completed-device order, not time")}>
  {[0,1,2,3].map(i=>{const v=min+(max-min)*i/3;return <g key={i}><path d={`M53 ${y(v)}H620`} stroke="var(--border)"/><text x="40" y={y(v)+4} textAnchor="end">{valueLabel(v)}</text></g>})}
  {e.baseline!==null && <path d={`M53 ${y(e.baseline)}H620`} stroke="var(--muted-foreground)" strokeDasharray="5 5"/>}
  {lines.map((line,i)=><path key={line.label} d={line.points.map((p,j)=>`${j?'L':'M'} ${x(j)} ${y(p.value)}`).join(' ')} fill="none" stroke={colors[i%colors.length]} strokeWidth="2.6" strokeLinejoin="round"/>)}
- {[0,Math.floor((count-1)/2),count-1].map((i,k)=><text key={k} x={x(i)} y="214" textAnchor="middle">{lines[0].points[i]?.index ?? i+1}</text>)}<text x="620" y="232" textAnchor="end">{sites.length&&e.metric!=='yield' ? t("Completed-device order within each site") : t("Completed-device order")}</text>
- </svg></div>;
+ {[0,Math.floor((count-1)/2),count-1].map((i,k)=><text key={k} x={x(i)} y="214" textAnchor="middle">{lines[0].points[i]?.index ?? i+1}</text>)}
+ </svg></PlotAxes></div>;
 }
 export default function Home(){
  const {t, locale} = useLocale();

@@ -1,4 +1,5 @@
 "use client";
+import { PlotAxes } from '@/components/plot-axes';
 import {useLocale} from "@/components/locale-provider";
 import { SemiconductorChat, ReferenceSources, type ResponseLanguage } from "@/components/semiconductor-chat";
 import { z } from "zod";
@@ -42,7 +43,7 @@ function Plot({ e }: {
     const [plotWidth, setPlotWidth] = useState(650);
     useEffect(() => { const element = plotRef.current; if (!element)
         return; const observer = new ResizeObserver(entries => { const width = entries[0]?.contentRect.width; if (width)
-        setPlotWidth(Math.max(240, width)); }); observer.observe(element); return () => observer.disconnect(); }, [e.event_id, e.series, e.site_series]);
+        setPlotWidth(Math.max(500, width)); }); observer.observe(element); return () => observer.disconnect(); }, [e.event_id, e.series, e.site_series]);
     const site = Object.entries(e.site_series ?? {}).filter(([, v]) => v.length);
     const lines = e.kind === 'low_yield' ? [['Cumulative yield', e.series ?? []] as const] : site.length ? site : [['Observed series', e.series ?? []] as const];
     const values = lines.flatMap(([, v]) => v);
@@ -50,7 +51,7 @@ function Plot({ e }: {
         return <div className="dc-empty"><Activity /><h3>{t("No series available")}</h3><p>{t("The source record does not include a plottable series.")}</p></div>;
     const lo = Math.min(...values), hi = Math.max(...values), pad = Math.max((hi - lo) * .15, .001), min = lo - pad, max = hi + pad, count = Math.max(...lines.map(([, v]) => v.length));
     const x = (i: number) => 55 + i / Math.max(count - 1, 1) * (plotWidth - 80), y = (v: number) => 212 - (v - min) / (max - min) * 170;
-    return <div className="dc-plot" ref={plotRef}><svg viewBox={"0 0 " + plotWidth + " 255"} role="img" aria-label={t("Source measurement series. The x-axis is completed-device order per site, not event time.")}>{[0, 1, 2, 3].map(i => { const v = min + (max - min) * i / 3; return <g key={i}><path d={`M55 ${y(v)}H${plotWidth - 25}`} stroke="var(--border)" strokeDasharray="3 5"/><text x="44" y={y(v) + 4} textAnchor="end">{e.kind === 'low_yield' ? `${(v * 100).toFixed(0)}%` : v.toFixed(2)}</text></g>; })}{lines.map(([label, v], j) => <path key={label} d={v.map((a, i) => `${i ? 'L' : 'M'}${x(i)} ${y(a)}`).join(' ')} stroke={palette[j % 4]} strokeWidth="2.7" fill="none" strokeLinecap="round" strokeLinejoin="round"/>)}{[0, Math.floor((count - 1) / 2), count - 1].map((i, j) => <text key={j} x={x(i)} y="240" textAnchor="middle">{i + 1}</text>)}</svg><div className="dc-legend">{lines.map(([label], i) => <span key={label}><i style={{ background: palette[i % 4] }}/>{site.length && e.kind !== 'low_yield' ? t("Site {0}", t(label)) : t(label)}</span>)}<span>{site.length && e.kind !== 'low_yield' ? t("Completed-device order per site") : t("Completed-device order")} · {e.unit ?? t("Unit unconfirmed")}</span></div></div>;
+    return <div className="dc-plot" ref={plotRef}><PlotAxes perSite={!!site.length && e.kind !== 'low_yield'} metric={e.kind === 'low_yield' ? 'yield' : 'measurement'} unit={e.unit}><svg viewBox={"0 0 " + plotWidth + " 255"} role="img" aria-label={t("Source measurement series. The x-axis is completed-device order per site, not event time.")}>{[0, 1, 2, 3].map(i => { const v = min + (max - min) * i / 3; return <g key={i}><path d={`M55 ${y(v)}H${plotWidth - 25}`} stroke="var(--border)" strokeDasharray="3 5"/><text x="44" y={y(v) + 4} textAnchor="end">{e.kind === 'low_yield' ? `${(v * 100).toFixed(0)}%` : v.toFixed(2)}</text></g>; })}{lines.map(([label, v], j) => <path key={label} d={v.map((a, i) => `${i ? 'L' : 'M'}${x(i)} ${y(a)}`).join(' ')} stroke={palette[j % 4]} strokeWidth="2.7" fill="none" strokeLinecap="round" strokeLinejoin="round"/>)}{[0, Math.floor((count - 1) / 2), count - 1].map((i, j) => <text key={j} x={x(i)} y="240" textAnchor="middle">{i + 1}</text>)}</svg></PlotAxes><div className="dc-legend">{lines.map(([label], i) => <span key={label}><i style={{ background: palette[i % 4] }}/>{site.length && e.kind !== 'low_yield' ? t("Site {0}", t(label)) : t(label)}</span>)}<span>{site.length && e.kind !== 'low_yield' ? t("Completed-device order per site") : t("Completed-device order")} · {e.unit ?? t("Unit unconfirmed")}</span></div></div>;
 }
 function Answer({ text }: {
     text: string;
@@ -112,7 +113,8 @@ function BackendWorkspace({ initialScope, onLoadSummary, summaryLoading }: { ini
         lifecycle.current = controller;
         if (initialScope) void controller.connect(initialScope.run, initialScope.tester);
         else void controller.restoreSession();
-        return () => { controller.dispose(); lifecycle.current = null; };
+        // A pending acknowledged delete must still clear its saved scope after unmount.
+        return () => { controller.dispose(); };
     }, []);
     useEffect(() => {
         const ctrl = new AbortController();
@@ -148,7 +150,7 @@ function BackendWorkspace({ initialScope, onLoadSummary, summaryLoading }: { ini
  <RunNotifications items={state.notifications} onDismiss={id => lifecycle.current?.dismissNotification(id)}/>
  <div className="dc-main"><main id="main-content">
  <div className="dc-heading"><div><div className="dc-eyebrow">{t("OPERATIONS / RUN WORKSPACE")}</div><h1>{t("Run overview")}</h1><p>{t("Inspect source records, compare site behavior, and document findings.")}</p></div><BackendConnectionStatus status={status}/></div>
- <StoredRunPicker onLoadSummary={onLoadSummary} onLoad={connect} busy={summaryLoading || status === 'Connecting' || busy}>{scope && <button className="dc-icon" type="button" aria-label={t("Disconnect event stream")} onClick={disconnect}><Unplug size={18}/></button>}</StoredRunPicker>
+ <StoredRunPicker onDeleted={scope => lifecycle.current?.forgetRun(scope)} onLoadSummary={onLoadSummary} onLoad={connect} busy={summaryLoading || status === 'Connecting' || busy}>{scope && <button className="dc-icon" type="button" aria-label={t("Disconnect event stream")} onClick={disconnect}><Unplug size={18}/></button>}</StoredRunPicker>
  {error && <div className="dc-error" role="alert"><TriangleAlert size={18}/>{t(error)}<span>{t("Check the run ID and backend configuration, then retry.")}</span></div>}
  <StoredSourceNotice source={data?.run ?? null}/>
  {data && <dl className="dc-loaded-run">

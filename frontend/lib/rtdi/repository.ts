@@ -13,6 +13,50 @@ export class IdentityConflictError extends Error {
   constructor(message: string, readonly ids: string[] = []) { super(message); }
 }
 export class AmbiguousScopeError extends Error {}
+export class RunManagementError extends Error {
+  constructor(message: string, readonly code: "run_not_found" | "run_not_finished_live") { super(message); }
+}
+
+// A final host boundary proves the captured batch ended, not that the whole lot ended.
+// Compare source clocks/sequences, never receipt order or elapsed idle time.
+const noLaterSourceSql = `NOT EXISTS (SELECT 1 FROM events later
+  WHERE later.run_id = e.run_id AND later.tester_id = e.tester_id AND later.mode = e.mode
+    AND (julianday(later.occurred_at) > julianday(e.occurred_at)
+      OR (later.sequence IS NOT NULL AND e.sequence IS NOT NULL AND later.sequence > e.sequence)))`;
+const finishedRunSql = `EXISTS (SELECT 1 FROM events e
+  WHERE e.run_id = runs.run_id AND e.tester_id = runs.tester_id AND e.mode = runs.mode
+    AND e.type = 'run_summary'
+    AND (json_extract(e.payload, '$.message') IN ('Edge exporter event: lot_end', 'Edge exporter event: run_end')
+      OR EXISTS (SELECT 1 FROM raw_events raw WHERE raw.key = e.key
+        AND raw.run_id = runs.run_id AND raw.tester_id = runs.tester_id
+        AND raw.event_type IN ('lot_end', 'run_end'))
+      OR (e.key IN (SELECT value FROM json_each(?)) AND ${noLaterSourceSql})))`;
+
+// Read retained raw provenance so existing host captures work without rewriting
+// evidence or trusting an edge-name convention. The UPDATE rechecks source order.
+async function boundaryEndKeys(db: D1Database, runId?: string, testerId?: string): Promise<string> {
+  const result = await db.prepare(`SELECT raw.* FROM events e JOIN raw_events raw ON raw.key = e.key
+    WHERE raw.event_type = 'boundary_end' AND e.type = 'run_summary'
+      AND (? IS NULL OR e.run_id = ?) AND (? IS NULL OR e.tester_id = ?)
+      AND ${noLaterSourceSql}`).bind(runId ?? null, runId ?? null, testerId ?? null, testerId ?? null).all<Row>();
+  const eligible: string[] = [];
+  for (const raw of rows(result)) {
+    const payload = await readRawPayload(db, String(raw.key), raw);
+    const relay = payload.host_relay as { transport?: unknown } | undefined;
+    if (payload.boundary === 'lot_end' || payload.boundary === 'run_end' || relay?.transport === 'host_edgelog') {
+      eligible.push(String(raw.key));
+    }
+  }
+  return JSON.stringify(eligible);
+}
+
+async function assertNotDeleted(db: D1Database, events: EdgeRecord[]) {
+  const scopes = [...new Map(events.map(event => [scopeKey(event.run_id, event.tester_id), event])).values()];
+  const result = await db.batch(scopes.map(event => db.prepare(
+    "SELECT run_id, tester_id FROM deleted_runs WHERE run_id = ? AND tester_id = ?").bind(event.run_id, event.tester_id)));
+  const removed = result.flatMap(item => rows(item as D1Result<Row>).map(row => scopeKey(String(row.run_id), String(row.tester_id))));
+  if (removed.length) throw new IdentityConflictError("run_scope_deleted", removed);
+}
 export class InvalidCommandError extends Error {
   constructor(message: string, readonly code: string) { super(message); }
 }
@@ -86,11 +130,13 @@ export async function ingestEdgeBatch(batch: EdgeBatch, options: { identityPaylo
 
 async function ingestEdgeBatchAttempt(batch: EdgeBatch, options: { identityPayload?: unknown; rawEvents?: RawExporterEvent[] }, retries: number): Promise<IngestResult> {
   const db = binding();
+  await assertNotDeleted(db, batch.events);
   const batchKey = scopeKey(batch.edge_id, batch.batch_id);
   const batchHash = await contentHash(options.identityPayload ?? batch);
   const existingBatch = await db.prepare("SELECT payload_hash FROM batches WHERE key = ?").bind(batchKey).first<{ payload_hash: string }>();
   if (existingBatch) {
     if (existingBatch.payload_hash !== batchHash) throw new IdentityConflictError("batch_id already exists with different content", [batch.batch_id]);
+    await assertNotDeleted(db, batch.events);
     return { batch_id: batch.batch_id, accepted: [], duplicates: batch.events.map(event => event.event_id), rejected: [], status: "duplicate" };
   }
 
@@ -137,6 +183,12 @@ async function ingestEdgeBatchAttempt(batch: EdgeBatch, options: { identityPaylo
   const statements: D1PreparedStatement[] = [
     db.prepare("INSERT INTO batches (key, edge_id, batch_id, payload_hash) VALUES (?, ?, ?, ?)").bind(batchKey, batch.edge_id, batch.batch_id, batchHash),
   ];
+  // Exercise the tombstone trigger inside the transaction, even for duplicate-only batches.
+  for (const event of new Map(batch.events.map(event => [scopeKey(event.run_id, event.tester_id), event])).values()) {
+    statements.push(db.prepare(`INSERT INTO runs (key, run_id, tester_id, edge_id, mode, data_quality, last_event_at)
+      VALUES (?, ?, ?, ?, ?, ?, ?) ON CONFLICT(key) DO NOTHING`)
+      .bind(scopeKey(event.run_id, event.tester_id), event.run_id, event.tester_id, batch.edge_id, event.source_mode, event.data_quality ?? 'partial', event.timestamp));
+  }
   for (const item of accepted) {
     const event = item.event;
     const runKey = scopeKey(event.run_id, event.tester_id);
@@ -206,6 +258,7 @@ async function ingestEdgeBatchAttempt(batch: EdgeBatch, options: { identityPaylo
   try {
     await db.batch(statements);
   } catch (error) {
+    await assertNotDeleted(db, batch.events);
     // A concurrent transaction may have won one of the unique identities after
     // our reads. The failed batch rolled back in full. Re-plan only when a
     // competing commit is visible; never ACK based on the failed write itself.
@@ -229,17 +282,48 @@ export async function listRuns({ limit = 100, offset = 0 }: { limit?: number; of
   if (!Number.isInteger(limit) || limit < 1 || limit > 100 || !Number.isSafeInteger(offset) || offset < 0) {
     throw new RangeError('Invalid run list pagination');
   }
-  const result = await binding().prepare(`SELECT run_id, tester_id, edge_id, mode, last_event_at, updated_at
+  const db = binding();
+  const boundaries = await boundaryEndKeys(db);
+  const result = await db.prepare(`SELECT run_id, tester_id, edge_id, mode, archived, ${finishedRunSql} AS finished, last_event_at, updated_at
     FROM runs ORDER BY julianday(updated_at) DESC, julianday(last_event_at) DESC, tester_id, run_id
-    LIMIT ? OFFSET ?`).bind(limit + 1, offset).all<Row>();
+    LIMIT ? OFFSET ?`).bind(boundaries, limit + 1, offset).all<Row>();
   const matches = rows(result);
   return {
     runs: matches.slice(0, limit).map(row => ({
       run_id: String(row.run_id), tester_id: String(row.tester_id), edge_id: String(row.edge_id),
-      mode: String(row.mode), last_event_at: String(row.last_event_at), updated_at: String(row.updated_at),
+      mode: String(row.mode), archived: Number(row.archived) === 1, finished: Number(row.finished) === 1,
+      last_event_at: String(row.last_event_at), updated_at: String(row.updated_at),
     })),
     next_offset: matches.length > limit ? offset + limit : null,
   };
+}
+
+/** D1 batch commits or rolls back all scoped mutations together. */
+export async function manageRun(runId: string, testerId: string, action: "archive" | "delete"): Promise<void> {
+  const db = binding();
+  if (!runId || !testerId) throw new RunManagementError("Run and tester are required", "run_not_found");
+  if (action === "archive") {
+    const boundaries = await boundaryEndKeys(db, runId, testerId);
+    const result = await db.batch([
+      db.prepare(`UPDATE runs SET archived = 1 WHERE run_id = ? AND tester_id = ?
+        AND mode = 'live' AND ${finishedRunSql} RETURNING key`).bind(runId, testerId, boundaries),
+      db.prepare("SELECT key FROM runs WHERE run_id = ? AND tester_id = ?").bind(runId, testerId),
+    ]);
+    if (rows(result[0] as D1Result<Row>).length) return;
+    if (!rows(result[1] as D1Result<Row>).length) throw new RunManagementError("Run not found", "run_not_found");
+    throw new RunManagementError("Only live runs with a source end marker or final captured host boundary can be archived", "run_not_finished_live");
+  }
+  if (action !== "delete") throw new TypeError("Unknown run management action");
+  const result = await db.batch([
+    db.prepare(`INSERT INTO deleted_runs (run_id, tester_id) SELECT run_id, tester_id FROM runs
+      WHERE run_id = ? AND tester_id = ? ON CONFLICT(run_id, tester_id) DO NOTHING`).bind(runId, testerId),
+    db.prepare(`DELETE FROM raw_event_chunks WHERE event_key IN
+      (SELECT key FROM raw_events WHERE run_id = ? AND tester_id = ?)`).bind(runId, testerId),
+    ...["raw_events", "events", "evidence", "incidents", "investigations", "command_results", "commands", "runs"]
+      .map(table => db.prepare(`DELETE FROM ${table} WHERE run_id = ? AND tester_id = ?`).bind(runId, testerId)),
+    db.prepare("SELECT run_id FROM deleted_runs WHERE run_id = ? AND tester_id = ?").bind(runId, testerId),
+  ]);
+  if (!rows(result.at(-1) as D1Result<Row>).length) throw new RunManagementError("Run not found", "run_not_found");
 }
 
 export async function getRunSnapshot(runId: string, testerId?: string | null): Promise<RunSnapshot | null> {
@@ -420,8 +504,14 @@ export async function getIncident(incidentId: string, runId?: string | null): Pr
 export async function startInvestigation(input: { run_id: string; tester_id?: string | null; incident_id?: string | null; question: string; model: string }): Promise<string> {
   const db = binding();
   const id = crypto.randomUUID();
-  await db.prepare(`INSERT INTO investigations (investigation_id, run_id, tester_id, incident_id, question, status, model)
-    VALUES (?, ?, ?, ?, ?, 'running', ?)`).bind(id, input.run_id, input.tester_id ?? null, input.incident_id ?? null, input.question, input.model).run();
+  const inserted = await db.prepare(`INSERT INTO investigations (investigation_id, run_id, tester_id, incident_id, question, status, model)
+    SELECT ?, run_id, tester_id, ?, ?, 'running', ? FROM runs
+    WHERE run_id = ? AND (? IS NULL OR tester_id = ?)
+      AND (SELECT COUNT(*) FROM runs WHERE run_id = ? AND (? IS NULL OR tester_id = ?)) = 1
+    RETURNING investigation_id`).bind(id, input.incident_id ?? null, input.question, input.model,
+      input.run_id, input.tester_id ?? null, input.tester_id ?? null,
+      input.run_id, input.tester_id ?? null, input.tester_id ?? null).all<Row>();
+  if (!rows(inserted).length) throw new RunManagementError("Run not found or ambiguous", "run_not_found");
   return id;
 }
 
@@ -438,6 +528,10 @@ export async function getDeviceMeasurements(runId: string, testerId: string, eve
   const raw = await db.prepare("SELECT payload_bytes, chunk_count, payload_hash FROM raw_events WHERE key = ? AND event_type = 'device_completed'")
     .bind(key).first<Row>();
   if (!raw) return null;
+  return measurementPage(await readRawPayload(db, key, raw), offset, limit);
+}
+
+async function readRawPayload(db: D1Database, key: string, raw: Row) {
   const count = Number(raw.chunk_count);
   if (Number(raw.payload_bytes) > 8_388_608 || count < 1 || count > 17) throw new Error("Raw payload exceeds read limit");
   const result = await db.prepare("SELECT chunk_index, payload_base64 FROM raw_event_chunks WHERE event_key = ? ORDER BY chunk_index LIMIT 17")
@@ -446,5 +540,5 @@ export async function getDeviceMeasurements(runId: string, testerId: string, eve
   if (chunks.length !== count || chunks.some((chunk, index) => Number(chunk.chunk_index) !== index)) throw new Error("Incomplete raw payload");
   const payload = JSON.parse(decodeUtf8Base64Chunks(chunks.map(chunk => String(chunk.payload_base64))));
   if (await contentHash(payload) !== raw.payload_hash) throw new Error("Raw payload hash mismatch");
-  return measurementPage(payload, offset, limit);
+  return payload;
 }

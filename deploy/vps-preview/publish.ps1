@@ -17,7 +17,7 @@ try {
     $taskDirectory = Join-Path ([IO.Path]::GetTempPath()) ('grp6-preview-' + [guid]::NewGuid().ToString('N'))
     New-Item -ItemType Directory -Path $taskDirectory | Out-Null
     $archive = Join-Path $taskDirectory "$revision.tar.gz"
-    git archive --format=tar.gz --output=$archive $revision frontend results/replay/replay.jsonl results/replay/predictions.jsonl results/replay/predictions.provenance.json
+    git archive --format=tar.gz --output=$archive $revision frontend results/replay/replay.jsonl results/replay/predictions.jsonl results/replay/predictions.provenance.json deploy/vps-preview/verify-http.mjs
     Check-Exit 'Create committed archive'
     $checksum = (Get-FileHash -LiteralPath $archive -Algorithm SHA256).Hash.ToLowerInvariant()
     scp -o BatchMode=yes -o ConnectTimeout=15 $archive "${Server}:/opt/grp6-preview/incoming/"

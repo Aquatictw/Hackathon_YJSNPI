@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { DatabaseSync } from 'node:sqlite';
 import { registerHooks } from 'node:module';
-import { readFileSync, existsSync } from 'node:fs';
+import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import ts from 'typescript';
 
@@ -43,7 +43,11 @@ class LocalD1 {
   sql = new DatabaseSync(':memory:');
   failCommit = false;
   beforeExecute = null;
-  constructor() { this.sql.exec(readFileSync(new URL('../drizzle/0000_grp6_backend.sql', import.meta.url), 'utf8')); }
+  constructor() {
+    for (const file of readdirSync(new URL('../drizzle/', import.meta.url)).filter(file => file.endsWith('.sql')).sort()) {
+      this.sql.exec(readFileSync(new URL('../drizzle/' + file, import.meta.url), 'utf8'));
+    }
+  }
   prepare(query) {
     const database = this.sql;
     const owner = this;
@@ -882,7 +886,7 @@ test('run discovery is empty on an empty database and returns no-store metadata 
   await ingest([prediction()]);
   const { runs } = await (await runListRoute.GET(listRequest())).json();
   assert.equal(runs.length, 1);
-  assert.deepEqual(Object.keys(runs[0]).sort(), ['edge_id', 'last_event_at', 'mode', 'run_id', 'tester_id', 'updated_at']);
+  assert.deepEqual(Object.keys(runs[0]).sort(), ['archived', 'edge_id', 'finished', 'last_event_at', 'mode', 'run_id', 'tester_id', 'updated_at']);
   assert.equal(runs[0].mode, 'live');
   assert.equal(runs[0].edge_id, 'edge');
 });
@@ -918,4 +922,223 @@ test('run list rejects malformed pagination and distinguishes database errors fr
   const failed = await runListRoute.GET(listRequest());
   assert.equal(failed.status, 503);
   assert.doesNotMatch(await failed.text(), /private storage detail/);
+});
+
+const manageRoute = await import('../app/api/v1/runs/[id]/manage/route.ts');
+const manageRequest = (body, headers = {}, url = 'https://example.test/api/v1/runs/run/manage') => new Request(url, {
+  method: 'POST', headers: { origin: 'https://example.test', 'content-type': 'application/json', ...headers }, body: JSON.stringify(body),
+});
+const manage = (action = 'archive', tester_id = 'tester', headers = {}) => manageRoute.POST(manageRequest({ action, tester_id }, headers), { params: Promise.resolve({ id: 'run' }) });
+const marker = (event_type = 'lot_end', overrides = {}) => ({ ...base, event_type, event_id: event_type, sequence: 99, ...overrides });
+const hostBoundary = (overrides = {}) => marker('boundary_end', { host_relay: { transport: 'host_edgelog' }, ...overrides });
+
+test('retained final host boundary means captured batch ended, while later source activity disables eligibility', async () => {
+  for (const later of [
+    prediction({ sequence: 100 }),
+    prediction({ sequence: 98, timestamp: base.timestamp + 1 }),
+    marker('run_start', { sequence: 100 }),
+  ]) {
+    reset(); await ingest([hostBoundary()]);
+    assert.equal((await repo.listRuns()).runs[0].finished, true);
+    await ingest([later]);
+    assert.equal((await repo.listRuns()).runs[0].finished, false);
+    assert.equal((await manage()).status, 409);
+  }
+  reset(); await ingest([hostBoundary()]);
+  await ingest([prediction({ sequence: 98, timestamp: base.timestamp - 1 })]);
+  assert.equal((await repo.listRuns()).runs[0].finished, true, 'late arrival of older data does not reopen a batch');
+  assert.equal((await manage()).status, 200);
+  await ingest([prediction({ event_id: 'new-activity', sequence: 100 })]);
+  const run = (await repo.listRuns()).runs[0];
+  assert.equal(run.finished, false); assert.equal(run.archived, true); assert.equal(run.mode, 'live');
+});
+
+test('boundary eligibility requires retained host provenance or explicit lot/run subtype, exact mode and scope', async () => {
+  for (const boundary of [undefined, 'wafer_end', 'lot_end', 'run_end']) {
+    reset(); await ingest([marker('boundary_end', { boundary })]);
+    assert.equal((await manage()).status, ['lot_end', 'run_end'].includes(boundary) ? 200 : 409);
+  }
+  reset(); await ingest([hostBoundary({ tester_id: 'other' }), marker('wafer_end')]);
+  assert.equal((await manage()).status, 409);
+  reset(); await ingest([hostBoundary({ mode: 'replay' }), prediction()]);
+  assert.equal((await manage()).status, 409);
+  reset();
+  await repo.ingestEdgeBatch(normalizeExporterBatch(bundle([hostBoundary()])).batch);
+  assert.equal((await manage()).status, 409, 'normalized message alone does not prove host provenance');
+});
+
+test('archive atomically rechecks latest boundary after concurrent source activity', async () => {
+  reset(); await ingest([hostBoundary()]);
+  env.DB.beforeExecute = async statements => {
+    if (!statements.some(item => item.query.includes('UPDATE runs SET archived'))) return;
+    env.DB.beforeExecute = null;
+    await ingest([prediction({ sequence: 100 })]);
+  };
+  assert.equal((await manage()).status, 409);
+  assert.equal((await repo.listRuns()).runs[0].archived, false);
+});
+
+test('run trigger guard preserves complete data quality on first ingest', async () => {
+  reset(); await ingest([marker('lot_end', { data_quality: 'complete' })]);
+  assert.equal((await repo.getRunSnapshot('run', 'tester')).run.data_quality, 'complete');
+});
+
+test('management completion uses exact same-mode source lot/run end, not wafer boundary/count/time', async () => {
+  reset();
+  await ingest([marker('boundary_end'), marker('wafer_end'), marker('run_summary', { completed_devices: 80, yield_fraction: 0.925 })]);
+  assert.equal((await repo.listRuns()).runs[0].finished, false);
+  assert.equal((await manage()).status, 409);
+  await ingest([marker('lot_end', { tester_id: 'other' }), marker('run_end', { mode: 'replay' })]);
+  assert.equal((await manage()).status, 409);
+  for (const end of ['lot_end', 'run_end']) {
+    reset(); await ingest([marker(end)]);
+    assert.equal((await repo.listRuns()).runs[0].finished, true);
+    assert.deepEqual(await (await manage()).json(), { ok: true });
+  }
+  for (const mode of ['replay', 'simulation']) {
+    reset(); await ingest([marker('lot_end', { mode })]);
+    assert.equal((await repo.listRuns()).runs[0].finished, true);
+    assert.equal((await manage()).status, 409);
+  }
+});
+
+test('archive preserves source mode, raw evidence, snapshot and archive across late ingest and retries', async () => {
+  reset(); await ingest([prediction(), marker()]);
+  const snapshot = await repo.getRunSnapshot('run', 'tester');
+  const raw = env.DB.sql.prepare('SELECT * FROM raw_event_chunks ORDER BY key').all();
+  assert.equal((await manage()).status, 200);
+  assert.equal((await manage()).status, 200);
+  assert.deepEqual(await repo.getRunSnapshot('run', 'tester'), snapshot);
+  assert.deepEqual(env.DB.sql.prepare('SELECT * FROM raw_event_chunks ORDER BY key').all(), raw);
+  await ingest([actual()]);
+  const row = (await repo.listRuns()).runs[0];
+  assert.equal(row.archived, true); assert.equal(row.finished, true); assert.equal(row.mode, 'live');
+  assert.equal((await manage('archive', 'wrong')).status, 404);
+  assert.equal((await manage('delete', 'wrong')).status, 404);
+  assert.equal((await repo.listRuns()).runs.length, 1);
+});
+
+test('normalized source end markers also work without retained raw payloads, with exact message matching', async () => {
+  reset();
+  const value = normalizeExporterBatch(bundle([marker()]));
+  await repo.ingestEdgeBatch(value.batch);
+  assert.equal((await manage()).status, 200);
+  reset();
+  value.batch.batch_id = crypto.randomUUID();
+  value.batch.events[0].message = 'Edge exporter event: lot_end pending';
+  await repo.ingestEdgeBatch(value.batch);
+  assert.equal((await manage()).status, 409);
+});
+
+async function seedManagedScopes() {
+  reset();
+  await ingest([prediction(), prediction({ tester_id: 'other' }), prediction({ run_id: 'other-run' })], 'shared-batch');
+  for (const [run, tester] of [['run', 'tester'], ['run', 'other'], ['other-run', 'tester']]) {
+    const event = { schema_version: 1, event_id: 'evidence', run_id: run, tester_id: tester, source_mode: 'live',
+      type: 'evidence', timestamp: '2026-09-20T00:00:00Z', evidence_id: 'ev', incident_id: 'incident', message: 'Evidence' };
+    await repo.ingestEdgeBatch({ schema_version: 1, edge_id: 'edge', batch_id: crypto.randomUUID(), events: [event] });
+    await repo.startInvestigation({ run_id: run, tester_id: tester, question: 'why', model: 'test' });
+    const commandId = run + ':' + tester;
+    await repo.createRunCommand(run, tester, createCommandSchema.parse({ request_id: commandId, incident_id: 'incident', kind: 'show_message', message: 'Inspect', user_confirmed: true }));
+    await repo.recordCommandResult(commandId, commandResultSchema.parse({ ack_id: commandId, run_id: run, tester_id: tester, status: 'received', occurred_at: '2026-09-20T00:00:00Z' }));
+  }
+}
+const managedTables = ['raw_events', 'events', 'evidence', 'incidents', 'investigations', 'commands', 'command_results', 'runs'];
+
+test('atomic deletion removes all scoped records/chunks, retains other testers/runs and shared batch audit', async () => {
+  await seedManagedScopes();
+  const batches = env.DB.sql.prepare('SELECT * FROM batches ORDER BY key').all();
+  const other = await repo.getRunSnapshot('run', 'other');
+  const otherRun = await repo.getRunSnapshot('other-run', 'tester');
+  assert.deepEqual(await (await manage('delete')).json(), { ok: true });
+  for (const table of managedTables) {
+    assert.equal(env.DB.sql.prepare('SELECT COUNT(*) AS n FROM ' + table + ' WHERE run_id=? AND tester_id=?').get('run', 'tester').n, 0, table);
+    assert.ok(env.DB.sql.prepare('SELECT COUNT(*) AS n FROM ' + table + ' WHERE run_id=? AND tester_id=?').get('run', 'other').n > 0, table);
+  }
+  assert.equal(env.DB.sql.prepare('SELECT COUNT(*) AS n FROM raw_event_chunks WHERE event_key NOT IN (SELECT key FROM raw_events)').get().n, 0);
+  assert.deepEqual(env.DB.sql.prepare('SELECT * FROM batches ORDER BY key').all(), batches);
+  assert.deepEqual(await repo.getRunSnapshot('run', 'other'), other);
+  assert.deepEqual(await repo.getRunSnapshot('other-run', 'tester'), otherRun);
+  assert.equal(await repo.getRunSnapshot('run', 'tester'), null);
+  assert.equal((await manage('delete')).status, 200);
+  assert.equal((await manage()).status, 404);
+  const response = await ingestRoute.POST(request(bundle([prediction(), prediction({ tester_id: 'other', event_id: 'new-other' })])));
+  assert.equal(response.status, 409);
+  assert.deepEqual(await response.json(), { error: 'run_scope_deleted', conflicting_ids: [JSON.stringify(['run', 'tester'])] });
+  assert.deepEqual(await repo.getRunSnapshot('run', 'other'), other);
+  await assert.rejects(ingest([prediction(), prediction({ tester_id: 'other' }), prediction({ run_id: 'other-run' })], 'shared-batch'), /run_scope_deleted/);
+});
+
+test('delete commit failure rolls back tombstone and every dependent deletion', async () => {
+  await seedManagedScopes();
+  const dump = () => JSON.stringify([...managedTables, 'raw_event_chunks', 'batches', 'deleted_runs'].map(table => env.DB.sql.prepare('SELECT * FROM ' + table + ' ORDER BY rowid').all()));
+  const before = dump(); env.DB.failCommit = true;
+  assert.equal((await manage('delete')).status, 503);
+  assert.equal(dump(), before); env.DB.failCommit = false;
+  assert.equal((await manage('delete')).status, 200);
+});
+
+test('tombstone trigger rejects in-flight new and duplicate-only ingests without partial ACK or resurrection', async () => {
+  for (const duplicate of [false, true]) {
+    reset(); await ingest([prediction()]);
+    const barrier = pauseCommandWrite('batches');
+    const pending = ingest([prediction({ event_id: duplicate ? 'request-event' : 'late-event' }), prediction({ tester_id: 'other' })], 'racing-batch')
+      .then(value => ({ value }), error => ({ error }));
+    await barrier.entered;
+    await repo.manageRun('run', 'tester', 'delete');
+    barrier.release();
+    const result = await pending;
+    assert.ok(result.error instanceof repo.IdentityConflictError);
+    assert.equal(result.error.message, 'run_scope_deleted');
+    assert.equal(await repo.getRunSnapshot('run', 'tester'), null);
+    assert.equal(await repo.getRunSnapshot('run', 'other'), null);
+    assert.equal(env.DB.sql.prepare('SELECT COUNT(*) AS n FROM batches WHERE batch_id=?').get('racing-batch').n, 0);
+    assert.equal(env.DB.sql.prepare('SELECT COUNT(*) AS n FROM raw_events').get().n, 0);
+  }
+});
+
+test('in-flight archive, command and investigation writes cannot recreate deleted scope', async () => {
+  await seedManagedScopes();
+  for (const [table, write] of [
+    ['commands', () => repo.createRunCommand('run', 'tester', createCommandSchema.parse({ request_id: 'late-command', incident_id: 'incident', kind: 'show_message', message: 'Inspect', user_confirmed: true }))],
+    ['investigations', () => repo.startInvestigation({ run_id: 'run', tester_id: 'tester', question: 'why', model: 'test' })],
+  ]) {
+    await seedManagedScopes();
+    const barrier = pauseCommandWrite(table);
+    const pending = write().then(value => ({ value }), error => ({ error }));
+    await barrier.entered; await repo.manageRun('run', 'tester', 'delete'); barrier.release();
+    assert.ok((await pending).error);
+    assert.equal(env.DB.sql.prepare('SELECT COUNT(*) AS n FROM ' + table + ' WHERE run_id=? AND tester_id=?').get('run', 'tester').n, 0);
+  }
+  reset(); await ingest([marker()]);
+  env.DB.beforeExecute = async statements => {
+    if (!statements.some(item => item.query.includes('UPDATE runs SET archived'))) return;
+    env.DB.beforeExecute = null; await repo.manageRun('run', 'tester', 'delete');
+  };
+  assert.equal((await manage()).status, 404);
+  assert.equal(await repo.getRunSnapshot('run', 'tester'), null);
+});
+
+test('management HTTP enforces explicit origin, proxy PUBLIC_ORIGIN, bounded strict JSON and exact body scope', async () => {
+  reset(); await ingest([marker()]);
+  for (const origin of ['', 'null', 'https://evil.test']) assert.equal((await manage('delete', 'tester', { origin })).status, 403);
+  assert.equal((await manage('delete', 'tester', { origin: 'https://evil.test', 'x-forwarded-host': 'evil.test' })).status, 403);
+  env.PUBLIC_ORIGIN = 'https://public.test';
+  const proxy = (origin, body = { action: 'archive', tester_id: 'tester' }) => manageRoute.POST(manageRequest(body, { origin }, 'http://internal:5173/api/v1/runs/run/manage'), { params: Promise.resolve({ id: 'run' }) });
+  assert.equal((await proxy('https://public.test')).status, 200);
+  env.PUBLIC_ORIGIN = 'https://public.test/path';
+  assert.equal((await proxy('https://public.test')).status, 403);
+  delete env.PUBLIC_ORIGIN;
+  for (const body of [{ action: 'delete' }, { action: 'rename', tester_id: 'tester' }, { action: 'delete', tester_id: ' ' }, { action: 'delete', tester_id: 'tester', extra: true }]) {
+    assert.equal((await manageRoute.POST(manageRequest(body), { params: Promise.resolve({ id: 'run' }) })).status, 422);
+  }
+  assert.equal((await manageRoute.POST(manageRequest({ action: 'delete', tester_id: 'x'.repeat(5000) }), { params: Promise.resolve({ id: 'run' }) })).status, 413);
+  const malformed = new Request('https://example.test', { method: 'POST', headers: { origin: 'https://example.test', 'content-type': 'application/json' }, body: '{' });
+  assert.equal((await manageRoute.POST(malformed, { params: Promise.resolve({ id: 'run' }) })).status, 400);
+  assert.equal((await manage('delete', 'tester', { 'content-type': 'text/plain' })).status, 415);
+  const mismatched = manageRequest({ action: 'delete', tester_id: 'wrong' }, {}, 'https://example.test/api/v1/runs/run/manage?tester_id=tester');
+  assert.equal((await manageRoute.POST(mismatched, { params: Promise.resolve({ id: 'run' }) })).status, 404);
+  assert.ok(await repo.getRunSnapshot('run', 'tester'));
+  delete env.DB;
+  assert.equal((await manage()).status, 503);
 });

@@ -33,7 +33,7 @@ export const tourSteps: TourStep[] = [
     "chapter": "Wafer Analysis",
     "target": ".dc-run-picker",
     "title": "Choose a summary or Gemini run, then Load",
-    "body": "Use this same picker to choose a source, then press Load. Replay groups recorded Gemini runs, imported replays including training, and bundled summary.json. Live groups stored live-source scopes; their labels do not prove current machine activity. The page defaults to the offline 25-wafer archive. The guide follows the loaded source and never changes the source or loads data.",
+    "body": "Use this same picker to choose a source, then press Load. Replay groups recorded Gemini runs, imported replays including training, and bundled summary.json. Live groups stored live-source scopes; their labels do not prove current machine activity. The page defaults to the offline 25-wafer archive. The guide follows the loaded source and never changes the source or loads data. Move to Replay archives a finished Live run without changing its source evidence. Remove permanently deletes the selected backend run after confirmation; bundled summary.json is unaffected.",
   },
   {
     "id": "analysis-status",
@@ -163,7 +163,7 @@ export const tourSteps: TourStep[] = [
     "chapter": "Run workspace",
     "target": ".dc-run-picker",
     "title": "Choose a source, then Load",
-    "body": "Choose bundled summary.json or a stored Tester ID / Run ID pair, then Load. Replay includes recorded Gemini captures and imported replay records, including training; Live groups stored live-source runs and does not prove current machine activity. You can refresh the list or enter IDs manually. Selection details describes the pending choice; selecting an option alone does not load it.",
+    "body": "Choose bundled summary.json or a stored Tester ID / Run ID pair, then Load. Replay includes recorded Gemini captures and imported replay records, including training; Live groups stored live-source runs and does not prove current machine activity. You can refresh the list or enter IDs manually. Selection details describes the pending choice; selecting an option alone does not load it. Move to Replay archives a finished Live run without changing its source evidence. Remove permanently deletes the selected backend run after confirmation; bundled summary.json is unaffected.",
     "detail": "An imported summary remains offline until you explicitly choose Load backend run. Switching to backend data retains the saved import in this browser tab."
   },
   {

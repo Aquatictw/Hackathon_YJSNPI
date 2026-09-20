@@ -33,6 +33,7 @@ export function createDashboardLifecycle(transport: Transport, publish: (state: 
   let state = initialDashboardState();
   const conversations = createConversationCache(options.conversationStorage);
   let pendingQuestion = '';
+  let connectionScope: Scope | null = null;
   let generation = 0, chatGeneration = 0, disposed = false;
   let cancel: AbortController | undefined, chatCancel: AbortController | undefined, stream: Stream | undefined;
   const patch = (update: Partial<DashboardState>) => {
@@ -46,7 +47,7 @@ export function createDashboardLifecycle(transport: Transport, publish: (state: 
     state = {...state, busy: false, question: state.question || pendingQuestion};
     pendingQuestion = '';
   };
-  const stop = () => {generation++; cancel?.abort(); stream?.close(); stream = undefined; cancelChat(); notifications.reset();};
+  const stop = () => {generation++; connectionScope = null; cancel?.abort(); stream?.close(); stream = undefined; cancelChat(); notifications.reset();};
   const context = (value: DashboardState): ConversationContext => {
     const current = dashboardEvidence(value).current;
     return current?.incident_id ? ['incident', current.incident_id]
@@ -84,6 +85,7 @@ export function createDashboardLifecycle(transport: Transport, publish: (state: 
     const chosen = {run: run.trim(), tester: tester.trim()};
     const sameScope = state.scope?.run === chosen.run && state.scope.tester === chosen.tester;
     remember(); stop();
+    connectionScope = chosen;
     const g = generation, active = () => !disposed && generation === g;
     const ctrl = new AbortController(); cancel = ctrl;
     patch({...(sameScope ? {} : initialDashboardState()), busy: false, chatError: '',
@@ -172,6 +174,16 @@ export function createDashboardLifecycle(transport: Transport, publish: (state: 
   }
   return {
     connect, ask,
+    forgetRun: (scope: Scope) => {
+      if (disposed) {conversations.forget(scope); return;}
+      const matches = (candidate: Scope | null) => candidate?.run === scope.run && candidate.tester === scope.tester;
+      if (matches(state.scope) || matches(connectionScope) ||
+          (connectionScope?.run === scope.run && !connectionScope.tester)) {
+        stop();
+        patch(initialDashboardState());
+      }
+      conversations.forget(scope);
+    },
     dismissNotification: (id: number) => {if (!disposed) notifications.dismiss(id);},
     restoreSession: async () => {
       // A manual connection or an earlier restore takes precedence. Never

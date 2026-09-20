@@ -38,7 +38,8 @@ export function RunAnalysis({initialScope, onSummary}: {initialScope?: {run: str
     lifecycle.current = controller;
     if (initialScope) void controller.connect(initialScope.run, initialScope.tester);
     else void controller.restoreSession();
-    return () => {controller.dispose(); lifecycle.current = null;};
+    // Retain the disposed controller for session cleanup if a delete POST completes after unmount.
+    return () => {controller.dispose();};
   }, [initialScope]);
   const {data, status, error, scope} = state;
   const overview = useMemo(() => data ? summarizeRunAnalysis(data) : null, [data]);
@@ -66,7 +67,7 @@ export function RunAnalysis({initialScope, onSummary}: {initialScope?: {run: str
     <div className="heading"><div><div className="eyebrow">{t('WAFER OVERVIEW / RUN ANALYSIS')}</div><h1>{t('Wafer Analysis')}</h1><p className="sub">{t('Explore each wafer as source updates arrive.')}</p></div>
       <div className="replay-actions"><BackendConnectionStatus status={status}/><button type="button" className="analysis-next" disabled={wafers.length < 2} onClick={() => chooseWafer(wafers[(wafers.findIndex(item => item.key === wafer?.key) + 1) % wafers.length].key)}>{t('Next wafer')}<ChevronRight size={16}/></button></div>
     </div>
-    <StoredRunPicker onLoadSummary={onSummary} onLoad={load} busy={status === 'Connecting'}>{scope && <button className="dc-icon" type="button" aria-label={t('Disconnect event stream')} onClick={() => lifecycle.current?.disconnect()}><Unplug size={18}/></button>}</StoredRunPicker>
+    <StoredRunPicker onDeleted={scope => lifecycle.current?.forgetRun(scope)} onLoadSummary={onSummary} onLoad={load} busy={status === 'Connecting'}>{scope && <button className="dc-icon" type="button" aria-label={t('Disconnect event stream')} onClick={() => lifecycle.current?.disconnect()}><Unplug size={18}/></button>}</StoredRunPicker>
     {(error || navigationError) && <p className="dc-error" role="alert">{t(error || navigationError)}</p>}
     <StoredSourceNotice source={data?.run ?? null}/>
     <WaferScene waferId={wafer?.waferId ?? undefined} yieldRatio={wafer?.yieldRatio} devices={wafer?.devices}/>

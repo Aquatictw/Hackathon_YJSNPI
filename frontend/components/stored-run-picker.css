@@ -20,4 +20,12 @@
 .dc-run-picker .dc-run-metadata dd{margin:4px 0 0;color:var(--foreground);overflow-wrap:anywhere;font-size:16px;line-height:1.6}
 .dc-run-metadata time{font-variant-numeric:tabular-nums}
 .dc-run-picker button:disabled,.dc-run-picker select:disabled{opacity:.6;cursor:not-allowed}
+.dc-run-management{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:10px 0}
+.dc-run-management .dc-secondary{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:40px;font-size:14px}
+.dc-run-management .dc-run-remove{color:var(--destructive,#b42318)}
+.dc-run-management>span{flex:1 1 220px;font-size:13px;line-height:1.5}
+.dc-run-management button:disabled{opacity:.4}
+.dc-run-management button:focus-visible{outline:2px solid var(--primary);outline-offset:3px}
+.dc-run-management-error{color:var(--destructive,#b42318)}
+@media(max-width:540px){.dc-run-management .dc-secondary{flex:1 1 auto}.dc-run-management>span{flex-basis:100%}}
 @media(max-width:540px){.dc-run-picker .dc-connect{padding:12px 12px 8px}.dc-run-picker .dc-stored-run-label{flex-basis:100%}.dc-run-picker .dc-run-metadata{grid-template-columns:1fr}.dc-run-discovery{padding:0 12px 8px}.dc-run-options{gap:8px}.dc-run-options>.dc-secondary{max-width:50%}}

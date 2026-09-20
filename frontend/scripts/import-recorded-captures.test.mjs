@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile, mkdtemp, rm } from 'node:fs/promises';
-import { readFileSync, existsSync } from 'node:fs';
+import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -177,7 +177,11 @@ registerHooks({
 const repo = await import('../lib/rtdi/repository.ts');
 class LocalD1 {
   sql = new DatabaseSync(':memory:');
-  constructor() { this.sql.exec(readFileSync(new URL('../drizzle/0000_grp6_backend.sql', import.meta.url), 'utf8')); }
+  constructor() {
+    for (const file of readdirSync(new URL('../drizzle/', import.meta.url)).filter(file => file.endsWith('.sql')).sort()) {
+      this.sql.exec(readFileSync(new URL('../drizzle/' + file, import.meta.url), 'utf8'));
+    }
+  }
   prepare(query) {
     const sql = this.sql;
     return { query, args: [], bind(...args) { this.args = args; return this; },

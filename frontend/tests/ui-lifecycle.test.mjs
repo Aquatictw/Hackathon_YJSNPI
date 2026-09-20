@@ -381,3 +381,51 @@ test('analysis forwards the selected language and preserves separate local refer
   assert.deepEqual(h.state().messages[1].knowledgeRefs, ['KB-statistics']);
   h.lifecycle.dispose();
 });
+
+test('forgetRun clears loaded and persisted data and rejects late refresh/chat', async () => {
+  const values = new Map();
+  const storage = {getItem: key => values.get(key) ?? null, setItem: (key, value) => values.set(key, value)};
+  const h = harness({conversationStorage: storage}); await h.load();
+  h.lifecycle.setQuestion('private draft');
+  const chat = h.lifecycle.ask('why'); const chatRequest = h.requests.at(-1);
+  h.streams[0].emit('edge_event'); const refresh = h.requests.at(-1);
+  h.lifecycle.forgetRun({run:'r1', tester:'t1'});
+  assert.equal(h.state().data, null); assert.equal(h.streams[0].closed, true);
+  chatRequest.respond({answer:'late'}); refresh.respond(fixture()); await chat; await tick();
+  assert.equal(h.state().scope, null); assert.deepEqual(h.state().messages, []);
+  h.lifecycle.dispose();
+  const restored = harness({conversationStorage: storage}); await restored.lifecycle.restoreSession();
+  assert.equal(restored.requests.length, 0);
+  assert.equal(JSON.parse(values.get(CONVERSATION_SESSION_KEY)).conversations.length, 0);
+});
+
+test('forgetRun invalidates initial pending lookup but preserves other tester scope', async () => {
+  const h = harness(); const pending = h.lifecycle.connect('r1', 't1');
+  h.lifecycle.forgetRun({run:'r1',tester:'t1'}); h.requests[0].respond(fixture()); await pending;
+  assert.equal(h.state().data, null); assert.equal(h.streams.length, 0);
+  await h.load('r1','t2'); h.lifecycle.setQuestion('keep');
+  h.lifecycle.forgetRun({run:'r1',tester:'t1'});
+  assert.equal(h.state().scope.tester, 't2'); assert.equal(h.state().question, 'keep');
+  assert.equal(h.streams[0].closed, false);
+  h.lifecycle.dispose();
+});
+
+test('forgetRun after unmount still removes the saved session', async () => {
+  const values = new Map(); const storage = {getItem:key=>values.get(key)??null,setItem:(key,value)=>values.set(key,value)};
+  const h = harness({conversationStorage:storage}); await h.load(); h.lifecycle.dispose();
+  h.lifecycle.forgetRun({run:'r1',tester:'t1'});
+  const restored = harness({conversationStorage:storage}); await restored.lifecycle.restoreSession();
+  assert.equal(restored.requests.length,0);
+});
+
+test('late deletion cleanup preserves newer destination session writes', async () => {
+  const values = new Map(); const storage = {getItem:key=>values.get(key)??null,setItem:(key,value)=>values.set(key,value)};
+  const old = harness({conversationStorage:storage}); await old.load(); old.lifecycle.dispose();
+  const destination = harness({conversationStorage:storage}); await destination.load('r2','t2'); destination.lifecycle.setQuestion('new draft');
+  old.lifecycle.forgetRun({run:'r1',tester:'t1'});
+  const saved = JSON.parse(values.get(CONVERSATION_SESSION_KEY));
+  assert.deepEqual(saved.lastScope,{run:'r2',tester:'t2'});
+  assert.ok(saved.conversations.some(entry=>entry.value.question==='new draft'));
+  assert.ok(saved.conversations.every(entry=>entry.scope.run!=='r1'));
+  destination.lifecycle.dispose();
+});
