@@ -1,21 +1,23 @@
 export type TourRoute = '/workspace' | '/replay' | '/sandbox';
-export type TourSource = 'workspace-backend' | 'workspace-summary' | 'replay-backend' | 'replay-archive';
+export type TourSource = 'workspace-backend' | 'workspace-summary' | 'replay-backend';
 export type TourStep = {
   id: string; route: TourRoute; chapter: string; title: string; body: string;
   target: string; tab?: string; detail?: string; source?: TourSource;
   preview?: {label: string; rows: [string, string][]};
 };
 
+export const tourWelcome = 'Choose a chapter, or start with Replay analysis and continue through Run workspace and Sandbox. Steps follow the current source without changing your data.';
+
 export const tourChapters = [
+  {
+    "route": "/replay",
+    "name": "Replay analysis",
+    "description": "Wafer overview with stored runs and source updates"
+  },
   {
     "route": "/workspace",
     "name": "Run workspace",
     "description": "Load a scope, review records and investigate"
-  },
-  {
-    "route": "/replay",
-    "name": "Replay analysis",
-    "description": "Backend snapshot/SSE or offline JSON archive"
   },
   {
     "route": "/sandbox",
@@ -26,12 +28,75 @@ export const tourChapters = [
 
 export const tourSteps: TourStep[] = [
   {
+    "id": "analysis-load",
+    "route": "/replay",
+    "chapter": "Replay analysis",
+    "target": ".dc-run-picker",
+    "title": "Load the backend scope for analysis",
+    "body": "Choose a stored Tester ID / Run ID pair or enter known IDs, then explicitly Load run. The loaded run changes only after Load succeeds. The wafer overview uses scoped snapshots and SSE updates; the guide never loads a run.",
+  },
+  {
+    "id": "analysis-status",
+    "route": "/replay",
+    "chapter": "Replay analysis",
+    "target": ".dc-loaded-run",
+    "title": "Check provenance before interpreting updates",
+    "body": "Confirm the loaded run, tester and original last source event timestamp. Read the source mode and backend connection separately: a stored live label or connected SSE does not prove current machine activity. Recorded captures retain their historical timestamps.",
+    "source": "replay-backend"
+  },
+  {
+    "id": "analysis-wafers",
+    "route": "/replay",
+    "chapter": "Replay analysis",
+    "target": ".analysis-wafer-grid",
+    "title": "Choose a wafer in the overview",
+    "body": "Each wafer button represents a lot and wafer in the loaded run. Close the guide to select a wafer and update its summary and 3D yield view. Missing wafer identity stays unknown; no recorded alert does not establish normal operation.",
+    "source": "replay-backend"
+  },
+  {
+    "id": "analysis-wafer-detail",
+    "route": "/replay",
+    "chapter": "Replay analysis",
+    "target": ".analysis-wafer-detail",
+    "title": "Read the selected wafer summary",
+    "body": "Review the selected wafer’s alert, prediction and matched-actual counts with its original last source event timestamp. Yield and completed-device count appear only when supplied for that wafer; missing values remain unavailable and are not inferred from prediction counts.",
+    "source": "replay-backend"
+  },
+  {
+    "id": "analysis-wafer-scene",
+    "route": "/replay",
+    "chapter": "Replay analysis",
+    "target": ".wafer-scene",
+    "title": "Interpret the 3D yield illustration",
+    "body": "The 3D wafer illustrates the selected wafer’s supplied yield and fail share. Its die positions are illustrative, not measured defect coordinates. Missing yield remains unavailable; rotation and top-view controls change only the illustration.",
+    "source": "replay-backend"
+  },
+  {
+    "id": "analysis-coverage",
+    "route": "/replay",
+    "chapter": "Replay analysis",
+    "target": ".run-analysis-coverage",
+    "title": "Keep yield and measurement coverage scoped",
+    "body": "Yield is shown per supplied record; no combined run yield is inferred. Missing yield stays unavailable. Normalized measurement counts do not establish complete raw measurement coverage.",
+    "source": "replay-backend"
+  },
+  {
+    "id": "analysis-workspace",
+    "route": "/replay",
+    "chapter": "Replay analysis",
+    "title": "Open Workspace for individual records",
+    "target": ".run-analysis-workspace-link",
+    "body": "Close the guide, then choose Open this run in workspace to investigate individual evidence records, site series and temperature predictions with matched actuals. The link carries the loaded run and tester to Workspace; select the relevant record there.",
+    "detail": "Next continues the guide in Run workspace without selecting a record. To investigate now, close the guide and use this link. Sandbox follows the Workspace chapter.",
+    "source": "replay-backend"
+  },
+  {
     "id": "workspace",
     "route": "/workspace",
     "chapter": "Run workspace",
     "target": ".dc-heading",
-    "title": "Start with Run workspace",
-    "body": "Home opens Run workspace. First confirm the source, then load a run, review records and use the assistant. Replay analysis and Sandbox follow in that order.",
+    "title": "Investigate records in Run workspace",
+    "body": "After the Replay analysis overview, use Run workspace for individual records and the assistant. Confirm the source and loaded run before investigating. Sandbox follows for synthetic practice.",
     "detail": "The guide changes display tabs only. It never loads runs, switches sources, imports files, loads practice examples or submits questions. Close it before using those controls."
   },
   {
@@ -147,204 +212,6 @@ export const tourSteps: TourStep[] = [
     "title": "Explore the summary views",
     "body": "Wafers & alerts, Model validation and Limitations describe this imported report. Individual temperature records, backend commands, receipts and selected-run model analysis are unavailable from a summary alone.",
     "source": "workspace-summary"
-  },
-  {
-    "id": "analysis-source",
-    "route": "/replay",
-    "chapter": "Replay analysis",
-    "target": ".run-analysis-source",
-    "title": "Choose the analysis source first",
-    "body": "Stored / live backend run reviews scoped snapshots and SSE updates. Offline JSON archive reviews bundled or imported summaries. This chapter follows your current choice and skips controls belonging to the other mode.",
-    "detail": "To explore the other mode, close the guide, switch the analysis source, then reopen this chapter. The guide never changes the source for you."
-  },
-  {
-    "id": "analysis-load",
-    "route": "/replay",
-    "chapter": "Replay analysis",
-    "target": ".dc-run-picker",
-    "title": "Load the backend scope for analysis",
-    "body": "Choose a stored run or enter known IDs and explicitly Load. The backend analysis restores saved scope when available and refreshes records through snapshot/SSE; the guide does not initiate a load.",
-    "source": "replay-backend"
-  },
-  {
-    "id": "analysis-status",
-    "route": "/replay",
-    "chapter": "Replay analysis",
-    "target": ".source-connection-notice",
-    "title": "Check provenance before interpreting updates",
-    "body": "Read source mode, backend connection and original event timestamps together. Recorded captures remain historical replay, even while backend SSE is connected. Missing or stale source records do not establish current machine health.",
-    "source": "replay-backend"
-  },
-  {
-    "id": "analysis-summary",
-    "route": "/replay",
-    "chapter": "Replay analysis",
-    "target": ".dc-workspace-stats",
-    "title": "Compare backend record totals",
-    "body": "Review incidents, evidence records, predictions and matched actuals for the loaded run. After a snapshot loads, the lot/wafer context includes Open this run in workspace for the same run and tester.",
-    "source": "replay-backend"
-  },
-  {
-    "id": "analysis-evidence",
-    "route": "/replay",
-    "chapter": "Replay analysis",
-    "target": ".run-analysis-evidence",
-    "title": "Inspect backend evidence and site series",
-    "body": "Select a record to inspect its source message, event time, site traces and raw identity. Charts use completed-device order within each site, not elapsed time. A chart is unavailable when the source supplies no sequence.",
-    "source": "replay-backend"
-  },
-  {
-    "id": "analysis-coverage",
-    "route": "/replay",
-    "chapter": "Replay analysis",
-    "target": ".run-analysis-coverage",
-    "title": "Keep yield and measurement coverage scoped",
-    "body": "Yield is shown per supplied record; no combined run yield is inferred. Missing yield stays unavailable. Normalized measurement counts do not establish complete raw measurement coverage.",
-    "source": "replay-backend"
-  },
-  {
-    "id": "analysis-temperature",
-    "route": "/replay",
-    "chapter": "Replay analysis",
-    "title": "Compare Temperature predictions and actuals",
-    "target": ".run-analysis-temperature",
-    "body": "Read predicted and uniquely matched actual values by stage and site. Difference is predicted minus actual. Missing or conflicting actuals do not become zero.",
-    "detail": "Expand Device & provenance for request IDs, feature coverage and receipt status. Source units may be unconfirmed; no acceptance tolerance is assumed.",
-    "preview": {
-      "label": "Temperature comparison example",
-      "rows": [
-        [
-          "Stage / site",
-          "Stage 2 · Site 1"
-        ],
-        [
-          "Predicted / actual",
-          "42.3 / 41.8 · synthetic units"
-        ],
-        [
-          "Difference",
-          "+0.5 · no pass/fail claim"
-        ]
-      ]
-    },
-    "source": "replay-backend"
-  },
-  {
-    "id": "overview",
-    "route": "/replay",
-    "chapter": "Replay analysis",
-    "title": "Read the source before the result",
-    "target": ".replay-archive-notice",
-    "body": "Replay analysis reviews historical evidence. It does not establish a live tester connection or confirm receipt of a command.",
-    "detail": "This is the offline archive. Use the source selector to return to backend analysis after closing the guide. Imported files stay in this browser tab and are not uploaded.",
-    "source": "replay-archive"
-  },
-  {
-    "id": "import",
-    "route": "/replay",
-    "chapter": "Replay analysis",
-    "title": "Import a different replay summary",
-    "target": ".replay-actions, .replay-source",
-    "body": "Import summary accepts replay JSON up to 5 MiB and validates it in browser memory. It does not upload the file or request AI analysis.",
-    "detail": "Your imported summary and selection stay in this browser tab across pages and reloads. Use bundled example explicitly replaces the import. Invalid imports retain the previous dataset. The guide never changes the source.",
-    "source": "replay-archive"
-  },
-  {
-    "id": "totals",
-    "route": "/replay",
-    "chapter": "Replay analysis",
-    "title": "Understand the summary",
-    "target": ".replay-overview .stats",
-    "body": "Dataset size, recorded alerts and alerted wafers describe the loaded summary. Tester receipt remains unverified unless supported by source evidence.",
-    "detail": "The animated wafer is an illustration, not a spatial wafer map. Its controls change the illustration only.",
-    "source": "replay-archive"
-  },
-  {
-    "id": "filter",
-    "route": "/replay",
-    "chapter": "Replay analysis",
-    "title": "Filter the wafer list",
-    "target": ".wafer-panel select",
-    "tab": ".replay-tabs [role=\"tab\"][id$=\"-trigger-analysis\"]",
-    "body": "Choose All, With alerts or No alerts to narrow the list. No recorded alert does not establish normal operation. Filtering can change the selected wafer if it leaves the filtered set.",
-    "source": "replay-archive"
-  },
-  {
-    "id": "wafer",
-    "route": "/replay",
-    "chapter": "Replay analysis",
-    "title": "Select a wafer and read its yield",
-    "target": ".wafer-tiles",
-    "tab": ".replay-tabs [role=\"tab\"][id$=\"-trigger-analysis\"]",
-    "body": "Each tile shows its source wafer ID, cumulative yield and alert count. Select a tile or use Next wafer to inspect another wafer in the current filter.",
-    "detail": "Yield is shown as a percentage. Tiles follow source order; their positions do not represent physical die locations.",
-    "source": "replay-archive"
-  },
-  {
-    "id": "yield",
-    "route": "/replay",
-    "chapter": "Replay analysis",
-    "title": "Separate evaluation labels from observations",
-    "target": ".wafer-summary",
-    "tab": ".replay-tabs [role=\"tab\"][id$=\"-trigger-analysis\"]",
-    "body": "Cumulative yield describes completed devices. The dataset label is an evaluation reference, not a detector rule. Review any missed-detection note even when the alert count is zero.",
-    "source": "replay-archive"
-  },
-  {
-    "id": "alerts",
-    "route": "/replay",
-    "chapter": "Replay analysis",
-    "title": "Inspect each recorded alert",
-    "target": ".alert-selector",
-    "tab": ".replay-tabs [role=\"tab\"][id$=\"-trigger-analysis\"]",
-    "body": "A wafer can contain several alerts. The alert selector opens the corresponding observed value, reference, detector score and site evidence. A detector score is not a probability.",
-    "preview": {
-      "label": "Alert reading example",
-      "rows": [
-        [
-          "Observed / reference",
-          "2.60 / 1.12 · synthetic values"
-        ],
-        [
-          "Detector score",
-          "5.43 · not a probability"
-        ]
-      ]
-    },
-    "source": "replay-archive"
-  },
-  {
-    "id": "series",
-    "route": "/replay",
-    "chapter": "Replay analysis",
-    "title": "Compare the measurement sequences",
-    "target": ".replay-plot",
-    "tab": ".replay-tabs [role=\"tab\"][id$=\"-trigger-analysis\"]",
-    "body": "Compare site traces and their reference. The horizontal axis is sample or completed-device order, not time. Raw units remain unverified unless supplied by the source.",
-    "detail": "Source guidance is detector text, not an LLM answer. Copy handoff and source fields preserve the local wafer/alert reference; it is not a backend event ID.",
-    "source": "replay-archive"
-  },
-  {
-    "id": "validation",
-    "route": "/replay",
-    "chapter": "Replay analysis",
-    "title": "Review model validation",
-    "target": ".model-panel",
-    "tab": ".replay-tabs [role=\"tab\"][id$=\"-trigger-validation\"]",
-    "body": "Compare prediction error metrics with the baseline and inspect the evaluation sample count. MAE, RMSE and worst error answer different questions about error magnitude.",
-    "detail": "Dataset validation is not proof of live accuracy, latency or tester receipt. Full feature coverage does not mean perfect predictions.",
-    "source": "replay-archive"
-  },
-  {
-    "id": "limitations",
-    "route": "/replay",
-    "chapter": "Replay analysis",
-    "title": "Read the dataset source fields",
-    "target": ".limitations-panel",
-    "tab": ".replay-tabs [role=\"tab\"][id$=\"-trigger-limitations\"]",
-    "body": "This panel shows the report’s limitations and live_integration value exactly as supplied.",
-    "detail": "These statements belong to the source report. Next opens Sandbox for synthetic practice; it does not load a practice example.",
-    "source": "replay-archive"
   },
   {
     "id": "sandbox",

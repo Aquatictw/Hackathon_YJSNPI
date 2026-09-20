@@ -152,8 +152,8 @@ export default function WaferScene({ waferId, yieldRatio, devices }: { waferId?:
 
       <figcaption className="wafer-scene__footer">
         <div className="wafer-scene__readout" aria-live="polite" aria-atomic="true">
-          <h2 id={`${id}-title`}>{waferId ? t("W{0} / Yield", waferId.padStart(2, "0")) : t("Wafer yield")}</h2>
-          <p className="wafer-scene__yield">{knownYield ? (yieldRatio! * 100).toFixed(2) : "—"}<span>{knownYield ? "%" : t("No selection")}</span></p>
+          <h2 id={`${id}-title`}>{waferId ? t("Wafer {0} / Yield", waferId) : t("Wafer yield")}</h2>
+          <p className="wafer-scene__yield">{knownYield ? (yieldRatio! * 100).toFixed(2) : "—"}<span>{knownYield ? "%" : t(waferId ? "Yield unavailable" : "No selection")}</span></p>
           <p className="wafer-scene__legend"><i aria-hidden="true" />{knownYield ? t("{0}% fail share", ((1 - yieldRatio!) * 100).toFixed(2)) : t("Yield unavailable")}{devices !== undefined && <span> / {devices.toLocaleString()} {t("devices")}</span>}</p>
         </div>
         <p id={`${id}-caption`}>{t("Yield illustration · red tiles show fail share.")}<br />{t("Positions are illustrative; rounded to 0.25%.")}</p>

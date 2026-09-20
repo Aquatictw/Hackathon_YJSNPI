@@ -2,7 +2,8 @@
 import assert from 'node:assert/strict';
 import {createRequire} from 'node:module';
 import {readFile} from 'node:fs/promises';
-import {tourSteps, tourIndices} from '../lib/rtdi/tour-steps.ts';
+import {tourSteps, tourIndices, tourWelcome} from '../lib/rtdi/tour-steps.ts';
+import {tourZhTW} from '../lib/rtdi/tour-locale-zh-TW.ts';
 import {parseReplay} from '../lib/rtdi/replay.ts';
 const base = new URL(process.argv[2] || 'http://localhost:5173').origin;
 assert.ok(['localhost','127.0.0.1','[::1]'].includes(new URL(base).hostname));
@@ -56,41 +57,32 @@ async function chapter(page,route,source){
   }
 }
 try{
-  await check('Home starts Workspace, then backend Replay, then Sandbox; Back respects source',async()=>{
+  await check('Home guide starts backend Replay, then Workspace, then Sandbox; Back respects source',async()=>{
     const {page,context,errors}=await isolated({loaded:true,fresh:true});
     try{
       await page.goto(base);await ready(page);await page.locator('[data-step="chapters"]').waitFor();
-      assert.deepEqual(await page.locator('.rtdi-tour-chapters a').evaluateAll(nodes=>nodes.map(n=>n.getAttribute('href'))),['/workspace','/replay','/sandbox']);
-      await page.locator('.rtdi-tour-next').click();await step(page,'workspace');assert.equal(new URL(page.url()).pathname,'/');
-      await page.locator('.dc-loaded-run').waitFor();await chapter(page,'/workspace','workspace-backend');
-      await page.locator('.rtdi-tour-next').click();await step(page,'analysis-source');assert.equal(new URL(page.url()).pathname,'/replay');
+      assert.deepEqual(await page.locator('.app-nav a').evaluateAll(nodes=>nodes.map(n=>n.getAttribute('href'))),['/replay','/workspace','/sandbox']);
+      assert.deepEqual(await page.locator('.rtdi-tour-chapters a').evaluateAll(nodes=>nodes.map(n=>n.getAttribute('href'))),['/replay','/workspace','/sandbox']);
+      await page.locator('.rtdi-tour-next').click();await step(page,'analysis-load');assert.equal(new URL(page.url()).pathname,'/replay');
       await page.locator('.dc-loaded-run').waitFor();await chapter(page,'/replay','replay-backend');
+      await page.locator('.rtdi-tour-next').click();await step(page,'workspace');assert.equal(new URL(page.url()).pathname,'/workspace');
+      await page.locator('.rtdi-tour-back').click();await step(page,'analysis-workspace');assert.equal(new URL(page.url()).pathname,'/replay');
+      await page.locator('.rtdi-tour-next').click();await step(page,'workspace');
+      await page.locator('.dc-loaded-run').waitFor();await chapter(page,'/workspace','workspace-backend');
       await page.locator('.rtdi-tour-next').click();await step(page,'sandbox');
-      await page.locator('.rtdi-tour-back').click();await step(page,'analysis-temperature');
+      await page.locator('.rtdi-tour-back').click();await step(page,'cost');
       await page.locator('.rtdi-tour-next').click();await step(page,'sandbox');await chapter(page,'/sandbox',null);
       await page.locator('.rtdi-tour-next').click();await page.locator('.rtdi-tour-card').waitFor({state:'detached'});
       assert.equal(await page.evaluate(()=>JSON.parse(localStorage.getItem('rtdi-guided-tour-visit-v1')).status),'completed');
       await page.reload();await ready(page);assert.equal(await page.locator('.rtdi-tour-card').count(),0);assert.deepEqual(errors,[]);
     }finally{await context.close();}
   });
-  for(const locale of ['en','zh-TW'])await check(locale+': archive and imported Workspace preserve source and selection',async()=>{
-    const {page,context,errors}=await isolated({source:'archive',locale});
-    try{
-      await page.goto(base+'/workspace');await ready(page);await page.locator('.isw-source').waitFor();
-      const before=await page.evaluate(key=>sessionStorage.getItem(key),sessionKey);
-      await open(page,'/workspace');await chapter(page,'/workspace','workspace-summary');
-      await page.locator('.rtdi-tour-next').click();await step(page,'analysis-source');await chapter(page,'/replay','replay-archive');
-      await close(page);assert.equal(await page.evaluate(key=>sessionStorage.getItem(key),sessionKey),before);
-      await open(page,'/replay');await page.locator('.rtdi-tour-next').click();await step(page,'overview');await page.reload();await step(page,'overview');await close(page);
-      assert.deepEqual(errors,[]);
-    }finally{await context.close();}
-  });
   await check('Empty backend shows a load prerequisite without switching to the archive',async()=>{
     const {page,context}=await isolated();try{
       await page.goto(base+'/replay');await ready(page);await open(page,'/replay');
-      for(let i=0;i<4;i++)await page.locator('.rtdi-tour-next').click();await step(page,'analysis-evidence');
+      for(let i=0;i<3;i++)await page.locator('.rtdi-tour-next').click();await step(page,'analysis-wafer-detail');
       await page.locator('.rtdi-tour-notice').filter({hasText:'load a backend run'}).waitFor();
-      assert.equal(await page.locator('.replay-workspace').count(),0);await close(page);
+      assert.equal(await page.locator('.replay-workspace:not(.run-analysis)').count(),0);await close(page);
     }finally{await context.close();}
   });
   await check('Hidden analysis draft and Q&A history block navigation; picker changes are guarded',async()=>{
@@ -118,16 +110,6 @@ try{
       await open(page,'/workspace');await page.locator('.rtdi-tour-notice[role="alert"]').filter({hasText:'sandbox contains'}).waitFor();await close(page);
     }finally{await context.close();}
   });
-  await check('Quiet wafer and collapsed detail keep an explicit missing-target fallback',async()=>{
-    const {page,context}=await isolated({source:'archive'});try{
-      await page.goto(base+'/replay');await ready(page);await page.getByLabel('Filter wafers',{exact:true}).selectOption('quiet');
-      const selected=await page.locator('.wafer-tile[aria-pressed="true"]').getAttribute('aria-label');
-      await open(page,'/replay');while(await page.locator('.rtdi-tour-card').getAttribute('data-step')!=='alerts')await page.locator('.rtdi-tour-next').click();
-      await page.locator('.rtdi-tour-notice').filter({hasText:'target is not available'}).waitFor();await close(page);assert.equal(await page.locator('.wafer-tile[aria-pressed="true"]').getAttribute('aria-label'),selected);
-      await page.locator('.wafer-tile[aria-pressed="true"]').click();await open(page,'/replay');while(await page.locator('.rtdi-tour-card').getAttribute('data-step')!=='yield')await page.locator('.rtdi-tour-next').click();
-      await page.locator('.rtdi-tour-notice').filter({hasText:'panel may be collapsed'}).waitFor();await close(page);assert.equal(await page.locator('.replay-detail').evaluate(el=>el.hidden),true);
-    }finally{await context.close();}
-  });
   await check('320px bilingual guide contains focus, fits the screen and respects reduced motion',async()=>{
     const {page,context}=await isolated({width:320});try{
       await page.goto(base+'/sandbox');await ready(page);await open(page,'/sandbox');await chapter(page,'/sandbox',null);
@@ -145,11 +127,11 @@ try{
       await page.locator('.rtdi-tour-notice[role="alert"]').filter({hasText:'session storage is unavailable'}).waitFor();assert.equal(new URL(page.url()).pathname,'/workspace');await close(page);assert.deepEqual(errors,[]);
     }finally{await context.close();}
   });
-  await check('Saved step from an inactive source resumes at the source chooser',async()=>{
+  await check('Saved removed archive step is safely dismissed',async()=>{
     const {page,context}=await isolated();try{
       await page.goto(base+'/replay');await ready(page);
       await page.evaluate(key=>sessionStorage.setItem(key,JSON.stringify({version:2,id:'validation',expires:Date.now()+60000})),savedKey);
-      await page.reload();await step(page,'analysis-source');await close(page);
+      await page.reload();await ready(page);assert.equal(await page.locator('.rtdi-tour-card').count(),0);
     }finally{await context.close();}
   });
   assert.deepEqual(blocked,[]);console.log(JSON.stringify({passed:true,checks:checks.length,blockedRequests:blocked,limits:'Local guide UI with backend test doubles; no live machine, model or deployment acceptance.'},null,2));

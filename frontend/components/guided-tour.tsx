@@ -4,7 +4,7 @@ import {useCallback, useEffect, useRef, useState, type MouseEvent} from 'react';
 import {LanguageSelector, useLocale} from '@/components/locale-provider';
 import {createPortal} from 'react-dom';
 import {ArrowLeft, ArrowRight, BookOpen, X} from 'lucide-react';
-import {tourRoute, tourSteps, tourChapters, tourIndices, type TourRoute, type TourSource} from '@/lib/rtdi/tour-steps';
+import {tourRoute, tourSteps, tourChapters, tourIndices, tourWelcome, type TourRoute, type TourSource} from '@/lib/rtdi/tour-steps';
 import './guided-tour.css';
 
 const storageKey = 'rtdi-guided-tour-v2';
@@ -29,7 +29,6 @@ function markVisit(status:VisitStatus) {
 function currentSource():TourSource|null {
   if (document.querySelector('.isw-app')) return 'workspace-summary';
   if (document.querySelector('.run-analysis')) return 'replay-backend';
-  if (document.querySelector('.replay-workspace')) return 'replay-archive';
   return tourRoute(location.pathname) === '/workspace' ? 'workspace-backend' : null;
 }
 const scopeFields = '.dc-connect input, .dc-connect select';
@@ -255,6 +254,9 @@ export function GuidedTour() { const {t}=useLocale();
       const blocker = routeBlocker(route,initialInputs.current,dirtyInputs.current);
       if (blocker) { event.preventDefault(); setNotice(blocker); return; }
       if (!saveStep(next,index !== null && index >= 0 && next < index ? 'back' : 'forward')) { event.preventDefault(); setNotice('Browser session storage is unavailable. This chapter still works. Close the guide, navigate to another page, and reopen Guide there to continue.'); return; }
+      // Native navigation does not run React's unmount cleanup. Restore the
+      // user's view before leaving so tutorial tabs do not become saved choices.
+      if (originalTab.current?.isConnected) activateTab(originalTab.current);
       // The anchor performs a full document navigation; Vinext client routing is not used.
       return;
     }
@@ -276,7 +278,7 @@ export function GuidedTour() { const {t}=useLocale();
         <div className="rtdi-tour-language"><span>{t('Website language')}</span><LanguageSelector/></div>
         <div className="rtdi-tour-content">
           <h2 id="rtdi-tour-title" tabIndex={-1} ref={titleRef}>{t(step?.title ?? 'Explore the interface')}</h2>
-          <p id="rtdi-tour-description">{t(step?.body ?? 'Choose a chapter, or start with Run workspace and continue through Replay analysis and Sandbox. Steps follow the current source without changing your data.')}</p>
+          <p id="rtdi-tour-description">{t(step?.body ?? tourWelcome)}</p>
           {step?.detail && <p className="rtdi-tour-detail">{t(step.detail)}</p>}
           {!step && <nav aria-label={t("Guide chapters")} className="rtdi-tour-chapters">{tourChapters.map(chapter=>{
             const first=tourSteps.findIndex(item=>item.route===chapter.route);

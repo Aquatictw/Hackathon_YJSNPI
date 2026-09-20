@@ -1,7 +1,21 @@
 /** Taiwan Traditional Chinese application copy. Source records remain verbatim. */
 import { tourZhTW } from './tour-locale-zh-TW.ts';
 export const zhTW: Record<string, string> = {
+  'Wafer groups': '晶圓群組',
+  'Wafer {0}': '晶圓 {0}',
+  'Wafer {0} / Yield': '晶圓 {0}／良率',
+  'Choose a stored run above to explore its wafers.': '請在上方選擇已儲存的測試批次以瀏覽晶圓。',
+  'Wafer overview with stored runs and source updates': '已儲存批次的晶圓總覽與來源更新',
+
   ...tourZhTW,
+  "WAFER OVERVIEW / RUN ANALYSIS": "晶圓總覽／批次分析",
+  "Explore each wafer as source updates arrive.": "隨來源資料更新，檢視各晶圓的狀態。",
+  "Wafer not provided": "未提供晶圓",
+  "Select wafer": "選取晶圓",
+  "Grouped by lot and wafer. Select a wafer to explore its yield and activity.": "依批號與晶圓分組。選取晶圓以查看良率與活動。",
+  "No wafer records supplied.": "未提供晶圓記錄。",
+  "Latest supplied wafer summary. Missing yield or device counts remain unavailable.": "最新提供的晶圓摘要。未提供的良率或元件數量仍顯示為無資料。",
+  "Open Run workspace for incident evidence and individual temperature records.": "開啟批次工作區，檢視異常證據與個別溫度記錄。",
   "Analysis source": "分析資料來源",
   "Stored / live backend run": "已儲存／即時後端批次",
   "Offline JSON archive": "離線 JSON 封存",

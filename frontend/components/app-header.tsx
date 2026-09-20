@@ -7,8 +7,8 @@ import {GuidedTour} from '@/components/guided-tour';
 import './app-header.css';
 
 const pages = [
-  {id: 'workspace', href: '/workspace', label: 'Run workspace', icon: Layers3},
   {id: 'replay', href: '/replay', label: 'Replay analysis', icon: Activity},
+  {id: 'workspace', href: '/workspace', label: 'Run workspace', icon: Layers3},
   {id: 'sandbox', href: '/sandbox', label: 'Sandbox', icon: FlaskConical},
 ] as const;
 
@@ -23,7 +23,7 @@ export function AppHeader({active}: {active: typeof pages[number]['id']}) {
       </a>
       <nav className="app-nav" aria-label={t("Main navigation")}>
         {pages.map(({id, href, label, icon: Icon}) =>
-          <a key={id} href={href} className={id === 'workspace' ? 'app-nav-primary' : undefined} aria-current={active === id ? 'page' : undefined}>
+          <a key={id} href={href} className={id === 'replay' ? 'app-nav-primary' : undefined} aria-current={active === id ? 'page' : undefined}>
             <Icon size={16} aria-hidden="true"/>{t(label)}
           </a>)}
       </nav>
