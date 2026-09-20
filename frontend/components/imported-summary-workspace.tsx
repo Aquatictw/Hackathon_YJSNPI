@@ -60,7 +60,7 @@ function SummaryPlot({ alert }: { alert: ReplayAlert }) {
         })}
         {lines.map((line, index) => <g key={line.name}><path d={line.values.map((value, i) => `${i ? 'L' : 'M'}${x(i)} ${y(value)}`).join(' ')} fill="none" stroke={colors[index % colors.length]} strokeWidth="2.5"/>{line.values.length === 1 && <circle cx={x(0)} cy={y(line.values[0])} r="4" fill={colors[index % colors.length]}/>}</g>)}
         {[0, Math.floor((count - 1) / 2), count - 1].map((index, key) => <text key={key} x={x(index)} y="240" textAnchor="middle">{index + 1}</text>)}
-    </svg></div></PlotAxes><div className="dc-legend">{lines.map((line, index) => <span key={line.name}><i style={{ background: colors[index % colors.length] }}/>{label(line.name)}</span>)}</div><p className="isw-note">{yieldMode ? t('Completed-device order') : t('Sample order within each site')} {t('· no timestamps')} · {yieldMode ? t('Percent') : t('Raw values · units unverified')}</p></div>;
+    </svg></div></PlotAxes><div className="dc-legend">{lines.map((line, index) => <span key={line.name}><i style={{ background: colors[index % colors.length] }}/>{label(line.name)}</span>)}</div><p className="isw-note">{yieldMode ? t('Completed-device order') : t('Sample order within each site')} {t('· no timestamps')}{yieldMode && <> · {t('Percent')}</>}</p></div>;
 }
 
 export function ImportedSummaryWorkspace({ replay, onLoadBackend, onLoadSummary, summaryLoading = false }: { replay: ImportedReplay; onLoadBackend: (run: string, tester: string) => void; onLoadSummary?: () => Promise<void>; summaryLoading?: boolean }) {
