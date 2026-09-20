@@ -116,7 +116,7 @@ export const tourSteps: TourStep[] = [
     "target": ".replay-detail",
     "tab": ".replay-tabs [role='tab'][id$='-trigger-analysis']",
     "title": "Read archive alerts and site evidence",
-    "body": "Read the selected wafer’s yield, evaluation label and recorded alerts. Labels are evaluation references, not detector rules. Detector scores are not probabilities; site traces use sample or completed-device order, not time. The accepted archive still records W25 as missed.",
+    "body": "Read the selected wafer’s yield, evaluation label and recorded alerts. Labels are evaluation references, not detector rules. Detector scores are not probabilities; site traces use sample or completed-device order, not time.",
     "source": "replay-archive"
   },
   {
