@@ -2,7 +2,13 @@ import type {Snapshot} from './dashboard.ts';
 
 type RecordLocation = {wafer_id?: string; site_id?: number; site_ids?: number[]};
 export type ArrivalLocation = {wafer: string | null; sites: number[]};
-export type RunNotification = {id: number; kind: 'temperature' | 'incident'; count: number; locations: ArrivalLocation[]};
+export type RunNotification = {id: number; kind: 'temperature' | 'incident'; count: number; locations: ArrivalLocation[]; incidentId?: string};
+
+export function notificationHref(item: RunNotification, scope: {run: string; tester: string}) {
+  const params = new URLSearchParams({run: scope.run, tester: scope.tester, tab: item.kind === 'incident' ? 'evidence' : 'predictions'});
+  if (item.incidentId) params.set('incident', item.incidentId);
+  return '/workspace?' + params + '#batch-panel';
+}
 type Schedule = (callback: () => void) => () => void;
 const scheduleDefault: Schedule = callback => {const timer = setTimeout(callback, 2000); return () => clearTimeout(timer);};
 const location = (record?: RecordLocation): ArrivalLocation => ({
@@ -20,9 +26,9 @@ export function createRunNotifications(publish: (items: RunNotification[]) => vo
   let items: RunNotification[] = [], pendingCount = 0, pendingLocations: ArrivalLocation[] = [];
   let cancel: (() => void) | undefined, serial = 0;
   const emit = () => publish([...items]);
-  const add = (kind: RunNotification['kind'], count: number, supplied: ArrivalLocation[]) => {
+  const add = (kind: RunNotification['kind'], count: number, supplied: ArrivalLocation[], incidentId?: string) => {
     const prior = kind === 'temperature' ? items.find(item => item.kind === kind) : undefined;
-    const item: RunNotification = {id: prior?.id ?? ++serial, kind, count: (prior?.count ?? 0) + count, locations: locations([...(prior?.locations ?? []), ...supplied])};
+    const item: RunNotification = {id: prior?.id ?? ++serial, kind, count: (prior?.count ?? 0) + count, locations: locations([...(prior?.locations ?? []), ...supplied]), ...(incidentId ? {incidentId} : {})};
     items = [item, ...items.filter(value => value.id !== item.id)]
       .sort((a, b) => Number(b.kind === 'incident') - Number(a.kind === 'incident')).slice(0, 3);
     emit();
@@ -43,7 +49,7 @@ export function createRunNotifications(publish: (items: RunNotification[]) => vo
       if (!ready || !announce) return;
       if (freshIncidents.length) add('incident', freshIncidents.length, freshIncidents.map(incident =>
         location(snapshot.evidence.find(event => event.incident_id === incident.incident_id)
-          ?? snapshot.events.find(event => event.incident_id === incident.incident_id))));
+          ?? snapshot.events.find(event => event.incident_id === incident.incident_id))), freshIncidents[0].incident_id);
       if (freshPredictions.length) {
         pendingCount += freshPredictions.length;
         pendingLocations = locations([...pendingLocations, ...freshPredictions.map(location)]);

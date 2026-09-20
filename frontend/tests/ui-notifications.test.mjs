@@ -47,6 +47,7 @@ test('temperature bursts share one throttled popup; incidents appear immediately
   assert.equal(h.callbacks.size, 1); assert.deepEqual(h.items(), []);
   h.controller.accept(snapshot(events, [incident('i1')], [evidence('i1', {wafer_id: '02', site_ids: [4, 2]})]), true);
   assert.equal(h.items()[0].kind, 'incident');
+  assert.equal(h.items()[0].incidentId, 'i1');
   assert.deepEqual(h.items()[0].locations, [{wafer: '02', sites: [2, 4]}]);
   h.flush(); assert.equal(h.items()[1].count, 120);
   for (let i = 2; i <= 5; i++) h.controller.accept(snapshot(events, Array.from({length: i}, (_, j) => incident('i' + (j + 1)))), true);
@@ -142,7 +143,7 @@ test('real lifecycle batches temperatures for two seconds and clears pending upd
 test('component uses current locale, polite announcements and a working accessible dismiss button', () => {
   const source = readFileSync(new URL('../components/run-notifications.tsx', import.meta.url), 'utf8');
   const code = ts.transpileModule(source, {compilerOptions: {jsx: ts.JsxEmit.ReactJSX, module: ts.ModuleKind.CommonJS}}).outputText;
-  let locale = 'en', dismissed;
+  let locale = 'en', dismissed, opened;
   const context = {exports: {}, require(id) {
     if (id === 'react/jsx-runtime') return jsxRuntime;
     if (id === '@/components/locale-provider') return {useLocale: () => ({locale})};
@@ -151,15 +152,35 @@ test('component uses current locale, polite announcements and a working accessib
     if (id.endsWith('.css')) return {};
     throw Error(id);
   }}; vm.runInNewContext(code, context);
-  const props = {items: [{id: 7, kind: 'incident', count: 1, locations: [{wafer: null, sites: []}]}], onDismiss: id => {dismissed = id;}};
+  const props = {items: [{id: 7, kind: 'incident', count: 1, incidentId: 'i7', locations: [{wafer: null, sites: []}]}], scope: {run: 'r', tester: 't'}, onOpen: item => {opened = item;}, onDismiss: id => {dismissed = id;}};
   let tree = context.exports.RunNotifications(props);
   assert.equal(tree.props.children.props.role, 'status');
   let card = tree.props.children.props.children[0];
+  assert.equal(card.props.children[1].type, 'a');
+  assert.equal(card.props.children[1].props.href, '/workspace?run=r&tester=t&tab=evidence&incident=i7#batch-panel');
+  let prevented = false;
+  card.props.children[1].props.onClick({button: 0, preventDefault() {prevented = true;}});
+  assert.equal(prevented, true); assert.equal(opened.incidentId, 'i7');
+  opened = undefined;
+  card.props.children[1].props.onClick({button: 0, ctrlKey: true, preventDefault() {throw Error('Keep modified navigation native');}});
+  assert.equal(opened, undefined);
   assert.match(card.props.children[2].props['aria-label'], /Dismiss notification/);
   card.props.children[2].props.onClick(); assert.equal(dismissed, 7);
+  assert.equal(opened, undefined);
   locale = 'zh-TW'; tree = context.exports.RunNotifications(props); card = tree.props.children.props.children[0];
   assert.equal(card.props.children[1].props.children[0].props.children, '1 筆新異常事件');
   assert.match(card.props.children[2].props['aria-label'], /關閉通知/);
   const css = readFileSync(new URL('../components/run-notifications.css', import.meta.url), 'utf8');
   assert.match(css, /prefers-reduced-motion:reduce/); assert.match(css, /focus-visible/);
+});
+
+test('notification links preserve encoded run scope and route temperatures to their tab', () => {
+  const scope = {run: 'run / &', tester: 'tester #1'};
+  const item = {id: 1, kind: 'temperature', count: 8, locations: []};
+  const url = new URL(notifications.notificationHref(item, scope), 'https://example.test');
+  assert.equal(url.pathname, '/workspace');
+  assert.equal(url.searchParams.get('run'), scope.run);
+  assert.equal(url.searchParams.get('tester'), scope.tester);
+  assert.equal(url.searchParams.get('tab'), 'predictions');
+  assert.equal(url.searchParams.has('incident'), false);
 });

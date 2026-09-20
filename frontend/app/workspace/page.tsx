@@ -12,6 +12,7 @@ import type { CommandStatus } from '@/lib/rtdi/command-contract';
 import '../dashboard.css';
 import { AppHeader } from '@/components/app-header';
 import { RunNotifications } from '@/components/run-notifications';
+import type { RunNotification } from '@/lib/rtdi/ui-notifications';
 import { BackendConnectionStatus, StoredSourceNotice, SourceFreshness } from '@/components/connection-status';
 import { storedSourceStatus } from '@/lib/rtdi/connection-status';
 import { StoredRunPicker } from '@/components/stored-run-picker';
@@ -56,7 +57,7 @@ function Plot({ e }: {
 function Answer({ text }: {
     text: string;
 }) { return <div className="dc-answer">{text.split('\n').map((line, i) => { const clean = line.replace(/^#{1,6}\s*/, ''); return line.startsWith('#') ? <h4 key={i}>{clean}</h4> : <p key={i}>{clean.split(/(\*\*.*?\*\*|`[^`]+`)/g).map((part, j) => part.startsWith('**') ? <strong key={j}>{part.slice(2, -2)}</strong> : part.startsWith('`') ? <code key={j}>{part.slice(1, -1)}</code> : part)}</p>; })}</div>; }
-type BackendScope = { run: string; tester: string };
+type BackendScope = { run: string; tester: string; tab?: string; incidentId?: string };
 type WorkspaceSource = { mode: 'loading' } | { mode: 'summary'; replay: NonNullable<SourceSession['replay']> } | { mode: 'backend'; initialScope?: BackendScope };
 
 export default function Dashboard() {
@@ -80,6 +81,13 @@ export default function Dashboard() {
     }
     useEffect(() => {
         // Resolve the shared source before mounting anything that restores backend scope.
+        const params = new URLSearchParams(window.location.search);
+        const run = params.get('run'), tester = params.get('tester');
+        if (run && tester) {
+            try { selectBackendSource(); } catch { /* Explicit URL scope also works without storage. */ }
+            setSource({ mode: 'backend', initialScope: { run, tester, tab: params.get('tab') === 'predictions' ? 'predictions' : 'evidence', incidentId: params.get('incident') ?? undefined } });
+            return;
+        }
         const session = readSourceSession();
         setSource(session?.mode === 'summary' && session.replay
             ? { mode: 'summary', replay: session.replay }
@@ -99,7 +107,8 @@ function BackendWorkspace({ initialScope, onLoadSummary, summaryLoading }: { ini
 
     const [chatTopic, setChatTopic] = useState<"analysis" | "knowledge">("analysis");
     const {locale:language,setLocale:changeLanguage}=useLocale();
-    const [state, setState] = useState(initialDashboardState), [tab, setTab] = useState('evidence');
+    const [state, setState] = useState(initialDashboardState), [tab, setTab] = useState(initialScope?.tab ?? 'evidence');
+    const pendingDestination = useRef(initialScope);
     const { scope, data, status, error, search, question, busy, chatError, messages } = state;
     const [config, setConfig] = useState<{
         openai_configured: boolean;
@@ -143,11 +152,31 @@ function BackendWorkspace({ initialScope, onLoadSummary, summaryLoading }: { ini
     const ask = (q: string) => { if (ai.enabled)
         return lifecycle.current?.ask(q, language); };
     const { evidence, filtered, current } = dashboardEvidence(state);
+    const openNotification = (item: RunNotification) => {
+        const nextTab = item.kind === 'incident' ? 'evidence' : 'predictions';
+        setTab(nextTab);
+        lifecycle.current?.setSearch('');
+        const target = item.incidentId ? data?.evidence.find(record => record.incident_id === item.incidentId) : undefined;
+        if (target) lifecycle.current?.selectEvidence(target.event_id);
+        lifecycle.current?.dismissNotification(item.id);
+        document.getElementById(`tab-${nextTab}`)?.focus();
+        document.getElementById('batch-panel')?.scrollIntoView({block: 'start'});
+    };
+    useEffect(() => {
+        const destination = pendingDestination.current;
+        if (!destination || !data || data.run.run_id !== destination.run || data.run.tester_id !== destination.tester) return;
+        lifecycle.current?.setSearch('');
+        const target = destination.incidentId ? data.evidence.find(record => record.incident_id === destination.incidentId) : undefined;
+        if (target) lifecycle.current?.selectEvidence(target.event_id);
+        document.getElementById(`tab-${destination.tab ?? 'evidence'}`)?.focus();
+        document.getElementById('batch-panel')?.scrollIntoView({block: 'start'});
+        if (!destination.incidentId || target) pendingDestination.current = undefined;
+    }, [data]);
     const predictions = predictionRows(data?.events ?? []);
     const source = storedSourceStatus(data?.run ?? null, locale).label;
     const lastSourceEvent = data ? new Date(data.run.last_event_at) : null;
     return <div className="dc-app"><AppHeader active="workspace"/>
- <RunNotifications items={state.notifications} onDismiss={id => lifecycle.current?.dismissNotification(id)}/>
+ <RunNotifications items={state.notifications} scope={scope} onOpen={openNotification} onDismiss={id => lifecycle.current?.dismissNotification(id)}/>
  <div className="dc-main"><main id="main-content">
  <div className="dc-heading"><div><div className="dc-eyebrow">{t("OPERATIONS / RUN WORKSPACE")}</div><h1>{t("Run overview")}</h1><p>{t("Inspect source records, compare site behavior, and document findings.")}</p></div><BackendConnectionStatus status={status}/></div>
  <StoredRunPicker onDeleted={scope => lifecycle.current?.forgetRun(scope)} onLoadSummary={onLoadSummary} onLoad={connect} busy={summaryLoading || status === 'Connecting' || busy}>{scope && <button className="dc-icon" type="button" aria-label={t("Disconnect event stream")} onClick={disconnect}><Unplug size={18}/></button>}</StoredRunPicker>

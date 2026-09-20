@@ -4,7 +4,9 @@
 .run-notification--incident {background:#fff4e8;border-color:#e9bd91;border-left:5px solid #c45c21;color:#71320f;box-shadow:0 12px 36px #6e351a30;}
 .run-notification-icon {display:grid;place-items:center;flex-shrink:0;width:34px;height:34px;border-radius:11px;background:#dceee7;}
 .run-notification--incident .run-notification-icon {background:#ffe0bf;}
-.run-notification-copy {min-width:0;flex:1;}
+.run-notification-copy {min-width:0;flex:1;color:inherit;text-decoration:none;border-radius:4px;}
+.run-notification-copy:hover {text-decoration:underline;text-underline-offset:3px;}
+.run-notification-copy:focus-visible {outline:3px solid currentColor;outline-offset:4px;}
 .run-notification strong {display:block;font-size:14px;line-height:1.5;}
 .run-notification p {margin:4px 0 0;font-size:12px;line-height:1.5;overflow-wrap:anywhere;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;}
 .run-notification button {display:grid;place-items:center;flex-shrink:0;width:32px;height:32px;padding:0;border:0;border-radius:8px;background:transparent;color:inherit;cursor:pointer;}

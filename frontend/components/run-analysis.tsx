@@ -106,5 +106,5 @@ export function RunAnalysis({initialScope, onSummary}: {initialScope?: {run: str
         <p>{t('{0} normalized measurement records. Full measurement coverage is not established by this snapshot.', overview.measurements)}</p>
       </section>
     </> : <div className="dc-empty"><h2>{t('No run loaded')}</h2><p>{t('Choose a stored run above to explore its wafers.')}</p></div>}
-  </main><RunNotifications items={state.notifications} onDismiss={id => lifecycle.current?.dismissNotification(id)}/></div>;
+  </main><RunNotifications items={state.notifications} scope={scope} onDismiss={id => lifecycle.current?.dismissNotification(id)}/></div>;
 }
