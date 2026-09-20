@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {tourChapters, tourIndices, tourRoute, tourSteps, tourWelcome} from '../lib/rtdi/tour-steps.ts';
+import {tourChapters, tourIndices, tourRoute, tourSource, tourSteps, tourWelcome} from '../lib/rtdi/tour-steps.ts';
 import {zhTW} from '../lib/rtdi/locale-zh-TW.ts';
 
 const chapter = (path, source) => tourIndices(path, source).map(i => tourSteps[i]).filter(step => step.route === tourRoute(path));
@@ -30,11 +30,35 @@ test('Replay opens the stored picker and teaches the wafer overview before Works
   assert.deepEqual(backend.map(s => s.target), ['.dc-run-picker', '.dc-loaded-run', '.analysis-wafer-grid', '.analysis-wafer-detail', '.wafer-scene', '.run-analysis-coverage', '.run-analysis-workspace-link']);
 });
 
+test('archive chapter shares the picker and teaches source, wafers, validation and Workspace', () => {
+  const archive = chapter('/replay', 'replay-archive');
+  assert.deepEqual(archive.map(s => s.id), ['analysis-load', 'archive-source', 'archive-wafers', 'archive-detail', 'archive-validation', 'archive-limitations', 'archive-workspace']);
+  assert.deepEqual(archive.map(s => s.target), ['.dc-run-picker', '.replay-source', '.wafer-tiles', '.replay-detail', '.model-panel', '.limitations-panel', '.replay-tabs']);
+  assert.match(archive[0].body, /choose a source, then press Load/);
+  assert.match(archive[0].body, /Replay groups recorded Gemini runs, imported replays including training, and bundled summary.json/);
+  assert.match(archive[0].body, /Live groups the two stored live-source scopes/);
+  assert.match(archive[0].body, /never changes the source or loads data/);
+  assert.ok(archive.filter(s => s.tab).every(s => s.tab.startsWith('.replay-tabs [role=') && /-trigger-(analysis|validation|limitations)/.test(s.tab)));
+  assert.match(archive.at(-1).body, /Workspace follows its own saved source/);
+  assert.deepEqual(chapter('/replay', null).map(s => s.id), ['analysis-load']);
+});
+
+test('source detection uses rendered archive before its shared backend wrapper', () => {
+  const detect = (path, selectors) => tourSource(path, selector => selectors.includes(selector));
+  assert.equal(detect('/replay', ['.run-analysis', '.replay-source']), 'replay-archive');
+  assert.equal(detect('/replay/', ['.replay-source']), 'replay-archive');
+  assert.equal(detect('/replay', ['.run-analysis']), 'replay-backend');
+  assert.equal(detect('/replay', ['.dc-run-picker']), null);
+  assert.equal(detect('/workspace', ['.isw-app']), 'workspace-summary');
+  assert.equal(detect('/', []), 'workspace-backend');
+  assert.equal(detect('/sandbox', ['.replay-source']), null);
+});
+
 test('source filtering keeps destination chapters for native navigation', () => {
   const workspace = tourIndices('/workspace', 'workspace-summary').map(i => tourSteps[i]);
   assert.equal(workspace.find(s => s.route === '/replay').id, 'analysis-load');
   assert.equal(workspace.find(s => s.route === '/sandbox').id, 'sandbox');
-  for (const source of ['replay-backend']) {
+  for (const source of ['replay-backend', 'replay-archive']) {
     const steps = tourIndices('/replay', source).map(i => tourSteps[i]);
     const lastReplay = chapter('/replay', source).at(-1);
     assert.equal(steps[steps.indexOf(lastReplay) + 1].id, 'workspace', 'Next from either Replay source opens Workspace');

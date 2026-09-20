@@ -12,18 +12,24 @@ export const runListSchema = z.object({
 });
 export const runChoiceKey = (run: Pick<StoredRun, 'run_id' | 'tester_id'>) => JSON.stringify([run.tester_id, run.run_id]);
 export const runModeLabel = (mode: StoredRun['mode']) => ({
-  live: 'LIVE · SOURCE-REPORTED', replay: 'REPLAY · IMPORTED RECORDS', simulation: 'SIMULATION',
+  live: 'STORED · LIVE-SOURCE RECORDS', replay: 'REPLAY · IMPORTED RECORDS', simulation: 'SIMULATION',
 })[mode];
 export const isRecordedCapture = (run: Pick<StoredRun, 'edge_id' | 'mode'>) =>
   run.edge_id === 'grp6-recorded-capture' && run.mode === 'replay';
+export const isTrainingReplay = (run: Pick<StoredRun, 'edge_id' | 'tester_id' | 'run_id'>) =>
+  run.edge_id === 'grp6-replay-exporter' && run.tester_id === 'grp6-replay' && run.run_id === 'grp6-replay-demo';
 export const storedRunSourceLabel = (run: Pick<StoredRun, 'edge_id' | 'mode'>) =>
   isRecordedCapture(run) ? 'RECORDED · GEMINI CAPTURE' : runModeLabel(run.mode);
 export const storedRunName = (run: StoredRun): string | null => {
+  if (run.edge_id === 'grp6-hc-relay' && run.tester_id === 'group-6' && run.mode === 'live') {
+    if (run.run_id === '04dcb07358ee4f3da41e5cbc12cb9850') return 'Gemini run · complete capture';
+    if (run.run_id === '3f46468325ac47de894e6a13d3c672e0') return 'Gemini run · earlier capture';
+  }
   if (isRecordedCapture(run) && run.tester_id === 'group-6') {
     if (run.run_id === 'ae20cd5ae29d47af87163265205ffced') return 'Engineering check';
     if (run.run_id === 'd132133657be459e8e97b6fd442142e2') return 'Production run 3';
   }
-  if (run.edge_id === 'grp6-replay-exporter' && run.tester_id === 'grp6-replay' && run.run_id === 'grp6-replay-demo') return 'Training-data replay';
+  if (isTrainingReplay(run)) return 'Training-data replay';
   return null;
 };
 export type RunDiscoveryState = {
@@ -34,7 +40,7 @@ export const selectedStoredRun = (state: RunDiscoveryState) => state.runs.find(r
 
 /** Discovery only edits a draft choice. Loading snapshots and changing the saved
  * source remain explicit actions in the workspace, never fetch side effects. */
-export function createRunDiscovery(fetcher: typeof fetch, publish: (state: RunDiscoveryState) => void) {
+export function createRunDiscovery(fetcher: typeof fetch, publish: (state: RunDiscoveryState) => void, filter: (run: StoredRun) => boolean = () => true) {
   let state = initialRunDiscovery(), generation = 0, disposed = false;
   let cancel: AbortController | undefined;
   const patch = (change: Partial<RunDiscoveryState>) => {
@@ -53,7 +59,8 @@ export function createRunDiscovery(fetcher: typeof fetch, publish: (state: RunDi
       const payload = runListSchema.parse(await response.json());
       if (disposed || generation !== current) return;
       if (payload.next_offset !== null && payload.next_offset <= offset) throw Error('Invalid pagination');
-      const runs = [...new Map([...(append ? state.runs : []), ...payload.runs].map(run => [runChoiceKey(run), run])).values()];
+      // Pagination follows the server page even when every fetched entry is excluded.
+      const runs = [...new Map([...(append ? state.runs : []), ...payload.runs.filter(filter)].map(run => [runChoiceKey(run), run])).values()];
       patch({ runs, loaded: true, loading: false, nextOffset: payload.next_offset,
         selected: runs.some(run => runChoiceKey(run) === state.selected) ? state.selected : '' });
     } catch {

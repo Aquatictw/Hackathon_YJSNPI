@@ -1,5 +1,5 @@
 export type TourRoute = '/workspace' | '/replay' | '/sandbox';
-export type TourSource = 'workspace-backend' | 'workspace-summary' | 'replay-backend';
+export type TourSource = 'workspace-backend' | 'workspace-summary' | 'replay-backend' | 'replay-archive';
 export type TourStep = {
   id: string; route: TourRoute; chapter: string; title: string; body: string;
   target: string; tab?: string; detail?: string; source?: TourSource;
@@ -12,7 +12,7 @@ export const tourChapters = [
   {
     "route": "/replay",
     "name": "Replay analysis",
-    "description": "Wafer overview with stored runs and source updates"
+    "description": "Offline archive or stored Gemini run analysis"
   },
   {
     "route": "/workspace",
@@ -32,8 +32,8 @@ export const tourSteps: TourStep[] = [
     "route": "/replay",
     "chapter": "Replay analysis",
     "target": ".dc-run-picker",
-    "title": "Load the backend scope for analysis",
-    "body": "Choose a stored Tester ID / Run ID pair or enter known IDs, then explicitly Load run. The loaded run changes only after Load succeeds. The wafer overview uses scoped snapshots and SSE updates; the guide never loads a run.",
+    "title": "Choose a summary or Gemini run, then Load",
+    "body": "Use this same picker to choose a source, then press Load. Replay groups recorded Gemini runs, imported replays including training, and bundled summary.json. Live groups the two stored live-source scopes; their labels do not prove current machine activity. The page defaults to the offline 25-wafer archive. The guide follows the loaded source and never changes the source or loads data.",
   },
   {
     "id": "analysis-status",
@@ -89,6 +89,64 @@ export const tourSteps: TourStep[] = [
     "body": "Close the guide, then choose Open this run in workspace to investigate individual evidence records, site series and temperature predictions with matched actuals. The link carries the loaded run and tester to Workspace; select the relevant record there.",
     "detail": "Next continues the guide in Run workspace without selecting a record. To investigate now, close the guide and use this link. Sandbox follows the Workspace chapter.",
     "source": "replay-backend"
+  },
+  {
+    "id": "archive-source",
+    "route": "/replay",
+    "chapter": "Replay analysis",
+    "target": ".replay-source",
+    "title": "Read the offline archive source",
+    "body": "The bundled summary.json contains 25 wafers from historical replay. Its results do not establish a live tester connection or tester receipt. To inspect a stored Gemini run, close the guide, select it in the same picker and press Load.",
+    "source": "replay-archive"
+  },
+  {
+    "id": "archive-wafers",
+    "route": "/replay",
+    "chapter": "Replay analysis",
+    "target": ".wafer-tiles",
+    "tab": ".replay-tabs [role='tab'][id$='-trigger-analysis']",
+    "title": "Explore the archive wafers",
+    "body": "Close the guide to filter or select a wafer. Each tile shows its source wafer ID, cumulative yield and alert count. No recorded alert does not establish normal operation; tile positions are not physical die locations.",
+    "source": "replay-archive"
+  },
+  {
+    "id": "archive-detail",
+    "route": "/replay",
+    "chapter": "Replay analysis",
+    "target": ".replay-detail",
+    "tab": ".replay-tabs [role='tab'][id$='-trigger-analysis']",
+    "title": "Read archive alerts and site evidence",
+    "body": "Read the selected wafer’s yield, evaluation label and recorded alerts. Labels are evaluation references, not detector rules. Detector scores are not probabilities; site traces use sample or completed-device order, not time. The accepted archive still records W25 as missed.",
+    "source": "replay-archive"
+  },
+  {
+    "id": "archive-validation",
+    "route": "/replay",
+    "chapter": "Replay analysis",
+    "target": ".model-panel",
+    "tab": ".replay-tabs [role='tab'][id$='-trigger-validation']",
+    "title": "Review model validation",
+    "body": "Compare MAE, RMSE, worst error, baseline error and evaluation sample counts. These reused development wafers do not provide independent validation or prove live accuracy, latency or tester receipt. Full feature coverage does not mean perfect predictions.",
+    "source": "replay-archive"
+  },
+  {
+    "id": "archive-limitations",
+    "route": "/replay",
+    "chapter": "Replay analysis",
+    "target": ".limitations-panel",
+    "tab": ".replay-tabs [role='tab'][id$='-trigger-limitations']",
+    "title": "Read the archive limitations",
+    "body": "Read the limitations and live_integration value as supplied by the source report. Missing measurements, individual prediction records and tester receipts cannot be recovered from summary totals. The guide leaves the historical artifact unchanged.",
+    "source": "replay-archive"
+  },
+  {
+    "id": "archive-workspace",
+    "route": "/replay",
+    "chapter": "Replay analysis",
+    "target": ".replay-tabs",
+    "title": "Continue to Run workspace",
+    "body": "Next continues the guide in Run workspace, followed by Sandbox. Workspace follows its own saved source; this navigation does not load the archive or a Gemini run into it. To investigate a stored Gemini run, close the guide, select it in the picker, press Load and use Open this run in workspace.",
+    "source": "replay-archive"
   },
   {
     "id": "workspace",
@@ -307,4 +365,15 @@ export function tourRoute(path: string): TourRoute | null {
 export function tourIndices(path: string, source: TourSource | null): number[] {
   const route = tourRoute(path);
   return tourSteps.flatMap((step, index) => step.route !== route || !step.source || step.source === source ? [index] : []);
+}
+
+// Inspect the rendered source, never a pending picker value or saved backend scope.
+export function tourSource(path: string, hasElement: (selector: string) => boolean): TourSource | null {
+  const route = tourRoute(path);
+  if (route === '/replay') {
+    if (hasElement('.replay-source')) return 'replay-archive';
+    return hasElement('.run-analysis') ? 'replay-backend' : null;
+  }
+  if (route === '/workspace') return hasElement('.isw-app') ? 'workspace-summary' : 'workspace-backend';
+  return null;
 }

@@ -4,7 +4,7 @@ import {useCallback, useEffect, useRef, useState, type MouseEvent} from 'react';
 import {LanguageSelector, useLocale} from '@/components/locale-provider';
 import {createPortal} from 'react-dom';
 import {ArrowLeft, ArrowRight, BookOpen, X} from 'lucide-react';
-import {tourRoute, tourSteps, tourChapters, tourIndices, tourWelcome, type TourRoute, type TourSource} from '@/lib/rtdi/tour-steps';
+import {tourRoute, tourSteps, tourChapters, tourIndices, tourSource, tourWelcome, type TourRoute, type TourSource} from '@/lib/rtdi/tour-steps';
 import './guided-tour.css';
 
 const storageKey = 'rtdi-guided-tour-v2';
@@ -27,9 +27,7 @@ function markVisit(status:VisitStatus) {
   }
 }
 function currentSource():TourSource|null {
-  if (document.querySelector('.isw-app')) return 'workspace-summary';
-  if (document.querySelector('.run-analysis')) return 'replay-backend';
-  return tourRoute(location.pathname) === '/workspace' ? 'workspace-backend' : null;
+  return tourSource(location.pathname, selector => Boolean(document.querySelector(selector)));
 }
 const scopeFields = '.dc-connect input, .dc-connect select';
 function scopeInputs() {

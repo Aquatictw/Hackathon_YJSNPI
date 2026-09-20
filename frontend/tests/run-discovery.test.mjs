@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { createRunDiscovery, initialRunDiscovery, isRecordedCapture, runChoiceKey, runModeLabel, storedRunSourceLabel, selectedStoredRun } from '../lib/rtdi/run-discovery.ts';
+import { createRunDiscovery, initialRunDiscovery, isRecordedCapture, isTrainingReplay, runChoiceKey, runModeLabel, storedRunName, storedRunSourceLabel, selectedStoredRun } from '../lib/rtdi/run-discovery.ts';
 import { readSourceSession, writeSourceSession, selectBackendSource } from '../lib/rtdi/source-session.ts';
 import { zhTW } from '../lib/rtdi/locale-zh-TW.ts';
 
@@ -15,10 +15,41 @@ test('recorded capture labels require both the capture source and replay mode', 
   assert.equal(isRecordedCapture(run('a', 'b', 'replay')), false);
   assert.ok(zhTW[storedRunSourceLabel(capture)]);
 });
-function harness(fetcher) {
+test('host capture names require the exact run, tester, live mode and relay source', () => {
+  for (const [id, name] of [
+    ['04dcb07358ee4f3da41e5cbc12cb9850', 'Gemini run · complete capture'],
+    ['3f46468325ac47de894e6a13d3c672e0', 'Gemini run · earlier capture'],
+  ]) {
+    const capture = { ...run('group-6', id), edge_id: 'grp6-hc-relay' };
+    assert.equal(storedRunName(capture), name);
+    assert.equal(storedRunSourceLabel(capture), 'STORED · LIVE-SOURCE RECORDS');
+    for (const change of [{ tester_id: 'other' }, { edge_id: 'other' }, { mode: 'replay' }, { mode: 'simulation' }, { run_id: 'other' }]) {
+      assert.equal(storedRunName({ ...capture, ...change }), null);
+    }
+  }
+  assert.equal(runModeLabel('live'), 'STORED · LIVE-SOURCE RECORDS');
+});
+
+test('training identity preserves the existing exact three-field match and recorded names', () => {
+  const training = { ...run('grp6-replay', 'grp6-replay-demo', 'replay'), edge_id: 'grp6-replay-exporter' };
+  for (const mode of ['live', 'replay', 'simulation']) {
+    assert.equal(isTrainingReplay({ ...training, mode }), true);
+    assert.equal(storedRunName({ ...training, mode }), 'Training-data replay');
+  }
+  for (const field of ['edge_id', 'tester_id', 'run_id']) {
+    const other = { ...training, [field]: `${training[field]}-other` };
+    assert.equal(isTrainingReplay(other), false);
+    assert.equal(storedRunName(other), null);
+  }
+  for (const [id, name] of [['ae20cd5ae29d47af87163265205ffced', 'Engineering check'], ['d132133657be459e8e97b6fd442142e2', 'Production run 3']]) {
+    assert.equal(storedRunName({ ...run('group-6', id, 'replay'), edge_id: 'grp6-recorded-capture' }), name);
+  }
+});
+
+function harness(fetcher, filter) {
   let state = initialRunDiscovery();
   const updates = [];
-  const controller = createRunDiscovery(fetcher, value => { state = value; updates.push(value); });
+  const controller = createRunDiscovery(fetcher, value => { state = value; updates.push(value); }, filter);
   return { controller, updates, get state() { return state; } };
 }
 function deferred() { let resolve; const promise = new Promise(done => { resolve = done; }); return { promise, resolve }; }
@@ -101,6 +132,49 @@ test('more pages deduplicate pairs, retain draft choice and reject nonadvancing 
   assert.equal(h.state.error, true);
   assert.equal(h.state.runs.length, 2);
   assert.deepEqual(urls.map(url => new URL(url, 'https://test').searchParams.get('offset')), ['0', '1', '2']);
+});
+
+test('filter preserves server pagination across empty and mixed pages, deduplication and selection', async () => {
+  const training = { ...run('grp6-replay', 'grp6-replay-demo', 'replay'), edge_id: 'grp6-replay-exporter' };
+  const updated = { ...run(), updated_at: '2026-09-20 03:00:00' };
+  const replies = [response([training], 100), response([training, run()], 200), response([training], 300), response([updated, run('b')]), response([training])];
+  const offsets = [];
+  const h = harness(async url => {
+    offsets.push(new URL(url, 'https://test').searchParams.get('offset'));
+    return replies.shift();
+  }, entry => !isTrainingReplay(entry));
+  await h.controller.refresh();
+  assert.deepEqual(h.state.runs, []);
+  assert.equal(h.state.loaded, true);
+  assert.equal(h.state.error, false);
+  assert.equal(h.state.nextOffset, 100);
+  h.controller.select(runChoiceKey(training));
+  assert.equal(h.state.selected, '');
+  await h.controller.more();
+  assert.deepEqual(h.state.runs, [run()]);
+  h.controller.select(runChoiceKey(run()));
+  await h.controller.more();
+  assert.deepEqual(h.state.runs, [run()]);
+  assert.equal(h.state.nextOffset, 300);
+  assert.equal(selectedStoredRun(h.state).tester_id, 'a');
+  await h.controller.more();
+  assert.deepEqual(h.state.runs, [updated, run('b')]);
+  assert.deepEqual(selectedStoredRun(h.state), updated);
+  assert.equal(h.state.nextOffset, null);
+  await h.controller.more();
+  assert.deepEqual(offsets, ['0', '100', '200', '300']);
+  await h.controller.refresh();
+  assert.deepEqual(h.state.runs, []);
+  assert.equal(h.state.selected, '');
+  assert.deepEqual(offsets, ['0', '100', '200', '300', '0']);
+});
+
+test('default discovery retains all modes including training replay', async () => {
+  const rows = ['live', 'replay', 'simulation'].map(mode => run('a', mode, mode));
+  rows.push({ ...run('grp6-replay', 'grp6-replay-demo', 'replay'), edge_id: 'grp6-replay-exporter' });
+  const h = harness(async () => response(rows));
+  await h.controller.refresh();
+  assert.deepEqual(h.state.runs, rows);
 });
 
 test('discovery and draft changes preserve imported summary until explicit source Load', async () => {

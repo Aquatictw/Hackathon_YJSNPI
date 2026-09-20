@@ -1,6 +1,13 @@
 /** Taiwan Traditional Chinese application copy. Source records remain verbatim. */
 import { tourZhTW } from './tour-locale-zh-TW.ts';
 export const zhTW: Record<string, string> = {
+  'Live': '即時',
+  'STORED · LIVE-SOURCE RECORDS': '已儲存 · 即時來源記錄',
+  'Gemini run · complete capture': 'Gemini 批次 · 完整擷取',
+  'Gemini run · earlier capture': 'Gemini 批次 · 較早擷取',
+  'summary.json · Offline wafer archive': 'summary.json · 離線晶圓資料',
+  'Archive yield uses completed-device results for each wafer. Raw measurement coverage is not supplied by summary.json.': '離線良率使用各晶圓已完成元件的測試結果。summary.json 未提供原始量測涵蓋範圍。',
+  'Completed devices': '已完成元件',
   'Wafer groups': '晶圓群組',
   'Wafer {0}': '晶圓 {0}',
   'Wafer {0} / Yield': '晶圓 {0}／良率',

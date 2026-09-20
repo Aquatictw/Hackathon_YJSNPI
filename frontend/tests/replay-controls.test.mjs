@@ -35,19 +35,21 @@ test('real server rendering keeps the source placeholder without reading browser
  assert.match(html,/Restoring selected source/);assert.match(html,/aria-busy="true"/);assert.doesNotMatch(html,/Offline JSON archive|Stored \/ live backend run/);
 });
 
-test('hydrated Replay mounts the stored-run overview without consulting legacy archive preference',()=>{
+test('hydrated Replay defaults to the restored archive without mounting backend transport',()=>{
  const forbidden=()=>{throw Error('Legacy archive access');};
  const context={exports:{},require(name){
   if(name==='react')return {...React,useSyncExternalStore:(_subscribe,getSnapshot)=>getSnapshot()};
   if(name==='react/jsx-runtime')return jsxRuntime;
-  if(name==='@/components/run-analysis')return {RunAnalysis:()=>React.createElement('div',null,'Stored run overview')};
+  if(name==='@/components/run-analysis')return {RunAnalysis:forbidden};
+  if(name==='@/components/offline-replay-analysis')return {OfflineReplayAnalysis:()=>React.createElement('div',null,'Offline wafer archive')};
+  if(name==='@/components/stored-run-picker')return {StoredRunPicker:()=>null};
   if(name==='@/components/locale-provider')return {useLocale:()=>({t:text=>text})};
   if(name==='@/components/app-header')return {AppHeader:()=>null};
   if(name.endsWith('.css'))return {};
   throw Error('Unexpected dependency: '+name);
  },sessionStorage:{getItem:forbidden},fetch:forbidden};
  vm.runInNewContext(compiled,context);
- assert.equal(renderToString(React.createElement(context.exports.default)),'<div>Stored run overview</div>');
+ assert.equal(renderToString(React.createElement(context.exports.default)),'<div>Offline wafer archive</div>');
 });
 
 test('display translations preserve all source alert payloads and chart arrays',()=>{
